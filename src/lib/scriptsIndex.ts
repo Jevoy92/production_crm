@@ -1,39 +1,55 @@
 // Build-time INDEX of all bundled script + strategy + research markdown.
-// Metadata (titles/numbers) is built eagerly from filenames — but the file
-// bodies are loaded LAZILY via dynamic import so the /scripts hub page
-// doesn't pay the cost of ~1MB of markdown just to list 12 cards.
+// Only filenames/paths are referenced here so the /scripts hub page stays
+// light. Bodies are stored in scriptsBodies.ts (eagerly bundled, ~1MB) and
+// fetched on demand by detail routes through a single dynamic import — this
+// means the first script open pays the cost once, then every subsequent
+// script / version switch is instant.
 
 type LazyMap = Record<string, () => Promise<string>>;
 
-function asLazyMap(
-  glob: Record<string, () => Promise<unknown>>,
-): LazyMap {
-  const out: LazyMap = {};
-  for (const [path, load] of Object.entries(glob)) {
-    out[path] = () => load().then((m) => (m as { default: string }).default);
+// Single shared promise — first detail route to open pulls the bodies chunk;
+// every subsequent open reuses the cached module.
+let bodiesPromise: Promise<Record<string, string>> | undefined;
+function getBodies(): Promise<Record<string, string>> {
+  if (!bodiesPromise) {
+    bodiesPromise = import("./scriptsBodies").then((m) => m.BODIES);
   }
+  return bodiesPromise;
+}
+
+function loaderFor(path: string): () => Promise<string> {
+  return async () => {
+    const bodies = await getBodies();
+    return bodies[path] ?? "";
+  };
+}
+
+// Filename-only metadata via path keys (no bodies in this chunk).
+function pathMap(glob: Record<string, unknown>): LazyMap {
+  const out: LazyMap = {};
+  for (const path of Object.keys(glob)) out[path] = loaderFor(path);
   return out;
 }
 
-const originalsRaw = asLazyMap(
-  import.meta.glob("/src/content/scripts/Originals/*.md", { query: "?raw" }),
+const originalsRaw = pathMap(
+  import.meta.glob("/src/content/scripts/Originals/*.md"),
 );
-const versionsRaw = asLazyMap(
-  import.meta.glob("/src/content/scripts/Versions/*.md", { query: "?raw" }),
+const versionsRaw = pathMap(
+  import.meta.glob("/src/content/scripts/Versions/*.md"),
 );
-const strategyRaw = asLazyMap(
-  import.meta.glob("/src/content/scripts/Strategy/*.md", { query: "?raw" }),
+const strategyRaw = pathMap(
+  import.meta.glob("/src/content/scripts/Strategy/*.md"),
 );
-const researchRaw = asLazyMap(
-  import.meta.glob("/src/content/scripts/Research/*.md", { query: "?raw" }),
+const researchRaw = pathMap(
+  import.meta.glob("/src/content/scripts/Research/*.md"),
 );
-const yourboyRaw = asLazyMap(
-  import.meta.glob("/src/content/scripts/YourBoyJevoy/*.md", { query: "?raw" }),
+const yourboyRaw = pathMap(
+  import.meta.glob("/src/content/scripts/YourBoyJevoy/*.md"),
 );
-const manualRaw = asLazyMap(
-  import.meta.glob("/src/content/scripts/Skills/jevoy-palmer-operating-manual/**/*.md", {
-    query: "?raw",
-  }),
+const manualRaw = pathMap(
+  import.meta.glob(
+    "/src/content/scripts/Skills/jevoy-palmer-operating-manual/**/*.md",
+  ),
 );
 
 function basename(path: string): string {
