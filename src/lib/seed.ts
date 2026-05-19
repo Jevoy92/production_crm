@@ -502,7 +502,7 @@ const GEAR_ITEMS: GearItem[] = [
     status: "On Shoot",
     kitIds: ["k_podcast"],
     imageUrl:
-      "https://images.unsplash.com/photo-1606980625402-d3e1ba5022d4?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1581591524425-c7e0978865fc?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_03",
@@ -511,7 +511,7 @@ const GEAR_ITEMS: GearItem[] = [
     status: "Available",
     kitIds: ["k_solo", "k_training"],
     imageUrl:
-      "https://images.unsplash.com/photo-1617638924751-cd4ce4646279?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1500634245200-e5245c7574ef?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_04",
@@ -520,7 +520,7 @@ const GEAR_ITEMS: GearItem[] = [
     status: "Available",
     kitIds: ["k_solo"],
     imageUrl:
-      "https://images.unsplash.com/photo-1606986628253-797f59d54f15?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_05",
@@ -547,7 +547,7 @@ const GEAR_ITEMS: GearItem[] = [
     status: "Available",
     kitIds: ["k_training"],
     imageUrl:
-      "https://images.unsplash.com/photo-1604542031658-5799ce0d23e4?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_08",
