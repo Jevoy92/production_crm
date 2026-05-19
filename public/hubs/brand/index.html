@@ -283,7 +283,7 @@
 
   /* ---------- MAIN ---------- */
   main { max-width: 100%; }
-  .section { padding: 96px var(--gutter); border-bottom: 1px solid var(--line); background: var(--paper); }
+  .section { padding: 96px var(--gutter); border-bottom: 1px solid var(--line); background: var(--paper); overflow-x: clip; }
   .section--mist { background: var(--mist); }
   .section--cream { background: var(--cream); }
   .section--system { background: var(--system-muted); color: var(--paper); }
@@ -616,9 +616,9 @@
   .carousel-mock__head {
     font-family: var(--f-body);
     font-weight: 800;
-    font-size: 30px;
+    font-size: clamp(24px, 2.4vw, 30px);
     line-height: 1.1;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     text-align: center;
     margin: 0 0 14px;
   }
@@ -669,6 +669,13 @@
   .carousel-mock--evergreen .carousel-mock__head em { color: var(--evergreen); }
   .carousel-mock--system .carousel-mock__head em { color: var(--system); }
   .carousel-mock__head .serif { font-family: var(--f-serif); font-weight: 700; font-style: normal; }
+  .carousel-mock__image {
+    width: 100%;
+    display: block;
+    border-radius: var(--r-md);
+    border: 1px solid var(--line);
+    background: var(--paper);
+  }
 
   .anatomy-notes h3 { font-family: var(--f-body); font-weight: 700; font-size: 24px; margin: 0 0 16px; letter-spacing: -0.01em; }
   .anatomy-list { list-style: none; padding: 0; margin: 0; counter-reset: anat; }
@@ -695,14 +702,23 @@
   }
   .anatomy-list li b { color: var(--ink); font-weight: 700; }
 
-  .carousel-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .carousel-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
   @media (max-width: 900px) { .carousel-gallery { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 540px) { .carousel-gallery { grid-template-columns: 1fr; } }
 
   /* Carousel sequence guide */
-  .seq { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 56px; }
+  .seq { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 12px; margin-top: 56px; }
   @media (max-width: 900px) { .seq { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 540px) { .seq { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 960px) {
+    .hero { min-height: auto; padding: 32px 20px 48px; }
+    .hero__top, .hero__bottom { flex-direction: column; align-items: flex-start; }
+    .hero__body { margin: 32px 0; }
+    .rail { padding: 24px 20px; }
+    .rail__sub { margin-bottom: 20px; }
+    .section { padding: 56px 20px; }
+    .carousel-mock { padding: 24px 20px; }
+  }
   .seq-card {
     background: var(--paper);
     border: 1px solid var(--line);
@@ -1110,7 +1126,7 @@
         <div><div class="section__num"><b>02</b> · Logo & Wordmark</div></div>
         <div>
           <h2 class="section__title">The mark.</h2>
-          <p class="section__lede">A geometric "HP" monogram fused with a play-triangle. Initials and ignition in one gesture.</p>
+          <p class="section__lede">A geometric "PH" monogram fused with a play-triangle. Initials and ignition in one gesture.</p>
         </div>
       </div>
 
@@ -1699,33 +1715,16 @@
         </div>
       </div>
 
-      <!-- GALLERY: one per lane -->
-      <h3 class="tag" style="margin: 0 0 16px;"><b>One per lane</b> · same skeleton, different register</h3>
+      <!-- GALLERY: approved reference sequence -->
+      <h3 class="tag" style="margin: 0 0 16px;"><b>Approved carousel</b> · Team Alignment reference sequence</h3>
       <div class="carousel-gallery">
-        <div class="carousel-mock carousel-mock--reel">
-          <div class="carousel-mock__badge"><img src="Ryder.png" alt="Ryder"></div>
-          <div class="carousel-mock__eyebrow"><span class="eyebrow eyebrow--reel">Content + Momentum</span></div>
-          <h3 class="carousel-mock__head" style="font-size: 22px;">Most short-form gets <em>skipped</em> before value even starts.</h3>
-          <div class="carousel-mock__illo"></div>
-        </div>
-        <div class="carousel-mock carousel-mock--spotlight">
-          <div class="carousel-mock__badge"><img src="Kiana.png" alt="Kiana"></div>
-          <div class="carousel-mock__eyebrow"><span class="eyebrow eyebrow--spotlight">Brand Trust</span></div>
-          <h3 class="carousel-mock__head" style="font-size: 22px;"><span class="serif">One minute</span>. That's all it takes.</h3>
-          <div class="carousel-mock__illo"></div>
-        </div>
-        <div class="carousel-mock carousel-mock--evergreen">
-          <div class="carousel-mock__badge"><img src="Cyrus.png" alt="Cyrus"></div>
-          <div class="carousel-mock__eyebrow"><span class="eyebrow eyebrow--evergreen">Authority + Expertise</span></div>
-          <h3 class="carousel-mock__head" style="font-size: 22px;">Simplifying ideas makes them <em>stronger</em>.</h3>
-          <div class="carousel-mock__illo"></div>
-        </div>
-        <div class="carousel-mock carousel-mock--system">
-          <div class="carousel-mock__badge"><img src="Silas.png" alt="Silas"></div>
-          <div class="carousel-mock__eyebrow"><span class="eyebrow eyebrow--system">Internal Systems</span></div>
-          <h3 class="carousel-mock__head" style="font-size: 22px;">Explained it twice? It's a <em>video</em>.</h3>
-          <div class="carousel-mock__illo"></div>
-        </div>
+        <img class="carousel-mock__image" src="carousels/system-slide-01.png" alt="Team Alignment slide 1" />
+        <img class="carousel-mock__image" src="carousels/system-slide-02.png" alt="Team Alignment slide 2" />
+        <img class="carousel-mock__image" src="carousels/system-slide-03.png" alt="Team Alignment slide 3" />
+        <img class="carousel-mock__image" src="carousels/system-slide-04.png" alt="Team Alignment slide 4" />
+        <img class="carousel-mock__image" src="carousels/system-slide-05.png" alt="Team Alignment slide 5" />
+        <img class="carousel-mock__image" src="carousels/system-slide-06.png" alt="Team Alignment slide 6" />
+        <img class="carousel-mock__image" src="carousels/system-slide-07.png" alt="Team Alignment slide 7" />
       </div>
 
       <!-- SEQUENCE -->
