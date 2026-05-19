@@ -264,21 +264,21 @@ function ScriptCard({
   );
 }
 
-// Pillar-tinted palettes rotated across the 12 scripts so each card has its
+// Pillar-tinted solid colors rotated across the 12 scripts so each card has its
 // own visual identity without needing real imagery.
-const SCRIPT_PALETTES: { gradient: string }[] = [
-  { gradient: "linear-gradient(135deg, #E8720C 0%, #B8530A 100%)" }, // Reel
-  { gradient: "linear-gradient(135deg, #3D1A66 0%, #6A2BAE 100%)" }, // Spotlight
-  { gradient: "linear-gradient(135deg, #5B8A2D 0%, #2F5C18 100%)" }, // Evergreen
-  { gradient: "linear-gradient(135deg, #0A9B8F 0%, #066B62 100%)" }, // System
-  { gradient: "linear-gradient(135deg, #B8530A 0%, #3D1A66 100%)" },
-  { gradient: "linear-gradient(135deg, #6A2BAE 0%, #0A9B8F 100%)" },
-  { gradient: "linear-gradient(135deg, #2F5C18 0%, #E8720C 100%)" },
-  { gradient: "linear-gradient(135deg, #066B62 0%, #3D1A66 100%)" },
-  { gradient: "linear-gradient(135deg, #1F2A44 0%, #0A9B8F 100%)" },
-  { gradient: "linear-gradient(135deg, #3D1A66 0%, #E8720C 100%)" },
-  { gradient: "linear-gradient(135deg, #5B8A2D 0%, #0A9B8F 100%)" },
-  { gradient: "linear-gradient(135deg, #E8720C 0%, #6A2BAE 100%)" },
+const SCRIPT_PALETTES: { color: string }[] = [
+  { color: "#E8720C" }, // Reel
+  { color: "#3D1A66" }, // Spotlight
+  { color: "#5B8A2D" }, // Evergreen
+  { color: "#0A9B8F" }, // System
+  { color: "#B8530A" },
+  { color: "#6A2BAE" },
+  { color: "#2F5C18" },
+  { color: "#066B62" },
+  { color: "#1F2A44" },
+  { color: "#C4654A" },
+  { color: "#7D3C98" },
+  { color: "#D4842A" },
 ];
 
 function DocList({
