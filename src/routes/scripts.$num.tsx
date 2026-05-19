@@ -23,7 +23,7 @@ export const Route = createFileRoute("/scripts/$num")({
 
 function ScriptDetail() {
   const { num } = Route.useParams();
-  const { v } = Route.useSearch();
+  const { v } = Route.useSearch() as { v: ScriptVersion };
   const navigate = useNavigate();
   const script = findScript(num);
 
