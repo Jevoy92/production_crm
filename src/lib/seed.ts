@@ -520,7 +520,7 @@ const GEAR_ITEMS: GearItem[] = [
     status: "Available",
     kitIds: ["k_solo"],
     imageUrl:
-      "https://images.unsplash.com/photo-1606986628253-49d8a9b0e2d2?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1495707902641-75cac588d2e9?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_05",
