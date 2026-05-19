@@ -1297,7 +1297,6 @@ const TRACKED_KPIS: TrackedKpi[] = [
   },
 ];
 
-export const SEED = {
 const TASKS: Task[] = [
   {
     id: uid("t"),
