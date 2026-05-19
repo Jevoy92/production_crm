@@ -217,28 +217,7 @@ function GearPage() {
                   key={it.id}
                   className="group rounded-2xl ring-inset-soft bg-surface-2 overflow-hidden hover:bg-surface-3 transition-colors"
                 >
-                  <div
-                    className="relative aspect-[5/3] grid place-items-center"
-                    style={{
-                      background: `color-mix(in oklab, ${tint} 14%, var(--color-surface-2))`,
-                    }}
-                  >
-                    {it.imageUrl ? (
-                      <img
-                        src={it.imageUrl}
-                        alt={it.name}
-                        className="size-full object-cover"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <Icon className="size-12 opacity-60" style={{ color: tint }} />
-                    )}
-                    <span
-                      className={`absolute top-2 right-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${statusPill(it.status)}`}
-                    >
-                      <span className="size-1.5 rounded-full bg-current opacity-80" /> {it.status}
-                    </span>
-                  </div>
+                  <GearThumb item={it} Icon={Icon} tint={tint} />
                   <div className="p-3">
                     <div className="flex items-center gap-1.5 text-[10.5px] uppercase tracking-wider text-muted-foreground">
                       <Icon className="size-3" style={{ color: tint }} /> {it.category}
