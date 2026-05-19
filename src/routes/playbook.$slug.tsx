@@ -637,8 +637,10 @@ function MetaField({
           />
         )
       ) : (
-        <div className="text-[13px] text-foreground/90 whitespace-pre-wrap">
-          {value || (
+        <div className="text-[13px] text-foreground/90 markdown-tight">
+          {value ? (
+            <MarkdownContent source={value} />
+          ) : (
             <span className="text-muted-foreground/70 italic">{placeholder}</span>
           )}
         </div>
@@ -663,12 +665,12 @@ function ReadOnlyField({
       </div>
       <div
         className={
-          tone === "warn"
-            ? "text-[12px] text-red-700 dark:text-red-300 bg-red-500/10 p-2 rounded border border-red-500/20"
-            : "text-[13px] text-foreground/90"
+          (tone === "warn"
+            ? "text-[12px] text-red-700 dark:text-red-300 bg-red-500/10 p-2 rounded border border-red-500/20 "
+            : "text-[13px] text-foreground/90 ") + "markdown-tight"
         }
       >
-        {value}
+        <MarkdownContent source={value} />
       </div>
     </div>
   );
