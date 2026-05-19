@@ -6,6 +6,7 @@ import { useStore, palColor, checklistProgress } from "@/lib/store";
 import { STAGES, PAL_TYPES } from "@/lib/types";
 import type { Stage, PalType, Project } from "@/lib/types";
 import { Plus, LayoutGrid, Rows, Filter, ExternalLink, Pencil, Trash2, UserPlus, Check } from "lucide-react";
+import { Check as CheckIcon, Code2, FlaskConical, Rocket, Palette as PaletteIcon, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/productions")({
   component: ProductionsPage,
@@ -99,6 +100,7 @@ function ProductionsPage() {
 
       {view === "kanban" ? (
         <>
+          <ProductionTimeline />
           <Kanban projects={filtered} />
           <div className="mt-6">
             <div className="text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-2 px-1">
