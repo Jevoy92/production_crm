@@ -4,6 +4,7 @@ import { Shell } from "@/components/dashboard/Shell";
 import { Btn } from "@/components/ui-bits/Modal";
 import { Markdown } from "@/components/Markdown";
 import { findScript, VERSION_LABEL, type ScriptVersion } from "@/lib/scriptsIndex";
+import { useLazySource } from "@/lib/useLazySource";
 import { z } from "zod";
 
 const searchSchema = z.object({
@@ -42,14 +43,15 @@ function ScriptDetail() {
   const available: ScriptVersion[] = ALL.filter((k) => Boolean(script.versions[k]));
   const current: ScriptVersion = script.versions[v] ? v : (available[0] ?? "original");
   const entry = script.versions[current];
+  const { source, loading } = useLazySource(entry?.load);
 
   const copyText = async () => {
-    if (!entry) return;
-    await navigator.clipboard.writeText(entry.source);
+    if (!source) return;
+    await navigator.clipboard.writeText(source);
   };
   const downloadMd = () => {
-    if (!entry) return;
-    const blob = new Blob([entry.source], { type: "text/markdown" });
+    if (!entry || !source) return;
+    const blob = new Blob([source], { type: "text/markdown" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -117,7 +119,11 @@ function ScriptDetail() {
 
       <div className="card-elevated rounded-2xl p-6 md:p-8 max-w-4xl">
         {entry ? (
-          <Markdown source={entry.source} />
+          loading ? (
+            <div className="text-muted-foreground text-[13px] italic">Loading…</div>
+          ) : (
+            <Markdown source={source} />
+          )
         ) : (
           <div className="text-muted-foreground text-[13px] italic">
             This version hasn't been written yet.
