@@ -6,7 +6,7 @@ import { useStore, palColor, checklistProgress } from "@/lib/store";
 import { STAGES, PAL_TYPES } from "@/lib/types";
 import type { Stage, PalType, Project } from "@/lib/types";
 import { Plus, LayoutGrid, Rows, Filter, ExternalLink, Pencil, Trash2, UserPlus, Check } from "lucide-react";
-import { Handshake, ClipboardList, Camera, Scissors, PackageCheck } from "lucide-react";
+import { Handshake, ClipboardList, Camera, Scissors, Send, PackageCheck } from "lucide-react";
 
 export const Route = createFileRoute("/productions")({
   component: ProductionsPage,
@@ -784,12 +784,20 @@ function EditProjectModal({ project, onClose }: { project: Project | null; onClo
 
 
 // ─── Production Timeline (real pipeline stages) ──────────────────────────────
-const TIMELINE_STAGES: { key: Stage; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
-  { key: "Booked", label: "Booked", icon: Handshake },
-  { key: "Pre-Production", label: "Pre-Production", icon: ClipboardList },
-  { key: "Shoot Day", label: "Shoot Day", icon: Camera },
-  { key: "In Post", label: "In Post", icon: Scissors },
-  { key: "Delivered", label: "Delivered", icon: PackageCheck },
+type TimelineStage = {
+  key: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  match: (p: Project) => boolean;
+  terminal?: boolean;
+};
+const TIMELINE_STAGES: TimelineStage[] = [
+  { key: "Booked", label: "Booked", icon: Handshake, match: (p) => p.stage === "Booked" },
+  { key: "Pre-Production", label: "Pre-Production", icon: ClipboardList, match: (p) => p.stage === "Pre-Production" },
+  { key: "Shoot Day", label: "Shoot Day", icon: Camera, match: (p) => p.stage === "Shoot Day" },
+  { key: "In Post", label: "In Post", icon: Scissors, match: (p) => p.stage === "In Post" && !p.deliveryDate },
+  { key: "Review Sent", label: "Review Sent", icon: Send, match: (p) => p.stage === "In Post" && !!p.deliveryDate },
+  { key: "Delivered", label: "Delivered", icon: PackageCheck, match: (p) => p.stage === "Delivered", terminal: true },
 ];
 
 function ProductionTimeline({ projects }: { projects: Project[] }) {
@@ -799,7 +807,7 @@ function ProductionTimeline({ projects }: { projects: Project[] }) {
 
   const byStage = TIMELINE_STAGES.map((s) => ({
     ...s,
-    count: scoped.filter((p) => p.stage === s.key).length,
+    count: scoped.filter(s.match).length,
   }));
   const activeIdx = byStage.findIndex((s) => s.count > 0);
 
@@ -845,7 +853,7 @@ function ProductionTimeline({ projects }: { projects: Project[] }) {
               const pct = Math.round((s.count / total) * 100);
               const isActive = i === activeIdx && s.count > 0;
               const isPast = activeIdx >= 0 && i < activeIdx;
-              const isDelivered = s.key === "Delivered" && s.count > 0;
+              const isDelivered = !!s.terminal && s.count > 0;
               return (
                 <div key={s.key} className="flex flex-col items-center text-center">
                   <div
