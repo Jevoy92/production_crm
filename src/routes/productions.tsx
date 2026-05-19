@@ -794,9 +794,9 @@ type Phase = {
 };
 
 const PHASES: Phase[] = [
-  { key: "kickoff", label: "Kickoff", date: "Nov 1, 2023", status: "complete", done: 5, total: 5, icon: CheckIcon },
-  { key: "planning", label: "Planning", date: "Nov 8, 2023", status: "complete", done: 12, total: 12, icon: CheckIcon },
-  { key: "design", label: "Design", date: "Nov 22, 2023", status: "complete", done: 18, total: 18, icon: CheckIcon },
+  { key: "kickoff", label: "Kickoff", date: "Nov 1, 2023", status: "complete", done: 5, total: 5, icon: Check },
+  { key: "planning", label: "Planning", date: "Nov 8, 2023", status: "complete", done: 12, total: 12, icon: Check },
+  { key: "design", label: "Design", date: "Nov 22, 2023", status: "complete", done: 18, total: 18, icon: Check },
   { key: "development", label: "Development", date: "Dec 20, 2023", status: "in-progress", done: 24, total: 35, icon: Code2 },
   { key: "testing", label: "Testing", date: "Jan 5, 2024", status: "pending", done: 0, total: 22, icon: FlaskConical },
   { key: "launch", label: "Launch", date: "Jan 15, 2024", status: "pending", done: 0, total: 8, icon: Rocket },
