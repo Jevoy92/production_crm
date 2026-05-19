@@ -390,14 +390,20 @@ export const useStore = create<State>()(
     }),
     {
       name: "phpos:v2",
-      version: 11,
+      version: 12,
       // Migrate persisted state forward without nuking the user's own data.
-      // v11 ships the rebuilt playbook seed (tables, callouts, Pal characters)
-      // — overwrite just `playbook`; projects/clients/finance stay intact.
+      // v11 — rebuilt playbook seed (tables, callouts, Pal characters).
+      // v12 — gear items get real photos + seeded sample tasks.
       migrate: (persisted: any, fromVersion) => {
         if (!persisted) return persisted;
         if (fromVersion < 11) {
           persisted.playbook = SEED.playbook;
+        }
+        if (fromVersion < 12) {
+          persisted.gearItems = SEED.gearItems;
+          if (!persisted.tasks || persisted.tasks.length === 0) {
+            persisted.tasks = SEED.tasks;
+          }
         }
         return persisted;
       },
