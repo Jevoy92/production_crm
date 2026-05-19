@@ -25,6 +25,7 @@ import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShootsIdRouteImport } from './routes/shoots.$id'
+import { Route as ScriptsStrategyRouteImport } from './routes/scripts.strategy'
 import { Route as ScriptsNumRouteImport } from './routes/scripts.$num'
 import { Route as ProjectsIdRouteImport } from './routes/projects.$id'
 import { Route as PlaybookSlugRouteImport } from './routes/playbook.$slug'
@@ -114,6 +115,11 @@ const ShootsIdRoute = ShootsIdRouteImport.update({
   path: '/shoots/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ScriptsStrategyRoute = ScriptsStrategyRouteImport.update({
+  id: '/strategy',
+  path: '/strategy',
+  getParentRoute: () => ScriptsRoute,
+} as any)
 const ScriptsNumRoute = ScriptsNumRouteImport.update({
   id: '/$num',
   path: '/$num',
@@ -179,6 +185,7 @@ export interface FileRoutesByFullPath {
   '/playbook/$slug': typeof PlaybookSlugRoute
   '/projects/$id': typeof ProjectsIdRoute
   '/scripts/$num': typeof ScriptsNumRoute
+  '/scripts/strategy': typeof ScriptsStrategyRoute
   '/shoots/$id': typeof ShootsIdRoute
 }
 export interface FileRoutesByTo {
@@ -205,6 +212,7 @@ export interface FileRoutesByTo {
   '/playbook/$slug': typeof PlaybookSlugRoute
   '/projects/$id': typeof ProjectsIdRoute
   '/scripts/$num': typeof ScriptsNumRoute
+  '/scripts/strategy': typeof ScriptsStrategyRoute
   '/shoots/$id': typeof ShootsIdRoute
 }
 export interface FileRoutesById {
@@ -232,6 +240,7 @@ export interface FileRoutesById {
   '/playbook/$slug': typeof PlaybookSlugRoute
   '/projects/$id': typeof ProjectsIdRoute
   '/scripts/$num': typeof ScriptsNumRoute
+  '/scripts/strategy': typeof ScriptsStrategyRoute
   '/shoots/$id': typeof ShootsIdRoute
 }
 export interface FileRouteTypes {
@@ -260,6 +269,7 @@ export interface FileRouteTypes {
     | '/playbook/$slug'
     | '/projects/$id'
     | '/scripts/$num'
+    | '/scripts/strategy'
     | '/shoots/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -286,6 +296,7 @@ export interface FileRouteTypes {
     | '/playbook/$slug'
     | '/projects/$id'
     | '/scripts/$num'
+    | '/scripts/strategy'
     | '/shoots/$id'
   id:
     | '__root__'
@@ -312,6 +323,7 @@ export interface FileRouteTypes {
     | '/playbook/$slug'
     | '/projects/$id'
     | '/scripts/$num'
+    | '/scripts/strategy'
     | '/shoots/$id'
   fileRoutesById: FileRoutesById
 }
@@ -453,6 +465,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShootsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/scripts/strategy': {
+      id: '/scripts/strategy'
+      path: '/strategy'
+      fullPath: '/scripts/strategy'
+      preLoaderRoute: typeof ScriptsStrategyRouteImport
+      parentRoute: typeof ScriptsRoute
+    }
     '/scripts/$num': {
       id: '/scripts/$num'
       path: '/$num'
@@ -537,10 +556,12 @@ const PlaybookRouteWithChildren = PlaybookRoute._addFileChildren(
 
 interface ScriptsRouteChildren {
   ScriptsNumRoute: typeof ScriptsNumRoute
+  ScriptsStrategyRoute: typeof ScriptsStrategyRoute
 }
 
 const ScriptsRouteChildren: ScriptsRouteChildren = {
   ScriptsNumRoute: ScriptsNumRoute,
+  ScriptsStrategyRoute: ScriptsStrategyRoute,
 }
 
 const ScriptsRouteWithChildren =
@@ -572,3 +593,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
