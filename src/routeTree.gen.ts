@@ -37,6 +37,7 @@ import { Route as KpisPaRouteImport } from './routes/kpis.pa'
 import { Route as KpisOwnerRouteImport } from './routes/kpis.owner'
 import { Route as KpisCfoRouteImport } from './routes/kpis.cfo'
 import { Route as ClientsIdRouteImport } from './routes/clients.$id'
+import { Route as ApiPalsRouteImport } from './routes/api/pals'
 import { Route as AdminTemplatesRouteImport } from './routes/admin.templates'
 
 const TeamRoute = TeamRouteImport.update({
@@ -179,6 +180,11 @@ const ClientsIdRoute = ClientsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => ClientsRoute,
 } as any)
+const ApiPalsRoute = ApiPalsRouteImport.update({
+  id: '/api/pals',
+  path: '/api/pals',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminTemplatesRoute = AdminTemplatesRouteImport.update({
   id: '/admin/templates',
   path: '/admin/templates',
@@ -203,6 +209,7 @@ export interface FileRoutesByFullPath {
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
+  '/api/pals': typeof ApiPalsRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -234,6 +241,7 @@ export interface FileRoutesByTo {
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
+  '/api/pals': typeof ApiPalsRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -266,6 +274,7 @@ export interface FileRoutesById {
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
+  '/api/pals': typeof ApiPalsRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -299,6 +308,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/team'
     | '/admin/templates'
+    | '/api/pals'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -330,6 +340,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/team'
     | '/admin/templates'
+    | '/api/pals'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -361,6 +372,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/team'
     | '/admin/templates'
+    | '/api/pals'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -393,6 +405,7 @@ export interface RootRouteChildren {
   TasksRoute: typeof TasksRoute
   TeamRoute: typeof TeamRoute
   AdminTemplatesRoute: typeof AdminTemplatesRoute
+  ApiPalsRoute: typeof ApiPalsRoute
   KpisCfoRoute: typeof KpisCfoRoute
   KpisOwnerRoute: typeof KpisOwnerRoute
   KpisPaRoute: typeof KpisPaRoute
@@ -598,6 +611,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientsIdRouteImport
       parentRoute: typeof ClientsRoute
     }
+    '/api/pals': {
+      id: '/api/pals'
+      path: '/api/pals'
+      fullPath: '/api/pals'
+      preLoaderRoute: typeof ApiPalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/templates': {
       id: '/admin/templates'
       path: '/admin/templates'
@@ -668,6 +688,7 @@ const rootRouteChildren: RootRouteChildren = {
   TasksRoute: TasksRoute,
   TeamRoute: TeamRoute,
   AdminTemplatesRoute: AdminTemplatesRoute,
+  ApiPalsRoute: ApiPalsRoute,
   KpisCfoRoute: KpisCfoRoute,
   KpisOwnerRoute: KpisOwnerRoute,
   KpisPaRoute: KpisPaRoute,
