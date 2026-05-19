@@ -785,7 +785,6 @@ function EditProjectModal({ project, onClose }: { project: Project | null; onClo
 
 // ─── Production Timeline (real pipeline stages) ──────────────────────────────
 const TIMELINE_STAGES: { key: Stage; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
-  { key: "Lead", label: "Lead", icon: Inbox },
   { key: "Booked", label: "Booked", icon: Handshake },
   { key: "Pre-Production", label: "Pre-Production", icon: ClipboardList },
   { key: "Shoot Day", label: "Shoot Day", icon: Camera },
