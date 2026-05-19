@@ -796,8 +796,8 @@ const TIMELINE_STAGES: TimelineStage[] = [
   { key: "Pre-Production", label: "Pre-Production", icon: ClipboardList, match: (p) => p.stage === "Pre-Production" },
   { key: "Shoot Day", label: "Shoot Day", icon: Camera, match: (p) => p.stage === "Shoot Day" },
   { key: "In Post", label: "In Post", icon: Scissors, match: (p) => p.stage === "In Post" && !p.deliveryDate },
-  { key: "Review Sent", label: "Review Sent", icon: Send, match: (p) => p.stage === "In Post" && !!p.deliveryDate },
-  { key: "Delivered", label: "Delivered", icon: PackageCheck, match: (p) => p.stage === "Delivered", terminal: true },
+  { key: "Delivered", label: "Delivered", icon: PackageCheck, match: (p) => p.stage === "In Post" && !!p.deliveryDate },
+  { key: "Review Sent", label: "Review Sent", icon: Send, match: (p) => p.stage === "Delivered", terminal: true },
 ];
 
 function ProductionTimeline({ projects }: { projects: Project[] }) {
