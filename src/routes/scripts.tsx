@@ -212,14 +212,14 @@ function ScriptCard({
     >
       <div
         className="relative h-28 overflow-hidden flex items-center justify-between px-5"
-        style={{ background: palette.gradient }}
+        style={{ backgroundColor: palette.color }}
       >
         <div
           aria-hidden
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-20"
           style={{
             backgroundImage:
-              "linear-gradient(135deg, rgba(255,255,255,0.18) 0 1px, transparent 1px 12px)",
+              "linear-gradient(135deg, rgba(255,255,255,0.15) 0 1px, transparent 1px 12px)",
           }}
         />
         <div className="relative z-10">
@@ -234,7 +234,6 @@ function ScriptCard({
           </div>
         </div>
         <FileText className="relative z-10 size-5 text-white/70 group-hover:text-white transition-colors" />
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/30 to-transparent" />
       </div>
       <div className="p-5">
         <div className="text-[15px] font-semibold tracking-tight leading-snug mb-3 group-hover:text-primary transition-colors line-clamp-3">
