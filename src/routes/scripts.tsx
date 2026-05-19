@@ -144,25 +144,44 @@ function PinnedCard({
   eyebrow,
   title,
   desc,
+  gradient,
 }: {
   to: string;
   icon: React.ReactNode;
   eyebrow: string;
   title: string;
   desc: string;
+  gradient: string;
 }) {
   return (
     <Link
       to={to}
-      className="card-elevated rounded-2xl p-5 group hover:border-primary/40 transition-colors block"
+      className="card-elevated rounded-2xl overflow-hidden group hover:border-primary/40 transition-colors block"
     >
-      <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-muted-foreground font-semibold mb-3">
-        {icon} {eyebrow}
+      <div
+        className="relative h-32 overflow-hidden"
+        style={{ background: gradient }}
+      >
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.25) 1px, transparent 0)",
+            backgroundSize: "14px 14px",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] font-semibold text-white/95 bg-black/35 backdrop-blur px-2 py-1 rounded-md">
+          {icon} {eyebrow}
+        </div>
       </div>
-      <div className="text-[15px] font-semibold tracking-tight leading-snug mb-1.5 group-hover:text-primary transition-colors">
-        {title}
+      <div className="p-5">
+        <div className="text-[15px] font-semibold tracking-tight leading-snug mb-1.5 group-hover:text-primary transition-colors">
+          {title}
+        </div>
+        <div className="text-[12.5px] text-muted-foreground leading-relaxed">{desc}</div>
       </div>
-      <div className="text-[12.5px] text-muted-foreground leading-relaxed">{desc}</div>
     </Link>
   );
 }
@@ -181,23 +200,45 @@ function ScriptCard({
     { key: "mindyourbizniz", label: "MYB" },
   ];
   const target = preferredBrand && preferredBrand !== "all" ? preferredBrand : "original";
+  const palette = SCRIPT_PALETTES[(parseInt(script.num, 10) - 1) % SCRIPT_PALETTES.length];
   return (
     <Link
       to="/scripts/$num"
       params={{ num: script.num }}
       search={{ v: target }}
-      className="card-elevated rounded-2xl p-5 group hover:border-primary/40 transition-colors block"
+      className="card-elevated rounded-2xl overflow-hidden group hover:border-primary/40 transition-colors block"
     >
-      <div className="flex items-baseline justify-between mb-2">
-        <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-primary">
-          Script {script.num}
+      <div
+        className="relative h-28 overflow-hidden flex items-center justify-between px-5"
+        style={{ background: palette.gradient }}
+      >
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage:
+              "linear-gradient(135deg, rgba(255,255,255,0.18) 0 1px, transparent 1px 12px)",
+          }}
+        />
+        <div className="relative z-10">
+          <div className="text-[9px] font-mono tracking-[0.22em] uppercase text-white/80 mb-0.5">
+            Script
+          </div>
+          <div
+            className="font-serif font-semibold leading-none text-white"
+            style={{ fontSize: 56, fontFamily: '"Playfair Display", Georgia, serif' }}
+          >
+            {script.num}
+          </div>
         </div>
-        <FileText className="size-3.5 text-muted-foreground/50 group-hover:text-primary transition-colors" />
+        <FileText className="relative z-10 size-5 text-white/70 group-hover:text-white transition-colors" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/30 to-transparent" />
       </div>
-      <div className="text-[15px] font-semibold tracking-tight leading-snug mb-3 group-hover:text-primary transition-colors line-clamp-3">
-        {script.title}
-      </div>
-      <div className="flex flex-wrap gap-1.5">
+      <div className="p-5">
+        <div className="text-[15px] font-semibold tracking-tight leading-snug mb-3 group-hover:text-primary transition-colors line-clamp-3">
+          {script.title}
+        </div>
+        <div className="flex flex-wrap gap-1.5">
         {chips.map((c) => {
           const has = Boolean(script.versions[c.key]);
           const highlight = preferredBrand && preferredBrand !== "all" && preferredBrand === c.key;
@@ -216,10 +257,28 @@ function ScriptCard({
             </span>
           );
         })}
+        </div>
       </div>
     </Link>
   );
 }
+
+// Pillar-tinted palettes rotated across the 12 scripts so each card has its
+// own visual identity without needing real imagery.
+const SCRIPT_PALETTES: { gradient: string }[] = [
+  { gradient: "linear-gradient(135deg, #E8720C 0%, #B8530A 100%)" }, // Reel
+  { gradient: "linear-gradient(135deg, #3D1A66 0%, #6A2BAE 100%)" }, // Spotlight
+  { gradient: "linear-gradient(135deg, #5B8A2D 0%, #2F5C18 100%)" }, // Evergreen
+  { gradient: "linear-gradient(135deg, #0A9B8F 0%, #066B62 100%)" }, // System
+  { gradient: "linear-gradient(135deg, #B8530A 0%, #3D1A66 100%)" },
+  { gradient: "linear-gradient(135deg, #6A2BAE 0%, #0A9B8F 100%)" },
+  { gradient: "linear-gradient(135deg, #2F5C18 0%, #E8720C 100%)" },
+  { gradient: "linear-gradient(135deg, #066B62 0%, #3D1A66 100%)" },
+  { gradient: "linear-gradient(135deg, #1F2A44 0%, #0A9B8F 100%)" },
+  { gradient: "linear-gradient(135deg, #3D1A66 0%, #E8720C 100%)" },
+  { gradient: "linear-gradient(135deg, #5B8A2D 0%, #0A9B8F 100%)" },
+  { gradient: "linear-gradient(135deg, #E8720C 0%, #6A2BAE 100%)" },
+];
 
 function DocList({
   title,
