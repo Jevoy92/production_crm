@@ -518,8 +518,8 @@ function PlaybookPageDetail() {
                     }
                   />
                 ) : current.definitionOfDone ? (
-                  <div className="text-[12px] leading-relaxed text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 p-2.5 rounded-lg border border-emerald-500/20 whitespace-pre-wrap">
-                    {current.definitionOfDone}
+                  <div className="text-[12px] leading-relaxed text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 p-2.5 rounded-lg border border-emerald-500/20 markdown-tight">
+                    <MarkdownContent source={current.definitionOfDone} />
                   </div>
                 ) : (
                   <div className="text-[12px] text-muted-foreground/70 italic">
@@ -539,8 +539,8 @@ function PlaybookPageDetail() {
                     }
                   />
                 ) : current.commonMistakes ? (
-                  <div className="text-[12px] leading-relaxed text-red-700 dark:text-red-300 bg-red-500/10 p-2.5 rounded-lg border border-red-500/20 whitespace-pre-wrap">
-                    {current.commonMistakes}
+                  <div className="text-[12px] leading-relaxed text-red-700 dark:text-red-300 bg-red-500/10 p-2.5 rounded-lg border border-red-500/20 markdown-tight">
+                    <MarkdownContent source={current.commonMistakes} />
                   </div>
                 ) : (
                   <div className="text-[12px] text-muted-foreground/70 italic">
@@ -637,8 +637,10 @@ function MetaField({
           />
         )
       ) : (
-        <div className="text-[13px] text-foreground/90 whitespace-pre-wrap">
-          {value || (
+        <div className="text-[13px] text-foreground/90 markdown-tight">
+          {value ? (
+            <MarkdownContent source={value} />
+          ) : (
             <span className="text-muted-foreground/70 italic">{placeholder}</span>
           )}
         </div>
@@ -663,12 +665,12 @@ function ReadOnlyField({
       </div>
       <div
         className={
-          tone === "warn"
-            ? "text-[12px] text-red-700 dark:text-red-300 bg-red-500/10 p-2 rounded border border-red-500/20"
-            : "text-[13px] text-foreground/90"
+          (tone === "warn"
+            ? "text-[12px] text-red-700 dark:text-red-300 bg-red-500/10 p-2 rounded border border-red-500/20 "
+            : "text-[13px] text-foreground/90 ") + "markdown-tight"
         }
       >
-        {value}
+        <MarkdownContent source={value} />
       </div>
     </div>
   );

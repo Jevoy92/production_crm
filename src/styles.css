@@ -163,4 +163,16 @@
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.02em;
   }
+  /* Tight markdown: used inside small sidebar/meta cards in the playbook
+     to keep paragraph/heading spacing compact. */
+  .markdown-tight :first-child { margin-top: 0; }
+  .markdown-tight :last-child { margin-bottom: 0; }
+  .markdown-tight p { margin: 0.15rem 0; }
+  .markdown-tight ul,
+  .markdown-tight ol { margin: 0.25rem 0; padding-left: 1.1rem; }
+  .markdown-tight li { margin: 0.1rem 0; }
+  .markdown-tight h1,
+  .markdown-tight h2,
+  .markdown-tight h3,
+  .markdown-tight h4 { margin-top: 0.4rem; margin-bottom: 0.25rem; font-size: inherit; border: 0; padding: 0; letter-spacing: normal; text-transform: none; }
 }

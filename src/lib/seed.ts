@@ -492,6 +492,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Camera",
     status: "Available",
     kitIds: ["k_solo", "k_podcast", "k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_02",
@@ -499,6 +501,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Camera",
     status: "On Shoot",
     kitIds: ["k_podcast"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1581591524425-c7e0978865fc?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_03",
@@ -506,6 +510,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Lens",
     status: "Available",
     kitIds: ["k_solo", "k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1500634245200-e5245c7574ef?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_04",
@@ -513,6 +519,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Lens",
     status: "Available",
     kitIds: ["k_solo"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_05",
@@ -520,6 +528,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Audio",
     status: "Available",
     kitIds: ["k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_06",
@@ -527,6 +537,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Audio",
     status: "Available",
     kitIds: ["k_solo", "k_podcast", "k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_07",
@@ -534,6 +546,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Lighting",
     status: "Available",
     kitIds: ["k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_08",
@@ -541,6 +555,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Lighting",
     status: "Repair",
     kitIds: ["k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1607462109225-6b64ae2dd3cb?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_09",
@@ -548,6 +564,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Support",
     status: "Available",
     kitIds: ["k_solo", "k_podcast"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1473893604213-3df9c15cf045?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_10",
@@ -555,6 +573,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Audio",
     status: "Available",
     kitIds: ["k_podcast"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_11",
@@ -562,6 +582,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Monitor",
     status: "Available",
     kitIds: ["k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_12",
@@ -569,6 +591,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Media",
     status: "Available",
     kitIds: ["k_solo", "k_podcast", "k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=70",
   },
 ];
 
@@ -1273,6 +1297,125 @@ const TRACKED_KPIS: TrackedKpi[] = [
   },
 ];
 
+const TASKS: Task[] = [
+  {
+    id: uid("t"),
+    title: "Send Northwind final cut for review",
+    assigneeId: "u_jevoy",
+    projectId: "p_001",
+    dueDate: iso(2),
+    status: "doing",
+    priority: "High",
+    createdAt: iso(-1),
+  },
+  {
+    id: uid("t"),
+    title: "Pull Helix shoot kit and label cases",
+    assigneeId: "u_shannen",
+    projectId: "p_002",
+    dueDate: iso(2),
+    status: "todo",
+    priority: "High",
+    createdAt: iso(-1),
+  },
+  {
+    id: uid("t"),
+    title: "Confirm Helix call sheet w/ Theo",
+    assigneeId: "u_shannen",
+    projectId: "p_002",
+    dueDate: iso(1),
+    status: "todo",
+    priority: "High",
+    createdAt: iso(-2),
+  },
+  {
+    id: uid("t"),
+    title: "Draft Atrium interview questions",
+    assigneeId: "u_jevoy",
+    projectId: "p_003",
+    dueDate: iso(7),
+    status: "todo",
+    priority: "Med",
+    createdAt: iso(-1),
+  },
+  {
+    id: uid("t"),
+    title: "Color pass — Lumen sizzle v3",
+    assigneeId: "u_jevoy",
+    projectId: "p_005",
+    dueDate: iso(0),
+    status: "doing",
+    priority: "High",
+    createdAt: iso(-2),
+  },
+  {
+    id: uid("t"),
+    title: "Send Beacon invoice (final 50%)",
+    assigneeId: "u_adrienne",
+    projectId: "p_006",
+    dueDate: iso(1),
+    status: "todo",
+    priority: "Med",
+    createdAt: iso(-1),
+  },
+  {
+    id: uid("t"),
+    title: "Scout Pier 27 for conference recap",
+    assigneeId: "u_shannen",
+    projectId: "p_007",
+    dueDate: iso(3),
+    status: "todo",
+    priority: "Med",
+    createdAt: iso(-3),
+  },
+  {
+    id: uid("t"),
+    title: "Batch shoot 4 reels (studio)",
+    assigneeId: "u_shannen",
+    projectId: "p_008",
+    dueDate: iso(8),
+    status: "todo",
+    priority: "Low",
+    createdAt: iso(-2),
+  },
+  {
+    id: uid("t"),
+    title: "Draft Northwind brand-refresh proposal",
+    assigneeId: "u_jevoy",
+    projectId: "p_009",
+    dueDate: iso(2),
+    status: "doing",
+    priority: "Med",
+    createdAt: iso(-1),
+  },
+  {
+    id: uid("t"),
+    title: "Reconcile Q1 contractor spend",
+    assigneeId: "u_adrienne",
+    dueDate: iso(-1),
+    status: "done",
+    priority: "Low",
+    createdAt: iso(-7),
+  },
+  {
+    id: uid("t"),
+    title: "Archive Beacon project to long-term storage",
+    assigneeId: "u_shannen",
+    projectId: "p_006",
+    status: "done",
+    priority: "Low",
+    createdAt: iso(-4),
+  },
+  {
+    id: uid("t"),
+    title: "Update Pals playbook page (Visibility)",
+    assigneeId: "u_jevoy",
+    status: "todo",
+    priority: "Low",
+    createdAt: iso(-1),
+  },
+];
+
 export const SEED = {
   team: TEAM,
   clients: CLIENTS,
@@ -1282,7 +1425,7 @@ export const SEED = {
   gearItems: GEAR_ITEMS,
   gearKits: GEAR_KITS,
   assets: ASSETS,
-  tasks: [],
+  tasks: TASKS,
   templates: DEFAULT_TEMPLATES,
   contentPieces: CONTENT_PIECES,
   trackedKpis: TRACKED_KPIS,
