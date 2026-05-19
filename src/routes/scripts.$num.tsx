@@ -38,9 +38,8 @@ function ScriptDetail() {
   }
 
   // Fall back to first available version if requested one is missing
-  const available: ScriptVersion[] = (
-    ["original", "jevoy", "palmer-house", "mindyourbizniz"] as ScriptVersion[]
-  ).filter((k) => script.versions[k]);
+  const ALL: ScriptVersion[] = ["original", "jevoy", "palmer-house", "mindyourbizniz"];
+  const available: ScriptVersion[] = ALL.filter((k) => Boolean(script.versions[k]));
   const current: ScriptVersion = script.versions[v] ? v : (available[0] ?? "original");
   const entry = script.versions[current];
 
