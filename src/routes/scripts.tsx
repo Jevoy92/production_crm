@@ -147,14 +147,14 @@ function PinnedCard({
   eyebrow,
   title,
   desc,
-  gradient,
+  color,
 }: {
   to: string;
   icon: React.ReactNode;
   eyebrow: string;
   title: string;
   desc: string;
-  gradient: string;
+  color: string;
 }) {
   return (
     <Link
@@ -163,19 +163,18 @@ function PinnedCard({
     >
       <div
         className="relative h-32 overflow-hidden"
-        style={{ background: gradient }}
+        style={{ backgroundColor: color }}
       >
         <div
           aria-hidden
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-30"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.25) 1px, transparent 0)",
+              "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.2) 1px, transparent 0)",
             backgroundSize: "14px 14px",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-        <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] font-semibold text-white/95 bg-black/35 backdrop-blur px-2 py-1 rounded-md">
+        <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] font-semibold text-white/95 bg-black/30 backdrop-blur px-2 py-1 rounded-md">
           {icon} {eyebrow}
         </div>
       </div>
