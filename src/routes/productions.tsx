@@ -6,7 +6,7 @@ import { useStore, palColor, checklistProgress } from "@/lib/store";
 import { STAGES, PAL_TYPES } from "@/lib/types";
 import type { Stage, PalType, Project } from "@/lib/types";
 import { Plus, LayoutGrid, Rows, Filter, ExternalLink, Pencil, Trash2, UserPlus, Check } from "lucide-react";
-import { Inbox, Handshake, ClipboardList, Camera, Scissors, PackageCheck } from "lucide-react";
+import { Handshake, ClipboardList, Camera, Scissors, PackageCheck } from "lucide-react";
 
 export const Route = createFileRoute("/productions")({
   component: ProductionsPage,
