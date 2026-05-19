@@ -71,7 +71,7 @@ function ScriptsHub() {
           eyebrow="Strategy"
           title="Master brief & investigative universe"
           desc={`${STRATEGY_DOCS.length} docs — voice rules, themes, lanes`}
-          gradient="linear-gradient(135deg, #E8720C 0%, #B8530A 60%, #3D1A66 100%)"
+          color="#B8530A"
         />
         <PinnedCard
           to="/scripts/manual"
@@ -79,7 +79,7 @@ function ScriptsHub() {
           eyebrow="Operating Manual"
           title="Jevoy Palmer voice profile"
           desc="Voice, ventures, faith integration, content rules"
-          gradient="linear-gradient(135deg, #3D1A66 0%, #6A2BAE 60%, #0A9B8F 100%)"
+          color="#3D1A66"
         />
         <PinnedCard
           to="/scripts/research"
@@ -87,7 +87,7 @@ function ScriptsHub() {
           eyebrow="Research"
           title="The recorded animal & ecosystem"
           desc={`${RESEARCH_DOCS.length} maps — projection, context`}
-          gradient="linear-gradient(135deg, #0A9B8F 0%, #066B62 55%, #1F2A44 100%)"
+          color="#0A9B8F"
         />
       </div>
 
