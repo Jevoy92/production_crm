@@ -80,10 +80,6 @@ const statusPill = (s: GearItem["status"]) =>
       ? "bg-warning/15 text-warning ring-1 ring-warning/25"
       : "bg-destructive/12 text-destructive ring-1 ring-destructive/25";
 
-function GearPage() {
-  return <GearPageInner />;
-}
-
 function GearThumb({
   item,
   Icon,
@@ -93,41 +89,14 @@ function GearThumb({
   Icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
   tint: string;
 }) {
-  const [state, setState] = useState<"loading" | "loaded" | "error">(
-    item.imageUrl ? "loading" : "error",
-  );
-  useEffect(() => {
-    setState(item.imageUrl ? "loading" : "error");
-  }, [item.imageUrl]);
-  const showImage = !!item.imageUrl && state !== "error";
   return (
     <div
-      className="relative aspect-[4/3] overflow-hidden"
-      style={{
-        background: `linear-gradient(135deg, color-mix(in oklab, ${tint} 18%, var(--color-surface-2)) 0%, color-mix(in oklab, ${tint} 6%, var(--color-surface-2)) 100%)`,
-      }}
+      className="relative aspect-[4/3] grid place-items-center"
+      style={{ background: `color-mix(in oklab, ${tint} 10%, var(--color-surface-2))` }}
     >
-      {showImage && state === "loading" && (
-        <div className="absolute inset-0 animate-pulse bg-surface-3/60" />
-      )}
-      {showImage ? (
-        <img
-          src={item.imageUrl}
-          alt={item.name}
-          loading="lazy"
-          onLoad={() => setState("loaded")}
-          onError={() => setState("error")}
-          className={`size-full object-cover transition-opacity duration-300 ${
-            state === "loaded" ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      ) : (
-        <div className="absolute inset-0 grid place-items-center">
-          <Icon className="size-12 opacity-70" style={{ color: tint }} />
-        </div>
-      )}
+      <Icon className="size-14 opacity-80" style={{ color: tint }} />
       <span
-        className={`absolute top-2 right-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium backdrop-blur-sm ${statusPill(
+        className={`absolute top-2 right-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${statusPill(
           item.status,
         )}`}
       >
@@ -137,7 +106,8 @@ function GearThumb({
   );
 }
 
-function GearPageInner() {
+function GearPage() {
+
   const items = useStore((s) => s.gearItems);
   const kits = useStore((s) => s.gearKits);
   const remove = useStore((s) => s.removeGearItem);
