@@ -1306,7 +1306,7 @@ export const SEED = {
   gearItems: GEAR_ITEMS,
   gearKits: GEAR_KITS,
   assets: ASSETS,
-  tasks: [],
+  tasks: TASKS,
   templates: DEFAULT_TEMPLATES,
   contentPieces: CONTENT_PIECES,
   trackedKpis: TRACKED_KPIS,
