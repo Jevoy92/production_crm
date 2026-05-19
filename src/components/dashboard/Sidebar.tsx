@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Film,
@@ -22,7 +22,9 @@ import {
 } from "lucide-react";
 import { useStore } from "@/lib/store";
 
-import { AiAssistantModal } from "./AiAssistantModal";
+const AiAssistantModal = lazy(() =>
+  import("./AiAssistantModal").then((m) => ({ default: m.AiAssistantModal })),
+);
 
 const nav = [
   { label: "Team & KPIs", to: "/team", icon: Users },
@@ -134,7 +136,11 @@ export function Sidebar({ mobileOpen, onCloseMobile }: { mobileOpen?: boolean; o
         </Link>
       </div>
 
-      <AiAssistantModal open={aiOpen} onClose={() => setAiOpen(false)} />
+      {aiOpen && (
+        <Suspense fallback={null}>
+          <AiAssistantModal open={aiOpen} onClose={() => setAiOpen(false)} />
+        </Suspense>
+      )}
     </aside>
   );
 }

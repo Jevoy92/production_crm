@@ -1,43 +1,40 @@
-// Build-time index of all bundled script + strategy + research markdown.
-// All loaded via import.meta.glob with ?raw so they're inlined at build time
-// — no runtime fetch, SSR-safe.
+// Build-time INDEX of all bundled script + strategy + research markdown.
+// Metadata (titles/numbers) is built eagerly from filenames — but the file
+// bodies are loaded LAZILY via dynamic import so the /scripts hub page
+// doesn't pay the cost of ~1MB of markdown just to list 12 cards.
 
-type RawMap = Record<string, string>;
+type LazyMap = Record<string, () => Promise<string>>;
 
-const originalsRaw = import.meta.glob("/src/content/scripts/Originals/*.md", {
-  query: "?raw",
-  eager: true,
-  import: "default",
-}) as RawMap;
+function asLazyMap(
+  glob: Record<string, () => Promise<unknown>>,
+): LazyMap {
+  const out: LazyMap = {};
+  for (const [path, load] of Object.entries(glob)) {
+    out[path] = () => load().then((m) => (m as { default: string }).default);
+  }
+  return out;
+}
 
-const versionsRaw = import.meta.glob("/src/content/scripts/Versions/*.md", {
-  query: "?raw",
-  eager: true,
-  import: "default",
-}) as RawMap;
-
-const strategyRaw = import.meta.glob("/src/content/scripts/Strategy/*.md", {
-  query: "?raw",
-  eager: true,
-  import: "default",
-}) as RawMap;
-
-const researchRaw = import.meta.glob("/src/content/scripts/Research/*.md", {
-  query: "?raw",
-  eager: true,
-  import: "default",
-}) as RawMap;
-
-const yourboyRaw = import.meta.glob("/src/content/scripts/YourBoyJevoy/*.md", {
-  query: "?raw",
-  eager: true,
-  import: "default",
-}) as RawMap;
-
-const manualRaw = import.meta.glob(
-  "/src/content/scripts/Skills/jevoy-palmer-operating-manual/**/*.md",
-  { query: "?raw", eager: true, import: "default" },
-) as RawMap;
+const originalsRaw = asLazyMap(
+  import.meta.glob("/src/content/scripts/Originals/*.md", { query: "?raw" }),
+);
+const versionsRaw = asLazyMap(
+  import.meta.glob("/src/content/scripts/Versions/*.md", { query: "?raw" }),
+);
+const strategyRaw = asLazyMap(
+  import.meta.glob("/src/content/scripts/Strategy/*.md", { query: "?raw" }),
+);
+const researchRaw = asLazyMap(
+  import.meta.glob("/src/content/scripts/Research/*.md", { query: "?raw" }),
+);
+const yourboyRaw = asLazyMap(
+  import.meta.glob("/src/content/scripts/YourBoyJevoy/*.md", { query: "?raw" }),
+);
+const manualRaw = asLazyMap(
+  import.meta.glob("/src/content/scripts/Skills/jevoy-palmer-operating-manual/**/*.md", {
+    query: "?raw",
+  }),
+);
 
 function basename(path: string): string {
   const segs = path.split("/");
@@ -58,7 +55,12 @@ export type ScriptEntry = {
   number: number;
   title: string;
   originalPath?: string; // path under /hubs/scripts/ for backup link
-  versions: Partial<Record<ScriptVersion, { source: string; originalPath: string; filename: string }>>;
+  versions: Partial<
+    Record<
+      ScriptVersion,
+      { load: () => Promise<string>; originalPath: string; filename: string }
+    >
+  >;
 };
 
 function parseOriginal(filename: string): { num: string; title: string } | null {
@@ -82,7 +84,7 @@ function parseVersion(filename: string): { num: string; brand: ScriptVersion } |
 
 const byNum = new Map<string, ScriptEntry>();
 
-for (const [path, source] of Object.entries(originalsRaw)) {
+for (const [path, load] of Object.entries(originalsRaw)) {
   const name = basename(path);
   const parsed = parseOriginal(name);
   if (!parsed) continue;
@@ -96,14 +98,14 @@ for (const [path, source] of Object.entries(originalsRaw)) {
   entry.title = parsed.title;
   entry.originalPath = `/hubs/scripts/Originals/${encodeURIComponent(`${name}.md`)}`;
   entry.versions.original = {
-    source,
+    load,
     originalPath: `/hubs/scripts/Originals/${encodeURIComponent(`${name}.md`)}`,
     filename: `${name}.md`,
   };
   byNum.set(parsed.num, entry);
 }
 
-for (const [path, source] of Object.entries(versionsRaw)) {
+for (const [path, load] of Object.entries(versionsRaw)) {
   const name = basename(path);
   const parsed = parseVersion(name);
   if (!parsed) continue;
@@ -115,7 +117,7 @@ for (const [path, source] of Object.entries(versionsRaw)) {
       versions: {},
     };
   entry.versions[parsed.brand] = {
-    source,
+    load,
     originalPath: `/hubs/scripts/Versions/${encodeURIComponent(`${name}.md`)}`,
     filename: `${name}.md`,
   };
@@ -129,14 +131,14 @@ export const SCRIPTS: ScriptEntry[] = Array.from(byNum.values()).sort(
 export type DocEntry = {
   slug: string;
   title: string;
-  source: string;
+  load: () => Promise<string>;
   originalPath: string;
   filename: string;
 };
 
-function toDocList(raw: RawMap, folder: string): DocEntry[] {
+function toDocList(raw: LazyMap, folder: string): DocEntry[] {
   return Object.entries(raw)
-    .map(([path, source]) => {
+    .map(([path, load]) => {
       const name = basename(path);
       return {
         slug: name
@@ -144,7 +146,7 @@ function toDocList(raw: RawMap, folder: string): DocEntry[] {
           .replace(/[^a-z0-9]+/g, "-")
           .replace(/^-|-$/g, ""),
         title: name,
-        source,
+        load,
         originalPath: `/hubs/scripts/${folder}/${encodeURIComponent(`${name}.md`)}`,
         filename: `${name}.md`,
       };
@@ -161,16 +163,21 @@ export const MASTER_BRIEF: DocEntry | undefined = STRATEGY_DOCS.find((d) =>
   /master\s*brief/i.test(d.title),
 );
 
-export type ManualEntry = { slug: string; title: string; source: string; isRoot: boolean };
+export type ManualEntry = {
+  slug: string;
+  title: string;
+  load: () => Promise<string>;
+  isRoot: boolean;
+};
 
 export const MANUAL: ManualEntry[] = Object.entries(manualRaw)
-  .map(([path, source]) => {
+  .map(([path, load]) => {
     const name = basename(path);
     const isRoot = /SKILL$/i.test(name);
     return {
       slug: isRoot ? "overview" : name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       title: isRoot ? "Operating Manual" : name,
-      source,
+      load,
       isRoot,
     };
   })

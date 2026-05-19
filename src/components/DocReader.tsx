@@ -4,6 +4,7 @@ import { Shell } from "@/components/dashboard/Shell";
 import { Btn } from "@/components/ui-bits/Modal";
 import { Markdown } from "@/components/Markdown";
 import type { DocEntry } from "@/lib/scriptsIndex";
+import { useLazySource } from "@/lib/useLazySource";
 
 export function DocReader({
   title,
@@ -19,6 +20,7 @@ export function DocReader({
   backTo: string;
 }) {
   const active = docs.find((d) => d.slug === activeSlug) ?? docs[0];
+  const { source, loading } = useLazySource(active?.load);
 
   return (
     <Shell
@@ -61,7 +63,11 @@ export function DocReader({
                   </Btn>
                 </a>
               </div>
-              <Markdown source={active.source} />
+              {loading ? (
+                <div className="text-muted-foreground text-[13px] italic">Loading…</div>
+              ) : (
+                <Markdown source={source} />
+              )}
             </>
           ) : (
             <div className="text-muted-foreground text-[13px] italic">No documents.</div>

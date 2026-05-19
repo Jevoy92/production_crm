@@ -5,6 +5,7 @@ import { Shell } from "@/components/dashboard/Shell";
 import { Btn } from "@/components/ui-bits/Modal";
 import { Markdown } from "@/components/Markdown";
 import { MANUAL } from "@/lib/scriptsIndex";
+import { useLazySource } from "@/lib/useLazySource";
 
 export const Route = createFileRoute("/scripts/manual")({
   validateSearch: z.object({ doc: z.string().optional() }),
@@ -16,6 +17,7 @@ function ManualPage() {
   const { doc } = Route.useSearch();
   const navigate = useNavigate();
   const active = MANUAL.find((m) => m.slug === doc) ?? MANUAL[0];
+  const { source, loading } = useLazySource(active?.load);
 
   return (
     <Shell
@@ -61,7 +63,11 @@ function ManualPage() {
                   </Btn>
                 </a>
               </div>
-              <Markdown source={active.source} />
+              {loading ? (
+                <div className="text-muted-foreground text-[13px] italic">Loading…</div>
+              ) : (
+                <Markdown source={source} />
+              )}
             </>
           )}
         </div>
