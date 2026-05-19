@@ -90,9 +90,26 @@ export const Route = createFileRoute("/api/pals")({
         const model = gateway("google/gemini-3-flash-preview");
 
         try {
-          const { experimental_output } = await generateText({
+          const { text } = await generateText({
             model,
-            system: SYSTEM,
+            system:
+              SYSTEM +
+              "\n\nALWAYS respond with a single JSON object matching this TypeScript type, and NOTHING else (no prose, no code fences):\n" +
+              `{
+  "reply": string, // markdown reply for the user
+  "actions": Array<{
+    "type": "create_task" | "create_project" | "update_shoot" | "create_shoot" | "set_project_stage",
+    "title"?: string,
+    "assigneeId"?: string, "projectId"?: string, "clientId"?: string, "ownerId"?: string, "shootId"?: string,
+    "palType"?: "Visibility"|"Systems"|"YouTube"|"Commercial",
+    "stage"?: "Lead"|"Strategy Call"|"Proposal Sent"|"Booked"|"Pre-Production"|"Shoot Day"|"In Post"|"Delivered"|"Archived",
+    "date"?: string, "startTime"?: string, "endTime"?: string, "location"?: string,
+    "arrival"?: string, "goals"?: string, "notes"?: string,
+    "status"?: "Scheduled"|"Complete"|"Cancelled",
+    "dueDate"?: string, "shootDate"?: string, "deliveryDate"?: string,
+    "priority"?: "Low"|"Med"|"High"
+  }>
+}`,
             messages: [
               {
                 role: "system" as const,
@@ -102,10 +119,28 @@ export const Route = createFileRoute("/api/pals")({
               },
               ...messages.map((m) => ({ role: m.role, content: m.content })),
             ],
-            experimental_output: Output.object({ schema: ResponseSchema }),
           });
 
-          return Response.json(experimental_output);
+          const cleaned = text
+            .trim()
+            .replace(/^```(?:json)?\s*/i, "")
+            .replace(/\s*```$/i, "");
+          let parsed: unknown;
+          try {
+            parsed = JSON.parse(cleaned);
+          } catch {
+            // fallback: extract first JSON object
+            const m = cleaned.match(/\{[\s\S]*\}/);
+            parsed = m ? JSON.parse(m[0]) : { reply: text, actions: [] };
+          }
+          const safe = ResponseSchema.safeParse(parsed);
+          if (safe.success) return Response.json(safe.data);
+          return Response.json({
+            reply: typeof (parsed as { reply?: unknown })?.reply === "string"
+              ? (parsed as { reply: string }).reply
+              : text,
+            actions: [],
+          });
         } catch (err) {
           const msg = err instanceof Error ? err.message : "AI request failed";
           const status = /429/.test(msg) ? 429 : /402/.test(msg) ? 402 : 500;
