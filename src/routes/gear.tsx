@@ -94,7 +94,7 @@ function GearThumb({
   Icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
   tint: string;
 }) {
-  const imgRef = React.useRef<HTMLImageElement | null>(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
   const [state, setState] = useState<"loading" | "loaded" | "error">(
     item.imageUrl ? "loading" : "error",
   );
