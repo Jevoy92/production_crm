@@ -493,7 +493,7 @@ const GEAR_ITEMS: GearItem[] = [
     status: "Available",
     kitIds: ["k_solo", "k_podcast", "k_training"],
     imageUrl:
-      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1589872307379-0ffdf9829123?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_02",
@@ -511,7 +511,7 @@ const GEAR_ITEMS: GearItem[] = [
     status: "Available",
     kitIds: ["k_solo", "k_training"],
     imageUrl:
-      "https://images.unsplash.com/photo-1500634245200-e5245c7574ef?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1617005082133-548c4dd27f35?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_04",
@@ -520,7 +520,7 @@ const GEAR_ITEMS: GearItem[] = [
     status: "Available",
     kitIds: ["k_solo"],
     imageUrl:
-      "https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1495707902641-75cac588d2e9?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_05",
