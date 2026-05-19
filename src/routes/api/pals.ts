@@ -4,52 +4,23 @@ import { generateText, Output } from "ai";
 import { z } from "zod";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 
-const ActionSchema = z.discriminatedUnion("type", [
-  z.object({
-    type: z.literal("create_task"),
-    title: z.string(),
-    assigneeId: z.string().optional(),
-    projectId: z.string().optional(),
-    dueDate: z.string().optional(),
-    priority: z.enum(["Low", "Med", "High"]).optional(),
-  }),
-  z.object({
-    type: z.literal("create_project"),
-    title: z.string(),
-    clientId: z.string().optional(),
-    palType: z.enum(["Visibility", "Systems", "YouTube", "Commercial"]),
-    ownerId: z.string().optional(),
-    shootDate: z.string().optional(),
-    deliveryDate: z.string().optional(),
-    priority: z.enum(["Low", "Med", "High"]).optional(),
-  }),
-  z.object({
-    type: z.literal("update_shoot"),
-    shootId: z.string(),
-    patch: z.object({
-      date: z.string().optional(),
-      startTime: z.string().optional(),
-      endTime: z.string().optional(),
-      location: z.string().optional(),
-      arrival: z.string().optional(),
-      goals: z.string().optional(),
-      notes: z.string().optional(),
-      status: z.enum(["Scheduled", "Complete", "Cancelled"]).optional(),
-    }),
-  }),
-  z.object({
-    type: z.literal("create_shoot"),
-    projectId: z.string(),
-    date: z.string(),
-    startTime: z.string().optional(),
-    endTime: z.string().optional(),
-    location: z.string(),
-    goals: z.string().optional(),
-  }),
-  z.object({
-    type: z.literal("set_project_stage"),
-    projectId: z.string(),
-    stage: z.enum([
+const ActionSchema = z.object({
+  type: z.enum([
+    "create_task",
+    "create_project",
+    "update_shoot",
+    "create_shoot",
+    "set_project_stage",
+  ]),
+  title: z.string().optional(),
+  assigneeId: z.string().optional(),
+  projectId: z.string().optional(),
+  clientId: z.string().optional(),
+  ownerId: z.string().optional(),
+  shootId: z.string().optional(),
+  palType: z.enum(["Visibility", "Systems", "YouTube", "Commercial"]).optional(),
+  stage: z
+    .enum([
       "Lead",
       "Strategy Call",
       "Proposal Sent",
@@ -59,9 +30,21 @@ const ActionSchema = z.discriminatedUnion("type", [
       "In Post",
       "Delivered",
       "Archived",
-    ]),
-  }),
-]);
+    ])
+    .optional(),
+  date: z.string().optional(),
+  startTime: z.string().optional(),
+  endTime: z.string().optional(),
+  location: z.string().optional(),
+  arrival: z.string().optional(),
+  goals: z.string().optional(),
+  notes: z.string().optional(),
+  status: z.enum(["Scheduled", "Complete", "Cancelled"]).optional(),
+  dueDate: z.string().optional(),
+  shootDate: z.string().optional(),
+  deliveryDate: z.string().optional(),
+  priority: z.enum(["Low", "Med", "High"]).optional(),
+});
 
 const ResponseSchema = z.object({
   reply: z.string().describe("Natural conversational reply for the user. Use markdown. If you generated a script or SOP, include the full text here."),
