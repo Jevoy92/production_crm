@@ -6,7 +6,7 @@ import { useStore, palColor, checklistProgress } from "@/lib/store";
 import { STAGES, PAL_TYPES } from "@/lib/types";
 import type { Stage, PalType, Project } from "@/lib/types";
 import { Plus, LayoutGrid, Rows, Filter, ExternalLink, Pencil, Trash2, UserPlus, Check } from "lucide-react";
-import { Inbox, Handshake, ClipboardList, Camera, Scissors, PackageCheck } from "lucide-react";
+import { Handshake, ClipboardList, Camera, Scissors, PackageCheck } from "lucide-react";
 
 export const Route = createFileRoute("/productions")({
   component: ProductionsPage,
@@ -785,7 +785,6 @@ function EditProjectModal({ project, onClose }: { project: Project | null; onClo
 
 // ─── Production Timeline (real pipeline stages) ──────────────────────────────
 const TIMELINE_STAGES: { key: Stage; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
-  { key: "Lead", label: "Lead", icon: Inbox },
   { key: "Booked", label: "Booked", icon: Handshake },
   { key: "Pre-Production", label: "Pre-Production", icon: ClipboardList },
   { key: "Shoot Day", label: "Shoot Day", icon: Camera },
