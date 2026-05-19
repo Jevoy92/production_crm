@@ -216,7 +216,7 @@ export function AiAssistantModal({ open, onClose }: { open: boolean; onClose: ()
                     <span>{m.error}</span>
                   </div>
                 ) : m.role === "assistant" ? (
-                  <Markdown>{m.content}</Markdown>
+                  <Markdown source={m.content} />
                 ) : (
                   <span className="whitespace-pre-wrap">{m.content}</span>
                 )}
