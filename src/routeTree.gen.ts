@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ScriptsRouteImport } from './routes/scripts'
 import { Route as ScoreboardRouteImport } from './routes/scoreboard'
 import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as ProductionsRouteImport } from './routes/productions'
@@ -20,10 +21,16 @@ import { Route as GearRouteImport } from './routes/gear'
 import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as ContentRouteImport } from './routes/content'
 import { Route as ClientsRouteImport } from './routes/clients'
+import { Route as BrandRouteImport } from './routes/brand'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShootsIdRouteImport } from './routes/shoots.$id'
+import { Route as ScriptsYourboyRouteImport } from './routes/scripts.yourboy'
+import { Route as ScriptsStrategyRouteImport } from './routes/scripts.strategy'
+import { Route as ScriptsResearchRouteImport } from './routes/scripts.research'
+import { Route as ScriptsManualRouteImport } from './routes/scripts.manual'
+import { Route as ScriptsNumRouteImport } from './routes/scripts.$num'
 import { Route as ProjectsIdRouteImport } from './routes/projects.$id'
 import { Route as PlaybookSlugRouteImport } from './routes/playbook.$slug'
 import { Route as KpisPaRouteImport } from './routes/kpis.pa'
@@ -45,6 +52,11 @@ const TasksRoute = TasksRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScriptsRoute = ScriptsRouteImport.update({
+  id: '/scripts',
+  path: '/scripts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ScoreboardRoute = ScoreboardRouteImport.update({
@@ -87,6 +99,11 @@ const ClientsRoute = ClientsRouteImport.update({
   path: '/clients',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrandRoute = BrandRouteImport.update({
+  id: '/brand',
+  path: '/brand',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssetsRoute = AssetsRouteImport.update({
   id: '/assets',
   path: '/assets',
@@ -106,6 +123,31 @@ const ShootsIdRoute = ShootsIdRouteImport.update({
   id: '/shoots/$id',
   path: '/shoots/$id',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ScriptsYourboyRoute = ScriptsYourboyRouteImport.update({
+  id: '/yourboy',
+  path: '/yourboy',
+  getParentRoute: () => ScriptsRoute,
+} as any)
+const ScriptsStrategyRoute = ScriptsStrategyRouteImport.update({
+  id: '/strategy',
+  path: '/strategy',
+  getParentRoute: () => ScriptsRoute,
+} as any)
+const ScriptsResearchRoute = ScriptsResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => ScriptsRoute,
+} as any)
+const ScriptsManualRoute = ScriptsManualRouteImport.update({
+  id: '/manual',
+  path: '/manual',
+  getParentRoute: () => ScriptsRoute,
+} as any)
+const ScriptsNumRoute = ScriptsNumRouteImport.update({
+  id: '/$num',
+  path: '/$num',
+  getParentRoute: () => ScriptsRoute,
 } as any)
 const ProjectsIdRoute = ProjectsIdRouteImport.update({
   id: '/projects/$id',
@@ -147,6 +189,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
+  '/brand': typeof BrandRoute
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
@@ -155,6 +198,7 @@ export interface FileRoutesByFullPath {
   '/productions': typeof ProductionsRoute
   '/schedule': typeof ScheduleRoute
   '/scoreboard': typeof ScoreboardRoute
+  '/scripts': typeof ScriptsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
@@ -165,12 +209,18 @@ export interface FileRoutesByFullPath {
   '/kpis/pa': typeof KpisPaRoute
   '/playbook/$slug': typeof PlaybookSlugRoute
   '/projects/$id': typeof ProjectsIdRoute
+  '/scripts/$num': typeof ScriptsNumRoute
+  '/scripts/manual': typeof ScriptsManualRoute
+  '/scripts/research': typeof ScriptsResearchRoute
+  '/scripts/strategy': typeof ScriptsStrategyRoute
+  '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
+  '/brand': typeof BrandRoute
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
@@ -179,6 +229,7 @@ export interface FileRoutesByTo {
   '/productions': typeof ProductionsRoute
   '/schedule': typeof ScheduleRoute
   '/scoreboard': typeof ScoreboardRoute
+  '/scripts': typeof ScriptsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
@@ -189,6 +240,11 @@ export interface FileRoutesByTo {
   '/kpis/pa': typeof KpisPaRoute
   '/playbook/$slug': typeof PlaybookSlugRoute
   '/projects/$id': typeof ProjectsIdRoute
+  '/scripts/$num': typeof ScriptsNumRoute
+  '/scripts/manual': typeof ScriptsManualRoute
+  '/scripts/research': typeof ScriptsResearchRoute
+  '/scripts/strategy': typeof ScriptsStrategyRoute
+  '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
 }
 export interface FileRoutesById {
@@ -196,6 +252,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
+  '/brand': typeof BrandRoute
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
@@ -204,6 +261,7 @@ export interface FileRoutesById {
   '/productions': typeof ProductionsRoute
   '/schedule': typeof ScheduleRoute
   '/scoreboard': typeof ScoreboardRoute
+  '/scripts': typeof ScriptsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
@@ -214,6 +272,11 @@ export interface FileRoutesById {
   '/kpis/pa': typeof KpisPaRoute
   '/playbook/$slug': typeof PlaybookSlugRoute
   '/projects/$id': typeof ProjectsIdRoute
+  '/scripts/$num': typeof ScriptsNumRoute
+  '/scripts/manual': typeof ScriptsManualRoute
+  '/scripts/research': typeof ScriptsResearchRoute
+  '/scripts/strategy': typeof ScriptsStrategyRoute
+  '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
 }
 export interface FileRouteTypes {
@@ -222,6 +285,7 @@ export interface FileRouteTypes {
     | '/'
     | '/analytics'
     | '/assets'
+    | '/brand'
     | '/clients'
     | '/content'
     | '/finance'
@@ -230,6 +294,7 @@ export interface FileRouteTypes {
     | '/productions'
     | '/schedule'
     | '/scoreboard'
+    | '/scripts'
     | '/settings'
     | '/tasks'
     | '/team'
@@ -240,12 +305,18 @@ export interface FileRouteTypes {
     | '/kpis/pa'
     | '/playbook/$slug'
     | '/projects/$id'
+    | '/scripts/$num'
+    | '/scripts/manual'
+    | '/scripts/research'
+    | '/scripts/strategy'
+    | '/scripts/yourboy'
     | '/shoots/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/analytics'
     | '/assets'
+    | '/brand'
     | '/clients'
     | '/content'
     | '/finance'
@@ -254,6 +325,7 @@ export interface FileRouteTypes {
     | '/productions'
     | '/schedule'
     | '/scoreboard'
+    | '/scripts'
     | '/settings'
     | '/tasks'
     | '/team'
@@ -264,12 +336,18 @@ export interface FileRouteTypes {
     | '/kpis/pa'
     | '/playbook/$slug'
     | '/projects/$id'
+    | '/scripts/$num'
+    | '/scripts/manual'
+    | '/scripts/research'
+    | '/scripts/strategy'
+    | '/scripts/yourboy'
     | '/shoots/$id'
   id:
     | '__root__'
     | '/'
     | '/analytics'
     | '/assets'
+    | '/brand'
     | '/clients'
     | '/content'
     | '/finance'
@@ -278,6 +356,7 @@ export interface FileRouteTypes {
     | '/productions'
     | '/schedule'
     | '/scoreboard'
+    | '/scripts'
     | '/settings'
     | '/tasks'
     | '/team'
@@ -288,6 +367,11 @@ export interface FileRouteTypes {
     | '/kpis/pa'
     | '/playbook/$slug'
     | '/projects/$id'
+    | '/scripts/$num'
+    | '/scripts/manual'
+    | '/scripts/research'
+    | '/scripts/strategy'
+    | '/scripts/yourboy'
     | '/shoots/$id'
   fileRoutesById: FileRoutesById
 }
@@ -295,6 +379,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalyticsRoute: typeof AnalyticsRoute
   AssetsRoute: typeof AssetsRoute
+  BrandRoute: typeof BrandRoute
   ClientsRoute: typeof ClientsRouteWithChildren
   ContentRoute: typeof ContentRoute
   FinanceRoute: typeof FinanceRoute
@@ -303,6 +388,7 @@ export interface RootRouteChildren {
   ProductionsRoute: typeof ProductionsRoute
   ScheduleRoute: typeof ScheduleRoute
   ScoreboardRoute: typeof ScoreboardRoute
+  ScriptsRoute: typeof ScriptsRouteWithChildren
   SettingsRoute: typeof SettingsRoute
   TasksRoute: typeof TasksRoute
   TeamRoute: typeof TeamRoute
@@ -335,6 +421,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scripts': {
+      id: '/scripts'
+      path: '/scripts'
+      fullPath: '/scripts'
+      preLoaderRoute: typeof ScriptsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/scoreboard': {
@@ -393,6 +486,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brand': {
+      id: '/brand'
+      path: '/brand'
+      fullPath: '/brand'
+      preLoaderRoute: typeof BrandRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assets': {
       id: '/assets'
       path: '/assets'
@@ -420,6 +520,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/shoots/$id'
       preLoaderRoute: typeof ShootsIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/scripts/yourboy': {
+      id: '/scripts/yourboy'
+      path: '/yourboy'
+      fullPath: '/scripts/yourboy'
+      preLoaderRoute: typeof ScriptsYourboyRouteImport
+      parentRoute: typeof ScriptsRoute
+    }
+    '/scripts/strategy': {
+      id: '/scripts/strategy'
+      path: '/strategy'
+      fullPath: '/scripts/strategy'
+      preLoaderRoute: typeof ScriptsStrategyRouteImport
+      parentRoute: typeof ScriptsRoute
+    }
+    '/scripts/research': {
+      id: '/scripts/research'
+      path: '/research'
+      fullPath: '/scripts/research'
+      preLoaderRoute: typeof ScriptsResearchRouteImport
+      parentRoute: typeof ScriptsRoute
+    }
+    '/scripts/manual': {
+      id: '/scripts/manual'
+      path: '/manual'
+      fullPath: '/scripts/manual'
+      preLoaderRoute: typeof ScriptsManualRouteImport
+      parentRoute: typeof ScriptsRoute
+    }
+    '/scripts/$num': {
+      id: '/scripts/$num'
+      path: '/$num'
+      fullPath: '/scripts/$num'
+      preLoaderRoute: typeof ScriptsNumRouteImport
+      parentRoute: typeof ScriptsRoute
     }
     '/projects/$id': {
       id: '/projects/$id'
@@ -496,10 +631,30 @@ const PlaybookRouteWithChildren = PlaybookRoute._addFileChildren(
   PlaybookRouteChildren,
 )
 
+interface ScriptsRouteChildren {
+  ScriptsNumRoute: typeof ScriptsNumRoute
+  ScriptsManualRoute: typeof ScriptsManualRoute
+  ScriptsResearchRoute: typeof ScriptsResearchRoute
+  ScriptsStrategyRoute: typeof ScriptsStrategyRoute
+  ScriptsYourboyRoute: typeof ScriptsYourboyRoute
+}
+
+const ScriptsRouteChildren: ScriptsRouteChildren = {
+  ScriptsNumRoute: ScriptsNumRoute,
+  ScriptsManualRoute: ScriptsManualRoute,
+  ScriptsResearchRoute: ScriptsResearchRoute,
+  ScriptsStrategyRoute: ScriptsStrategyRoute,
+  ScriptsYourboyRoute: ScriptsYourboyRoute,
+}
+
+const ScriptsRouteWithChildren =
+  ScriptsRoute._addFileChildren(ScriptsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyticsRoute: AnalyticsRoute,
   AssetsRoute: AssetsRoute,
+  BrandRoute: BrandRoute,
   ClientsRoute: ClientsRouteWithChildren,
   ContentRoute: ContentRoute,
   FinanceRoute: FinanceRoute,
@@ -508,6 +663,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductionsRoute: ProductionsRoute,
   ScheduleRoute: ScheduleRoute,
   ScoreboardRoute: ScoreboardRoute,
+  ScriptsRoute: ScriptsRouteWithChildren,
   SettingsRoute: SettingsRoute,
   TasksRoute: TasksRoute,
   TeamRoute: TeamRoute,

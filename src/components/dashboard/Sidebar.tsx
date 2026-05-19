@@ -17,6 +17,8 @@ import {
   Clapperboard,
   Target,
   Trash2,
+  FileText,
+  Palette,
 } from "lucide-react";
 import { useStore } from "@/lib/store";
 
@@ -35,6 +37,8 @@ const nav = [
   { label: "Gear", to: "/gear", icon: Boxes },
   { label: "Playbooks", to: "/playbook", icon: ClipboardList },
   { label: "Content Pipeline", to: "/content", icon: Clapperboard },
+  { label: "Scripts", to: "/scripts", icon: FileText },
+  { label: "Brand", to: "/brand", icon: Palette },
   { label: "Templates", to: "/admin/templates", icon: SlidersHorizontal },
 ] as const;
 
