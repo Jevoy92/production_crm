@@ -119,6 +119,9 @@ function ProductionsPage() {
 }
 
 function Kanban({ projects }: { projects: Project[] }) {
+  // placeholder anchor
+  // (ProductionTimeline defined below)
+  // eslint-disable-next-line
   const setStage = useStore((s) => s.setStage);
   const clients = useStore((s) => s.clients);
   const team = useStore((s) => s.team);
