@@ -492,6 +492,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Camera",
     status: "Available",
     kitIds: ["k_solo", "k_podcast", "k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_02",
@@ -499,6 +501,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Camera",
     status: "On Shoot",
     kitIds: ["k_podcast"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1606980625402-d3e1ba5022d4?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_03",
@@ -506,6 +510,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Lens",
     status: "Available",
     kitIds: ["k_solo", "k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1617638924751-cd4ce4646279?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_04",
@@ -513,6 +519,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Lens",
     status: "Available",
     kitIds: ["k_solo"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1606986628253-797f59d54f15?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_05",
@@ -520,6 +528,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Audio",
     status: "Available",
     kitIds: ["k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_06",
@@ -527,6 +537,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Audio",
     status: "Available",
     kitIds: ["k_solo", "k_podcast", "k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_07",
@@ -534,6 +546,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Lighting",
     status: "Available",
     kitIds: ["k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1604542031658-5799ce0d23e4?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_08",
@@ -541,6 +555,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Lighting",
     status: "Repair",
     kitIds: ["k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1607462109225-6b64ae2dd3cb?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_09",
@@ -548,6 +564,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Support",
     status: "Available",
     kitIds: ["k_solo", "k_podcast"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1473893604213-3df9c15cf045?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_10",
@@ -555,6 +573,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Audio",
     status: "Available",
     kitIds: ["k_podcast"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_11",
@@ -562,6 +582,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Monitor",
     status: "Available",
     kitIds: ["k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "g_12",
@@ -569,6 +591,8 @@ const GEAR_ITEMS: GearItem[] = [
     category: "Media",
     status: "Available",
     kitIds: ["k_solo", "k_podcast", "k_training"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=70",
   },
 ];
 
