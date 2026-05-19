@@ -6,7 +6,7 @@ import { useStore, palColor, checklistProgress } from "@/lib/store";
 import { STAGES, PAL_TYPES } from "@/lib/types";
 import type { Stage, PalType, Project } from "@/lib/types";
 import { Plus, LayoutGrid, Rows, Filter, ExternalLink, Pencil, Trash2, UserPlus, Check } from "lucide-react";
-import { Code2, FlaskConical, Rocket, Palette as PaletteIcon } from "lucide-react";
+import { Inbox, Handshake, ClipboardList, Camera, Scissors, PackageCheck } from "lucide-react";
 
 export const Route = createFileRoute("/productions")({
   component: ProductionsPage,
@@ -100,7 +100,7 @@ function ProductionsPage() {
 
       {view === "kanban" ? (
         <>
-          <ProductionTimeline />
+          <ProductionTimeline projects={filtered} />
           <Kanban projects={filtered} />
           <div className="mt-6">
             <div className="text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-2 px-1">
@@ -782,67 +782,76 @@ function EditProjectModal({ project, onClose }: { project: Project | null; onClo
   );
 }
 
-// ─── Production Timeline (visual milestone tracker) ──────────────────────────
-type Phase = {
-  key: string;
-  label: string;
-  date: string;
-  status: "complete" | "in-progress" | "pending";
-  done: number;
-  total: number;
-  icon: React.ComponentType<{ className?: string }>;
-};
 
-const PHASES: Phase[] = [
-  { key: "kickoff", label: "Kickoff", date: "Nov 1, 2023", status: "complete", done: 5, total: 5, icon: Check },
-  { key: "planning", label: "Planning", date: "Nov 8, 2023", status: "complete", done: 12, total: 12, icon: Check },
-  { key: "design", label: "Design", date: "Nov 22, 2023", status: "complete", done: 18, total: 18, icon: Check },
-  { key: "development", label: "Development", date: "Dec 20, 2023", status: "in-progress", done: 24, total: 35, icon: Code2 },
-  { key: "testing", label: "Testing", date: "Jan 5, 2024", status: "pending", done: 0, total: 22, icon: FlaskConical },
-  { key: "launch", label: "Launch", date: "Jan 15, 2024", status: "pending", done: 0, total: 8, icon: Rocket },
+// ─── Production Timeline (real pipeline stages) ──────────────────────────────
+const TIMELINE_STAGES: { key: Stage; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
+  { key: "Lead", label: "Lead", icon: Inbox },
+  { key: "Booked", label: "Booked", icon: Handshake },
+  { key: "Pre-Production", label: "Pre-Production", icon: ClipboardList },
+  { key: "Shoot Day", label: "Shoot Day", icon: Camera },
+  { key: "In Post", label: "In Post", icon: Scissors },
+  { key: "Delivered", label: "Delivered", icon: PackageCheck },
 ];
 
-function ProductionTimeline() {
-  const [filter, setFilter] = useState<"all" | "planning" | "development" | "testing">("all");
+function ProductionTimeline({ projects }: { projects: Project[] }) {
+  const [filter, setFilter] = useState<"all" | PalType>("all");
+  const scoped = projects.filter((p) => filter === "all" || p.palType === filter);
+  const total = scoped.length || 1;
+
+  const byStage = TIMELINE_STAGES.map((s) => ({
+    ...s,
+    count: scoped.filter((p) => p.stage === s.key).length,
+  }));
+  const activeIdx = byStage.findIndex((s) => s.count > 0);
+
+  const activeProjects = scoped.filter((p) =>
+    ["Pre-Production", "Shoot Day", "In Post"].includes(p.stage),
+  );
+  const deliveredProjects = scoped.filter((p) => p.stage === "Delivered");
 
   return (
     <div className="mb-6 space-y-4">
       <div className="card-elevated rounded-2xl p-3 flex items-center gap-2 flex-wrap">
-        {(["all", "planning", "development", "testing"] as const).map((f) => (
+        {(["all", ...PAL_TYPES] as const).map((f) => (
           <button
             key={f}
-            onClick={() => setFilter(f)}
-            className={`px-3 py-1.5 rounded-lg text-[12px] capitalize transition-colors ${
+            onClick={() => setFilter(f as "all" | PalType)}
+            className={`px-3 py-1.5 rounded-lg text-[12px] transition-colors ${
               filter === f
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:bg-surface-2"
             }`}
           >
-            {f === "all" ? "All Phases" : f}
+            {f === "all" ? "All Pals" : f}
           </button>
         ))}
-        <div className="ml-auto text-[11px] text-muted-foreground">Production milestones</div>
+        <div className="ml-auto text-[11px] text-muted-foreground num">
+          {scoped.length} project{scoped.length === 1 ? "" : "s"} in view
+        </div>
       </div>
 
       <div className="card-elevated rounded-2xl p-5">
         <div className="mb-5">
-          <div className="text-[14px] font-semibold">Production Timeline</div>
-          <div className="text-[11.5px] text-muted-foreground">Track milestone progress and delivery dates</div>
+          <div className="text-[14px] font-semibold">Production Pipeline</div>
+          <div className="text-[11.5px] text-muted-foreground">
+            Live distribution of projects across each stage
+          </div>
         </div>
 
         <div className="relative">
           <div className="absolute top-7 left-[6%] right-[6%] h-px bg-border" />
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 relative">
-            {PHASES.map((p) => {
-              const Icon = p.icon;
-              const pct = p.total ? Math.round((p.done / p.total) * 100) : 0;
-              const isComplete = p.status === "complete";
-              const isActive = p.status === "in-progress";
+            {byStage.map((s, i) => {
+              const Icon = s.icon;
+              const pct = Math.round((s.count / total) * 100);
+              const isActive = i === activeIdx && s.count > 0;
+              const isPast = activeIdx >= 0 && i < activeIdx;
+              const isDelivered = s.key === "Delivered" && s.count > 0;
               return (
-                <div key={p.key} className="flex flex-col items-center text-center">
+                <div key={s.key} className="flex flex-col items-center text-center">
                   <div
                     className={`size-14 rounded-full grid place-items-center mb-3 relative z-10 ring-4 ring-card ${
-                      isComplete
+                      isDelivered || isPast
                         ? "bg-emerald-500 text-white"
                         : isActive
                           ? "bg-primary text-primary-foreground"
@@ -851,29 +860,34 @@ function ProductionTimeline() {
                   >
                     <Icon className="size-5" />
                   </div>
-                  <div className="text-[12.5px] font-semibold">{p.label}</div>
-                  <div className="text-[10.5px] text-muted-foreground num mb-1.5">{p.date}</div>
+                  <div className="text-[12.5px] font-semibold">{s.label}</div>
+                  <div className="text-[10.5px] text-muted-foreground num mb-1.5">
+                    {s.count} project{s.count === 1 ? "" : "s"}
+                  </div>
                   <span
                     className={`inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-md ${
-                      isComplete
+                      isDelivered
                         ? "bg-emerald-500/10 text-emerald-500"
                         : isActive
                           ? "bg-primary/10 text-primary"
-                          : "bg-surface-3 text-muted-foreground"
+                          : isPast
+                            ? "bg-emerald-500/10 text-emerald-500"
+                            : "bg-surface-3 text-muted-foreground"
                     }`}
                   >
-                    {isComplete ? "Complete" : isActive ? "In Progress" : "Pending"}
+                    {pct}% of pipeline
                   </span>
-                  <div className="mt-2 w-full">
-                    <div className="text-[10px] text-muted-foreground num mb-1">{p.done}/{p.total} tasks</div>
-                    <div className="h-1 rounded-full bg-surface-3 overflow-hidden">
-                      <div
-                        className={`h-full rounded-full ${
-                          isComplete ? "bg-emerald-500" : isActive ? "bg-primary" : "bg-transparent"
-                        }`}
-                        style={{ width: `${pct}%` }}
-                      />
-                    </div>
+                  <div className="mt-2 w-full h-1 rounded-full bg-surface-3 overflow-hidden">
+                    <div
+                      className={`h-full rounded-full ${
+                        isDelivered || isPast
+                          ? "bg-emerald-500"
+                          : isActive
+                            ? "bg-primary"
+                            : "bg-transparent"
+                      }`}
+                      style={{ width: `${pct}%` }}
+                    />
                   </div>
                 </div>
               );
@@ -883,98 +897,71 @@ function ProductionTimeline() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <PhaseCard
-          title="Development Phase"
-          subtitle="Active Sprint 4 of 6"
-          icon={Code2}
-          iconTone="primary"
-          badge="68% Complete"
-          badgeTone="primary"
-          items={[
-            { label: "Frontend Development", pct: 85, tone: "primary" },
-            { label: "Backend API", pct: 72, tone: "primary" },
-            { label: "Database Integration", pct: 48, tone: "warn" },
-          ]}
-          footer={<><span className="text-muted-foreground">Due:</span> <span className="font-medium">Dec 20, 2023</span> <span className="text-muted-foreground ml-3">Team:</span> <span className="font-medium">8 members</span></>}
-          action="View Details"
+        <PalBreakdownCard
+          title="Active Productions"
+          subtitle={`${activeProjects.length} in flight · Pre-Pro → Post`}
+          projects={activeProjects}
+          tone="primary"
         />
-        <PhaseCard
-          title="Design Phase"
-          subtitle="Completed Nov 22"
-          icon={PaletteIcon}
-          iconTone="emerald"
-          badge="100% Complete"
-          badgeTone="emerald"
-          items={[
-            { label: "UI/UX Design", pct: 100, tone: "emerald" },
-            { label: "Prototyping", pct: 100, tone: "emerald" },
-            { label: "Design System", pct: 100, tone: "emerald" },
-          ]}
-          footer={<><span className="text-muted-foreground">Completed:</span> <span className="font-medium">Nov 22, 2023</span> <span className="text-muted-foreground ml-3">Team:</span> <span className="font-medium">5 members</span></>}
+        <PalBreakdownCard
+          title="Delivered"
+          subtitle={`${deliveredProjects.length} shipped`}
+          projects={deliveredProjects}
+          tone="emerald"
         />
       </div>
     </div>
   );
 }
 
-function PhaseCard({
+function PalBreakdownCard({
   title,
   subtitle,
-  icon: Icon,
-  iconTone,
-  badge,
-  badgeTone,
-  items,
-  footer,
-  action,
+  projects,
+  tone,
 }: {
   title: string;
   subtitle: string;
-  icon: React.ComponentType<{ className?: string }>;
-  iconTone: "primary" | "emerald";
-  badge: string;
-  badgeTone: "primary" | "emerald";
-  items: { label: string; pct: number; tone: "primary" | "emerald" | "warn" }[];
-  footer: React.ReactNode;
-  action?: string;
+  projects: Project[];
+  tone: "primary" | "emerald";
 }) {
-  const toneBar: Record<string, string> = {
-    primary: "bg-primary",
-    emerald: "bg-emerald-500",
-    warn: "bg-amber-500",
-  };
-  const iconBg = iconTone === "emerald" ? "bg-emerald-500/10 text-emerald-500" : "bg-primary/10 text-primary";
-  const badgeBg = badgeTone === "emerald" ? "bg-emerald-500/10 text-emerald-500" : "bg-primary/10 text-primary";
+  const total = projects.length || 1;
+  const rows = PAL_TYPES.map((pt) => {
+    const count = projects.filter((p) => p.palType === pt).length;
+    return { pt, count, pct: Math.round((count / total) * 100) };
+  });
+  const badgeBg = tone === "emerald" ? "bg-emerald-500/10 text-emerald-500" : "bg-primary/10 text-primary";
   return (
     <div className="card-elevated rounded-2xl p-5">
       <div className="flex items-start justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <div className={`size-10 rounded-xl grid place-items-center ${iconBg}`}>
-            <Icon className="size-5" />
-          </div>
-          <div>
-            <div className="text-[14px] font-semibold">{title}</div>
-            <div className="text-[11.5px] text-muted-foreground">{subtitle}</div>
-          </div>
+        <div>
+          <div className="text-[14px] font-semibold">{title}</div>
+          <div className="text-[11.5px] text-muted-foreground">{subtitle}</div>
         </div>
-        <span className={`text-[11px] px-2 py-1 rounded-md ${badgeBg}`}>{badge}</span>
+        <span className={`text-[11px] px-2 py-1 rounded-md ${badgeBg} num`}>
+          {projects.length} total
+        </span>
       </div>
       <div className="space-y-3">
-        {items.map((it) => (
-          <div key={it.label}>
+        {rows.map((r) => (
+          <div key={r.pt}>
             <div className="flex items-center justify-between text-[12px] mb-1">
-              <span>{it.label}</span>
-              <span className="num font-medium">{it.pct}%</span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="size-2 rounded-sm" style={{ background: palColor(r.pt) }} />
+                {r.pt}
+              </span>
+              <span className="num font-medium text-muted-foreground">
+                {r.count} · {r.pct}%
+              </span>
             </div>
             <div className="h-1.5 rounded-full bg-surface-3 overflow-hidden">
-              <div className={`h-full rounded-full ${toneBar[it.tone]}`} style={{ width: `${it.pct}%` }} />
+              <div
+                className="h-full rounded-full"
+                style={{ width: `${r.pct}%`, background: palColor(r.pt) }}
+              />
             </div>
           </div>
         ))}
-      </div>
-      <div className="mt-4 pt-3 border-t border-border flex items-center text-[11.5px]">
-        <div className="flex-1">{footer}</div>
-        {action && <button className="text-primary font-medium hover:underline">{action} →</button>}
       </div>
     </div>
   );
