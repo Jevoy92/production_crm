@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Palmer House Productions — Brand & Design Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     PALMER HOUSE PRODUCTIONS — BRAND & DESIGN HUB v3.0
+     Source: MASTER-SKILL.md canon + live site + 50+ carousels
+     ========================================================= */
+
+  :root {
+    /* Neutrals */
+    --paper:        #FFFFFF;
+    --cream:        #F4F1EA;       /* Carousel + warm sections */
+    --mist:         #F6F8FA;
+    --line:         #E5E7EB;
+    --line-strong:  #CBD0D6;
+    --muted:        #6B7280;
+    --ink-soft:     #3A3F47;
+    --ink:          #1F2328;
+
+    /* 4 Pillar Lanes — canonical hex */
+    --reel:         #E8720C;   /* Orange */
+    --reel-soft:    #FDF1E6;
+    --spotlight:    #3D1A66;   /* Deep plum */
+    --spotlight-soft:#EEE9F4;
+    --evergreen:    #5B8A2D;   /* Sage green */
+    --evergreen-soft:#EEF4E4;
+    --system:       #0A9B8F;   /* Teal */
+    --system-soft:  #E4F4F2;
+
+    /* Muted lane backgrounds (for large section fills) */
+    --reel-muted:      #D67238;
+    --spotlight-muted: #5A3B85;
+    --evergreen-muted: #7A9F4F;
+    --system-muted:    #6A9994;
+
+    /* Status */
+    --success:      #2F855A;
+    --danger:       #B23A2B;
+
+    /* Type */
+    --f-serif:   "Playfair Display", "Times New Roman", Georgia, serif;
+    --f-body:    "Inter", "Helvetica Neue", Arial, sans-serif;
+    --f-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    /* Layout */
+    --rail: 280px;
+    --gutter: clamp(24px, 4vw, 72px);
+    --r-sm: 6px;
+    --r-md: 12px;
+    --r-lg: 20px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ---------- EYEBROW (carousel signature) ---------- */
+  .eyebrow {
+    font-family: var(--f-body);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before, .eyebrow::after {
+    content: "";
+    width: 18px;
+    height: 1px;
+    background: currentColor;
+  }
+  .eyebrow--reel { color: var(--reel); }
+  .eyebrow--spotlight { color: var(--spotlight); }
+  .eyebrow--evergreen { color: var(--evergreen); }
+  .eyebrow--system { color: var(--system); }
+
+  /* ---------- TAG (Mono) ---------- */
+  .tag {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tag b { color: var(--ink); font-weight: 600; }
+  .tag--reel b { color: var(--reel); }
+  .tag--spotlight b { color: var(--spotlight); }
+  .tag--evergreen b { color: var(--evergreen); }
+  .tag--system b { color: var(--system); }
+
+  /* ---------- BUTTON SYSTEM ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    font-family: var(--f-body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    text-decoration: none;
+    border: 1.5px solid var(--spotlight);
+    background: var(--spotlight);
+    color: var(--paper);
+    border-radius: 999px;        /* Real site uses fully rounded buttons */
+    transition: background .15s, color .15s, transform .15s;
+    cursor: pointer;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn--ghost {
+    background: transparent;
+    color: var(--spotlight);
+  }
+  .btn--ghost:hover { background: var(--spotlight); color: var(--paper); }
+
+  /* ---------- TRANSFORMATION CHIP (signature pattern) ---------- */
+  .xform {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--paper);
+    font-family: var(--f-body);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .xform__old {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: rgba(107,114,128,0.6);
+    text-decoration-thickness: 1.5px;
+  }
+  .xform__arrow {
+    color: var(--ink-soft);
+    font-weight: 700;
+  }
+  .xform__new {
+    font-weight: 700;
+  }
+  .xform--reel .xform__arrow, .xform--reel .xform__new { color: var(--reel); }
+  .xform--spotlight .xform__arrow, .xform--spotlight .xform__new { color: var(--spotlight); }
+  .xform--evergreen .xform__arrow, .xform--evergreen .xform__new { color: var(--evergreen); }
+  .xform--system .xform__arrow, .xform--system .xform__new { color: var(--system); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    min-height: 96vh;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 48px var(--gutter) 80px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hero__top b { color: var(--spotlight); font-weight: 600; }
+  .hero__body { align-self: center; margin: 56px 0; max-width: 1280px; }
+  .hero__eyebrow-wrap { margin: 0 0 32px; }
+  .hero__title {
+    font-family: var(--f-body);
+    font-weight: 800;
+    font-size: clamp(44px, 8vw, 132px);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin: 0 0 24px;
+    color: var(--ink);
+  }
+  .hero__title em {
+    font-style: normal;
+    color: var(--reel);
+    font-weight: 800;
+  }
+  .hero__lede {
+    font-family: var(--f-body);
+    font-weight: 400;
+    font-size: clamp(18px, 1.7vw, 22px);
+    line-height: 1.55;
+    max-width: 720px;
+    color: var(--ink-soft);
+    margin: 0 0 32px;
+  }
+  .hero__xform-row {
+    display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 40px;
+  }
+  .hero__meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+    max-width: 980px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .hero__meta dt {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .hero__meta dd { margin: 0; font-family: var(--f-body); font-weight: 500; font-size: 14px; color: var(--ink); }
+  .hero__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px;
+  }
+  .hero__section-preview {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------- LAYOUT ---------- */
+  .shell { display: grid; grid-template-columns: var(--rail) minmax(0, 1fr); }
+  @media (max-width: 960px) { .shell { grid-template-columns: 1fr; } }
+
+  /* ---------- NAV RAIL ---------- */
+  .rail {
+    position: sticky; top: 0; align-self: start;
+    height: 100vh; padding: 40px 32px;
+    background: var(--mist); border-right: 1px solid var(--line);
+    overflow-y: auto;
+  }
+  @media (max-width: 960px) { .rail { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); } }
+  .rail__brand { font-family: var(--f-body); font-weight: 800; font-size: 18px; letter-spacing: -0.01em; margin-bottom: 4px; line-height: 1.1; }
+  .rail__sub { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 36px; }
+  .rail__group { margin-bottom: 24px; }
+  .rail__label { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .rail__list { list-style: none; padding: 0; margin: 0; }
+  .rail__list a {
+    display: block;
+    padding: 6px 0 6px 12px;
+    margin-left: -12px;
+    color: var(--ink);
+    text-decoration: none;
+    font-family: var(--f-body);
+    font-size: 14px;
+    font-weight: 500;
+    border-left: 2px solid transparent;
+    transition: color .15s, border-color .15s;
+  }
+  .rail__list a:hover { color: var(--reel); border-left-color: var(--reel); }
+
+  /* ---------- MAIN ---------- */
+  main { max-width: 100%; }
+  .section { padding: 96px var(--gutter); border-bottom: 1px solid var(--line); background: var(--paper); }
+  .section--mist { background: var(--mist); }
+  .section--cream { background: var(--cream); }
+  .section--system { background: var(--system-muted); color: var(--paper); }
+  .section--system .section__title { color: var(--paper); }
+  .section--system .section__lede { color: rgba(255,255,255,0.85); }
+  .section--system .section__num { color: rgba(255,255,255,0.7); }
+  .section--system .section__num b { color: var(--paper); }
+  .section__header { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,2fr); gap: 48px; margin-bottom: 64px; align-items: end; }
+  @media (max-width: 800px) { .section__header { grid-template-columns: 1fr; gap: 16px; } }
+  .section__num { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .section__num b { color: var(--reel); font-weight: 600; }
+  .section__title {
+    font-family: var(--f-body);
+    font-weight: 800;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .section__title em { font-style: normal; }
+  .section__title .reel { color: var(--reel); }
+  .section__title .spotlight { color: var(--spotlight); }
+  .section__title .evergreen { color: var(--evergreen); }
+  .section__title .system { color: var(--system); }
+  .section__title .serif { font-family: var(--f-serif); font-weight: 700; font-style: italic; }
+  .section__lede { font-family: var(--f-body); font-weight: 400; font-size: clamp(16px,1.4vw,19px); line-height: 1.55; color: var(--muted); max-width: 640px; margin: 0; }
+
+  /* ---------- ESSENCE ---------- */
+  .essence { display: grid; grid-template-columns: repeat(12, 1fr); gap: 32px; }
+  .essence__quote {
+    grid-column: 1 / span 7;
+    font-family: var(--f-body);
+    font-weight: 700;
+    font-size: clamp(28px, 3.8vw, 48px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .essence__quote .serif {
+    font-family: var(--f-serif);
+    font-style: italic;
+    font-weight: 600;
+    color: var(--spotlight);
+  }
+  .essence__quote em { font-style: normal; color: var(--reel); font-weight: 800; }
+  .essence__pillars { grid-column: 8 / -1; display: flex; flex-direction: column; gap: 4px; }
+  .pillar { padding: 18px 0; border-top: 1px solid var(--line); }
+  .pillar h4 { font-family: var(--f-body); font-weight: 600; font-size: 14px; margin: 0 0 6px; color: var(--ink); }
+  .pillar p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  @media (max-width: 900px) {
+    .essence__quote, .essence__pillars { grid-column: 1 / -1; }
+  }
+
+  .house-rules { margin-top: 72px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0; border: 1px solid var(--line); background: var(--paper); }
+  .house-rule { padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .house-rule__n { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--reel); margin-bottom: 16px; }
+  .house-rule__t { font-family: var(--f-body); font-weight: 700; font-size: 20px; line-height: 1.2; letter-spacing: -0.01em; margin: 0 0 10px; color: var(--ink); }
+  .house-rule__d { font-size: 14px; color: var(--ink-soft); margin: 0; line-height: 1.5; }
+
+  /* ---------- LOGO ---------- */
+  .logo-stage {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 60px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 280px;
+  }
+  .logo-stage img { max-width: 240px; width: 100%; height: auto; mix-blend-mode: multiply; }
+  .logo-stage--cream { background: var(--cream); }
+  .logo-stage--mist { background: var(--mist); }
+  .logo-stage--reel-soft { background: var(--reel-soft); }
+  .logo-stage--spotlight-soft { background: var(--spotlight-soft); }
+  .logo-stage__label {
+    position: absolute; top: 16px; left: 20px;
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .logo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 800px) { .logo-grid { grid-template-columns: 1fr; } }
+
+  .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 0; margin-top: 56px; border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+  .rule {
+    padding: 28px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .rule__head { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 14px; }
+  .rule__head--do { color: var(--success); }
+  .rule__head--dont { color: var(--danger); }
+  .rule h4 { font-family: var(--f-body); font-weight: 600; font-size: 15px; margin: 0 0 6px; color: var(--ink); }
+  .rule p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+  .rule__visual {
+    height: 110px; background: var(--cream); border-radius: var(--r-sm);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px; font-family: var(--f-mono); font-size: 10px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.18em;
+  }
+
+  /* ---------- COLOR — PILLAR LANES ---------- */
+  .pillar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-radius: var(--r-md); overflow: hidden; box-shadow: 0 0 0 1px var(--line); margin-bottom: 64px; }
+  @media (max-width: 900px) { .pillar-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .pillar-grid { grid-template-columns: 1fr; } }
+  .pillar-card { background: var(--paper); display: flex; flex-direction: column; border-right: 1px solid var(--line); }
+  .pillar-card:last-child { border-right: 0; }
+  .pillar-card__head {
+    height: 200px;
+    padding: 24px;
+    cursor: pointer;
+    position: relative;
+    display: flex; flex-direction: column; justify-content: space-between;
+    color: var(--paper);
+    transition: opacity .2s;
+  }
+  .pillar-card__head:hover { opacity: 0.95; }
+  .pillar-card__head::after {
+    content: "COPY"; position: absolute; top: 16px; right: 18px;
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; opacity: 0.6;
+  }
+  .pillar-card__head.copied::after { content: "COPIED ✓"; opacity: 1; }
+  .pillar-card__head--reel { background: var(--reel); }
+  .pillar-card__head--spotlight { background: var(--spotlight); }
+  .pillar-card__head--evergreen { background: var(--evergreen); }
+  .pillar-card__head--system { background: var(--system); }
+  .pillar-card__lane { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.85; }
+  .pillar-card__name { font-family: var(--f-body); font-weight: 800; font-size: 36px; letter-spacing: -0.025em; line-height: 1; }
+  .pillar-card__body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .pillar-card__tagline { font-family: var(--f-body); font-weight: 600; font-size: 14px; margin-bottom: 12px; }
+  .pillar-card__tagline--reel { color: var(--reel); }
+  .pillar-card__tagline--spotlight { color: var(--spotlight); }
+  .pillar-card__tagline--evergreen { color: var(--evergreen); }
+  .pillar-card__tagline--system { color: var(--system); }
+  .pillar-card__focus { font-size: 13px; color: var(--ink-soft); line-height: 1.55; margin: 0 0 16px; flex: 1; }
+  .pillar-card__codes { font-family: var(--f-mono); font-size: 11px; line-height: 1.7; color: var(--muted); }
+  .pillar-card__codes b { color: var(--ink); font-weight: 500; }
+  .pillar-card__chars { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+
+  /* Variant stripes — saturated + muted + soft */
+  .variants { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+  @media (max-width: 700px) { .variants { grid-template-columns: repeat(2, 1fr); } }
+  .variant-lane { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+  .variant-lane__row { height: 36px; display: flex; align-items: center; padding: 0 14px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; cursor: pointer; position: relative; }
+  .variant-lane__row::after {
+    content: "COPY"; position: absolute; right: 12px;
+    font-size: 9px; letter-spacing: 0.22em; opacity: 0.5;
+  }
+  .variant-lane__row.copied::after { content: "✓"; opacity: 1; }
+  .variant-lane__row--dark { color: var(--paper); }
+  .variant-lane__row--mid { color: var(--paper); }
+  .variant-lane__row--soft { color: var(--ink); }
+
+  /* Neutrals */
+  .neutrals { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 56px; }
+  .neutral { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md); padding: 20px; position: relative; cursor: pointer; display: flex; flex-direction: column; gap: 12px; min-height: 130px; }
+  .neutral::after { content: "COPY"; position: absolute; top: 14px; right: 16px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; opacity: 0.4; }
+  .neutral.copied::after { content: "✓"; opacity: 1; }
+  .neutral__chip { width: 100%; height: 48px; border: 1px solid var(--line); border-radius: var(--r-sm); }
+  .neutral__name { font-family: var(--f-body); font-weight: 600; font-size: 14px; margin: 0; }
+  .neutral__hex { font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
+
+  /* ---------- TYPOGRAPHY ---------- */
+  .type-specimen { margin-bottom: 56px; padding-bottom: 48px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: minmax(200px,260px) 1fr; gap: 48px; }
+  @media (max-width: 800px) { .type-specimen { grid-template-columns: 1fr; gap: 20px; } }
+  .type-specimen:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+  .type-specimen__role { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--reel); margin-bottom: 10px; }
+  .type-specimen__name { font-family: var(--f-body); font-weight: 700; font-size: 24px; line-height: 1; margin: 0 0 6px; }
+  .type-specimen__notes { font-size: 13px; color: var(--muted); margin: 0 0 18px; line-height: 1.5; }
+  .type-specimen__weights { font-family: var(--f-mono); font-size: 11px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; letter-spacing: 0.04em; }
+  .demo-sans-display { font-family: var(--f-body); font-weight: 800; font-size: clamp(40px, 7vw, 88px); line-height: 1; letter-spacing: -0.03em; margin: 0 0 16px; color: var(--ink); }
+  .demo-sans-display em { font-style: normal; color: var(--reel); }
+  .demo-serif-display { font-family: var(--f-serif); font-weight: 700; font-size: clamp(40px, 7vw, 88px); line-height: 1; letter-spacing: -0.015em; margin: 0 0 16px; color: var(--ink); }
+  .demo-serif-display em { font-style: italic; color: var(--evergreen); font-weight: 600; }
+  .demo-body { font-family: var(--f-body); font-size: 17px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .demo-mono { font-family: var(--f-mono); font-size: 11px; line-height: 1.6; color: var(--muted); letter-spacing: 0.22em; text-transform: uppercase; }
+  .demo-char { font-family: var(--f-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.16em; margin-top: 14px; }
+
+  .scale { background: var(--mist); padding: 32px; border: 1px solid var(--line); border-radius: var(--r-md); margin-top: 32px; }
+  .scale-row { display: grid; grid-template-columns: 110px 100px 80px 1fr; gap: 16px; padding: 12px 0; border-top: 1px solid var(--line); align-items: baseline; }
+  .scale-row:first-child { border-top: 0; }
+  .scale-row__token { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--reel); }
+  .scale-row__size, .scale-row__line { font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
+  .scale-row__sample { color: var(--ink); }
+
+  /* ---------- TRANSFORMATION SECTION ---------- */
+  .xform-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 56px; background: var(--cream); border-radius: var(--r-lg); margin-bottom: 56px; }
+  @media (max-width: 900px) { .xform-hero { grid-template-columns: 1fr; gap: 32px; padding: 32px; } }
+  .xform-hero__big { font-family: var(--f-body); font-weight: 800; font-size: clamp(36px, 5vw, 60px); line-height: 1.05; letter-spacing: -0.025em; }
+  .xform-hero__big em { font-style: normal; color: var(--reel); }
+  .xform-hero__chips { display: flex; flex-direction: column; gap: 12px; }
+  .xform-hero__chips .xform { font-size: 16px; padding: 12px 22px; }
+
+  /* ---------- CHARACTER CAST ---------- */
+  .lane-block { margin-bottom: 64px; }
+  .lane-block__head {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    padding: 20px 24px; margin-bottom: 20px;
+    border-radius: var(--r-md);
+    color: var(--paper);
+  }
+  .lane-block--reel .lane-block__head { background: var(--reel); }
+  .lane-block--spotlight .lane-block__head { background: var(--spotlight); }
+  .lane-block--evergreen .lane-block__head { background: var(--evergreen); }
+  .lane-block--system .lane-block__head { background: var(--system); }
+  .lane-block__name {
+    font-family: var(--f-body); font-weight: 800; font-size: 28px; line-height: 1; letter-spacing: -0.02em; color: var(--paper);
+  }
+  .lane-block__focus { font-family: var(--f-body); font-weight: 500; font-size: 14px; color: rgba(255,255,255,0.9); }
+  .lane-block__hex { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; color: rgba(255,255,255,0.85); margin-left: auto; }
+
+  .cast-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 800px) { .cast-grid { grid-template-columns: 1fr; } }
+
+  .cast-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    overflow: hidden;
+    transition: border-color .2s, transform .2s;
+  }
+  .cast-card:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+  @media (max-width: 540px) { .cast-card { grid-template-columns: 1fr; } }
+  .cast-card__img {
+    background: var(--paper);
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .cast-card__img::after {
+    /* The "stage" ellipse */
+    content: "";
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 18px;
+    border-radius: 50%;
+    z-index: 0;
+    opacity: 0.45;
+    filter: blur(6px);
+  }
+  .cast-card--reel .cast-card__img::after { background: var(--reel); }
+  .cast-card--spotlight .cast-card__img::after { background: var(--spotlight); }
+  .cast-card--evergreen .cast-card__img::after { background: var(--evergreen); }
+  .cast-card--system .cast-card__img::after { background: var(--system); }
+  .cast-card__img img {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    position: relative;
+    z-index: 1;
+  }
+  .cast-card__body { padding: 24px; display: flex; flex-direction: column; }
+  .cast-card__name { font-family: var(--f-body); font-weight: 800; font-size: 28px; letter-spacing: -0.02em; margin: 0 0 4px; line-height: 1; }
+  .cast-card__role { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 14px; }
+  .cast-card__role--reel { color: var(--reel); }
+  .cast-card__role--spotlight { color: var(--spotlight); }
+  .cast-card__role--evergreen { color: var(--evergreen); }
+  .cast-card__role--system { color: var(--system); }
+  .cast-card__tag {
+    font-family: var(--f-body); font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 14px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--line);
+  }
+  .cast-card__detail { display: grid; grid-template-columns: 90px 1fr; gap: 8px 16px; font-size: 13px; color: var(--ink-soft); }
+  .cast-card__detail dt { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); padding-top: 1px; }
+  .cast-card__detail dd { margin: 0; line-height: 1.5; }
+
+  /* ---------- VOICE ---------- */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  @media (max-width: 800px) { .voice-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .voice-col h4 { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--reel); margin: 0 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .voice-item { padding: 16px 0; border-top: 1px solid var(--line); }
+  .voice-item:first-of-type { border-top: 0; }
+  .voice-item__k { font-family: var(--f-body); font-weight: 700; font-size: 15px; color: var(--ink); margin-bottom: 4px; }
+  .voice-item__v { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+
+  .lane-voices { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
+  @media (max-width: 900px) { .lane-voices { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .lane-voices { grid-template-columns: 1fr; } }
+  .lane-voice { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md); border-top-width: 4px; padding: 24px; }
+  .lane-voice--reel { border-top-color: var(--reel); }
+  .lane-voice--spotlight { border-top-color: var(--spotlight); }
+  .lane-voice--evergreen { border-top-color: var(--evergreen); }
+  .lane-voice--system { border-top-color: var(--system); }
+  .lane-voice__head { font-family: var(--f-body); font-weight: 700; font-size: 16px; margin-bottom: 10px; }
+  .lane-voice__head--reel { color: var(--reel); }
+  .lane-voice__head--spotlight { color: var(--spotlight); }
+  .lane-voice__head--evergreen { color: var(--evergreen); }
+  .lane-voice__head--system { color: var(--system); }
+  .lane-voice__list { margin: 0 0 14px; padding: 0; list-style: none; font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
+  .lane-voice__list li { padding-left: 14px; position: relative; margin-bottom: 4px; }
+  .lane-voice__list li::before { content: "·"; position: absolute; left: 4px; font-weight: 700; }
+  .lane-voice__ex { font-family: var(--f-serif); font-style: italic; font-size: 14px; color: var(--ink); line-height: 1.4; padding-top: 12px; border-top: 1px solid var(--line); }
+
+  .compliance {
+    margin-top: 48px; padding: 28px; background: var(--cream); border-radius: var(--r-md); border-left: 4px solid var(--ink);
+  }
+  .compliance b { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); display: block; margin-bottom: 8px; }
+  .compliance p { margin: 0; font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+  .compliance p em { font-style: italic; font-family: var(--f-serif); color: var(--ink); }
+
+  /* ---------- CAROUSEL SYSTEM ---------- */
+  .carousel-anatomy { display: grid; grid-template-columns: 360px 1fr; gap: 56px; align-items: start; margin-bottom: 64px; }
+  @media (max-width: 900px) { .carousel-anatomy { grid-template-columns: 1fr; } }
+  .carousel-mock {
+    aspect-ratio: 4/5;
+    background: var(--cream);
+    border-radius: var(--r-md);
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .carousel-mock__eyebrow {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .carousel-mock__head {
+    font-family: var(--f-body);
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin: 0 0 14px;
+  }
+  .carousel-mock__head em { font-style: normal; }
+  .carousel-mock__sub {
+    font-family: var(--f-body);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    text-align: center;
+    margin: 0 auto;
+    max-width: 80%;
+  }
+  .carousel-mock__sub em { font-style: normal; font-weight: 700; }
+  .carousel-mock__illo {
+    flex: 1;
+    margin-top: 24px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+  }
+  .carousel-mock__badge {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--paper);
+    border: 2px solid currentColor;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .carousel-mock__badge img { width: 90%; mix-blend-mode: multiply; }
+  .carousel-mock--reel { color: var(--reel); }
+  .carousel-mock--spotlight { color: var(--spotlight); }
+  .carousel-mock--evergreen { color: var(--evergreen); }
+  .carousel-mock--system { color: var(--system); }
+  .carousel-mock--reel .carousel-mock__head em,
+  .carousel-mock--reel .carousel-mock__sub em { color: var(--reel); }
+  .carousel-mock--spotlight .carousel-mock__head em { color: var(--spotlight); }
+  .carousel-mock--evergreen .carousel-mock__head em { color: var(--evergreen); }
+  .carousel-mock--system .carousel-mock__head em { color: var(--system); }
+  .carousel-mock__head .serif { font-family: var(--f-serif); font-weight: 700; font-style: normal; }
+
+  .anatomy-notes h3 { font-family: var(--f-body); font-weight: 700; font-size: 24px; margin: 0 0 16px; letter-spacing: -0.01em; }
+  .anatomy-list { list-style: none; padding: 0; margin: 0; counter-reset: anat; }
+  .anatomy-list li {
+    counter-increment: anat;
+    padding: 14px 0 14px 48px;
+    border-top: 1px solid var(--line);
+    position: relative;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .anatomy-list li:first-child { border-top: 0; }
+  .anatomy-list li::before {
+    content: counter(anat, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 14px;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--reel);
+    font-weight: 600;
+  }
+  .anatomy-list li b { color: var(--ink); font-weight: 700; }
+
+  .carousel-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .carousel-gallery { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .carousel-gallery { grid-template-columns: 1fr; } }
+
+  /* Carousel sequence guide */
+  .seq { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 56px; }
+  @media (max-width: 900px) { .seq { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 540px) { .seq { grid-template-columns: repeat(2, 1fr); } }
+  .seq-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 18px 14px;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .seq-card__n { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; color: var(--reel); }
+  .seq-card__t { font-family: var(--f-body); font-weight: 700; font-size: 14px; line-height: 1.2; }
+  .seq-card__d { font-size: 12px; color: var(--muted); line-height: 1.4; margin-top: auto; }
+
+  /* ---------- PRODUCTS / TIERS ---------- */
+  .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  @media (max-width: 900px) { .products { grid-template-columns: 1fr; } }
+  .product {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+  }
+  .product__tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 12px; }
+  .product__name { font-family: var(--f-body); font-weight: 800; font-size: 26px; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 8px; }
+  .product__price { font-family: var(--f-body); font-weight: 700; font-size: 20px; margin-bottom: 14px; color: var(--ink); }
+  .product__price small { font-weight: 400; font-size: 13px; color: var(--muted); margin-left: 4px; }
+  .product__desc { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin: 0 0 18px; flex: 1; }
+  .product__includes { list-style: none; padding: 0; margin: 0; font-size: 13px; line-height: 1.7; color: var(--ink-soft); }
+  .product__includes li { padding-left: 16px; position: relative; }
+  .product__includes li::before { content: "·"; position: absolute; left: 4px; font-weight: 700; color: var(--reel); }
+  .product--spotlight .product__includes li::before { color: var(--spotlight); }
+  .product--evergreen .product__includes li::before { color: var(--evergreen); }
+  .product--system .product__includes li::before { color: var(--system); }
+
+  /* ---------- INDUSTRIES MAP ---------- */
+  .map-wrap { border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; background: var(--paper); }
+  .map { width: 100%; border-collapse: collapse; }
+  .map thead th { text-align: left; padding: 16px 20px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); font-weight: 500; border-bottom: 1px solid var(--line); background: var(--mist); }
+  .map tbody td { padding: 18px 20px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+  .map tbody tr:last-child td { border-bottom: 0; }
+  .map tbody td:first-child { font-family: var(--f-body); font-weight: 700; font-size: 16px; color: var(--ink); }
+  .lane-dot { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+  .lane-dot::before { content: ""; width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .lane-dot--reel { color: var(--reel); } .lane-dot--reel::before { background: var(--reel); }
+  .lane-dot--spotlight { color: var(--spotlight); } .lane-dot--spotlight::before { background: var(--spotlight); }
+  .lane-dot--evergreen { color: var(--evergreen); } .lane-dot--evergreen::before { background: var(--evergreen); }
+  .lane-dot--system { color: var(--system); } .lane-dot--system::before { background: var(--system); }
+
+  /* ---------- MERCH / APPLICATIONS ---------- */
+  .merch-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .merch-grid { display: flex; flex-direction: column; } }
+  .merch { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; display: flex; flex-direction: column; }
+  .merch__visual { aspect-ratio: 4/3; position: relative; display: flex; align-items: center; justify-content: center; padding: 24px; overflow: hidden; }
+  .merch__cap { padding: 16px 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+  .merch__cap h5 { font-family: var(--f-body); font-weight: 700; font-size: 15px; margin: 0 0 4px; }
+  .merch__cap p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.45; }
+  .merch__cap .tag { font-size: 10px; letter-spacing: 0.18em; }
+  .merch--a { grid-column: span 6; }
+  .merch--b { grid-column: span 6; }
+  .merch--c { grid-column: span 4; }
+  .merch--d { grid-column: span 4; }
+  .merch--e { grid-column: span 4; }
+  .merch--f { grid-column: span 6; }
+  .merch--g { grid-column: span 6; }
+
+  /* T-shirt mock */
+  .mock-tee {
+    width: 100%; height: 100%;
+    background: var(--spotlight);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .mock-tee__chest {
+    color: var(--paper);
+    text-align: center;
+  }
+  .mock-tee__chest .small {
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; opacity: 0.8; margin-bottom: 8px;
+  }
+  .mock-tee__chest .big {
+    font-family: var(--f-body); font-weight: 800; font-size: 32px; letter-spacing: -0.02em; line-height: 1;
+  }
+  .mock-tee__chest .big em { font-style: normal; color: var(--reel); }
+
+  /* Hoodie mock */
+  .mock-hoodie {
+    width: 100%; height: 100%;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .mock-hoodie__patch {
+    border: 2px solid var(--ink);
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-family: var(--f-body);
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .mock-hoodie__patch em { font-style: normal; color: var(--reel); }
+
+  /* Sticker pack */
+  .mock-stickers {
+    width: 100%; height: 100%;
+    background: var(--mist);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    padding: 24px;
+    align-content: center;
+  }
+  .sticker {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--f-body);
+    font-weight: 800;
+    font-size: 11px;
+    color: var(--paper);
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 8px;
+  }
+  .sticker--reel { background: var(--reel); }
+  .sticker--spotlight { background: var(--spotlight); }
+  .sticker--evergreen { background: var(--evergreen); }
+  .sticker--system { background: var(--system); }
+  .sticker--ink { background: var(--ink); }
+  .sticker--cream { background: var(--cream); color: var(--ink); }
+
+  /* Mug */
+  .mock-mug {
+    width: 100%; height: 100%;
+    background: var(--evergreen-soft);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mock-mug__wrap {
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    width: 65%; aspect-ratio: 5/4;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 18px;
+    text-align: center;
+  }
+  .mock-mug__wrap .big {
+    font-family: var(--f-serif); font-weight: 700; font-style: italic;
+    font-size: 22px; line-height: 1.05; color: var(--ink);
+  }
+  .mock-mug__wrap .small {
+    font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.22em; color: var(--evergreen); text-transform: uppercase; margin-top: 8px;
+  }
+
+  /* Tote */
+  .mock-tote {
+    width: 100%; height: 100%;
+    background: var(--reel);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .mock-tote__inner {
+    color: var(--paper);
+    font-family: var(--f-body);
+    font-weight: 800;
+    font-size: clamp(20px, 4vw, 36px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+  .mock-tote__inner .serif { font-family: var(--f-serif); font-weight: 600; font-style: italic; }
+
+  /* Card / Yard sign */
+  .mock-sign {
+    width: 100%; height: 100%;
+    background: var(--system);
+    color: var(--paper);
+    padding: 28px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .mock-sign__top { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; opacity: 0.8; }
+  .mock-sign__mid { font-family: var(--f-body); font-weight: 800; font-size: clamp(20px, 3.4vw, 32px); line-height: 1; letter-spacing: -0.02em; }
+  .mock-sign__bot { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; opacity: 0.8; }
+
+  /* Game card mock */
+  .mock-game {
+    width: 100%; height: 100%;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .mock-game__card {
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 14px;
+    aspect-ratio: 5/7;
+    width: 70%;
+    padding: 16px;
+    display: flex; flex-direction: column;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .mock-game__top { font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.18em; color: var(--reel); text-transform: uppercase; }
+  .mock-game__title { font-family: var(--f-body); font-weight: 800; font-size: 18px; line-height: 1; margin-top: 6px; }
+  .mock-game__art { flex: 1; background: var(--reel-soft); border-radius: 8px; margin: 12px 0; display: flex; align-items: center; justify-content: center; font-family: var(--f-mono); font-size: 10px; color: var(--reel); letter-spacing: 0.18em; }
+  .mock-game__rule { font-size: 11px; color: var(--ink-soft); line-height: 1.3; }
+
+  /* ---------- DO / DON'T ---------- */
+  .dodont { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+  @media (max-width: 700px) { .dodont { grid-template-columns: 1fr; } }
+  .dodont__col { padding: 32px; border-right: 1px solid var(--line); background: var(--paper); }
+  .dodont__col:last-child { border-right: 0; }
+  .dodont__head { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; padding-bottom: 14px; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
+  .dodont__col--yes .dodont__head { color: var(--success); }
+  .dodont__col--no .dodont__head { color: var(--danger); }
+  .dodont__item { padding: 14px 0; border-top: 1px solid var(--line); }
+  .dodont__item:first-of-type { border-top: 0; }
+  .dodont__item h5 { font-family: var(--f-body); font-weight: 600; font-size: 15px; margin: 0 0 4px; color: var(--ink); }
+  .dodont__item p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* ---------- FOOTER ---------- */
+  footer.end { background: var(--ink); color: var(--paper); padding: 80px var(--gutter) 40px; }
+  .end__top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  @media (max-width: 800px) { .end__top { grid-template-columns: 1fr; } }
+  .end__kicker { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--reel); margin-bottom: 20px; }
+  .end__title { font-family: var(--f-body); font-weight: 800; font-size: clamp(32px,4vw,56px); line-height: 1.0; letter-spacing: -0.025em; margin: 0; color: var(--paper); }
+  .end__title em { font-style: normal; color: var(--reel); }
+  .end__group h5 { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin: 0 0 12px; }
+  .end__group a, .end__group p { display: block; color: var(--paper); text-decoration: none; font-family: var(--f-body); font-weight: 500; font-size: 14px; margin: 4px 0; }
+  .end__group a:hover { color: var(--reel); }
+  .end__bot { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.5); padding-top: 32px; flex-wrap: wrap; gap: 16px; }
+
+  .two-col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero">
+  <div class="hero__top">
+    <span>PALMER HOUSE PRODUCTIONS <b>·</b> BRAND & DESIGN HUB</span>
+    <span>v3.0 · 2026</span>
+  </div>
+
+  <div class="hero__body">
+    <div class="hero__eyebrow-wrap"><span class="eyebrow eyebrow--spotlight">About Palmer House</span></div>
+    <h1 class="hero__title">We Don't Make Videos.<br/><em>We Turn Chaos Into Clarity.</em></h1>
+    <p class="hero__lede">
+      Messy thoughts into clear messages. Invisible value into proof. Repetitive explanations into reusable assets. Chaos into systems.
+    </p>
+    <div class="hero__xform-row">
+      <span class="xform xform--reel"><span class="xform__old">Messy thoughts</span><span class="xform__arrow">→</span><span class="xform__new">Clear messages</span></span>
+      <span class="xform xform--evergreen"><span class="xform__old">Invisible value</span><span class="xform__arrow">→</span><span class="xform__new">Living proof</span></span>
+      <span class="xform xform--spotlight"><span class="xform__old">Repetition</span><span class="xform__arrow">→</span><span class="xform__new">Reusable assets</span></span>
+      <span class="xform xform--system"><span class="xform__old">Chaos</span><span class="xform__arrow">→</span><span class="xform__new">Systems</span></span>
+    </div>
+    <dl class="hero__meta">
+      <div><dt>Practice</dt><dd>A translation company. Cameras as tools.</dd></div>
+      <div><dt>Founder</dt><dd>Jevoy Palmer · Filmmaker, strategist, storyteller</dd></div>
+      <div><dt>Studios</dt><dd>Bellevue, WA · Portland, OR</dd></div>
+      <div><dt>Edition</dt><dd>v3.0 — May 2026</dd></div>
+    </dl>
+  </div>
+
+  <div class="hero__bottom">
+    <div class="hero__section-preview">
+      <span>01 Essence</span>
+      <span>02 Logo</span>
+      <span>03 Color</span>
+      <span>04 Type</span>
+      <span>05 Transformation</span>
+      <span>06 Pals</span>
+      <span>07 Voice</span>
+      <span>08 Carousels</span>
+      <span>09 Products</span>
+      <span>10 Industries</span>
+      <span>11 Merch</span>
+      <span>12 Do / Don't</span>
+    </div>
+    <div class="tag">Scroll <b>↓</b></div>
+  </div>
+</header>
+
+<!-- ==================== SHELL ==================== -->
+<div class="shell">
+
+  <!-- RAIL -->
+  <aside class="rail">
+    <div class="rail__brand">Palmer House<br/>Productions</div>
+    <div class="rail__sub">Brand Hub · v3.0</div>
+
+    <div class="rail__group">
+      <div class="rail__label">Foundations</div>
+      <ul class="rail__list">
+        <li><a href="#essence">01 — Brand Essence</a></li>
+        <li><a href="#logo">02 — Logo & Wordmark</a></li>
+        <li><a href="#color">03 — Color System</a></li>
+        <li><a href="#typography">04 — Typography</a></li>
+        <li><a href="#xform">05 — Transformation</a></li>
+      </ul>
+    </div>
+
+    <div class="rail__group">
+      <div class="rail__label">Cast & Voice</div>
+      <ul class="rail__list">
+        <li><a href="#cast">06 — The 8 Pals</a></li>
+        <li><a href="#voice">07 — Voice by Lane</a></li>
+      </ul>
+    </div>
+
+    <div class="rail__group">
+      <div class="rail__label">Application</div>
+      <ul class="rail__list">
+        <li><a href="#carousels">08 — Carousel System</a></li>
+        <li><a href="#products">09 — Products & Pricing</a></li>
+        <li><a href="#industries">10 — Industries → Lane</a></li>
+        <li><a href="#merch">11 — Merch & Physical</a></li>
+        <li><a href="#dodont">12 — Do / Don't</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- ==================== 01 ESSENCE ==================== -->
+    <section id="essence" class="section">
+      <div class="section__header">
+        <div><div class="section__num"><b>01</b> · Brand Essence</div></div>
+        <div><h2 class="section__title">A <span class="serif">translation</span> company.</h2></div>
+      </div>
+
+      <div class="essence">
+        <p class="essence__quote">
+          Palmer House is <span class="serif">a translation company</span> that uses cameras and editing as tools. We turn invisible expertise into <em>visible proof</em>, one-time explanations into evergreen assets, and scattered ideas into cohesive video systems.
+        </p>
+
+        <div class="essence__pillars">
+          <div class="pillar">
+            <h4>Video isn't the goal</h4>
+            <p>It's the tool that gets the business to its goals. The system serves the outcome.</p>
+          </div>
+          <div class="pillar">
+            <h4>Built like a workshop</h4>
+            <p>Not an assembly line. Every project starts with the client's unique pain points.</p>
+          </div>
+          <div class="pillar">
+            <h4>Story dictates the edit</h4>
+            <p>Not the other way around. Transcript-first, narrative-led, ruthlessly clear.</p>
+          </div>
+          <div class="pillar">
+            <h4>Four pillars, eight Pals</h4>
+            <p>Spotlight · Reel · Evergreen · System. Every project maps to one.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="tag" style="margin: 72px 0 16px;"><b>House rules</b> · how we work</h3>
+      <div class="house-rules">
+        <div class="house-rule">
+          <div class="house-rule__n">Rule 01</div>
+          <h4 class="house-rule__t">Lead with the problem solved, not the service sold</h4>
+          <p class="house-rule__d">Never open with what we make. Open with what's broken.</p>
+        </div>
+        <div class="house-rule">
+          <div class="house-rule__n">Rule 02</div>
+          <h4 class="house-rule__t">If you've explained it twice, it should be a video</h4>
+          <p class="house-rule__d">Repetition is a bug. Documentation on camera is the fix.</p>
+        </div>
+        <div class="house-rule">
+          <div class="house-rule__n">Rule 03</div>
+          <h4 class="house-rule__t">Build once, use every time</h4>
+          <p class="house-rule__d">Evergreen beats one-off. The 1-to-12 model: one shoot, twelve pieces.</p>
+        </div>
+        <div class="house-rule">
+          <div class="house-rule__n">Rule 04</div>
+          <h4 class="house-rule__t">Hooks come from observation, never a listicle</h4>
+          <p class="house-rule__d">First 1–3 seconds. Real moment, not a template.</p>
+        </div>
+        <div class="house-rule">
+          <div class="house-rule__n">Rule 05</div>
+          <h4 class="house-rule__t">Don't be inspirational — be useful</h4>
+          <p class="house-rule__d">Save someone time with every sentence. Practical beats poetic.</p>
+        </div>
+        <div class="house-rule">
+          <div class="house-rule__n">Rule 06</div>
+          <h4 class="house-rule__t">Quiet confidence, not hype</h4>
+          <p class="house-rule__d">Less volume, more weight. Especially in Spotlight work.</p>
+        </div>
+        <div class="house-rule">
+          <div class="house-rule__n">Rule 07</div>
+          <h4 class="house-rule__t">Launch-stage framing only</h4>
+          <p class="house-rule__d">Never claim "proven system" or "years of experience" credentials not yet earned.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 02 LOGO ==================== -->
+    <section id="logo" class="section section--mist">
+      <div class="section__header">
+        <div><div class="section__num"><b>02</b> · Logo & Wordmark</div></div>
+        <div>
+          <h2 class="section__title">The mark.</h2>
+          <p class="section__lede">A geometric "HP" monogram fused with a play-triangle. Initials and ignition in one gesture.</p>
+        </div>
+      </div>
+
+      <div class="logo-grid">
+        <div class="logo-stage">
+          <span class="logo-stage__label">Primary · Paper</span>
+          <img src="PalmerHouseProductions-logo.png" alt="Palmer House Productions primary logo" />
+        </div>
+        <div class="logo-stage logo-stage--cream">
+          <span class="logo-stage__label">Carousel · Cream</span>
+          <img src="PalmerHouseProductions-logo.png" alt="Logo on cream" />
+        </div>
+        <div class="logo-stage logo-stage--reel-soft">
+          <span class="logo-stage__label">Reel-soft</span>
+          <img src="PalmerHouseProductions-logo.png" alt="Logo on Reel soft" />
+        </div>
+        <div class="logo-stage logo-stage--spotlight-soft">
+          <span class="logo-stage__label">Spotlight-soft</span>
+          <img src="PalmerHouseProductions-logo.png" alt="Logo on Spotlight soft" />
+        </div>
+      </div>
+
+      <div class="rules-grid">
+        <div class="rule">
+          <div class="rule__visual">CLEARSPACE = 1× MONOGRAM</div>
+          <div class="rule__head rule__head--do">Do · Clearspace</div>
+          <h4>One monogram of breathing room</h4>
+          <p>Maintain clearspace equal to the monogram height on all sides.</p>
+        </div>
+        <div class="rule">
+          <div class="rule__visual">MIN 64PX · 18MM</div>
+          <div class="rule__head rule__head--do">Do · Minimum size</div>
+          <h4>Stay legible</h4>
+          <p>Full lockup: 64px digital / 18mm print. Below that, use monogram only.</p>
+        </div>
+        <div class="rule">
+          <div class="rule__visual">INK ON LIGHT · OR REVERSED</div>
+          <div class="rule__head rule__head--do">Do · Approved surfaces</div>
+          <h4>Light surfaces or full-bleed lane color</h4>
+          <p>Paper, Cream, Mist, -soft tints. Reverse to Paper on saturated lane colors.</p>
+        </div>
+        <div class="rule">
+          <div class="rule__visual" style="color: var(--danger);">NEVER</div>
+          <div class="rule__head rule__head--dont">Don't · Distort</div>
+          <h4>Never stretch, skew, or recolor</h4>
+          <p>No outlines, drop-shadows, gradients, or photo-fills.</p>
+        </div>
+        <div class="rule">
+          <div class="rule__visual" style="color: var(--danger);">NEVER</div>
+          <div class="rule__head rule__head--dont">Don't · Reset the wordmark</h4>
+          <h4>Wordmark is locked</h4>
+          <p>Never substitute a different font as a logo replacement.</p>
+        </div>
+        <div class="rule">
+          <div class="rule__visual" style="color: var(--danger);">NEVER</div>
+          <div class="rule__head rule__head--dont">Don't · Place on chaos</div>
+          <h4>Quiet backgrounds only</h4>
+          <p>Don't drop the mark on busy photography without a plate or AA contrast.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 03 COLOR ==================== -->
+    <section id="color" class="section">
+      <div class="section__header">
+        <div><div class="section__num"><b>03</b> · Color System</div></div>
+        <div>
+          <h2 class="section__title">Four <span class="reel">pillars</span>. One palette.</h2>
+          <p class="section__lede">Every project, every Pal, every asset lives in one of four lanes. Each lane has a saturated brand color, a muted background variant, and a soft tint.</p>
+        </div>
+      </div>
+
+      <div class="pillar-grid">
+        <!-- SPOTLIGHT -->
+        <div class="pillar-card">
+          <div class="pillar-card__head pillar-card__head--spotlight" data-hex="#3D1A66">
+            <div class="pillar-card__lane">Pillar 01 · Brand Trust</div>
+            <div class="pillar-card__name">Spotlight</div>
+          </div>
+          <div class="pillar-card__body">
+            <div class="pillar-card__tagline pillar-card__tagline--spotlight">Authority Building & Trust</div>
+            <p class="pillar-card__focus">High-production brand videos, testimonials, product showcases. Trust-building assets that convert.</p>
+            <div class="pillar-card__codes">
+              <div><b>HEX</b> #3D1A66</div>
+              <div><b>RGB</b> 61 · 26 · 102</div>
+            </div>
+            <div class="pillar-card__chars">Kareem · Kiana</div>
+          </div>
+        </div>
+
+        <!-- REEL -->
+        <div class="pillar-card">
+          <div class="pillar-card__head pillar-card__head--reel" data-hex="#E8720C">
+            <div class="pillar-card__lane">Pillar 02 · Social Reach</div>
+            <div class="pillar-card__name">Reel</div>
+          </div>
+          <div class="pillar-card__body">
+            <div class="pillar-card__tagline pillar-card__tagline--reel">Visibility & Momentum</div>
+            <p class="pillar-card__focus">Short-form content engineered for platforms. Hooks that stop scrolls, clips that hold them.</p>
+            <div class="pillar-card__codes">
+              <div><b>HEX</b> #E8720C</div>
+              <div><b>RGB</b> 232 · 114 · 12</div>
+            </div>
+            <div class="pillar-card__chars">Ryder · Raquel</div>
+          </div>
+        </div>
+
+        <!-- EVERGREEN -->
+        <div class="pillar-card">
+          <div class="pillar-card__head pillar-card__head--evergreen" data-hex="#5B8A2D">
+            <div class="pillar-card__lane">Pillar 03 · Time Saved</div>
+            <div class="pillar-card__name">Evergreen</div>
+          </div>
+          <div class="pillar-card__body">
+            <div class="pillar-card__tagline pillar-card__tagline--evergreen">Long-Form Authority</div>
+            <p class="pillar-card__focus">Structured video series. FAQs, deep-dives, how-it-works. Content that compounds for 12–24 months.</p>
+            <div class="pillar-card__codes">
+              <div><b>HEX</b> #5B8A2D</div>
+              <div><b>RGB</b> 91 · 138 · 45</div>
+            </div>
+            <div class="pillar-card__chars">Cyrus · Clara</div>
+          </div>
+        </div>
+
+        <!-- SYSTEM -->
+        <div class="pillar-card">
+          <div class="pillar-card__head pillar-card__head--system" data-hex="#0A9B8F">
+            <div class="pillar-card__lane">Pillar 04 · Efficiency</div>
+            <div class="pillar-card__name">System</div>
+          </div>
+          <div class="pillar-card__body">
+            <div class="pillar-card__tagline pillar-card__tagline--system">Internal Video Systems</div>
+            <p class="pillar-card__focus">Onboarding, training, internal comms. Document once, scale forever. Operational sanity on camera.</p>
+            <div class="pillar-card__codes">
+              <div><b>HEX</b> #0A9B8F</div>
+              <div><b>RGB</b> 10 · 155 · 143</div>
+            </div>
+            <div class="pillar-card__chars">Silas · Samira</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VARIANTS -->
+      <h3 class="tag" style="margin: 0 0 16px;"><b>Variants</b> · saturated · muted · soft · for each lane</h3>
+      <div class="variants">
+        <div class="variant-lane">
+          <div class="variant-lane__row variant-lane__row--dark" style="background: var(--spotlight);" data-hex="#3D1A66">Spotlight · #3D1A66</div>
+          <div class="variant-lane__row variant-lane__row--mid" style="background: var(--spotlight-muted);" data-hex="#5A3B85">Muted · #5A3B85</div>
+          <div class="variant-lane__row variant-lane__row--soft" style="background: var(--spotlight-soft);" data-hex="#EEE9F4">Soft · #EEE9F4</div>
+        </div>
+        <div class="variant-lane">
+          <div class="variant-lane__row variant-lane__row--dark" style="background: var(--reel);" data-hex="#E8720C">Reel · #E8720C</div>
+          <div class="variant-lane__row variant-lane__row--mid" style="background: var(--reel-muted);" data-hex="#D67238">Muted · #D67238</div>
+          <div class="variant-lane__row variant-lane__row--soft" style="background: var(--reel-soft);" data-hex="#FDF1E6">Soft · #FDF1E6</div>
+        </div>
+        <div class="variant-lane">
+          <div class="variant-lane__row variant-lane__row--dark" style="background: var(--evergreen);" data-hex="#5B8A2D">Evergreen · #5B8A2D</div>
+          <div class="variant-lane__row variant-lane__row--mid" style="background: var(--evergreen-muted);" data-hex="#7A9F4F">Muted · #7A9F4F</div>
+          <div class="variant-lane__row variant-lane__row--soft" style="background: var(--evergreen-soft);" data-hex="#EEF4E4">Soft · #EEF4E4</div>
+        </div>
+        <div class="variant-lane">
+          <div class="variant-lane__row variant-lane__row--dark" style="background: var(--system);" data-hex="#0A9B8F">System · #0A9B8F</div>
+          <div class="variant-lane__row variant-lane__row--mid" style="background: var(--system-muted);" data-hex="#6A9994">Muted · #6A9994</div>
+          <div class="variant-lane__row variant-lane__row--soft" style="background: var(--system-soft);" data-hex="#E4F4F2">Soft · #E4F4F2</div>
+        </div>
+      </div>
+
+      <p style="font-size: 14px; color: var(--muted); margin: 24px 0 56px; line-height: 1.55;">
+        <b style="color: var(--ink); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; display: block; margin-bottom: 6px;">When to use which</b>
+        <b style="color: var(--ink);">Saturated</b> for small fills, accents, type emphasis, and full-bleed merch. <b style="color: var(--ink);">Muted</b> for large section backgrounds where the saturated would feel loud (the live site's teal testimonial band uses System-muted). <b style="color: var(--ink);">Soft</b> for tinted card backgrounds and quiet badges.
+      </p>
+
+      <h3 class="tag" style="margin: 0 0 16px;"><b>Neutrals</b> · the page foundation</h3>
+      <div class="neutrals">
+        <div class="neutral" data-hex="#FFFFFF">
+          <div class="neutral__chip" style="background: #FFFFFF;"></div>
+          <div><div class="neutral__name">Paper</div><div class="neutral__hex">#FFFFFF · default web</div></div>
+        </div>
+        <div class="neutral" data-hex="#F4F1EA">
+          <div class="neutral__chip" style="background: #F4F1EA;"></div>
+          <div><div class="neutral__name">Cream</div><div class="neutral__hex">#F4F1EA · carousels</div></div>
+        </div>
+        <div class="neutral" data-hex="#F6F8FA">
+          <div class="neutral__chip" style="background: #F6F8FA;"></div>
+          <div><div class="neutral__name">Mist</div><div class="neutral__hex">#F6F8FA · section break</div></div>
+        </div>
+        <div class="neutral" data-hex="#E5E7EB">
+          <div class="neutral__chip" style="background: #E5E7EB;"></div>
+          <div><div class="neutral__name">Line</div><div class="neutral__hex">#E5E7EB · dividers</div></div>
+        </div>
+        <div class="neutral" data-hex="#6B7280">
+          <div class="neutral__chip" style="background: #6B7280;"></div>
+          <div><div class="neutral__name">Muted</div><div class="neutral__hex">#6B7280 · meta</div></div>
+        </div>
+        <div class="neutral" data-hex="#1F2328">
+          <div class="neutral__chip" style="background: #1F2328;"></div>
+          <div><div class="neutral__name">Ink</div><div class="neutral__hex">#1F2328 · body, mark</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 04 TYPOGRAPHY ==================== -->
+    <section id="typography" class="section section--mist">
+      <div class="section__header">
+        <div><div class="section__num"><b>04</b> · Typography</div></div>
+        <div>
+          <h2 class="section__title">Sans for <em>strength</em>. Serif for <span class="serif">story</span>.</h2>
+          <p class="section__lede">Inter carries the brand. Playfair Display carries the emotion. JetBrains Mono handles labels.</p>
+        </div>
+      </div>
+
+      <!-- SANS DISPLAY -->
+      <div class="type-specimen">
+        <div>
+          <div class="type-specimen__role">Display · Headlines · UI · Body</div>
+          <h3 class="type-specimen__name">Inter</h3>
+          <p class="type-specimen__notes">The primary face. Display weights (700–800) for headlines, regular (400–500) for body, semibold (600) for UI and tags. Set tight: -0.025em letter-spacing at display, 0 at body.</p>
+          <div class="type-specimen__weights">
+            <span>400 Regular · 500 Medium</span>
+            <span>600 Semibold · 700 Bold</span>
+            <span>800 Extrabold · 900 Black</span>
+          </div>
+        </div>
+        <div>
+          <div class="demo-sans-display">Chaos into <em>clarity</em>.</div>
+          <p class="demo-body">Inter is set tight and confident. Body at 17px, line-height 1.6. We use weight contrast — 400 for body, 800 for display — as the system's primary rhythm.</p>
+          <div class="demo-char">AaBbCc 0123456789 — The quick brown fox jumps over the lazy dog</div>
+        </div>
+      </div>
+
+      <!-- SERIF -->
+      <div class="type-specimen">
+        <div>
+          <div class="type-specimen__role">Editorial · Accent · Quotes</div>
+          <h3 class="type-specimen__name">Playfair Display</h3>
+          <p class="type-specimen__notes">Reserved for emotional weight. Big serif statements on carousels, italic accents inside sans headlines, and editorial pull quotes. Use sparingly — its power comes from contrast with Inter.</p>
+          <div class="type-specimen__weights">
+            <span>400 Italic · 600 Italic</span>
+            <span>700 Regular & Italic</span>
+            <span>800 Black</span>
+          </div>
+        </div>
+        <div>
+          <div class="demo-serif-display">The <em>Proof</em> Engine.</div>
+          <div class="demo-char">AaBbCc 0123456789 — How authority grows when your content keeps doing the explaining</div>
+        </div>
+      </div>
+
+      <!-- MONO -->
+      <div class="type-specimen">
+        <div>
+          <div class="type-specimen__role">Tags · Eyebrows · Meta</div>
+          <h3 class="type-specimen__name">JetBrains Mono</h3>
+          <p class="type-specimen__notes">For tags, labels, timecodes. Always uppercase, 0.22em letter-spacing. Never used for body or headlines. Pair it with em-dash eyebrows: <code style="font-family: var(--f-mono); font-size: 11px; background: var(--paper); padding: 1px 6px; border: 1px solid var(--line); border-radius: 2px;">— TEAM ALIGNMENT —</code></p>
+          <div class="type-specimen__weights">
+            <span>400 Regular · 500 Medium · 600 Semibold</span>
+          </div>
+        </div>
+        <div>
+          <div class="demo-mono" style="color: var(--reel);">LANE 02 · REEL · VISIBILITY & MOMENTUM</div>
+          <div style="margin-top: 14px;"><span class="eyebrow eyebrow--evergreen">Authority + Expertise</span></div>
+          <div class="demo-char" style="margin-top: 14px;">AaBbCc 0123456789 — &lt;/&gt; { } [ ] =&gt;</div>
+        </div>
+      </div>
+
+      <!-- SCALE -->
+      <h3 class="tag" style="margin: 56px 0 16px;"><b>Type scale</b></h3>
+      <div class="scale">
+        <div class="scale-row"><div class="scale-row__token">HERO</div><div class="scale-row__size">120 / 800</div><div class="scale-row__line">1.0</div><div class="scale-row__sample" style="font-family: var(--f-body); font-weight: 800; font-size: clamp(40px,6vw,72px); letter-spacing: -0.03em;">Hero headline.</div></div>
+        <div class="scale-row"><div class="scale-row__token">DISPLAY-LG</div><div class="scale-row__size">64 / 800</div><div class="scale-row__line">1.0</div><div class="scale-row__sample" style="font-family: var(--f-body); font-weight: 800; font-size: clamp(32px,4vw,48px); letter-spacing: -0.025em;">Section opener.</div></div>
+        <div class="scale-row"><div class="scale-row__token">SERIF-LG</div><div class="scale-row__size">48 / 700</div><div class="scale-row__line">1.05</div><div class="scale-row__sample" style="font-family: var(--f-serif); font-weight: 700; font-size: clamp(28px,3.4vw,40px);">Editorial accent.</div></div>
+        <div class="scale-row"><div class="scale-row__token">HEAD</div><div class="scale-row__size">28 / 700</div><div class="scale-row__line">1.15</div><div class="scale-row__sample" style="font-family: var(--f-body); font-weight: 700; font-size: 24px; letter-spacing: -0.015em;">Card and subsection.</div></div>
+        <div class="scale-row"><div class="scale-row__token">BODY</div><div class="scale-row__size">17 / 400</div><div class="scale-row__line">1.6</div><div class="scale-row__sample" style="font-family: var(--f-body); font-size: 17px;">Paragraphs and case studies.</div></div>
+        <div class="scale-row"><div class="scale-row__token">CAPTION</div><div class="scale-row__size">13 / 400</div><div class="scale-row__line">1.45</div><div class="scale-row__sample" style="font-family: var(--f-body); font-size: 13px; color: var(--muted);">Captions and image credits.</div></div>
+        <div class="scale-row"><div class="scale-row__token">EYEBROW</div><div class="scale-row__size">12 / 600</div><div class="scale-row__line">1.4</div><div class="scale-row__sample"><span class="eyebrow eyebrow--reel">Eyebrow Label</span></div></div>
+        <div class="scale-row"><div class="scale-row__token">TAG · MONO</div><div class="scale-row__size">11 / 500 mono · 0.22em</div><div class="scale-row__line">1.4</div><div class="scale-row__sample" style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--reel);">TAG · LABEL · LANE</div></div>
+      </div>
+    </section>
+
+    <!-- ==================== 05 TRANSFORMATION ==================== -->
+    <section id="xform" class="section section--cream">
+      <div class="section__header">
+        <div><div class="section__num"><b>05</b> · The Transformation</div></div>
+        <div>
+          <h2 class="section__title">The signature <em>pattern</em>.</h2>
+          <p class="section__lede">Every Palmer House message is a transformation: from something broken to something useful. We make that explicit with a chip — strikethrough the old, arrow, name the new in lane color.</p>
+        </div>
+      </div>
+
+      <div class="xform-hero">
+        <div class="xform-hero__big">We don't make videos.<br/>We <em>turn chaos into clarity</em>.</div>
+        <div class="xform-hero__chips">
+          <span class="xform xform--reel"><span class="xform__old">Posting but nothing moves</span><span class="xform__arrow">→</span><span class="xform__new">Hooks that hold</span></span>
+          <span class="xform xform--spotlight"><span class="xform__old">Stiff on camera</span><span class="xform__arrow">→</span><span class="xform__new">Quiet confidence</span></span>
+          <span class="xform xform--evergreen"><span class="xform__old">Repeating sales education</span><span class="xform__arrow">→</span><span class="xform__new">Evergreen explainers</span></span>
+          <span class="xform xform--system"><span class="xform__old">Tribal knowledge</span><span class="xform__arrow">→</span><span class="xform__new">Internal video library</span></span>
+        </div>
+      </div>
+
+      <h3 class="tag" style="margin: 0 0 16px;"><b>How to write a transformation</b></h3>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+        <div style="background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md); padding: 24px;">
+          <div class="tag tag--reel" style="margin-bottom: 12px;"><b>·</b> Old</div>
+          <h4 style="font-family: var(--f-body); font-weight: 700; font-size: 17px; margin: 0 0 6px;">A real, specific pain</h4>
+          <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Not abstract. Something a client has actually said out loud. "We answer this question 10 times a week."</p>
+        </div>
+        <div style="background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md); padding: 24px;">
+          <div class="tag tag--spotlight" style="margin-bottom: 12px;"><b>·</b> Arrow</div>
+          <h4 style="font-family: var(--f-body); font-weight: 700; font-size: 17px; margin: 0 0 6px;">→ The move we make</h4>
+          <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">The bridge. Implicit in the arrow: we did the work to close the gap. The arrow is in lane color.</p>
+        </div>
+        <div style="background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md); padding: 24px;">
+          <div class="tag tag--evergreen" style="margin-bottom: 12px;"><b>·</b> New</div>
+          <h4 style="font-family: var(--f-body); font-weight: 700; font-size: 17px; margin: 0 0 6px;">A reusable asset</h4>
+          <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Concrete, ownable, and ideally something they can show their team Monday morning. Bold, lane color.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 06 PALS ==================== -->
+    <section id="cast" class="section">
+      <div class="section__header">
+        <div><div class="section__num"><b>06</b> · The 8 Pals</div></div>
+        <div>
+          <h2 class="section__title">Two Pals, <em>per lane</em>.</h2>
+          <p class="section__lede">Each lane is staffed by two complementary personas — one who lights the match, one who keeps the fire controlled. Every project pairs them.</p>
+        </div>
+      </div>
+
+      <!-- SPOTLIGHT -->
+      <div class="lane-block lane-block--spotlight">
+        <div class="lane-block__head">
+          <span class="lane-block__name">Spotlight</span>
+          <span class="lane-block__focus">Authority Building & Trust</span>
+          <span class="lane-block__hex">#3D1A66</span>
+        </div>
+        <div class="cast-grid">
+          <div class="cast-card cast-card--spotlight">
+            <div class="cast-card__img"><img src="Kareem.png" alt="Kareem"></div>
+            <div class="cast-card__body">
+              <h4 class="cast-card__name">Kareem</h4>
+              <div class="cast-card__role cast-card__role--spotlight">Production Quality Guru</div>
+              <div class="cast-card__tag">"Delivers the polish"</div>
+              <dl class="cast-card__detail">
+                <dt>Obsession</dt><dd>Cinematic excellence, professional polish</dd>
+                <dt>Wound</dt><dd>Businesses undermined by amateur video</dd>
+                <dt>Helps</dt><dd>Lighting, camera, audio, editing — makes the brand look as good as it actually is</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="cast-card cast-card--spotlight">
+            <div class="cast-card__img"><img src="Kiana.png" alt="Kiana"></div>
+            <div class="cast-card__body">
+              <h4 class="cast-card__name">Kiana</h4>
+              <div class="cast-card__role cast-card__role--spotlight">Creative Director</div>
+              <div class="cast-card__tag">"Unlocks presence"</div>
+              <dl class="cast-card__detail">
+                <dt>Obsession</dt><dd>Story structure, emotional arc</dd>
+                <dt>Wound</dt><dd>Technically perfect videos that failed because they had no story</dd>
+                <dt>Helps</dt><dd>Directs the emotional journey. Founders feel like themselves on camera.</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REEL -->
+      <div class="lane-block lane-block--reel">
+        <div class="lane-block__head">
+          <span class="lane-block__name">Reel</span>
+          <span class="lane-block__focus">Visibility & Momentum · "Ryder hooks the scroll, Raquel keeps them watching"</span>
+          <span class="lane-block__hex">#E8720C</span>
+        </div>
+        <div class="cast-grid">
+          <div class="cast-card cast-card--reel">
+            <div class="cast-card__img"><img src="Ryder.png" alt="Ryder"></div>
+            <div class="cast-card__body">
+              <h4 class="cast-card__name">Ryder</h4>
+              <div class="cast-card__role cast-card__role--reel">Momentum Engine</div>
+              <div class="cast-card__tag">"Lights the match"</div>
+              <dl class="cast-card__detail">
+                <dt>Obsession</dt><dd>Speed, virality, getting content OUT</dd>
+                <dt>Wound</dt><dd>Great ideas dying in drafts — never shipped</dd>
+                <dt>Signature</dt><dd>The Hook Punch — scroll-stopping opens in 1–3 seconds</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="cast-card cast-card--reel">
+            <div class="cast-card__img"><img src="Raquel.png" alt="Raquel"></div>
+            <div class="cast-card__body">
+              <h4 class="cast-card__name">Raquel</h4>
+              <div class="cast-card__role cast-card__role--reel">Engagement Anchor</div>
+              <div class="cast-card__tag">"Keeps the fire controlled"</div>
+              <dl class="cast-card__detail">
+                <dt>Obsession</dt><dd>Connection, authenticity, audience retention</dd>
+                <dt>Wound</dt><dd>Brands going viral but building zero loyalty</dd>
+                <dt>Signature</dt><dd>The Vibe Match — humanizing content so people stay</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EVERGREEN -->
+      <div class="lane-block lane-block--evergreen">
+        <div class="lane-block__head">
+          <span class="lane-block__name">Evergreen</span>
+          <span class="lane-block__focus">Long-Form Authority Content</span>
+          <span class="lane-block__hex">#5B8A2D</span>
+        </div>
+        <div class="cast-grid">
+          <div class="cast-card cast-card--evergreen">
+            <div class="cast-card__img"><img src="Cyrus.png" alt="Cyrus"></div>
+            <div class="cast-card__body">
+              <h4 class="cast-card__name">Cyrus</h4>
+              <div class="cast-card__role cast-card__role--evergreen">Long-Term Strategy Guide</div>
+              <div class="cast-card__tag">"Architects the meaning"</div>
+              <dl class="cast-card__detail">
+                <dt>Obsession</dt><dd>SEO, thought leadership, compounding content</dd>
+                <dt>Wound</dt><dd>Businesses chasing trends and losing everything when algorithms shift</dd>
+                <dt>Helps</dt><dd>12-episode series that drive organic traffic for 12–24 months</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="cast-card cast-card--evergreen">
+            <div class="cast-card__img"><img src="Clara.png" alt="Clara"></div>
+            <div class="cast-card__body">
+              <h4 class="cast-card__name">Clara</h4>
+              <div class="cast-card__role cast-card__role--evergreen">Clarity Specialist</div>
+              <div class="cast-card__tag">"Protects from rambling"</div>
+              <dl class="cast-card__detail">
+                <dt>Obsession</dt><dd>Making expert knowledge understandable and findable</dd>
+                <dt>Wound</dt><dd>Brilliant experts who couldn't communicate their value</dd>
+                <dt>Helps</dt><dd>Distills deep knowledge into accessible content</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SYSTEM -->
+      <div class="lane-block lane-block--system">
+        <div class="lane-block__head">
+          <span class="lane-block__name">System</span>
+          <span class="lane-block__focus">Internal Video Systems · "If you've explained it twice, it should be a video"</span>
+          <span class="lane-block__hex">#0A9B8F</span>
+        </div>
+        <div class="cast-grid">
+          <div class="cast-card cast-card--system">
+            <div class="cast-card__img"><img src="Silas.png" alt="Silas"></div>
+            <div class="cast-card__body">
+              <h4 class="cast-card__name">Silas</h4>
+              <div class="cast-card__role cast-card__role--system">Workflow Automation Specialist</div>
+              <div class="cast-card__tag">"Builds the machine"</div>
+              <dl class="cast-card__detail">
+                <dt>Obsession</dt><dd>Efficiency, scalability, eliminating bottlenecks</dd>
+                <dt>Wound</dt><dd>Creative teams burning out because they had no systems</dd>
+                <dt>Helps</dt><dd>Content calendars, repurposing workflows, team SOPs, training libraries</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="cast-card cast-card--system">
+            <div class="cast-card__img"><img src="Samira.png" alt="Samira"></div>
+            <div class="cast-card__body">
+              <h4 class="cast-card__name">Samira</h4>
+              <div class="cast-card__role cast-card__role--system">Knowledge Architect</div>
+              <div class="cast-card__tag">"Makes it survivable"</div>
+              <dl class="cast-card__detail">
+                <dt>Obsession</dt><dd>Internal training, knowledge transfer, institutional memory</dd>
+                <dt>Wound</dt><dd>Companies losing critical knowledge when key employees left</dd>
+                <dt>Helps</dt><dd>Builds video training libraries and onboarding systems so expertise is captured</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="compliance" style="border-left-color: var(--system);">
+        <b style="color: var(--system);">Visual treatment · how Pals are rendered</b>
+        <p>Pal cutouts always sit on a light surface with <code style="font-family: var(--f-mono); background: var(--paper); padding: 2px 6px; border: 1px solid var(--line); border-radius: 2px;">mix-blend-mode: multiply</code> applied so anti-aliasing doesn't halo. Each Pal carries their lane's "stage" — a soft ellipse of lane color beneath their feet. Never restyle costumes, swap props, recolor, or mix two Pals from different lanes in the same composition.</p>
+      </div>
+    </section>
+
+    <!-- ==================== 07 VOICE BY LANE ==================== -->
+    <section id="voice" class="section section--mist">
+      <div class="section__header">
+        <div><div class="section__num"><b>07</b> · Voice by Lane</div></div>
+        <div>
+          <h2 class="section__title">One brand. <em>Four registers.</em></h2>
+          <p class="section__lede">Palmer House writes in the same voice everywhere — direct, confident, plain-spoken — but each lane bends the register to fit the work.</p>
+        </div>
+      </div>
+
+      <div class="voice-grid">
+        <div class="voice-col">
+          <h4>Brand-wide voice attributes</h4>
+          <div class="voice-item"><div class="voice-item__k">Lead with the problem</div><div class="voice-item__v">Open with what's broken, not what we sell.</div></div>
+          <div class="voice-item"><div class="voice-item__k">Direct, confident, no jargon</div><div class="voice-item__v">If a director on set wouldn't say it, we don't write it.</div></div>
+          <div class="voice-item"><div class="voice-item__k">Systems over one-offs</div><div class="voice-item__v">Frame video as a business tool with ROI, not a creative luxury.</div></div>
+          <div class="voice-item"><div class="voice-item__k">Camera-shy is welcome</div><div class="voice-item__v">Reassure. The team specializes in making people feel comfortable.</div></div>
+        </div>
+        <div class="voice-col">
+          <h4>Always · Never</h4>
+          <div class="voice-item"><div class="voice-item__k">Default CTA</div><div class="voice-item__v">Book a free 30-minute Strategy Call.</div></div>
+          <div class="voice-item"><div class="voice-item__k">Storytelling-first hooks</div><div class="voice-item__v">From real observation, not a listicle opener.</div></div>
+          <div class="voice-item"><div class="voice-item__k">Launch-stage framing</div><div class="voice-item__v">Never claim "proven system" or "years of experience" we haven't earned.</div></div>
+          <div class="voice-item"><div class="voice-item__k">Map to the Four Pillars</div><div class="voice-item__v">Every service conversation ties back to Spotlight, Reel, Evergreen, or System.</div></div>
+        </div>
+      </div>
+
+      <div class="lane-voices">
+        <div class="lane-voice lane-voice--spotlight">
+          <div class="lane-voice__head lane-voice__head--spotlight">Spotlight · Quiet confidence</div>
+          <ul class="lane-voice__list">
+            <li>Less volume, more weight</li>
+            <li>Use storytelling — "Here's what happened when..."</li>
+            <li>Emphasize legacy, trust, long-term positioning</li>
+            <li>Never flashy, never hype</li>
+          </ul>
+          <p class="lane-voice__ex">"One minute. That's all it takes to turn a stranger into a believer."</p>
+        </div>
+        <div class="lane-voice lane-voice--reel">
+          <div class="lane-voice__head lane-voice__head--reel">Reel · Fast and punchy</div>
+          <ul class="lane-voice__list">
+            <li>First line is everything</li>
+            <li>Platform-native — don't sound corporate</li>
+            <li>Raw beats polished</li>
+            <li>Don't over-produce the copy</li>
+          </ul>
+          <p class="lane-voice__ex">"Nobody's watching your 60-second ad. Here's what they are watching."</p>
+        </div>
+        <div class="lane-voice lane-voice--evergreen">
+          <div class="lane-voice__head lane-voice__head--evergreen">Evergreen · Deep, useful</div>
+          <ul class="lane-voice__list">
+            <li>Go deep — this is where expertise shines</li>
+            <li>Teach something real — leave them smarter</li>
+            <li>Don't be boring (deep ≠ dry)</li>
+            <li>Educator, not influencer</li>
+          </ul>
+          <p class="lane-voice__ex">"Most people get this wrong. Here's what actually works."</p>
+        </div>
+        <div class="lane-voice lane-voice--system">
+          <div class="lane-voice__head lane-voice__head--system">System · Practical, useful</div>
+          <ul class="lane-voice__list">
+            <li>Every sentence should save someone time</li>
+            <li>Before/after framing — "You used to do X. Now you do Y."</li>
+            <li>Don't be inspirational — be useful</li>
+            <li>Operator voice, not motivator</li>
+          </ul>
+          <p class="lane-voice__ex">"If you've explained it twice, it should be a video."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 08 CAROUSEL SYSTEM ==================== -->
+    <section id="carousels" class="section">
+      <div class="section__header">
+        <div><div class="section__num"><b>08</b> · Carousel System</div></div>
+        <div>
+          <h2 class="section__title">Social, <em>by template</em>.</h2>
+          <p class="section__lede">Every Pal carousel follows the same skeleton. Same anatomy, same rhythm, swap the lane. This is what makes a feed feel like one brand instead of nine.</p>
+        </div>
+      </div>
+
+      <!-- ANATOMY -->
+      <div class="carousel-anatomy">
+        <div class="carousel-mock carousel-mock--system">
+          <div class="carousel-mock__badge"><img src="Samira.png" alt="Samira badge"></div>
+          <div class="carousel-mock__eyebrow"><span class="eyebrow eyebrow--system">Team Alignment</span></div>
+          <h3 class="carousel-mock__head">Most teams lose <em>clarity</em> every time work changes hands.</h3>
+          <p class="carousel-mock__sub">The hidden cost of unclear transitions between people.</p>
+          <div class="carousel-mock__illo"></div>
+        </div>
+
+        <div class="anatomy-notes">
+          <h3>Carousel anatomy</h3>
+          <ol class="anatomy-list">
+            <li><b>Frame.</b> 1080×1350 (4:5 IG portrait) or 1080×1920 (9:16 Story/Reel). Cream background <code>#F4F1EA</code>, never pure white.</li>
+            <li><b>Pal badge.</b> Top-right corner. Circular crop of the assigned Pal, 2px lane-color border, multiply blend on white.</li>
+            <li><b>Eyebrow.</b> Em-dash + uppercase + lane color. Format: <code>— TEAM ALIGNMENT —</code> · 12px · 0.22em.</li>
+            <li><b>Headline.</b> Inter Extrabold OR Playfair Display Bold. One accent word in lane color. Two lines max.</li>
+            <li><b>Subhead.</b> Inter Regular, 14–15px, gray. One sentence that earns the headline.</li>
+            <li><b>Illustration.</b> 3D-render or watercolor depending on lane. Centered, bottom-aligned, lane-tinted props.</li>
+            <li><b>No logo on slide 1.</b> Logo appears only on the cover slide and the end card.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- GALLERY: one per lane -->
+      <h3 class="tag" style="margin: 0 0 16px;"><b>One per lane</b> · same skeleton, different register</h3>
+      <div class="carousel-gallery">
+        <div class="carousel-mock carousel-mock--reel">
+          <div class="carousel-mock__badge"><img src="Ryder.png" alt="Ryder"></div>
+          <div class="carousel-mock__eyebrow"><span class="eyebrow eyebrow--reel">Content + Momentum</span></div>
+          <h3 class="carousel-mock__head" style="font-size: 22px;">Most short-form gets <em>skipped</em> before value even starts.</h3>
+          <div class="carousel-mock__illo"></div>
+        </div>
+        <div class="carousel-mock carousel-mock--spotlight">
+          <div class="carousel-mock__badge"><img src="Kiana.png" alt="Kiana"></div>
+          <div class="carousel-mock__eyebrow"><span class="eyebrow eyebrow--spotlight">Brand Trust</span></div>
+          <h3 class="carousel-mock__head" style="font-size: 22px;"><span class="serif">One minute</span>. That's all it takes.</h3>
+          <div class="carousel-mock__illo"></div>
+        </div>
+        <div class="carousel-mock carousel-mock--evergreen">
+          <div class="carousel-mock__badge"><img src="Cyrus.png" alt="Cyrus"></div>
+          <div class="carousel-mock__eyebrow"><span class="eyebrow eyebrow--evergreen">Authority + Expertise</span></div>
+          <h3 class="carousel-mock__head" style="font-size: 22px;">Simplifying ideas makes them <em>stronger</em>.</h3>
+          <div class="carousel-mock__illo"></div>
+        </div>
+        <div class="carousel-mock carousel-mock--system">
+          <div class="carousel-mock__badge"><img src="Silas.png" alt="Silas"></div>
+          <div class="carousel-mock__eyebrow"><span class="eyebrow eyebrow--system">Internal Systems</span></div>
+          <h3 class="carousel-mock__head" style="font-size: 22px;">Explained it twice? It's a <em>video</em>.</h3>
+          <div class="carousel-mock__illo"></div>
+        </div>
+      </div>
+
+      <!-- SEQUENCE -->
+      <h3 class="tag" style="margin: 56px 0 16px;"><b>The 7-slide sequence</b> · standard Pal carousel</h3>
+      <div class="seq">
+        <div class="seq-card"><div class="seq-card__n">Slide 01</div><div class="seq-card__t">Hook</div><div class="seq-card__d">Eyebrow + bold question or claim. Pal badge top-right.</div></div>
+        <div class="seq-card"><div class="seq-card__n">Slide 02</div><div class="seq-card__t">Problem</div><div class="seq-card__d">Name the real, specific pain. Strikethrough in lane color.</div></div>
+        <div class="seq-card"><div class="seq-card__n">Slide 03</div><div class="seq-card__t">Misconception</div><div class="seq-card__d">"People think X. Actually Y." Reframe.</div></div>
+        <div class="seq-card"><div class="seq-card__n">Slide 04</div><div class="seq-card__t">Insight</div><div class="seq-card__d">The Pal's framework or signature move.</div></div>
+        <div class="seq-card"><div class="seq-card__n">Slide 05</div><div class="seq-card__t">Proof</div><div class="seq-card__d">Concrete example, before/after, or stat.</div></div>
+        <div class="seq-card"><div class="seq-card__n">Slide 06</div><div class="seq-card__t">Action</div><div class="seq-card__d">One specific thing they can do this week.</div></div>
+        <div class="seq-card"><div class="seq-card__n">Slide 07</div><div class="seq-card__t">CTA</div><div class="seq-card__d">Book a free Strategy Call. Logo + URL.</div></div>
+      </div>
+
+      <p style="font-size: 14px; color: var(--muted); margin: 32px 0 0; line-height: 1.55;">
+        <b style="color: var(--ink); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; display: block; margin-bottom: 6px;">Illustration choice</b>
+        Use <b style="color: var(--ink);">3D Pal render</b> when the slide centers the Pal as a character (story-driven posts).
+        Use <b style="color: var(--ink);">watercolor illustration</b> for instructional/educational decks where the Pal is the host, not the subject.
+        Use <b style="color: var(--ink);">isometric/3D conceptual</b> for system diagrams, frameworks, and process visuals.
+      </p>
+    </section>
+
+    <!-- ==================== 09 PRODUCTS ==================== -->
+    <section id="products" class="section section--system">
+      <div class="section__header">
+        <div><div class="section__num"><b>09</b> · Products & Pricing</div></div>
+        <div>
+          <h2 class="section__title">What we sell.</h2>
+          <p class="section__lede">The Pals translate into a real product catalog. Every offer maps to a lane.</p>
+        </div>
+      </div>
+
+      <div class="products">
+        <div class="product">
+          <div class="product__tag" style="color: var(--spotlight);">Spotlight · Base</div>
+          <h3 class="product__name">Base Session</h3>
+          <div class="product__price">$450 <small>+ $150 / additional video</small></div>
+          <p class="product__desc">One shoot day, one polished asset. The on-ramp for clients who want to test the workshop.</p>
+          <ul class="product__includes"><li>Pre-production strategy</li><li>One shoot day</li><li>Hero edit + 1 cutdown</li><li>Source files on payment</li></ul>
+        </div>
+        <div class="product product--evergreen">
+          <div class="product__tag" style="color: var(--evergreen);">Evergreen · Long-Form</div>
+          <h3 class="product__name">Evergreen Series</h3>
+          <div class="product__price">$1,050 <small>/ 5min · $1,650 / 10min · $2,250 / 15min</small></div>
+          <p class="product__desc">Structured long-form authority content. FAQ deep-dives, how-it-works, myth-busters. Built to compound.</p>
+          <ul class="product__includes"><li>Length-based pricing</li><li>SEO-optimized scripting</li><li>Chapter markers + transcripts</li><li>Thumbnail + description package</li></ul>
+        </div>
+        <div class="product product--evergreen">
+          <div class="product__tag" style="color: var(--evergreen);">Evergreen · Retainer</div>
+          <h3 class="product__name">YouTube Visibility Engine</h3>
+          <div class="product__price">Custom <small>· strategy call for scoping</small></div>
+          <p class="product__desc">2–3 long-form videos per month with strategy, scripting, filming, edits, SEO, and thumbnails that get clicks.</p>
+          <ul class="product__includes"><li>Quarterly content roadmap</li><li>2–3 videos / month</li><li>SEO + thumbnail optimization</li><li>Performance review monthly</li></ul>
+        </div>
+        <div class="product product--system">
+          <div class="product__tag" style="color: var(--system);">System · Build</div>
+          <h3 class="product__name">Internal FAQ Buildout</h3>
+          <div class="product__price">Custom <small>· up to 15 short videos</small></div>
+          <p class="product__desc">60–90 second videos covering onboarding, hiring, process training, and internal comms. Build once, use forever.</p>
+          <ul class="product__includes"><li>Up to 15 videos</li><li>SOP-paired training library</li><li>Modular — update without redoing</li><li>4–8 week timeline</li></ul>
+        </div>
+        <div class="product product--system">
+          <div class="product__tag" style="color: var(--system);">System · Cohort</div>
+          <h3 class="product__name">Camera-Ready Brand DIY</h3>
+          <div class="product__price">Custom <small>· live cohort coaching</small></div>
+          <p class="product__desc">Live coaching for camera-shy founders. Conquer the nerves, build your first 3–5 videos, get direct feedback.</p>
+          <ul class="product__includes"><li>Live cohort sessions</li><li>Assignments + feedback</li><li>Private group access</li><li>Build first 3–5 videos</li></ul>
+        </div>
+        <div class="product">
+          <div class="product__tag" style="color: var(--reel);">Reel · A La Carte</div>
+          <h3 class="product__name">Repurposing Pack</h3>
+          <div class="product__price">From $150 <small>/ short-form clip</small></div>
+          <p class="product__desc">Take one long-form video and convert it into 12 short-form pieces across platforms. The 1-to-12 model in action.</p>
+          <ul class="product__includes"><li>Hook-led clip selection</li><li>Vertical 9:16 cuts</li><li>Captions baked in</li><li>Per-platform aspect variants</li></ul>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px; padding: 24px 28px; background: rgba(255,255,255,0.12); border-radius: var(--r-md); display: flex; align-items: center; gap: 20px; flex-wrap: wrap; color: var(--paper);">
+        <div style="flex: 1; min-width: 280px;">
+          <div style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.8; margin-bottom: 6px;">Default CTA</div>
+          <div style="font-family: var(--f-body); font-weight: 700; font-size: 22px; line-height: 1.1;">Book a free 30-minute Strategy Call.</div>
+        </div>
+        <a class="btn" style="background: var(--paper); color: var(--system); border-color: var(--paper);">Book the Call →</a>
+      </div>
+    </section>
+
+    <!-- ==================== 10 INDUSTRIES ==================== -->
+    <section id="industries" class="section">
+      <div class="section__header">
+        <div><div class="section__num"><b>10</b> · Industry → Lane Mapping</div></div>
+        <div>
+          <h2 class="section__title">Which lane for <em>which</em> client.</h2>
+          <p class="section__lede">A starter map. Most clients live across multiple lanes — match the lane to the deliverable, not the company.</p>
+        </div>
+      </div>
+
+      <div class="map-wrap">
+        <table class="map">
+          <thead><tr><th>Industry</th><th>Lane</th><th>Why</th><th>Anchor Pal</th></tr></thead>
+          <tbody>
+            <tr><td>Founders & creators</td><td><span class="lane-dot lane-dot--reel">Reel</span></td><td>Always-on social, BTS, founder-led storytelling.</td><td>Raquel</td></tr>
+            <tr><td>DTC & lifestyle brands</td><td><span class="lane-dot lane-dot--reel">Reel</span></td><td>Campaign drops, product launches, scroll-stopping hooks.</td><td>Ryder</td></tr>
+            <tr><td>Professional services (law, finance, consulting)</td><td><span class="lane-dot lane-dot--spotlight">Spotlight</span></td><td>Trust-building brand films, premium testimonials.</td><td>Kareem</td></tr>
+            <tr><td>Real estate & hospitality</td><td><span class="lane-dot lane-dot--spotlight">Spotlight</span></td><td>Cinematic property and venue stories.</td><td>Kiana</td></tr>
+            <tr><td>Coaches, educators, course creators</td><td><span class="lane-dot lane-dot--evergreen">Evergreen</span></td><td>Long-form expertise, SEO-driven YouTube engines.</td><td>Cyrus</td></tr>
+            <tr><td>Healthcare & wellness</td><td><span class="lane-dot lane-dot--evergreen">Evergreen</span></td><td>Educational deep-dives, trust over time.</td><td>Clara</td></tr>
+            <tr><td>SaaS & B2B operations</td><td><span class="lane-dot lane-dot--system">System</span></td><td>Internal training libraries, process documentation.</td><td>Silas</td></tr>
+            <tr><td>Franchises & multi-location ops</td><td><span class="lane-dot lane-dot--system">System</span></td><td>Onboarding consistency across locations.</td><td>Samira</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==================== 11 MERCH ==================== -->
+    <section id="merch" class="section section--cream">
+      <div class="section__header">
+        <div><div class="section__num"><b>11</b> · Merch & Physical</div></div>
+        <div>
+          <h2 class="section__title">The brand, <em>off-screen</em>.</h2>
+          <p class="section__lede">Shirts, hoodies, mugs, stickers, signage, cards, even games. Same rules apply: one lane per object, monogram for small marks, full wordmark for hero placements.</p>
+        </div>
+      </div>
+
+      <div class="merch-grid">
+        <!-- T-Shirt -->
+        <div class="merch merch--a">
+          <div class="merch__visual">
+            <div class="mock-tee">
+              <div class="mock-tee__chest">
+                <div class="small">— PALMER HOUSE —</div>
+                <div class="big">We Don't<br/>Make Videos.<br/><em>We Turn Chaos<br/>Into Clarity.</em></div>
+              </div>
+            </div>
+          </div>
+          <div class="merch__cap">
+            <div>
+              <h5>Crew Tee · Spotlight</h5>
+              <p>Centered chest. Tagline split across 4 lines, accent line in Reel orange. Cotton, garment-dyed Spotlight purple.</p>
+            </div>
+            <span class="tag tag--spotlight"><b>·</b> Spotlight</span>
+          </div>
+        </div>
+
+        <!-- Hoodie -->
+        <div class="merch merch--b">
+          <div class="merch__visual">
+            <div class="mock-hoodie">
+              <div class="mock-hoodie__patch">Crew · <em>PHP</em></div>
+            </div>
+          </div>
+          <div class="merch__cap">
+            <div>
+              <h5>Hoodie · Cream Heavyweight</h5>
+              <p>Small embroidered patch, left chest. Outlined oval, monogram inside. Crew-only run.</p>
+            </div>
+            <span class="tag"><b>·</b> Crew</span>
+          </div>
+        </div>
+
+        <!-- Stickers -->
+        <div class="merch merch--c">
+          <div class="merch__visual">
+            <div class="mock-stickers">
+              <div class="sticker sticker--reel">Reel<br/>Pal</div>
+              <div class="sticker sticker--spotlight">Spot-<br/>light</div>
+              <div class="sticker sticker--evergreen">Ever-<br/>green</div>
+              <div class="sticker sticker--system">System<br/>Pal</div>
+              <div class="sticker sticker--ink">PHP</div>
+              <div class="sticker sticker--cream">425.<br/>533.<br/>9060</div>
+            </div>
+          </div>
+          <div class="merch__cap">
+            <div>
+              <h5>Sticker Pack</h5>
+              <p>One per lane + monogram + phone number. Die-cut circles, matte vinyl.</p>
+            </div>
+            <span class="tag"><b>·</b> All lanes</span>
+          </div>
+        </div>
+
+        <!-- Mug -->
+        <div class="merch merch--d">
+          <div class="merch__visual">
+            <div class="mock-mug">
+              <div class="mock-mug__wrap">
+                <div>
+                  <div class="big">If you've<br/>explained it<br/>twice…</div>
+                  <div class="small">— it's a video —</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="merch__cap">
+            <div>
+              <h5>Studio Mug</h5>
+              <p>Playfair italic. House rules in ceramic. One per lane in a quarterly run.</p>
+            </div>
+            <span class="tag tag--system"><b>·</b> System</span>
+          </div>
+        </div>
+
+        <!-- Tote -->
+        <div class="merch merch--e">
+          <div class="merch__visual">
+            <div class="mock-tote">
+              <div class="mock-tote__inner">Build<br/>once.<br/><span class="serif">Use forever.</span></div>
+            </div>
+          </div>
+          <div class="merch__cap">
+            <div>
+              <h5>Cotton Tote · Reel</h5>
+              <p>Natural canvas, single-color screenprint. Sans + serif lockup.</p>
+            </div>
+            <span class="tag tag--reel"><b>·</b> Reel</span>
+          </div>
+        </div>
+
+        <!-- Yard / on-set sign -->
+        <div class="merch merch--f">
+          <div class="merch__visual">
+            <div class="mock-sign">
+              <div class="mock-sign__top">— ON SET · DO NOT ENTER —</div>
+              <div class="mock-sign__mid">Quiet please.<br/>Camera rolling.</div>
+              <div class="mock-sign__bot">PALMER HOUSE PRODUCTIONS · (425) 533-9060</div>
+            </div>
+          </div>
+          <div class="merch__cap">
+            <div>
+              <h5>On-Set Signage</h5>
+              <p>Foam-core or coroplast. System teal background, Paper type. For shoot days.</p>
+            </div>
+            <span class="tag tag--system"><b>·</b> System</span>
+          </div>
+        </div>
+
+        <!-- Game / Card -->
+        <div class="merch merch--g">
+          <div class="merch__visual">
+            <div class="mock-game">
+              <div class="mock-game__card">
+                <div class="mock-game__top">— Reel Pal · Hook Punch —</div>
+                <div class="mock-game__title">Stop the Scroll</div>
+                <div class="mock-game__art">[ Ryder illustration ]</div>
+                <div class="mock-game__rule">Play this card on any opponent. They must rewrite their next post's first line in under 30 seconds — or lose 2 visibility tokens.</div>
+              </div>
+            </div>
+          </div>
+          <div class="merch__cap">
+            <div>
+              <h5>Pal Deck — Card Game</h5>
+              <p>A workshop game for founders. Each Pal has 6 cards. Outlined card with shadow, Inter Extrabold title, lane eyebrow.</p>
+            </div>
+            <span class="tag tag--reel"><b>·</b> Reel</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MERCH RULES -->
+      <div style="margin-top: 32px; padding: 28px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md);">
+        <h3 class="tag" style="margin: 0 0 16px;"><b>Merch rules</b></h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 24px;">
+          <div>
+            <h4 style="font-family: var(--f-body); font-weight: 700; font-size: 14px; margin: 0 0 4px;">One lane per object</h4>
+            <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">A shirt is one lane. A sticker is one lane. The pack is multi-lane — never a single piece.</p>
+          </div>
+          <div>
+            <h4 style="font-family: var(--f-body); font-weight: 700; font-size: 14px; margin: 0 0 4px;">Monogram for small marks</h4>
+            <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Anything under 1.5 inches uses the monogram only. Full wordmark for hero placements.</p>
+          </div>
+          <div>
+            <h4 style="font-family: var(--f-body); font-weight: 700; font-size: 14px; margin: 0 0 4px;">Garment-dye or natural only</h4>
+            <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Brand colors as the garment color. No tie-dye, no graphic-tee chaos. The print is the design.</p>
+          </div>
+          <div>
+            <h4 style="font-family: var(--f-body); font-weight: 700; font-size: 14px; margin: 0 0 4px;">No Pal on apparel</h4>
+            <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Pals are content characters, not mascots. Apparel uses typography + monogram. Pals live in digital + game contexts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 12 DO / DON'T ==================== -->
+    <section id="dodont" class="section">
+      <div class="section__header">
+        <div><div class="section__num"><b>12</b> · Do / Don't</div></div>
+        <div>
+          <h2 class="section__title">The <em>non-negotiables</em>.</h2>
+          <p class="section__lede">If you're unsure about an asset, this page wins. These rules override taste, trend, and personal preference.</p>
+        </div>
+      </div>
+
+      <div class="dodont">
+        <div class="dodont__col dodont__col--yes">
+          <div class="dodont__head">Do · ✓</div>
+          <div class="dodont__item"><h5>Light base by default</h5><p>Paper (#FFFFFF) for web. Cream (#F4F1EA) for carousels. Mist (#F6F8FA) for breaks.</p></div>
+          <div class="dodont__item"><h5>Saturated lane color for full bleeds</h5><p>Section heroes and merch can use full Spotlight, Reel, Evergreen, or System.</p></div>
+          <div class="dodont__item"><h5>Use the transformation chip</h5><p>Strikethrough old · arrow in lane color · bold new in lane color. Our signature pattern.</p></div>
+          <div class="dodont__item"><h5>Pals on light with multiply blend</h5><p>Paper or Cream surface, mix-blend-mode: multiply, lane-color stage ellipse below.</p></div>
+          <div class="dodont__item"><h5>One lane per asset</h5><p>Pick the lane up front. Don't blend lane colors in a single piece.</p></div>
+          <div class="dodont__item"><h5>Eyebrow with em-dashes</h5><p><code>— TEAM ALIGNMENT —</code>. Mono uppercase, 0.22em, in lane color.</p></div>
+        </div>
+        <div class="dodont__col dodont__col--no">
+          <div class="dodont__head">Don't · ×</div>
+          <div class="dodont__item"><h5>No gradients</h5><p>No linear, radial, mesh, or "subtle" gradients. Flat fills only.</p></div>
+          <div class="dodont__item"><h5>No raw Tailwind colors</h5><p>Never <code>bg-orange-500</code>. Use the canonical lane tokens.</p></div>
+          <div class="dodont__item"><h5>No claims we haven't earned</h5><p>No "proven system," no "years of experience." Launch-stage framing only.</p></div>
+          <div class="dodont__item"><h5>No Pal-on-photo composites</h5><p>Never composite a Pal over a photo or busy texture. Light surface only.</p></div>
+          <div class="dodont__item"><h5>No mixing Pals across lanes</h5><p>Ryder and Cyrus never appear together. Pals stay in their lane.</p></div>
+          <div class="dodont__item"><h5>No restyled Pals</h5><p>Never change costumes, swap props, recolor, or generate variations. The cast is fixed.</p></div>
+        </div>
+      </div>
+
+      <!-- TOKENS -->
+      <div style="margin-top: 56px; padding: 32px; background: var(--mist); border-radius: var(--r-md);">
+        <h3 class="tag" style="margin: 0 0 16px;"><b>CSS tokens</b> · paste into any project</h3>
+        <pre style="background: var(--ink); color: var(--paper); padding: 24px; border-radius: var(--r-md); overflow-x: auto; font-family: var(--f-mono); font-size: 13px; line-height: 1.7; margin: 0;">:root {
+  /* Neutrals */
+  --paper:        #FFFFFF;
+  --cream:        #F4F1EA;
+  --mist:         #F6F8FA;
+  --line:         #E5E7EB;
+  --muted:        #6B7280;
+  --ink:          #1F2328;
+
+  /* Pillar Lanes (canonical) */
+  --spotlight:    #3D1A66;  --spotlight-muted: #5A3B85;  --spotlight-soft: #EEE9F4;
+  --reel:         #E8720C;  --reel-muted:      #D67238;  --reel-soft:      #FDF1E6;
+  --evergreen:    #5B8A2D;  --evergreen-muted: #7A9F4F;  --evergreen-soft: #EEF4E4;
+  --system:       #0A9B8F;  --system-muted:    #6A9994;  --system-soft:    #E4F4F2;
+
+  /* Type */
+  --f-body:  "Inter", "Helvetica Neue", sans-serif;
+  --f-serif: "Playfair Display", Georgia, serif;
+  --f-mono:  "JetBrains Mono", monospace;
+}</pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="end">
+  <div class="end__top">
+    <div>
+      <div class="end__kicker">Palmer House Productions · v3.0</div>
+      <h3 class="end__title">We Don't Make Videos.<br/><em>We Turn Chaos Into Clarity.</em></h3>
+    </div>
+    <div class="end__group">
+      <h5>Studio</h5>
+      <a href="https://palmerhouseproductions.com">palmerhouseproductions.com</a>
+      <a href="tel:+14255339060">(425) 533-9060</a>
+      <a href="mailto:info@palmerhouseproductions.com">info@palmerhouseproductions.com</a>
+      <p>Bellevue, WA · Portland, OR</p>
+    </div>
+    <div class="end__group">
+      <h5>Region</h5>
+      <p>Seattle · Bellevue</p>
+      <p>Tacoma · Portland</p>
+      <p>Pacific Northwest</p>
+      <p>Global remote</p>
+    </div>
+  </div>
+  <div class="end__bot">
+    <span>© 2026 Palmer House Productions</span>
+    <span>A translation company</span>
+    <span>Crafting authentic stories since day one</span>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-hex]').forEach(el => {
+    el.addEventListener('click', async () => {
+      const hex = el.getAttribute('data-hex');
+      if (!hex) return;
+      try {
+        await navigator.clipboard.writeText(hex);
+        el.classList.add('copied');
+        setTimeout(() => el.classList.remove('copied'), 1400);
+      } catch (e) { /* silent */ }
+    });
+  });
+</script>
+
+</body>
+</html>

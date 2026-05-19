@@ -1,121 +1,92 @@
-# Palmer House Production OS — Gap-Fill Plan
+## Approach — native ports as primary, HTML hubs as backup
 
-Three workstreams. No code in this turn.
+Build two real sections inside the Production OS using the existing design system (Shell, tokens, markdown renderer from the playbook), AND keep the original HTML hubs as static fallbacks. Best of both: the content is first-class inside the OS, but you can always click "Open original hub" if anything looks off.
 
----
+## 1. Static backups (drop-in, no parsing)
 
-## 1. Make `/gear` more visual
+- `public/hubs/scripts/` ← full `Palmer Scripts Hub copy/` folder (index.html + all .md subfolders), `.DS_Store`/`__MACOSX` stripped → served at `/hubs/scripts/index.html`
+- `public/hubs/brand/index.html` ← `PHP_Brand_Hub.html` → served at `/hubs/brand/index.html`
 
-Today it's a flat list of rows. Reference screenshot shows a card grid with images, status pills, and a kit sidebar — let's match that.
+Both kept byte-for-byte as uploaded.
 
-Changes to `src/routes/gear.tsx`:
+## 2. Bundled markdown source
 
-- **Top stat row** — keep 3 KPI cards (Available / On Shoot / Repair), but add a 4th: **Utilization %** = OnShoot / Total. Icon tints match status color.
-- **Inventory grid (replaces list)**
-  - 3-column responsive card grid (`grid-cols-1 md:grid-cols-2 xl:grid-cols-3`).
-  - Each card: square image area with neutral surface bg, status pill top-right, category icon + label bottom-left, item name, and a "View details" subtle button (opens Edit modal).
-  - Add optional `imageUrl?: string` to `GearItem` type. Seed cameras/lens/audio/light/support items with curated Unsplash URLs (or category-fallback icon rendered large when no image).
-- **Filters bar** above the grid: category chips (All / Camera / Lens / Audio / Lighting / Support / Media / Monitor) + status chips. Click to filter.
-- **Kits column** (right rail on xl, full width below on smaller): each kit becomes a richer card showing the first 3 item thumbnails stacked + "+N more", use case line, and a "Pack list" expand. Add **New Kit** button (currently the "+ New Kit" link in the screenshot doesn't exist in code).
-- Keep Edit/Delete actions but move them into a hover overflow menu (⋯) on each card to keep the visuals clean.
-
-No business-logic change beyond adding `imageUrl` and a `createKit`/`updateKit` action to the store.
-
----
-
-## 2. Add the missing KPI layer (the biggest gap vs. the MD)
-
-The MD is explicit: **three roles, three homepages**, each with their own KPI screen. Today `/analytics` exists as a single role-switched chart page, but there are no dedicated KPI routes and many of the spec's metrics aren't shown. Fix:
-
-### New routes
+Copied into the repo so they import at build time (no runtime fetch, SSR-safe):
 
 ```
-/kpis/owner   → Jevoy dashboard
-/kpis/cfo     → Adrienne dashboard
-/kpis/pa      → Production Assistant dashboard
+src/content/scripts/
+  Originals/Script 01…12 - <title>.md       (12 master scripts)
+  Versions/Script 01…12 - {Jevoy|Palmer House|MindYourBizniz}.md   (36 versions)
+  Strategy/{Cross-Venture Master Brief, Palmer House Investigative Universe, YourBoyJevoy Strategy Engine}.md
+  Research/{Recorded Animal Projection Map, Ecosystem Context}.md
+  YourBoyJevoy/Something on My Mind - Scripts.md
+  Skills/jevoy-palmer-operating-manual/{SKILL.md, references/*.md}
 ```
 
-Sidebar gets a "KPIs" group with these three entries (visible to all, but the active role's KPI page is also what `/` redirects to after role switch — see §3).
+Loaded once via `import.meta.glob('…', { query: '?raw', eager: true })` in `src/lib/scriptsIndex.ts`, which exports a typed `SCRIPTS`, `STRATEGY`, `RESEARCH`, `MANUAL` index.
 
-### Jevoy / Owner KPIs (from MD)
+## 3. New routes — Scripts section
 
-Cards + small charts, derived from store:
+```
+src/routes/scripts.tsx            → hub
+src/routes/scripts.$num.tsx       → script detail (tabs: Original / Jevoy / Palmer House / MindYourBizniz)
+src/routes/scripts.strategy.tsx   → strategy docs reader
+src/routes/scripts.research.tsx   → research docs reader
+src/routes/scripts.manual.tsx     → operating manual + 4 references (left rail)
+```
 
-- Active projects by Pal type (donut)
-- Total quoted value of active projects
-- Booked revenue this month / quarter (manual input, store-backed)
-- Avg days lead → booked (computed from `log` timestamps when stage moves)
-- Strategy calls booked / Proposals sent / Projects booked (counters from stage history)
-- Deliverables shipped this month (count of projects entering "Delivered" this month)
-- Deliverables shipped by Pal type (bar)
-- Shoot days this month vs. capacity (progress)
-- Internal videos created (count where `internal === true`)
-- Playbook pages created (count)
-- "What's stuck" panel — projects with `blocker` set or no stage change in 14 days
+All wrapped in the existing `Shell`. Markdown rendered with the same component the playbook detail page uses (extracted to `src/components/Markdown.tsx` if it's currently inlined). Tokens only — no raw colors.
 
-### Adrienne / CFO KPIs
+### Hub page (`/scripts`)
+- Top: 3 pinned cards — **Master Brief**, **Operating Manual**, **Open original hub ↗** (link to `/hubs/scripts/index.html`)
+- Grid of 12 script cards: number, title, one-line thesis (parsed from the master brief), 3 chips (Jevoy / Palmer House / MindYourBizniz) that deep-link to that version
+- Search + brand filter pills (All / Jevoy / Palmer House / MindYourBizniz)
+- Side section: Strategy docs, Research docs, YourBoyJevoy
 
-- Cash collected this month (manual, already in `finance`)
-- Outstanding invoices (manual)
-- Booked revenue (sum of quoted on Booked+)
-- Recurring/retainer revenue (new manual field on Client: `retainerMonthly?`)
-- Avg project margin by Pal type (bar) — from quoted − cost
-- Top 5 clients by lifetime value (sum of project quoted per client)
-- Aged AR 30/60/90+ (manual entry, three new finance fields)
-- Tool / AI credit / contractor spend (already exist)
-- Data hygiene: projects missing quoted, projects missing cost (already on `/finance`, mirror here)
+### Script detail (`/scripts/$num`)
+- Back to /scripts, H1 title
+- Tab bar: Original · Jevoy Palmer · Palmer House · MindYourBizniz (URL `?v=jevoy`)
+- Meta sidebar: core idea, psychology refs, props, key analogy (from master brief)
+- Body: rendered markdown
+- Buttons: `Copy as plaintext`, `Download .md`, `Open original ↗` (links into `/hubs/scripts/Versions/…`)
 
-### PA KPIs
+## 4. New routes — Brand Hub
 
-- Open tasks assigned to PA (need a lightweight Task model — see §3)
-- Upcoming shoots this week
-- Readiness score per shoot = % of Pre-Prod checklist done for the linked project
-- % checklists completed on time (vs. shootDate)
-- Pre-prod items overdue
-- Days-to-delivery vs. promised
-- Asset folders organized (count of projects with `driveLink` set)
-- Blockers resolved this week (from log)
+Simplest viable port — the brand hub is one ~2,100-line styled HTML doc with its own typography and lanes (Reel/Spotlight/Evergreen/System). Porting every section to React would be a large project; instead:
 
-### Implementation notes
+```
+src/routes/brand.tsx
+```
 
-- One `src/components/kpi/` folder with small reusable primitives: `KpiCard`, `KpiBar`, `KpiDonut`, `KpiList`, `KpiProgress`.
-- All numbers derived via selectors in `src/lib/kpis.ts` (pure functions over store state) so each KPI page is just composition.
-- Where the MD asks for manual entries that don't exist yet, extend `finance` slice: `bookedMonth`, `bookedQuarter`, `retainerRevenue`, `ar30`, `ar60`, `ar90`. Inputs live on `/finance` and the CFO KPI page.
+A short native landing page using OS tokens with:
+- Pillar overview (4 lanes with their canonical hex from the source)
+- Type system + neutrals summary
+- Big CTA card: **Open full Brand Hub ↗** → `/hubs/brand/index.html` (opens in a new tab so the rich styling is intact)
 
----
+If you later want the brand hub fully ported into the OS look, that's a separate sweep — flag it and I'll do it section-by-section.
 
-## 3. Other spec gaps to close
+## 5. Sidebar entries (append-only)
 
-Audit of what the MD calls for vs. what currently exists:
+Two new items in `src/components/dashboard/Sidebar.tsx`, after `Templates`:
+- **Scripts** (icon `FileText`) → `/scripts` (internal Link)
+- **Brand** (icon `Palette`) → `/brand` (internal Link)
 
-| Spec area                                           | Status                    | Action                                                                                                                                                                                                                                                                                                       |
-| --------------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
-| `/login` with 3 accounts                            | ❌ none                   | Out of scope for this plan — role-switcher in Topbar already covers the MVP intent. Flag as Phase 2.                                                                                                                                                                                                         |
-| `/dashboard` role-routed homepage                   | ⚠️ generic                | Make `/` (Overview) redirect to `/kpis/{activeRole}` so each user lands on their own dashboard, per the MD's "three roles, three homepages". Keep current Overview accessible at `/overview`.                                                                                                                |
-| `/shoots/$id` mobile shoot-day view                 | ❌ missing                | Add route: big-type, single column — project, location, arrival, goals, shot list, gear list, Shoot Day checklist, wrap checklist, notes. Linked from Schedule and Project Hub.                                                                                                                              |
-| `/clients` + `/clients/$id`                         | ❌ missing                | Add: list/table with company, contact, project count, LTV (sum of quoted), HoneyBook link. Detail page with notes, project history, manual `retainerMonthly`.                                                                                                                                                |
-| `/admin/templates` checklist template editor        | ❌ missing                | Add: per-Pal × per-stage editable templates. Currently checklists are seeded per-project from `buildChecklists()` — refactor to read from store-backed `templates: Record<PalType, Record<ChecklistStage, string[]>>`, with a UI to add/remove/reorder items. New projects clone from the matching template. |
-| `/admin/team`                                       | ✅ covered by `/team`     | Rename in sidebar to "Team" (already done).                                                                                                                                                                                                                                                                  |
-| Task model (PA tasks, assignments)                  | ❌ missing                | Add `Task` type: `{ id, projectId?, title, assigneeId, dueDate?, status: "todo"                                                                                                                                                                                                                              | "doing" | "done", priority, stage? }`. New `/tasks` route (kanban or list) + "My tasks" widget on PA KPI page. |
-| Activity log per project                            | ✅ exists (`project.log`) | Surface a global "Recent activity" feed on Owner KPI page.                                                                                                                                                                                                                                                   |
-| Pal-specific checklist customization (16 templates) | ⚠️ partial                | Seed the 4 universal lists + the 4 per-Pal additions from the MD into the new template store.                                                                                                                                                                                                                |
-| Playbook categories from MD                         | ⚠️ partial                | Ensure all 11 categories exist (Sales & Intake, Pre-Prod, Shoot Day, Post-Prod, Delivery, The Pals, Brand, AI Tools, File Management, Website & Content, Internal Training). Seed at least one page per category from the MD's page list.                                                                    |
-| Readiness score                                     | ❌ missing                | Compute per shoot = % of project's Pre-Production checklist done. Show on Schedule cards and PA KPI.                                                                                                                                                                                                         |
-| Blocker flag on pipeline cards                      | ⚠️ partial                | Card already shows priority; add red dot + blocker text tooltip when `project.blocker` is set.                                                                                                                                                                                                               |
-| Gear kits CRUD                                      | ❌ read-only              | Add create/edit/delete for kits (covered in §1).                                                                                                                                                                                                                                                             |
-| Image/thumbnail on gear                             | ❌                        | Add `imageUrl` (covered in §1).                                                                                                                                                                                                                                                                              |
+The "open original hub" links live inside the pages, not the sidebar, so the sidebar stays clean.
 
----
+## 6. Formatting & rules followed
 
-## Suggested build order
+- Wrapped in existing `Shell`, uses `inputCls`, `Btn`, `Modal` primitives
+- Semantic tokens only (no raw colors in components)
+- TanStack file-based routes, `<Link>` not `<a>` for internal nav, type-safe params (`$num`)
+- Each route declares its own `head()` meta (title + description)
+- No SSR-unsafe code (all markdown imported at build time)
+- No edits to `playbook`, `gear`, `tasks`, `seed.ts`, `store.ts`, or any existing route
+- No backend / Cloud changes
 
-1. **Gear visual refresh** (§1) — self-contained, 1 file + type tweak + store action.
-2. **KPI selectors + 3 KPI routes** (§2) — biggest user-visible win, closes the loudest gap in the MD.
-3. **Finance manual fields** (booked month/quarter, AR aging, retainer) wired into CFO KPI.
-4. **Shoot-day mobile view** `/shoots/$id`.
-5. **Clients module** `/clients` + `/clients/$id`.
-6. **Template editor** `/admin/templates` + refactor seeding.
-7. **Task model** + `/tasks` + PA "My tasks" widget.
-8. **Playbook seeding** to cover all 11 MD categories.
+## What does NOT change
 
-Each step is independent and shippable on its own — happy to start with #1 and #2 together, or whichever you want to prioritize. I still dont see an edit button on the team page, please double check these basic things . I still dont see an edit button on the team page, please double check these basic things .
+Everything currently in the app stays exactly as it is. This is pure addition.
+
+## Open call
+
+Switch to build mode and I'll execute the whole thing in one pass. If you'd rather I trim scope (e.g. skip the Brand native page and only ship the HTML backup), say so first.
