@@ -782,3 +782,187 @@ function EditProjectModal({ project, onClose }: { project: Project | null; onClo
   );
 }
 
+
+// ─── Production Timeline (real pipeline stages) ──────────────────────────────
+const TIMELINE_STAGES: { key: Stage; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
+  { key: "Lead", label: "Lead", icon: Inbox },
+  { key: "Booked", label: "Booked", icon: Handshake },
+  { key: "Pre-Production", label: "Pre-Production", icon: ClipboardList },
+  { key: "Shoot Day", label: "Shoot Day", icon: Camera },
+  { key: "In Post", label: "In Post", icon: Scissors },
+  { key: "Delivered", label: "Delivered", icon: PackageCheck },
+];
+
+function ProductionTimeline({ projects }: { projects: Project[] }) {
+  const [filter, setFilter] = useState<"all" | PalType>("all");
+  const scoped = projects.filter((p) => filter === "all" || p.palType === filter);
+  const total = scoped.length || 1;
+
+  const byStage = TIMELINE_STAGES.map((s) => ({
+    ...s,
+    count: scoped.filter((p) => p.stage === s.key).length,
+  }));
+  const activeIdx = byStage.findIndex((s) => s.count > 0);
+
+  const activeProjects = scoped.filter((p) =>
+    ["Pre-Production", "Shoot Day", "In Post"].includes(p.stage),
+  );
+  const deliveredProjects = scoped.filter((p) => p.stage === "Delivered");
+
+  return (
+    <div className="mb-6 space-y-4">
+      <div className="card-elevated rounded-2xl p-3 flex items-center gap-2 flex-wrap">
+        {(["all", ...PAL_TYPES] as const).map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f as "all" | PalType)}
+            className={`px-3 py-1.5 rounded-lg text-[12px] transition-colors ${
+              filter === f
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:bg-surface-2"
+            }`}
+          >
+            {f === "all" ? "All Pals" : f}
+          </button>
+        ))}
+        <div className="ml-auto text-[11px] text-muted-foreground num">
+          {scoped.length} project{scoped.length === 1 ? "" : "s"} in view
+        </div>
+      </div>
+
+      <div className="card-elevated rounded-2xl p-5">
+        <div className="mb-5">
+          <div className="text-[14px] font-semibold">Production Pipeline</div>
+          <div className="text-[11.5px] text-muted-foreground">
+            Live distribution of projects across each stage
+          </div>
+        </div>
+
+        <div className="relative">
+          <div className="absolute top-7 left-[6%] right-[6%] h-px bg-border" />
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 relative">
+            {byStage.map((s, i) => {
+              const Icon = s.icon;
+              const pct = Math.round((s.count / total) * 100);
+              const isActive = i === activeIdx && s.count > 0;
+              const isPast = activeIdx >= 0 && i < activeIdx;
+              const isDelivered = s.key === "Delivered" && s.count > 0;
+              return (
+                <div key={s.key} className="flex flex-col items-center text-center">
+                  <div
+                    className={`size-14 rounded-full grid place-items-center mb-3 relative z-10 ring-4 ring-card ${
+                      isDelivered || isPast
+                        ? "bg-emerald-500 text-white"
+                        : isActive
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-surface-3 text-muted-foreground"
+                    }`}
+                  >
+                    <Icon className="size-5" />
+                  </div>
+                  <div className="text-[12.5px] font-semibold">{s.label}</div>
+                  <div className="text-[10.5px] text-muted-foreground num mb-1.5">
+                    {s.count} project{s.count === 1 ? "" : "s"}
+                  </div>
+                  <span
+                    className={`inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-md ${
+                      isDelivered
+                        ? "bg-emerald-500/10 text-emerald-500"
+                        : isActive
+                          ? "bg-primary/10 text-primary"
+                          : isPast
+                            ? "bg-emerald-500/10 text-emerald-500"
+                            : "bg-surface-3 text-muted-foreground"
+                    }`}
+                  >
+                    {pct}% of pipeline
+                  </span>
+                  <div className="mt-2 w-full h-1 rounded-full bg-surface-3 overflow-hidden">
+                    <div
+                      className={`h-full rounded-full ${
+                        isDelivered || isPast
+                          ? "bg-emerald-500"
+                          : isActive
+                            ? "bg-primary"
+                            : "bg-transparent"
+                      }`}
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <PalBreakdownCard
+          title="Active Productions"
+          subtitle={`${activeProjects.length} in flight · Pre-Pro → Post`}
+          projects={activeProjects}
+          tone="primary"
+        />
+        <PalBreakdownCard
+          title="Delivered"
+          subtitle={`${deliveredProjects.length} shipped`}
+          projects={deliveredProjects}
+          tone="emerald"
+        />
+      </div>
+    </div>
+  );
+}
+
+function PalBreakdownCard({
+  title,
+  subtitle,
+  projects,
+  tone,
+}: {
+  title: string;
+  subtitle: string;
+  projects: Project[];
+  tone: "primary" | "emerald";
+}) {
+  const total = projects.length || 1;
+  const rows = PAL_TYPES.map((pt) => {
+    const count = projects.filter((p) => p.palType === pt).length;
+    return { pt, count, pct: Math.round((count / total) * 100) };
+  });
+  const badgeBg = tone === "emerald" ? "bg-emerald-500/10 text-emerald-500" : "bg-primary/10 text-primary";
+  return (
+    <div className="card-elevated rounded-2xl p-5">
+      <div className="flex items-start justify-between mb-4">
+        <div>
+          <div className="text-[14px] font-semibold">{title}</div>
+          <div className="text-[11.5px] text-muted-foreground">{subtitle}</div>
+        </div>
+        <span className={`text-[11px] px-2 py-1 rounded-md ${badgeBg} num`}>
+          {projects.length} total
+        </span>
+      </div>
+      <div className="space-y-3">
+        {rows.map((r) => (
+          <div key={r.pt}>
+            <div className="flex items-center justify-between text-[12px] mb-1">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="size-2 rounded-sm" style={{ background: palColor(r.pt) }} />
+                {r.pt}
+              </span>
+              <span className="num font-medium text-muted-foreground">
+                {r.count} · {r.pct}%
+              </span>
+            </div>
+            <div className="h-1.5 rounded-full bg-surface-3 overflow-hidden">
+              <div
+                className="h-full rounded-full"
+                style={{ width: `${r.pct}%`, background: palColor(r.pt) }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
