@@ -6,12 +6,29 @@ import { Markdown } from "@/components/Markdown";
 
 type Msg = { role: "user" | "assistant"; content: string; applied?: string[]; error?: string };
 
-type Action =
-  | { type: "create_task"; title: string; assigneeId?: string; projectId?: string; dueDate?: string; priority?: "Low" | "Med" | "High" }
-  | { type: "create_project"; title: string; clientId?: string; palType: "Visibility" | "Systems" | "YouTube" | "Commercial"; ownerId?: string; shootDate?: string; deliveryDate?: string; priority?: "Low" | "Med" | "High" }
-  | { type: "update_shoot"; shootId: string; patch: Record<string, string> }
-  | { type: "create_shoot"; projectId: string; date: string; startTime?: string; endTime?: string; location: string; goals?: string }
-  | { type: "set_project_stage"; projectId: string; stage: string };
+type Action = {
+  type: "create_task" | "create_project" | "update_shoot" | "create_shoot" | "set_project_stage";
+  title?: string;
+  assigneeId?: string;
+  projectId?: string;
+  clientId?: string;
+  ownerId?: string;
+  shootId?: string;
+  palType?: "Visibility" | "Systems" | "YouTube" | "Commercial";
+  stage?: string;
+  date?: string;
+  startTime?: string;
+  endTime?: string;
+  location?: string;
+  arrival?: string;
+  goals?: string;
+  notes?: string;
+  status?: "Scheduled" | "Complete" | "Cancelled";
+  dueDate?: string;
+  shootDate?: string;
+  deliveryDate?: string;
+  priority?: "Low" | "Med" | "High";
+};
 
 // Lightweight typings for the Web Speech API
 type SpeechRecognitionLike = {
@@ -53,7 +70,7 @@ export function AiAssistantModal({ open, onClose }: { open: boolean; onClose: ()
     const applied: string[] = [];
     for (const a of actions) {
       try {
-        if (a.type === "create_task") {
+        if (a.type === "create_task" && a.title) {
           store.addTask({
             title: a.title,
             assigneeId: a.assigneeId ?? store.team[0]?.id ?? "",
@@ -63,7 +80,7 @@ export function AiAssistantModal({ open, onClose }: { open: boolean; onClose: ()
             status: "todo",
           });
           applied.push(`Task added: ${a.title}`);
-        } else if (a.type === "create_project") {
+        } else if (a.type === "create_project" && a.title && a.palType) {
           store.addProject({
             title: a.title,
             clientId: a.clientId ?? store.clients[0]?.id ?? "",
@@ -74,10 +91,14 @@ export function AiAssistantModal({ open, onClose }: { open: boolean; onClose: ()
             priority: a.priority,
           });
           applied.push(`Project created: ${a.title}`);
-        } else if (a.type === "update_shoot") {
-          store.updateShoot(a.shootId, a.patch);
+        } else if (a.type === "update_shoot" && a.shootId) {
+          const patch: Record<string, string> = {};
+          for (const k of ["date", "startTime", "endTime", "location", "arrival", "goals", "notes", "status"] as const) {
+            if (a[k]) patch[k] = a[k] as string;
+          }
+          store.updateShoot(a.shootId, patch as Parameters<typeof store.updateShoot>[1]);
           applied.push(`Shoot updated`);
-        } else if (a.type === "create_shoot") {
+        } else if (a.type === "create_shoot" && a.projectId && a.date && a.location) {
           store.addShoot({
             projectId: a.projectId,
             date: a.date,
@@ -89,8 +110,7 @@ export function AiAssistantModal({ open, onClose }: { open: boolean; onClose: ()
             status: "Scheduled",
           });
           applied.push(`Shoot scheduled for ${a.date}`);
-        } else if (a.type === "set_project_stage") {
-          // store.setStage expects Stage union; cast safely
+        } else if (a.type === "set_project_stage" && a.projectId && a.stage) {
           store.setStage(a.projectId, a.stage as Parameters<typeof store.setStage>[1]);
           applied.push(`Stage updated`);
         }
