@@ -71,7 +71,7 @@ function ScriptsHub() {
           eyebrow="Strategy"
           title="Master brief & investigative universe"
           desc={`${STRATEGY_DOCS.length} docs — voice rules, themes, lanes`}
-          gradient="linear-gradient(135deg, #E8720C 0%, #B8530A 60%, #3D1A66 100%)"
+          color="#B8530A"
         />
         <PinnedCard
           to="/scripts/manual"
@@ -79,7 +79,7 @@ function ScriptsHub() {
           eyebrow="Operating Manual"
           title="Jevoy Palmer voice profile"
           desc="Voice, ventures, faith integration, content rules"
-          gradient="linear-gradient(135deg, #3D1A66 0%, #6A2BAE 60%, #0A9B8F 100%)"
+          color="#3D1A66"
         />
         <PinnedCard
           to="/scripts/research"
@@ -87,7 +87,7 @@ function ScriptsHub() {
           eyebrow="Research"
           title="The recorded animal & ecosystem"
           desc={`${RESEARCH_DOCS.length} maps — projection, context`}
-          gradient="linear-gradient(135deg, #0A9B8F 0%, #066B62 55%, #1F2A44 100%)"
+          color="#0A9B8F"
         />
       </div>
 
@@ -147,14 +147,14 @@ function PinnedCard({
   eyebrow,
   title,
   desc,
-  gradient,
+  color,
 }: {
   to: string;
   icon: React.ReactNode;
   eyebrow: string;
   title: string;
   desc: string;
-  gradient: string;
+  color: string;
 }) {
   return (
     <Link
@@ -163,19 +163,18 @@ function PinnedCard({
     >
       <div
         className="relative h-32 overflow-hidden"
-        style={{ background: gradient }}
+        style={{ backgroundColor: color }}
       >
         <div
           aria-hidden
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-30"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.25) 1px, transparent 0)",
+              "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.2) 1px, transparent 0)",
             backgroundSize: "14px 14px",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-        <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] font-semibold text-white/95 bg-black/35 backdrop-blur px-2 py-1 rounded-md">
+        <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] font-semibold text-white/95 bg-black/30 backdrop-blur px-2 py-1 rounded-md">
           {icon} {eyebrow}
         </div>
       </div>
@@ -213,14 +212,14 @@ function ScriptCard({
     >
       <div
         className="relative h-28 overflow-hidden flex items-center justify-between px-5"
-        style={{ background: palette.gradient }}
+        style={{ backgroundColor: palette.color }}
       >
         <div
           aria-hidden
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-20"
           style={{
             backgroundImage:
-              "linear-gradient(135deg, rgba(255,255,255,0.18) 0 1px, transparent 1px 12px)",
+              "linear-gradient(135deg, rgba(255,255,255,0.15) 0 1px, transparent 1px 12px)",
           }}
         />
         <div className="relative z-10">
@@ -235,7 +234,6 @@ function ScriptCard({
           </div>
         </div>
         <FileText className="relative z-10 size-5 text-white/70 group-hover:text-white transition-colors" />
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/30 to-transparent" />
       </div>
       <div className="p-5">
         <div className="text-[15px] font-semibold tracking-tight leading-snug mb-3 group-hover:text-primary transition-colors line-clamp-3">
@@ -266,21 +264,21 @@ function ScriptCard({
   );
 }
 
-// Pillar-tinted palettes rotated across the 12 scripts so each card has its
+// Pillar-tinted solid colors rotated across the 12 scripts so each card has its
 // own visual identity without needing real imagery.
-const SCRIPT_PALETTES: { gradient: string }[] = [
-  { gradient: "linear-gradient(135deg, #E8720C 0%, #B8530A 100%)" }, // Reel
-  { gradient: "linear-gradient(135deg, #3D1A66 0%, #6A2BAE 100%)" }, // Spotlight
-  { gradient: "linear-gradient(135deg, #5B8A2D 0%, #2F5C18 100%)" }, // Evergreen
-  { gradient: "linear-gradient(135deg, #0A9B8F 0%, #066B62 100%)" }, // System
-  { gradient: "linear-gradient(135deg, #B8530A 0%, #3D1A66 100%)" },
-  { gradient: "linear-gradient(135deg, #6A2BAE 0%, #0A9B8F 100%)" },
-  { gradient: "linear-gradient(135deg, #2F5C18 0%, #E8720C 100%)" },
-  { gradient: "linear-gradient(135deg, #066B62 0%, #3D1A66 100%)" },
-  { gradient: "linear-gradient(135deg, #1F2A44 0%, #0A9B8F 100%)" },
-  { gradient: "linear-gradient(135deg, #3D1A66 0%, #E8720C 100%)" },
-  { gradient: "linear-gradient(135deg, #5B8A2D 0%, #0A9B8F 100%)" },
-  { gradient: "linear-gradient(135deg, #E8720C 0%, #6A2BAE 100%)" },
+const SCRIPT_PALETTES: { color: string }[] = [
+  { color: "#E8720C" }, // Reel
+  { color: "#3D1A66" }, // Spotlight
+  { color: "#5B8A2D" }, // Evergreen
+  { color: "#0A9B8F" }, // System
+  { color: "#B8530A" },
+  { color: "#6A2BAE" },
+  { color: "#2F5C18" },
+  { color: "#066B62" },
+  { color: "#1F2A44" },
+  { color: "#C4654A" },
+  { color: "#7D3C98" },
+  { color: "#D4842A" },
 ];
 
 function DocList({
