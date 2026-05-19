@@ -93,12 +93,21 @@ function GearThumb({
   Icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
   tint: string;
 }) {
+  const imgRef = React.useRef<HTMLImageElement | null>(null);
   const [state, setState] = useState<"loading" | "loaded" | "error">(
     item.imageUrl ? "loading" : "error",
   );
-  // Reset when imageUrl changes
   useEffect(() => {
-    setState(item.imageUrl ? "loading" : "error");
+    if (!item.imageUrl) {
+      setState("error");
+      return;
+    }
+    setState("loading");
+    // If image is already cached, onLoad may have fired before listener attached.
+    const el = imgRef.current;
+    if (el && el.complete) {
+      setState(el.naturalWidth > 0 ? "loaded" : "error");
+    }
   }, [item.imageUrl]);
   const showImage = !!item.imageUrl && state !== "error";
   return (
@@ -113,6 +122,7 @@ function GearThumb({
       )}
       {showImage ? (
         <img
+          ref={imgRef}
           src={item.imageUrl}
           alt={item.name}
           loading="lazy"
