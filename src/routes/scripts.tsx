@@ -5,7 +5,6 @@ import { Btn } from "@/components/ui-bits/Modal";
 import {
   BookOpen,
   ExternalLink,
-  FileText,
   FlaskConical,
   Search,
   Sparkles,
@@ -38,6 +37,12 @@ const BRANDS: { value: BrandFilter; label: string }[] = [
   { value: "mindyourbizniz", label: "MindYourBizniz" },
 ];
 
+const PILLARS = ["Reel", "Spotlight", "Evergreen", "System"] as const;
+function pillarFor(num: string) {
+  const n = parseInt(num, 10);
+  return PILLARS[(n - 1) % 4];
+}
+
 function ScriptsHub() {
   const [q, setQ] = useState("");
   const [brand, setBrand] = useState<BrandFilter>("all");
@@ -63,79 +68,88 @@ function ScriptsHub() {
         </a>
       }
     >
-      {/* Pinned navigation cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <PinnedCard
-          to="/scripts/strategy"
-          icon={<BookOpen className="size-4 text-primary" />}
-          eyebrow="Strategy"
-          title="Master brief & investigative universe"
-          desc={`${STRATEGY_DOCS.length} docs — voice rules, themes, lanes`}
-          color="#B8530A"
-        />
-        <PinnedCard
-          to="/scripts/manual"
-          icon={<Sparkles className="size-4 text-primary" />}
-          eyebrow="Operating Manual"
-          title="Jevoy Palmer voice profile"
-          desc="Voice, ventures, faith integration, content rules"
-          color="#3D1A66"
-        />
-        <PinnedCard
-          to="/scripts/research"
-          icon={<FlaskConical className="size-4 text-primary" />}
-          eyebrow="Research"
-          title="The recorded animal & ecosystem"
-          desc={`${RESEARCH_DOCS.length} maps — projection, context`}
-          color="#0A9B8F"
-        />
-      </div>
-
-      {/* Filters */}
-      <div className="card-elevated rounded-2xl p-4 mb-6 flex flex-col md:flex-row md:items-center gap-3">
-        <div className="relative flex-1 min-w-0">
-          <Search className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search scripts…"
-            className="w-full h-9 pl-9 pr-3 rounded-lg bg-surface-2 border border-border text-[13px] placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/60"
+      <div className="max-w-7xl mx-auto space-y-12 py-2">
+        {/* Pinned navigation */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <PinnedCard
+            to="/scripts/strategy"
+            icon={<BookOpen className="size-3.5" />}
+            eyebrow="Strategy"
+            title="Master brief & investigative universe"
+            desc={`${STRATEGY_DOCS.length} docs — voice rules, themes, lanes`}
+          />
+          <PinnedCard
+            to="/scripts/manual"
+            icon={<Sparkles className="size-3.5" />}
+            eyebrow="Operating Manual"
+            title="Jevoy Palmer voice profile"
+            desc="Voice, ventures, content rules"
+          />
+          <PinnedCard
+            to="/scripts/research"
+            icon={<FlaskConical className="size-3.5" />}
+            eyebrow="Research"
+            title="The recorded animal & ecosystem"
+            desc={`${RESEARCH_DOCS.length} maps — projection, context`}
           />
         </div>
-        <div className="flex flex-wrap gap-1.5">
-          {BRANDS.map((b) => (
-            <button
-              key={b.value}
-              onClick={() => setBrand(b.value)}
-              className={`h-8 px-3 rounded-lg text-[12px] font-medium transition-colors ${
-                brand === b.value
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-surface-2 text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {b.label}
-            </button>
-          ))}
-        </div>
-      </div>
 
-      {/* Script grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {filtered.map((s) => (
-          <ScriptCard key={s.num} script={s} preferredBrand={brand === "all" ? undefined : brand} />
-        ))}
-        {filtered.length === 0 && (
-          <div className="col-span-full text-center text-muted-foreground text-[13px] py-12">
+        {/* Search & Filter */}
+        <div className="flex flex-col md:flex-row gap-6 items-center justify-between border-b border-border pb-6">
+          <div className="relative w-full md:max-w-md">
+            <Search className="size-4 absolute left-0 top-1/2 -translate-y-1/2 text-muted-foreground/50" />
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="Search scripts…"
+              className="w-full pl-7 pr-3 py-2 bg-transparent text-lg font-light border-none focus:outline-none placeholder:text-muted-foreground/40"
+              style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+            />
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-border" />
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {BRANDS.map((b) => {
+              const active = brand === b.value;
+              return (
+                <button
+                  key={b.value}
+                  onClick={() => setBrand(b.value)}
+                  className={`px-3.5 py-1.5 text-[10px] tracking-[0.18em] uppercase font-semibold border transition-colors ${
+                    active
+                      ? "border-foreground bg-foreground text-background"
+                      : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+                  }`}
+                >
+                  {b.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Masonry editorial grid */}
+        {filtered.length === 0 ? (
+          <div className="text-center text-muted-foreground text-[13px] py-16">
             No scripts match your filters.
           </div>
+        ) : (
+          <div className="columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6 [&>*]:mb-6">
+            {filtered.map((s) => (
+              <ScriptCard
+                key={s.num}
+                script={s}
+                preferredBrand={brand === "all" ? undefined : brand}
+              />
+            ))}
+          </div>
         )}
-      </div>
 
-      {/* Strategy + Research + YourBoyJevoy lists */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-        <DocList title="Strategy" docs={STRATEGY_DOCS} to="/scripts/strategy" />
-        <DocList title="Research" docs={RESEARCH_DOCS} to="/scripts/research" />
-        <DocList title="YourBoyJevoy" docs={YOURBOY_DOCS} to="/scripts/yourboy" />
+        {/* Doc lists */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-6 border-t border-border">
+          <DocList title="Strategy" docs={STRATEGY_DOCS} to="/scripts/strategy" />
+          <DocList title="Research" docs={RESEARCH_DOCS} to="/scripts/research" />
+          <DocList title="YourBoyJevoy" docs={YOURBOY_DOCS} to="/scripts/yourboy" />
+        </div>
       </div>
     </Shell>
   );
@@ -147,43 +161,31 @@ function PinnedCard({
   eyebrow,
   title,
   desc,
-  color,
 }: {
   to: string;
   icon: React.ReactNode;
   eyebrow: string;
   title: string;
   desc: string;
-  color: string;
 }) {
   return (
     <Link
       to={to}
-      className="card-elevated rounded-2xl overflow-hidden group hover:border-primary/40 transition-colors block"
+      className="group block bg-card border border-border p-7 transition-all duration-300 hover:border-foreground hover:-translate-y-0.5 hover:shadow-lg"
     >
-      <div
-        className="relative h-32 overflow-hidden"
-        style={{ backgroundColor: color }}
-      >
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.2) 1px, transparent 0)",
-            backgroundSize: "14px 14px",
-          }}
-        />
-        <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] font-semibold text-white/95 bg-black/30 backdrop-blur px-2 py-1 rounded-md">
+      <div className="flex justify-between items-start mb-10">
+        <span className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.2em] font-bold uppercase text-muted-foreground">
           {icon} {eyebrow}
-        </div>
+        </span>
+        <div className="w-1.5 h-1.5 rounded-full bg-foreground group-hover:scale-150 transition-transform" />
       </div>
-      <div className="p-5">
-        <div className="text-[15px] font-semibold tracking-tight leading-snug mb-1.5 group-hover:text-primary transition-colors">
-          {title}
-        </div>
-        <div className="text-[12.5px] text-muted-foreground leading-relaxed">{desc}</div>
-      </div>
+      <h2
+        className="text-[22px] leading-tight font-medium mb-2 tracking-tight"
+        style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+      >
+        {title}
+      </h2>
+      <p className="text-[11px] text-muted-foreground uppercase tracking-wider">{desc}</p>
     </Link>
   );
 }
@@ -202,84 +204,77 @@ function ScriptCard({
     { key: "mindyourbizniz", label: "MYB" },
   ];
   const target = preferredBrand && preferredBrand !== "all" ? preferredBrand : "original";
-  const palette = SCRIPT_PALETTES[(parseInt(script.num, 10) - 1) % SCRIPT_PALETTES.length];
+  const pillar = pillarFor(script.num);
+  // Every Spotlight script renders as the inverted dark feature card for rhythm.
+  const dark = pillar === "Spotlight";
   return (
     <Link
       to="/scripts/$num"
       params={{ num: script.num }}
       search={{ v: target }}
-      className="card-elevated rounded-2xl overflow-hidden group hover:border-primary/40 transition-colors block"
+      className={`break-inside-avoid group block p-8 border transition-all duration-500 hover:-translate-y-0.5 hover:shadow-2xl ${
+        dark
+          ? "bg-foreground text-background border-foreground"
+          : "bg-card text-foreground border-border hover:border-foreground/40"
+      }`}
     >
-      <div
-        className="relative h-28 overflow-hidden flex items-center justify-between px-5"
-        style={{ backgroundColor: palette.color }}
-      >
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              "linear-gradient(135deg, rgba(255,255,255,0.15) 0 1px, transparent 1px 12px)",
-          }}
-        />
-        <div className="relative z-10">
-          <div className="text-[9px] font-mono tracking-[0.22em] uppercase text-white/80 mb-0.5">
-            Script
-          </div>
-          <div
-            className="font-serif font-semibold leading-none text-white"
-            style={{ fontSize: 56, fontFamily: '"Playfair Display", Georgia, serif' }}
-          >
-            {script.num}
-          </div>
-        </div>
-        <FileText className="relative z-10 size-5 text-white/70 group-hover:text-white transition-colors" />
+      <div className="flex justify-between items-baseline mb-10">
+        <span
+          className={`text-[56px] leading-none font-bold italic transition-colors duration-500 ${
+            dark
+              ? "text-background/10 group-hover:text-background/30"
+              : "text-muted-foreground/15 group-hover:text-foreground"
+          }`}
+          style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+        >
+          {script.num}
+        </span>
+        <span
+          className={`text-[9px] tracking-[0.28em] font-bold uppercase ${
+            dark ? "text-background/50" : "text-muted-foreground"
+          }`}
+        >
+          Pillar · {pillar}
+        </span>
       </div>
-      <div className="p-5">
-        <div className="text-[15px] font-semibold tracking-tight leading-snug mb-3 group-hover:text-primary transition-colors line-clamp-3">
-          {script.title}
-        </div>
-        <div className="flex flex-wrap gap-1.5">
+      <h3
+        className="text-[26px] leading-tight mb-8 font-medium tracking-tight"
+        style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+      >
+        {script.title}
+      </h3>
+      <div
+        className={`flex flex-wrap gap-1.5 pt-6 border-t ${dark ? "border-background/10" : "border-border/60"}`}
+      >
         {chips.map((c) => {
           const has = Boolean(script.versions[c.key]);
-          const highlight = preferredBrand && preferredBrand !== "all" && preferredBrand === c.key;
+          const highlight =
+            preferredBrand && preferredBrand !== "all" && preferredBrand === c.key;
           return (
             <span
               key={c.key}
-              className={`text-[10px] px-2 py-0.5 rounded-md border ${
+              className={`text-[9px] px-2 py-0.5 uppercase tracking-tight border ${
                 has
-                  ? highlight
-                    ? "bg-primary/15 text-primary border-primary/40"
-                    : "bg-surface-2 text-muted-foreground border-border"
-                  : "bg-transparent text-muted-foreground/40 border-border/50 line-through"
+                  ? dark
+                    ? highlight
+                      ? "bg-background/15 border-background/40 text-background"
+                      : "border-background/20 text-background/70"
+                    : highlight
+                      ? "bg-primary/10 border-primary/40 text-primary"
+                      : "bg-muted/40 border-border text-muted-foreground"
+                  : dark
+                    ? "border-background/10 text-background/30 line-through"
+                    : "border-border/40 text-muted-foreground/40 line-through"
               }`}
             >
               {c.label}
             </span>
           );
         })}
-        </div>
       </div>
     </Link>
   );
 }
-
-// Pillar-tinted solid colors rotated across the 12 scripts so each card has its
-// own visual identity without needing real imagery.
-const SCRIPT_PALETTES: { color: string }[] = [
-  { color: "#E8720C" }, // Reel
-  { color: "#3D1A66" }, // Spotlight
-  { color: "#5B8A2D" }, // Evergreen
-  { color: "#0A9B8F" }, // System
-  { color: "#B8530A" },
-  { color: "#6A2BAE" },
-  { color: "#2F5C18" },
-  { color: "#066B62" },
-  { color: "#1F2A44" },
-  { color: "#C4654A" },
-  { color: "#7D3C98" },
-  { color: "#D4842A" },
-];
 
 function DocList({
   title,
@@ -292,17 +287,17 @@ function DocList({
 }) {
   if (docs.length === 0) return null;
   return (
-    <div className="card-elevated rounded-2xl p-5">
-      <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground font-semibold mb-3">
+    <div className="bg-card border border-border p-6">
+      <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold mb-4">
         {title}
       </div>
-      <ul className="space-y-1.5">
+      <ul className="space-y-2">
         {docs.map((d) => (
           <li key={d.slug}>
             <Link
               to={to}
               search={{ doc: d.slug }}
-              className="text-[13px] text-foreground/85 hover:text-primary transition-colors block leading-snug"
+              className="text-[13px] text-foreground/85 hover:text-foreground hover:underline underline-offset-4 transition-colors block leading-snug"
             >
               {d.title}
             </Link>
