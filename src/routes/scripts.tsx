@@ -9,8 +9,12 @@ import {
   Search,
   Sparkles,
   ChevronDown,
+  Copy,
+  Download,
 } from "lucide-react";
 import { SCRIPTS, STRATEGY_DOCS, RESEARCH_DOCS, YOURBOY_DOCS } from "@/lib/scriptsIndex";
+import { Markdown } from "@/components/Markdown";
+import { useLazySource } from "@/lib/useLazySource";
 
 export const Route = createFileRoute("/scripts")({
   component: ScriptsLayout,
@@ -212,6 +216,28 @@ function ScriptRow({
     { key: "mindyourbizniz", label: "MindYourBizniz" },
   ];
   const pillar = pillarFor(script.num);
+  const initial = (preferredBrand && preferredBrand !== "all" && script.versions[preferredBrand])
+    ? preferredBrand
+    : (versions.find((v) => script.versions[v.key])?.key ?? "original");
+  const [activeVersion, setActiveVersion] = useState<typeof versions[number]["key"]>(initial);
+  const entry = script.versions[activeVersion];
+  const { source, loading } = useLazySource(open ? entry?.load : undefined);
+
+  const copyText = async () => {
+    if (!source) return;
+    await navigator.clipboard.writeText(source);
+  };
+  const downloadMd = () => {
+    if (!entry || !source) return;
+    const blob = new Blob([source], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = entry.filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="border-b border-border">
       <button
@@ -240,39 +266,68 @@ function ScriptRow({
         />
       </button>
       {open && (
-        <div className="pb-5 pl-14 pr-2 -mt-1">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            {versions.map((v) => {
-              const has = Boolean(script.versions[v.key]);
-              const highlight =
-                preferredBrand && preferredBrand !== "all" && preferredBrand === v.key;
-              if (!has) {
+        <div className="pb-6 pl-14 pr-2 -mt-1 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 flex-1 min-w-0">
+              {versions.map((v) => {
+                const has = Boolean(script.versions[v.key]);
+                const active = activeVersion === v.key;
+                if (!has) {
+                  return (
+                    <span
+                      key={v.key}
+                      className="text-[10px] uppercase tracking-[0.18em] px-3 py-2 border border-dashed border-border/60 text-muted-foreground/40 text-center"
+                    >
+                      {v.label}
+                    </span>
+                  );
+                }
                 return (
-                  <span
+                  <button
                     key={v.key}
-                    className="text-[10px] uppercase tracking-[0.18em] px-3 py-2 border border-dashed border-border/60 text-muted-foreground/40 text-center"
+                    onClick={() => setActiveVersion(v.key)}
+                    className={`text-[10px] uppercase tracking-[0.18em] font-semibold px-3 py-2 border text-center transition-colors ${
+                      active
+                        ? "border-foreground bg-foreground text-background"
+                        : "border-border text-foreground hover:border-foreground hover:bg-muted/50"
+                    }`}
                   >
                     {v.label}
-                  </span>
+                  </button>
                 );
-              }
-              return (
-                <Link
-                  key={v.key}
-                  to="/scripts/$num"
-                  params={{ num: script.num }}
-                  search={{ v: v.key }}
-                  className={`text-[10px] uppercase tracking-[0.18em] font-semibold px-3 py-2 border text-center transition-colors ${
-                    highlight
-                      ? "border-foreground bg-foreground text-background"
-                      : "border-border text-foreground hover:border-foreground hover:bg-muted/50"
-                  }`}
-                >
-                  {v.label}
-                </Link>
-              );
-            })}
+              })}
+            </div>
           </div>
+          {entry ? (
+            <div className="bg-card border border-border p-5 md:p-7">
+              <div className="flex items-center justify-end gap-2 mb-4 pb-3 border-b border-border">
+                <Btn variant="subtle" onClick={copyText} className="flex items-center gap-1.5 h-7 text-[11px]">
+                  <Copy className="size-3" /> Copy
+                </Btn>
+                <Btn variant="subtle" onClick={downloadMd} className="flex items-center gap-1.5 h-7 text-[11px]">
+                  <Download className="size-3" /> .md
+                </Btn>
+                <a href={entry.originalPath} target="_blank" rel="noopener noreferrer">
+                  <Btn variant="subtle" className="flex items-center gap-1.5 h-7 text-[11px]">
+                    <ExternalLink className="size-3" /> Original
+                  </Btn>
+                </a>
+              </div>
+              {loading ? (
+                <div className="text-muted-foreground text-[13px] italic">Loading…</div>
+              ) : source ? (
+                <Markdown source={source} />
+              ) : (
+                <div className="text-muted-foreground text-[13px] italic">
+                  Couldn't load this script.
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="text-muted-foreground text-[13px] italic px-1">
+              This version hasn't been written yet.
+            </div>
+          )}
         </div>
       )}
     </div>
