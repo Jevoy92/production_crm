@@ -8,6 +8,7 @@ import {
   FlaskConical,
   Search,
   Sparkles,
+  ChevronDown,
 } from "lucide-react";
 import { SCRIPTS, STRATEGY_DOCS, RESEARCH_DOCS, YOURBOY_DOCS } from "@/lib/scriptsIndex";
 
@@ -46,6 +47,7 @@ function pillarFor(num: string) {
 function ScriptsHub() {
   const [q, setQ] = useState("");
   const [brand, setBrand] = useState<BrandFilter>("all");
+  const [openNum, setOpenNum] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -68,33 +70,8 @@ function ScriptsHub() {
         </a>
       }
     >
-      <div className="max-w-7xl mx-auto space-y-12 py-2">
-        {/* Pinned navigation */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <PinnedCard
-            to="/scripts/strategy"
-            icon={<BookOpen className="size-3.5" />}
-            eyebrow="Strategy"
-            title="Master brief & investigative universe"
-            desc={`${STRATEGY_DOCS.length} docs — voice rules, themes, lanes`}
-          />
-          <PinnedCard
-            to="/scripts/manual"
-            icon={<Sparkles className="size-3.5" />}
-            eyebrow="Operating Manual"
-            title="Jevoy Palmer voice profile"
-            desc="Voice, ventures, content rules"
-          />
-          <PinnedCard
-            to="/scripts/research"
-            icon={<FlaskConical className="size-3.5" />}
-            eyebrow="Research"
-            title="The recorded animal & ecosystem"
-            desc={`${RESEARCH_DOCS.length} maps — projection, context`}
-          />
-        </div>
-
-        {/* Search & Filter */}
+      <div className="max-w-5xl mx-auto space-y-10 py-2">
+        {/* Search & Filter — top */}
         <div className="flex flex-col md:flex-row gap-6 items-center justify-between border-b border-border pb-6">
           <div className="relative w-full md:max-w-md">
             <Search className="size-4 absolute left-0 top-1/2 -translate-y-1/2 text-muted-foreground/50" />
@@ -127,25 +104,52 @@ function ScriptsHub() {
           </div>
         </div>
 
-        {/* Masonry editorial grid */}
+        {/* Sleek collapsible script list */}
         {filtered.length === 0 ? (
           <div className="text-center text-muted-foreground text-[13px] py-16">
             No scripts match your filters.
           </div>
         ) : (
-          <div className="columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6 [&>*]:mb-6">
+          <div className="border-t border-border">
             {filtered.map((s) => (
-              <ScriptCard
+              <ScriptRow
                 key={s.num}
                 script={s}
+                open={openNum === s.num}
+                onToggle={() => setOpenNum(openNum === s.num ? null : s.num)}
                 preferredBrand={brand === "all" ? undefined : brand}
               />
             ))}
           </div>
         )}
 
+        {/* Pinned reference — bottom */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-10 border-t border-border">
+          <PinnedCard
+            to="/scripts/strategy"
+            icon={<BookOpen className="size-3.5" />}
+            eyebrow="Strategy"
+            title="Master brief & investigative universe"
+            desc={`${STRATEGY_DOCS.length} docs — voice rules, themes, lanes`}
+          />
+          <PinnedCard
+            to="/scripts/manual"
+            icon={<Sparkles className="size-3.5" />}
+            eyebrow="Operating Manual"
+            title="Jevoy Palmer voice profile"
+            desc="Voice, ventures, content rules"
+          />
+          <PinnedCard
+            to="/scripts/research"
+            icon={<FlaskConical className="size-3.5" />}
+            eyebrow="Research"
+            title="The recorded animal & ecosystem"
+            desc={`${RESEARCH_DOCS.length} maps — projection, context`}
+          />
+        </div>
+
         {/* Doc lists */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-6 border-t border-border">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <DocList title="Strategy" docs={STRATEGY_DOCS} to="/scripts/strategy" />
           <DocList title="Research" docs={RESEARCH_DOCS} to="/scripts/research" />
           <DocList title="YourBoyJevoy" docs={YOURBOY_DOCS} to="/scripts/yourboy" />
@@ -190,89 +194,88 @@ function PinnedCard({
   );
 }
 
-function ScriptCard({
+function ScriptRow({
   script,
+  open,
+  onToggle,
   preferredBrand,
 }: {
   script: (typeof SCRIPTS)[number];
+  open: boolean;
+  onToggle: () => void;
   preferredBrand?: BrandFilter;
 }) {
-  const chips: { key: "original" | "jevoy" | "palmer-house" | "mindyourbizniz"; label: string }[] = [
+  const versions: { key: "original" | "jevoy" | "palmer-house" | "mindyourbizniz"; label: string }[] = [
     { key: "original", label: "Master" },
-    { key: "jevoy", label: "Jevoy" },
+    { key: "jevoy", label: "Jevoy Palmer" },
     { key: "palmer-house", label: "Palmer House" },
-    { key: "mindyourbizniz", label: "MYB" },
+    { key: "mindyourbizniz", label: "MindYourBizniz" },
   ];
-  const target = preferredBrand && preferredBrand !== "all" ? preferredBrand : "original";
   const pillar = pillarFor(script.num);
-  // Every Spotlight script renders as the inverted dark feature card for rhythm.
-  const dark = pillar === "Spotlight";
   return (
-    <Link
-      to="/scripts/$num"
-      params={{ num: script.num }}
-      search={{ v: target }}
-      className={`break-inside-avoid group block p-8 border transition-all duration-500 hover:-translate-y-0.5 hover:shadow-2xl ${
-        dark
-          ? "bg-foreground text-background border-foreground"
-          : "bg-card text-foreground border-border hover:border-foreground/40"
-      }`}
-    >
-      <div className="flex justify-between items-baseline mb-10">
+    <div className="border-b border-border">
+      <button
+        onClick={onToggle}
+        className="w-full group flex items-baseline gap-5 py-4 px-1 text-left transition-colors hover:bg-muted/30"
+      >
         <span
-          className={`text-[56px] leading-none font-bold italic transition-colors duration-500 ${
-            dark
-              ? "text-background/10 group-hover:text-background/30"
-              : "text-muted-foreground/15 group-hover:text-foreground"
-          }`}
+          className="text-[15px] tabular-nums text-muted-foreground/70 font-medium w-8 shrink-0"
           style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
         >
           {script.num}
         </span>
         <span
-          className={`text-[9px] tracking-[0.28em] font-bold uppercase ${
-            dark ? "text-background/50" : "text-muted-foreground"
-          }`}
+          className="flex-1 text-[17px] leading-snug font-medium tracking-tight truncate"
+          style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
         >
-          Pillar · {pillar}
+          {script.title}
         </span>
-      </div>
-      <h3
-        className="text-[26px] leading-tight mb-8 font-medium tracking-tight"
-        style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
-      >
-        {script.title}
-      </h3>
-      <div
-        className={`flex flex-wrap gap-1.5 pt-6 border-t ${dark ? "border-background/10" : "border-border/60"}`}
-      >
-        {chips.map((c) => {
-          const has = Boolean(script.versions[c.key]);
-          const highlight =
-            preferredBrand && preferredBrand !== "all" && preferredBrand === c.key;
-          return (
-            <span
-              key={c.key}
-              className={`text-[9px] px-2 py-0.5 uppercase tracking-tight border ${
-                has
-                  ? dark
-                    ? highlight
-                      ? "bg-background/15 border-background/40 text-background"
-                      : "border-background/20 text-background/70"
-                    : highlight
-                      ? "bg-primary/10 border-primary/40 text-primary"
-                      : "bg-muted/40 border-border text-muted-foreground"
-                  : dark
-                    ? "border-background/10 text-background/30 line-through"
-                    : "border-border/40 text-muted-foreground/40 line-through"
-              }`}
-            >
-              {c.label}
-            </span>
-          );
-        })}
-      </div>
-    </Link>
+        <span className="hidden md:inline text-[9px] tracking-[0.24em] font-bold uppercase text-muted-foreground/70 shrink-0">
+          {pillar}
+        </span>
+        <ChevronDown
+          className={`size-4 text-muted-foreground shrink-0 transition-transform duration-300 ${
+            open ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+      {open && (
+        <div className="pb-5 pl-14 pr-2 -mt-1">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {versions.map((v) => {
+              const has = Boolean(script.versions[v.key]);
+              const highlight =
+                preferredBrand && preferredBrand !== "all" && preferredBrand === v.key;
+              if (!has) {
+                return (
+                  <span
+                    key={v.key}
+                    className="text-[10px] uppercase tracking-[0.18em] px-3 py-2 border border-dashed border-border/60 text-muted-foreground/40 text-center"
+                  >
+                    {v.label}
+                  </span>
+                );
+              }
+              return (
+                <Link
+                  key={v.key}
+                  to="/scripts/$num"
+                  params={{ num: script.num }}
+                  search={{ v: v.key }}
+                  className={`text-[10px] uppercase tracking-[0.18em] font-semibold px-3 py-2 border text-center transition-colors ${
+                    highlight
+                      ? "border-foreground bg-foreground text-background"
+                      : "border-border text-foreground hover:border-foreground hover:bg-muted/50"
+                  }`}
+                >
+                  {v.label}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
