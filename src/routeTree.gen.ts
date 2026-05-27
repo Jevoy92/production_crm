@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TasksRouteImport } from './routes/tasks'
+import { Route as StudioRouteImport } from './routes/studio'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ScriptsRouteImport } from './routes/scripts'
 import { Route as ScoreboardRouteImport } from './routes/scoreboard'
@@ -49,6 +50,11 @@ const TeamRoute = TeamRouteImport.update({
 const TasksRoute = TasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioRoute = StudioRouteImport.update({
+  id: '/studio',
+  path: '/studio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -212,6 +218,7 @@ export interface FileRoutesByFullPath {
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/studio': typeof StudioRoute
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
@@ -245,6 +252,7 @@ export interface FileRoutesByTo {
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/studio': typeof StudioRoute
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
@@ -279,6 +287,7 @@ export interface FileRoutesById {
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/studio': typeof StudioRoute
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
@@ -314,6 +323,7 @@ export interface FileRouteTypes {
     | '/scoreboard'
     | '/scripts'
     | '/settings'
+    | '/studio'
     | '/tasks'
     | '/team'
     | '/admin/templates'
@@ -347,6 +357,7 @@ export interface FileRouteTypes {
     | '/scoreboard'
     | '/scripts'
     | '/settings'
+    | '/studio'
     | '/tasks'
     | '/team'
     | '/admin/templates'
@@ -380,6 +391,7 @@ export interface FileRouteTypes {
     | '/scoreboard'
     | '/scripts'
     | '/settings'
+    | '/studio'
     | '/tasks'
     | '/team'
     | '/admin/templates'
@@ -414,6 +426,7 @@ export interface RootRouteChildren {
   ScoreboardRoute: typeof ScoreboardRoute
   ScriptsRoute: typeof ScriptsRouteWithChildren
   SettingsRoute: typeof SettingsRoute
+  StudioRoute: typeof StudioRoute
   TasksRoute: typeof TasksRoute
   TeamRoute: typeof TeamRoute
   AdminTemplatesRoute: typeof AdminTemplatesRoute
@@ -440,6 +453,13 @@ declare module '@tanstack/react-router' {
       path: '/tasks'
       fullPath: '/tasks'
       preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio': {
+      id: '/studio'
+      path: '/studio'
+      fullPath: '/studio'
+      preLoaderRoute: typeof StudioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -705,6 +725,7 @@ const rootRouteChildren: RootRouteChildren = {
   ScoreboardRoute: ScoreboardRoute,
   ScriptsRoute: ScriptsRouteWithChildren,
   SettingsRoute: SettingsRoute,
+  StudioRoute: StudioRoute,
   TasksRoute: TasksRoute,
   TeamRoute: TeamRoute,
   AdminTemplatesRoute: AdminTemplatesRoute,
@@ -719,13 +740,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
