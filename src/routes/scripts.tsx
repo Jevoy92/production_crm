@@ -221,7 +221,10 @@ function ScriptRow({
     : (versions.find((v) => script.versions[v.key])?.key ?? "original");
   const [activeVersion, setActiveVersion] = useState<typeof versions[number]["key"]>(initial);
   const entry = script.versions[activeVersion];
-  const { source, loading } = useLazySource(open ? entry?.load : undefined);
+  const { source, loading } = useLazySource(
+    open ? entry?.load : undefined,
+    open ? entry?.originalPath : undefined,
+  );
 
   const copyText = async () => {
     if (!source) return;
