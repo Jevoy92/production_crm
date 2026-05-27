@@ -22,7 +22,6 @@ import {
   Undo2,
   Redo2,
   Save,
-  Download,
   Send,
   Sparkles,
   Trash2,

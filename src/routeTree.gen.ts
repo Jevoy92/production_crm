@@ -26,6 +26,7 @@ import { Route as BrandRouteImport } from './routes/brand'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StudioIdRouteImport } from './routes/studio.$id'
 import { Route as ShootsIdRouteImport } from './routes/shoots.$id'
 import { Route as ScriptsYourboyRouteImport } from './routes/scripts.yourboy'
 import { Route as ScriptsStrategyRouteImport } from './routes/scripts.strategy'
@@ -127,6 +128,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudioIdRoute = StudioIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => StudioRoute,
+} as any)
 const ShootsIdRoute = ShootsIdRouteImport.update({
   id: '/shoots/$id',
   path: '/shoots/$id',
@@ -218,7 +224,7 @@ export interface FileRoutesByFullPath {
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
   '/settings': typeof SettingsRoute
-  '/studio': typeof StudioRoute
+  '/studio': typeof StudioRouteWithChildren
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
@@ -236,6 +242,7 @@ export interface FileRoutesByFullPath {
   '/scripts/strategy': typeof ScriptsStrategyRoute
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
+  '/studio/$id': typeof StudioIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -252,7 +259,7 @@ export interface FileRoutesByTo {
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
   '/settings': typeof SettingsRoute
-  '/studio': typeof StudioRoute
+  '/studio': typeof StudioRouteWithChildren
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
@@ -270,6 +277,7 @@ export interface FileRoutesByTo {
   '/scripts/strategy': typeof ScriptsStrategyRoute
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
+  '/studio/$id': typeof StudioIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -287,7 +295,7 @@ export interface FileRoutesById {
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
   '/settings': typeof SettingsRoute
-  '/studio': typeof StudioRoute
+  '/studio': typeof StudioRouteWithChildren
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
@@ -305,6 +313,7 @@ export interface FileRoutesById {
   '/scripts/strategy': typeof ScriptsStrategyRoute
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
+  '/studio/$id': typeof StudioIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -341,6 +350,7 @@ export interface FileRouteTypes {
     | '/scripts/strategy'
     | '/scripts/yourboy'
     | '/shoots/$id'
+    | '/studio/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -375,6 +385,7 @@ export interface FileRouteTypes {
     | '/scripts/strategy'
     | '/scripts/yourboy'
     | '/shoots/$id'
+    | '/studio/$id'
   id:
     | '__root__'
     | '/'
@@ -409,6 +420,7 @@ export interface FileRouteTypes {
     | '/scripts/strategy'
     | '/scripts/yourboy'
     | '/shoots/$id'
+    | '/studio/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -426,7 +438,7 @@ export interface RootRouteChildren {
   ScoreboardRoute: typeof ScoreboardRoute
   ScriptsRoute: typeof ScriptsRouteWithChildren
   SettingsRoute: typeof SettingsRoute
-  StudioRoute: typeof StudioRoute
+  StudioRoute: typeof StudioRouteWithChildren
   TasksRoute: typeof TasksRoute
   TeamRoute: typeof TeamRoute
   AdminTemplatesRoute: typeof AdminTemplatesRoute
@@ -559,6 +571,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/studio/$id': {
+      id: '/studio/$id'
+      path: '/$id'
+      fullPath: '/studio/$id'
+      preLoaderRoute: typeof StudioIdRouteImport
+      parentRoute: typeof StudioRoute
     }
     '/shoots/$id': {
       id: '/shoots/$id'
@@ -710,6 +729,17 @@ const ScriptsRouteChildren: ScriptsRouteChildren = {
 const ScriptsRouteWithChildren =
   ScriptsRoute._addFileChildren(ScriptsRouteChildren)
 
+interface StudioRouteChildren {
+  StudioIdRoute: typeof StudioIdRoute
+}
+
+const StudioRouteChildren: StudioRouteChildren = {
+  StudioIdRoute: StudioIdRoute,
+}
+
+const StudioRouteWithChildren =
+  StudioRoute._addFileChildren(StudioRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyticsRoute: AnalyticsRoute,
@@ -725,7 +755,7 @@ const rootRouteChildren: RootRouteChildren = {
   ScoreboardRoute: ScoreboardRoute,
   ScriptsRoute: ScriptsRouteWithChildren,
   SettingsRoute: SettingsRoute,
-  StudioRoute: StudioRoute,
+  StudioRoute: StudioRouteWithChildren,
   TasksRoute: TasksRoute,
   TeamRoute: TeamRoute,
   AdminTemplatesRoute: AdminTemplatesRoute,
@@ -740,13 +770,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
