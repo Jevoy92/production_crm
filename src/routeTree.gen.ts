@@ -37,6 +37,7 @@ import { Route as KpisPaRouteImport } from './routes/kpis.pa'
 import { Route as KpisOwnerRouteImport } from './routes/kpis.owner'
 import { Route as KpisCfoRouteImport } from './routes/kpis.cfo'
 import { Route as ClientsIdRouteImport } from './routes/clients.$id'
+import { Route as ApiStudioChatRouteImport } from './routes/api/studio-chat'
 import { Route as ApiPalsRouteImport } from './routes/api/pals'
 import { Route as AdminTemplatesRouteImport } from './routes/admin.templates'
 
@@ -180,6 +181,11 @@ const ClientsIdRoute = ClientsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => ClientsRoute,
 } as any)
+const ApiStudioChatRoute = ApiStudioChatRouteImport.update({
+  id: '/api/studio-chat',
+  path: '/api/studio-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPalsRoute = ApiPalsRouteImport.update({
   id: '/api/pals',
   path: '/api/pals',
@@ -210,6 +216,7 @@ export interface FileRoutesByFullPath {
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
+  '/api/studio-chat': typeof ApiStudioChatRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -242,6 +249,7 @@ export interface FileRoutesByTo {
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
+  '/api/studio-chat': typeof ApiStudioChatRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -275,6 +283,7 @@ export interface FileRoutesById {
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
+  '/api/studio-chat': typeof ApiStudioChatRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -309,6 +318,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/admin/templates'
     | '/api/pals'
+    | '/api/studio-chat'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -341,6 +351,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/admin/templates'
     | '/api/pals'
+    | '/api/studio-chat'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -373,6 +384,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/admin/templates'
     | '/api/pals'
+    | '/api/studio-chat'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -406,6 +418,7 @@ export interface RootRouteChildren {
   TeamRoute: typeof TeamRoute
   AdminTemplatesRoute: typeof AdminTemplatesRoute
   ApiPalsRoute: typeof ApiPalsRoute
+  ApiStudioChatRoute: typeof ApiStudioChatRoute
   KpisCfoRoute: typeof KpisCfoRoute
   KpisOwnerRoute: typeof KpisOwnerRoute
   KpisPaRoute: typeof KpisPaRoute
@@ -611,6 +624,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientsIdRouteImport
       parentRoute: typeof ClientsRoute
     }
+    '/api/studio-chat': {
+      id: '/api/studio-chat'
+      path: '/api/studio-chat'
+      fullPath: '/api/studio-chat'
+      preLoaderRoute: typeof ApiStudioChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/pals': {
       id: '/api/pals'
       path: '/api/pals'
@@ -689,6 +709,7 @@ const rootRouteChildren: RootRouteChildren = {
   TeamRoute: TeamRoute,
   AdminTemplatesRoute: AdminTemplatesRoute,
   ApiPalsRoute: ApiPalsRoute,
+  ApiStudioChatRoute: ApiStudioChatRoute,
   KpisCfoRoute: KpisCfoRoute,
   KpisOwnerRoute: KpisOwnerRoute,
   KpisPaRoute: KpisPaRoute,
