@@ -14,7 +14,68 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      studio_messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          role: string
+          script_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          role: string
+          script_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          role?: string
+          script_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "studio_messages_script_id_fkey"
+            columns: ["script_id"]
+            isOneToOne: false
+            referencedRelation: "studio_scripts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      studio_scripts: {
+        Row: {
+          body_html: string
+          body_md: string
+          brand: string
+          created_at: string
+          id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body_html?: string
+          body_md?: string
+          brand?: string
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          body_html?: string
+          body_md?: string
+          brand?: string
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
