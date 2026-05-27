@@ -1,92 +1,79 @@
-## Approach — native ports as primary, HTML hubs as backup
+## Script Studio
 
-Build two real sections inside the Production OS using the existing design system (Shell, tokens, markdown renderer from the playbook), AND keep the original HTML hubs as static fallbacks. Best of both: the content is first-class inside the OS, but you can always click "Open original hub" if anything looks off.
+A new `/studio` route where you generate, edit, and save scripts in a Word-like editor with an AI assistant in a side panel that edits the open script as you talk.
 
-## 1. Static backups (drop-in, no parsing)
+### Layout
 
-- `public/hubs/scripts/` ← full `Palmer Scripts Hub copy/` folder (index.html + all .md subfolders), `.DS_Store`/`__MACOSX` stripped → served at `/hubs/scripts/index.html`
-- `public/hubs/brand/index.html` ← `PHP_Brand_Hub.html` → served at `/hubs/brand/index.html`
-
-Both kept byte-for-byte as uploaded.
-
-## 2. Bundled markdown source
-
-Copied into the repo so they import at build time (no runtime fetch, SSR-safe):
-
-```
-src/content/scripts/
-  Originals/Script 01…12 - <title>.md       (12 master scripts)
-  Versions/Script 01…12 - {Jevoy|Palmer House|MindYourBizniz}.md   (36 versions)
-  Strategy/{Cross-Venture Master Brief, Palmer House Investigative Universe, YourBoyJevoy Strategy Engine}.md
-  Research/{Recorded Animal Projection Map, Ecosystem Context}.md
-  YourBoyJevoy/Something on My Mind - Scripts.md
-  Skills/jevoy-palmer-operating-manual/{SKILL.md, references/*.md}
+```text
+┌─────────────────────────────────────────────────────────────┐
+│  Top bar: [Script title] [Brand ▾] [Save] [Export .md/.docx]│
+├──────────────────────────────────────┬──────────────────────┤
+│  Toolbar: B I U  H1 H2  • 1.  " <>   │  AI Assistant        │
+│ ┌──────────────────────────────────┐ │  ────────────────    │
+│ │                                  │ │  [chat transcript]   │
+│ │   Tiptap WYSIWYG editor          │ │                      │
+│ │   (the script body)              │ │  • Rewrite hook      │
+│ │                                  │ │  • Tighten section   │
+│ │                                  │ │  • Generate new      │
+│ └──────────────────────────────────┘ │  [prompt input ▶]    │
+│  Left rail: "My Scripts" list        │                      │
+└──────────────────────────────────────┴──────────────────────┘
 ```
 
-Loaded once via `import.meta.glob('…', { query: '?raw', eager: true })` in `src/lib/scriptsIndex.ts`, which exports a typed `SCRIPTS`, `STRATEGY`, `RESEARCH`, `MANUAL` index.
+Left rail lists saved scripts (new / rename / delete). Center is the editor. Right side panel is the AI chat.
 
-## 3. New routes — Scripts section
+### Editor
 
+- Tiptap with StarterKit + Underline + Link + Placeholder.
+- Toolbar: bold, italic, underline, H1/H2/H3, bullet/numbered list, blockquote, code, undo/redo.
+- Autosave (debounced 1s) into Lovable Cloud.
+- Export buttons: `.md` (via turndown) and `.docx` (via `docx` package built client-side).
+
+### AI assistant (side panel)
+
+- Chat UI using AI Elements components (`Conversation`, `Message`, `MessageResponse`, `PromptInput`, `Shimmer`).
+- Two affordances on every assistant message: **Insert** (append at cursor) and **Replace script** (swap full body). The model is instructed to return clean markdown the editor can convert to HTML.
+- Quick actions above the composer: "Generate full script from idea", "Tighten current draft", "Rewrite hook", "Convert to [brand] voice".
+- Chat history persists per script.
+
+### Master prompt
+
+System prompt is auto-assembled on the server from existing repo files:
+- `src/content/scripts/Strategy/Cross-Venture Master Brief.md`
+- `src/content/scripts/Strategy/YourBoyJevoy - Content Strategy Engine.md`
+- `src/content/scripts/Strategy/Palmer House - The Investigative Universe.md`
+- `src/content/scripts/Skills/jevoy-palmer-operating-manual/SKILL.md` (+ its `references/*.md`)
+
+Plus the current script's brand, title, and current body are injected as context each turn. No settings UI yet — defaults are loaded from the files, which you already edit directly.
+
+### Data model (Lovable Cloud)
+
+```text
+scripts
+  id uuid pk, user_id uuid, title text, brand text,
+  body_html text, body_md text, created_at, updated_at
+
+script_messages
+  id uuid pk, script_id uuid fk, user_id uuid,
+  role text ('user'|'assistant'), content text, created_at
 ```
-src/routes/scripts.tsx            → hub
-src/routes/scripts.$num.tsx       → script detail (tabs: Original / Jevoy / Palmer House / MindYourBizniz)
-src/routes/scripts.strategy.tsx   → strategy docs reader
-src/routes/scripts.research.tsx   → research docs reader
-src/routes/scripts.manual.tsx     → operating manual + 4 references (left rail)
-```
 
-All wrapped in the existing `Shell`. Markdown rendered with the same component the playbook detail page uses (extracted to `src/components/Markdown.tsx` if it's currently inlined). Tokens only — no raw colors.
+RLS: each user reads/writes only their own rows. Auth: email/password + Google (Lovable Cloud defaults).
 
-### Hub page (`/scripts`)
-- Top: 3 pinned cards — **Master Brief**, **Operating Manual**, **Open original hub ↗** (link to `/hubs/scripts/index.html`)
-- Grid of 12 script cards: number, title, one-line thesis (parsed from the master brief), 3 chips (Jevoy / Palmer House / MindYourBizniz) that deep-link to that version
-- Search + brand filter pills (All / Jevoy / Palmer House / MindYourBizniz)
-- Side section: Strategy docs, Research docs, YourBoyJevoy
+### Technical details
 
-### Script detail (`/scripts/$num`)
-- Back to /scripts, H1 title
-- Tab bar: Original · Jevoy Palmer · Palmer House · MindYourBizniz (URL `?v=jevoy`)
-- Meta sidebar: core idea, psychology refs, props, key analogy (from master brief)
-- Body: rendered markdown
-- Buttons: `Copy as plaintext`, `Download .md`, `Open original ↗` (links into `/hubs/scripts/Versions/…`)
+- **Stack additions**: `@tiptap/react`, `@tiptap/starter-kit`, `@tiptap/extension-underline`, `@tiptap/extension-link`, `@tiptap/extension-placeholder`, `turndown`, `marked`, `docx`, `file-saver`, AI Elements components (`conversation`, `message`, `prompt-input`, `shimmer`).
+- **Backend**: enable Lovable Cloud; create `scripts` + `script_messages` tables with grants + RLS; add `/api/chat` server route using AI SDK (`streamText`, `google/gemini-3-flash-preview`) that loads the master-prompt files at server boot and persists the assistant turn in `onFinish`.
+- **Server fns** (`src/lib/studio.functions.ts`): `listScripts`, `getScript`, `createScript`, `updateScript`, `deleteScript`, `listMessages` — all `requireSupabaseAuth`.
+- **Routes**:
+  - `src/routes/studio.tsx` — layout (left rail + outlet), redirects `/studio` → newest or new script.
+  - `src/routes/studio.$id.tsx` — editor + chat panel for one script.
+- **Sidebar**: add "Script Studio" entry to `src/components/dashboard/Sidebar.tsx`.
+- **Auth**: a `/login` page if not already present, plus `_authenticated` wrap for `/studio/*`.
 
-## 4. New routes — Brand Hub
+### Out of scope (ask before adding)
 
-Simplest viable port — the brand hub is one ~2,100-line styled HTML doc with its own typography and lanes (Reel/Spotlight/Evergreen/System). Porting every section to React would be a large project; instead:
-
-```
-src/routes/brand.tsx
-```
-
-A short native landing page using OS tokens with:
-- Pillar overview (4 lanes with their canonical hex from the source)
-- Type system + neutrals summary
-- Big CTA card: **Open full Brand Hub ↗** → `/hubs/brand/index.html` (opens in a new tab so the rich styling is intact)
-
-If you later want the brand hub fully ported into the OS look, that's a separate sweep — flag it and I'll do it section-by-section.
-
-## 5. Sidebar entries (append-only)
-
-Two new items in `src/components/dashboard/Sidebar.tsx`, after `Templates`:
-- **Scripts** (icon `FileText`) → `/scripts` (internal Link)
-- **Brand** (icon `Palette`) → `/brand` (internal Link)
-
-The "open original hub" links live inside the pages, not the sidebar, so the sidebar stays clean.
-
-## 6. Formatting & rules followed
-
-- Wrapped in existing `Shell`, uses `inputCls`, `Btn`, `Modal` primitives
-- Semantic tokens only (no raw colors in components)
-- TanStack file-based routes, `<Link>` not `<a>` for internal nav, type-safe params (`$num`)
-- Each route declares its own `head()` meta (title + description)
-- No SSR-unsafe code (all markdown imported at build time)
-- No edits to `playbook`, `gear`, `tasks`, `seed.ts`, `store.ts`, or any existing route
-- No backend / Cloud changes
-
-## What does NOT change
-
-Everything currently in the app stays exactly as it is. This is pure addition.
-
-## Open call
-
-Switch to build mode and I'll execute the whole thing in one pass. If you'd rather I trim scope (e.g. skip the Brand native page and only ship the HTML backup), say so first.
+- Real-time collaboration / multi-user editing.
+- Versioning / diff history.
+- Pushing edits back into the bundled `src/content/scripts/**` files.
+- A settings UI for editing the master prompt (files remain the source of truth).

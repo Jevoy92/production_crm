@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TasksRouteImport } from './routes/tasks'
+import { Route as StudioRouteImport } from './routes/studio'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ScriptsRouteImport } from './routes/scripts'
 import { Route as ScoreboardRouteImport } from './routes/scoreboard'
@@ -25,6 +26,7 @@ import { Route as BrandRouteImport } from './routes/brand'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StudioIdRouteImport } from './routes/studio.$id'
 import { Route as ShootsIdRouteImport } from './routes/shoots.$id'
 import { Route as ScriptsYourboyRouteImport } from './routes/scripts.yourboy'
 import { Route as ScriptsStrategyRouteImport } from './routes/scripts.strategy'
@@ -37,6 +39,7 @@ import { Route as KpisPaRouteImport } from './routes/kpis.pa'
 import { Route as KpisOwnerRouteImport } from './routes/kpis.owner'
 import { Route as KpisCfoRouteImport } from './routes/kpis.cfo'
 import { Route as ClientsIdRouteImport } from './routes/clients.$id'
+import { Route as ApiStudioChatRouteImport } from './routes/api/studio-chat'
 import { Route as ApiPalsRouteImport } from './routes/api/pals'
 import { Route as AdminTemplatesRouteImport } from './routes/admin.templates'
 
@@ -48,6 +51,11 @@ const TeamRoute = TeamRouteImport.update({
 const TasksRoute = TasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioRoute = StudioRouteImport.update({
+  id: '/studio',
+  path: '/studio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -120,6 +128,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudioIdRoute = StudioIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => StudioRoute,
+} as any)
 const ShootsIdRoute = ShootsIdRouteImport.update({
   id: '/shoots/$id',
   path: '/shoots/$id',
@@ -180,6 +193,11 @@ const ClientsIdRoute = ClientsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => ClientsRoute,
 } as any)
+const ApiStudioChatRoute = ApiStudioChatRouteImport.update({
+  id: '/api/studio-chat',
+  path: '/api/studio-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPalsRoute = ApiPalsRouteImport.update({
   id: '/api/pals',
   path: '/api/pals',
@@ -206,10 +224,12 @@ export interface FileRoutesByFullPath {
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/studio': typeof StudioRouteWithChildren
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
+  '/api/studio-chat': typeof ApiStudioChatRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -222,6 +242,7 @@ export interface FileRoutesByFullPath {
   '/scripts/strategy': typeof ScriptsStrategyRoute
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
+  '/studio/$id': typeof StudioIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -238,10 +259,12 @@ export interface FileRoutesByTo {
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/studio': typeof StudioRouteWithChildren
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
+  '/api/studio-chat': typeof ApiStudioChatRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -254,6 +277,7 @@ export interface FileRoutesByTo {
   '/scripts/strategy': typeof ScriptsStrategyRoute
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
+  '/studio/$id': typeof StudioIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -271,10 +295,12 @@ export interface FileRoutesById {
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/studio': typeof StudioRouteWithChildren
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
+  '/api/studio-chat': typeof ApiStudioChatRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -287,6 +313,7 @@ export interface FileRoutesById {
   '/scripts/strategy': typeof ScriptsStrategyRoute
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
+  '/studio/$id': typeof StudioIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -305,10 +332,12 @@ export interface FileRouteTypes {
     | '/scoreboard'
     | '/scripts'
     | '/settings'
+    | '/studio'
     | '/tasks'
     | '/team'
     | '/admin/templates'
     | '/api/pals'
+    | '/api/studio-chat'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -321,6 +350,7 @@ export interface FileRouteTypes {
     | '/scripts/strategy'
     | '/scripts/yourboy'
     | '/shoots/$id'
+    | '/studio/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -337,10 +367,12 @@ export interface FileRouteTypes {
     | '/scoreboard'
     | '/scripts'
     | '/settings'
+    | '/studio'
     | '/tasks'
     | '/team'
     | '/admin/templates'
     | '/api/pals'
+    | '/api/studio-chat'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -353,6 +385,7 @@ export interface FileRouteTypes {
     | '/scripts/strategy'
     | '/scripts/yourboy'
     | '/shoots/$id'
+    | '/studio/$id'
   id:
     | '__root__'
     | '/'
@@ -369,10 +402,12 @@ export interface FileRouteTypes {
     | '/scoreboard'
     | '/scripts'
     | '/settings'
+    | '/studio'
     | '/tasks'
     | '/team'
     | '/admin/templates'
     | '/api/pals'
+    | '/api/studio-chat'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -385,6 +420,7 @@ export interface FileRouteTypes {
     | '/scripts/strategy'
     | '/scripts/yourboy'
     | '/shoots/$id'
+    | '/studio/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -402,10 +438,12 @@ export interface RootRouteChildren {
   ScoreboardRoute: typeof ScoreboardRoute
   ScriptsRoute: typeof ScriptsRouteWithChildren
   SettingsRoute: typeof SettingsRoute
+  StudioRoute: typeof StudioRouteWithChildren
   TasksRoute: typeof TasksRoute
   TeamRoute: typeof TeamRoute
   AdminTemplatesRoute: typeof AdminTemplatesRoute
   ApiPalsRoute: typeof ApiPalsRoute
+  ApiStudioChatRoute: typeof ApiStudioChatRoute
   KpisCfoRoute: typeof KpisCfoRoute
   KpisOwnerRoute: typeof KpisOwnerRoute
   KpisPaRoute: typeof KpisPaRoute
@@ -427,6 +465,13 @@ declare module '@tanstack/react-router' {
       path: '/tasks'
       fullPath: '/tasks'
       preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio': {
+      id: '/studio'
+      path: '/studio'
+      fullPath: '/studio'
+      preLoaderRoute: typeof StudioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -527,6 +572,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/studio/$id': {
+      id: '/studio/$id'
+      path: '/$id'
+      fullPath: '/studio/$id'
+      preLoaderRoute: typeof StudioIdRouteImport
+      parentRoute: typeof StudioRoute
+    }
     '/shoots/$id': {
       id: '/shoots/$id'
       path: '/shoots/$id'
@@ -611,6 +663,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientsIdRouteImport
       parentRoute: typeof ClientsRoute
     }
+    '/api/studio-chat': {
+      id: '/api/studio-chat'
+      path: '/api/studio-chat'
+      fullPath: '/api/studio-chat'
+      preLoaderRoute: typeof ApiStudioChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/pals': {
       id: '/api/pals'
       path: '/api/pals'
@@ -670,6 +729,17 @@ const ScriptsRouteChildren: ScriptsRouteChildren = {
 const ScriptsRouteWithChildren =
   ScriptsRoute._addFileChildren(ScriptsRouteChildren)
 
+interface StudioRouteChildren {
+  StudioIdRoute: typeof StudioIdRoute
+}
+
+const StudioRouteChildren: StudioRouteChildren = {
+  StudioIdRoute: StudioIdRoute,
+}
+
+const StudioRouteWithChildren =
+  StudioRoute._addFileChildren(StudioRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyticsRoute: AnalyticsRoute,
@@ -685,10 +755,12 @@ const rootRouteChildren: RootRouteChildren = {
   ScoreboardRoute: ScoreboardRoute,
   ScriptsRoute: ScriptsRouteWithChildren,
   SettingsRoute: SettingsRoute,
+  StudioRoute: StudioRouteWithChildren,
   TasksRoute: TasksRoute,
   TeamRoute: TeamRoute,
   AdminTemplatesRoute: AdminTemplatesRoute,
   ApiPalsRoute: ApiPalsRoute,
+  ApiStudioChatRoute: ApiStudioChatRoute,
   KpisCfoRoute: KpisCfoRoute,
   KpisOwnerRoute: KpisOwnerRoute,
   KpisPaRoute: KpisPaRoute,
@@ -698,13 +770,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -19,6 +19,7 @@ import {
   Trash2,
   FileText,
   Palette,
+  PenLine,
 } from "lucide-react";
 import { useStore } from "@/lib/store";
 
@@ -40,6 +41,7 @@ const nav = [
   { label: "Playbooks", to: "/playbook", icon: ClipboardList },
   { label: "Content Pipeline", to: "/content", icon: Clapperboard },
   { label: "Scripts", to: "/scripts", icon: FileText },
+  { label: "Script Studio", to: "/studio", icon: PenLine },
   { label: "Brand", to: "/brand", icon: Palette },
   { label: "Templates", to: "/admin/templates", icon: SlidersHorizontal },
 ] as const;
