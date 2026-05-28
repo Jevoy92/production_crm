@@ -33,6 +33,7 @@ const nav = [
   { label: "Productions", to: "/productions", icon: Film },
   { label: "Schedule", to: "/schedule", icon: Calendar },
   { label: "Tasks", to: "/tasks", icon: CheckSquare },
+  { label: "Checklists", to: "/checklists", icon: ClipboardList },
   { label: "Clients", to: "/clients", icon: Contact },
   { label: "Assets", to: "/assets", icon: Folder },
   { label: "Analytics", to: "/analytics", icon: BarChart3 },
