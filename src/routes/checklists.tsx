@@ -2,18 +2,31 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
 import { Btn, inputCls } from "@/components/ui-bits/Modal";
-import { Plus, Trash2, RotateCcw, BatteryCharging, Camera, Sun, Moon, Backpack } from "lucide-react";
+import {
+  Plus,
+  Trash2,
+  RotateCcw,
+  BatteryCharging,
+  Camera,
+  Sun,
+  Moon,
+  Backpack,
+  ClipboardCheck,
+  Check,
+  X,
+} from "lucide-react";
 
 export const Route = createFileRoute("/checklists")({
   component: ChecklistsPage,
   head: () => ({ meta: [{ title: "Production Checklists · Palmer House" }] }),
 });
 
-type TabKey = "pre" | "gear" | "during" | "post" | "closeout";
+type TabKey = "overview" | "pre" | "gear" | "during" | "post" | "closeout";
 
 type Item = { id: string; text: string; done: boolean; section?: string };
 
 const TABS: { key: TabKey; label: string; icon: React.ComponentType<{ className?: string }>; blurb: string }[] = [
+  { key: "overview", label: "Today's Overview", icon: ClipboardCheck, blurb: "Log what actually got done today. Tap chips, add notes." },
   { key: "pre", label: "Pre-Shoot", icon: Sun, blurb: "Lock the plan before you leave the studio." },
   { key: "gear", label: "Mobile Gear", icon: Backpack, blurb: "Grab-and-go gear checklist for any location shoot." },
   { key: "during", label: "During Shoot", icon: Camera, blurb: "Run through this on set so nothing gets missed." },
