@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { SCRIPTS, STRATEGY_DOCS, RESEARCH_DOCS, YOURBOY_DOCS } from "@/lib/scriptsIndex";
 import { Markdown } from "@/components/Markdown";
-import { useLazySource } from "@/lib/useLazySource";
 
 export const Route = createFileRoute("/scripts")({
   component: ScriptsLayout,
@@ -221,10 +220,8 @@ function ScriptRow({
     : (versions.find((v) => script.versions[v.key])?.key ?? "original");
   const [activeVersion, setActiveVersion] = useState<typeof versions[number]["key"]>(initial);
   const entry = script.versions[activeVersion];
-  const { source, loading } = useLazySource(
-    open ? entry?.load : undefined,
-    open ? entry?.originalPath : undefined,
-  );
+  const source = entry?.body ?? "";
+  const loading = false;
 
   const copyText = async () => {
     if (!source) return;
