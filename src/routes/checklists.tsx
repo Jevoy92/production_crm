@@ -25,6 +25,8 @@ type TabKey = "overview" | "pre" | "gear" | "during" | "post" | "closeout";
 
 type Item = { id: string; text: string; done: boolean; section?: string };
 
+type ChecklistKey = Exclude<TabKey, "overview">;
+
 const TABS: { key: TabKey; label: string; icon: React.ComponentType<{ className?: string }>; blurb: string }[] = [
   { key: "overview", label: "Today's Overview", icon: ClipboardCheck, blurb: "Log what actually got done today. Tap chips, add notes." },
   { key: "pre", label: "Pre-Shoot", icon: Sun, blurb: "Lock the plan before you leave the studio." },
@@ -135,7 +137,7 @@ const GEAR_GROUPS: { section: string; items: string[] }[] = [
 
 type DefaultEntry = string | { text: string; section: string };
 
-const DEFAULTS: Record<TabKey, DefaultEntry[]> = {
+const DEFAULTS: Record<ChecklistKey, DefaultEntry[]> = {
   pre: [
     "Confirm call time + location with client and crew",
     "Build shot list / run-of-show",
@@ -185,7 +187,7 @@ const DEFAULTS: Record<TabKey, DefaultEntry[]> = {
 const STORAGE_KEY = "phpos:checklists:v2";
 const LEGACY_KEY = "phpos:checklists:v1";
 
-type Store = Record<TabKey, Item[]>;
+type Store = Record<ChecklistKey, Item[]>;
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
