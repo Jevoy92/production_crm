@@ -22,6 +22,7 @@ import { Route as GearRouteImport } from './routes/gear'
 import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as ContentRouteImport } from './routes/content'
 import { Route as ClientsRouteImport } from './routes/clients'
+import { Route as ChecklistsRouteImport } from './routes/checklists'
 import { Route as BrandRouteImport } from './routes/brand'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
@@ -106,6 +107,11 @@ const ContentRoute = ContentRouteImport.update({
 const ClientsRoute = ClientsRouteImport.update({
   id: '/clients',
   path: '/clients',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChecklistsRoute = ChecklistsRouteImport.update({
+  id: '/checklists',
+  path: '/checklists',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandRoute = BrandRouteImport.update({
@@ -214,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
   '/brand': typeof BrandRoute
+  '/checklists': typeof ChecklistsRoute
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
@@ -249,6 +256,7 @@ export interface FileRoutesByTo {
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
   '/brand': typeof BrandRoute
+  '/checklists': typeof ChecklistsRoute
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
@@ -285,6 +293,7 @@ export interface FileRoutesById {
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
   '/brand': typeof BrandRoute
+  '/checklists': typeof ChecklistsRoute
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
@@ -322,6 +331,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/assets'
     | '/brand'
+    | '/checklists'
     | '/clients'
     | '/content'
     | '/finance'
@@ -357,6 +367,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/assets'
     | '/brand'
+    | '/checklists'
     | '/clients'
     | '/content'
     | '/finance'
@@ -392,6 +403,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/assets'
     | '/brand'
+    | '/checklists'
     | '/clients'
     | '/content'
     | '/finance'
@@ -428,6 +440,7 @@ export interface RootRouteChildren {
   AnalyticsRoute: typeof AnalyticsRoute
   AssetsRoute: typeof AssetsRoute
   BrandRoute: typeof BrandRoute
+  ChecklistsRoute: typeof ChecklistsRoute
   ClientsRoute: typeof ClientsRouteWithChildren
   ContentRoute: typeof ContentRoute
   FinanceRoute: typeof FinanceRoute
@@ -542,6 +555,13 @@ declare module '@tanstack/react-router' {
       path: '/clients'
       fullPath: '/clients'
       preLoaderRoute: typeof ClientsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checklists': {
+      id: '/checklists'
+      path: '/checklists'
+      fullPath: '/checklists'
+      preLoaderRoute: typeof ChecklistsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brand': {
@@ -745,6 +765,7 @@ const rootRouteChildren: RootRouteChildren = {
   AnalyticsRoute: AnalyticsRoute,
   AssetsRoute: AssetsRoute,
   BrandRoute: BrandRoute,
+  ChecklistsRoute: ChecklistsRoute,
   ClientsRoute: ClientsRouteWithChildren,
   ContentRoute: ContentRoute,
   FinanceRoute: FinanceRoute,
@@ -770,13 +791,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
