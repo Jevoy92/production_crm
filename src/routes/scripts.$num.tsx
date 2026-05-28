@@ -4,7 +4,6 @@ import { Shell } from "@/components/dashboard/Shell";
 import { Btn } from "@/components/ui-bits/Modal";
 import { Markdown } from "@/components/Markdown";
 import { findScript, VERSION_LABEL, type ScriptVersion } from "@/lib/scriptsIndex";
-import { useLazySource } from "@/lib/useLazySource";
 import { z } from "zod";
 
 const searchSchema = z.object({
@@ -43,7 +42,8 @@ function ScriptDetail() {
   const available: ScriptVersion[] = ALL.filter((k) => Boolean(script.versions[k]));
   const current: ScriptVersion = script.versions[v] ? v : (available[0] ?? "original");
   const entry = script.versions[current];
-  const { source, loading } = useLazySource(entry?.load);
+  const source = entry?.body ?? "";
+  const loading = false;
 
   const copyText = async () => {
     if (!source) return;

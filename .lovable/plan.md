@@ -1,79 +1,36 @@
-## Script Studio
+I found the actual failure: the page first tries a dynamic markdown chunk, which is failing to fetch, then falls back to `/hubs/scripts/...`, but that public URL is returning 404. The bulletproof fix is to remove runtime markdown loading from this page entirely.
 
-A new `/studio` route where you generate, edit, and save scripts in a Word-like editor with an AI assistant in a side panel that edits the open script as you talk.
+Plan:
 
-### Layout
+1. Replace lazy markdown loading with a compile-time script library
+- Convert all script markdown files into plain text strings bundled directly into the app at build time.
+- Use `import.meta.glob(..., { eager: true, query: '?raw' })` so every script body is available synchronously with no dynamic chunk request.
+- Keep the same existing script titles, brand versions, search, filters, copy, and `.md` download behavior.
 
-```text
-┌─────────────────────────────────────────────────────────────┐
-│  Top bar: [Script title] [Brand ▾] [Save] [Export .md/.docx]│
-├──────────────────────────────────────┬──────────────────────┤
-│  Toolbar: B I U  H1 H2  • 1.  " <>   │  AI Assistant        │
-│ ┌──────────────────────────────────┐ │  ────────────────    │
-│ │                                  │ │  [chat transcript]   │
-│ │   Tiptap WYSIWYG editor          │ │                      │
-│ │   (the script body)              │ │  • Rewrite hook      │
-│ │                                  │ │  • Tighten section   │
-│ │                                  │ │  • Generate new      │
-│ └──────────────────────────────────┘ │  [prompt input ▶]    │
-│  Left rail: "My Scripts" list        │                      │
-└──────────────────────────────────────┴──────────────────────┘
-```
+2. Update the scripts page rendering
+- Stop calling `useLazySource` for the main script dropdowns.
+- When a version is selected, render its bundled plain-text body immediately.
+- If a script is missing from the library, show a clear “version not available” state instead of “couldn’t load.”
 
-Left rail lists saved scripts (new / rename / delete). Center is the editor. Right side panel is the AI chat.
+3. Keep markdown formatting safe but no longer dependent on files loading
+- For display, pass the bundled text into the existing Markdown renderer, so headings/lists still look right.
+- If you prefer truly plain text display, I can render inside a pre-wrapped document view instead, but the permanent loading fix does not require that.
 
-### Editor
+4. Fix the broken backup links
+- Replace the current encoded public fallback links with working source-aware links or remove the “Original” button from loaded dropdown content if it points to unavailable files.
+- This prevents the UI from offering a link that 404s.
 
-- Tiptap with StarterKit + Underline + Link + Placeholder.
-- Toolbar: bold, italic, underline, H1/H2/H3, bullet/numbered list, blockquote, code, undo/redo.
-- Autosave (debounced 1s) into Lovable Cloud.
-- Export buttons: `.md` (via turndown) and `.docx` (via `docx` package built client-side).
+5. Leave reference documents alone unless needed
+- Apply this bulletproof approach to the script dropdowns first, because that is the broken user-facing flow.
+- Strategy / Research / Manual pages can stay lazy for now, or I can convert those too in a follow-up if you want the same no-runtime-fetch guarantee across all docs.
 
-### AI assistant (side panel)
+Technical details:
+- Main edit target: `src/lib/scriptsIndex.ts` to make script entries include `body` instead of `load` for script versions.
+- Main UI target: `src/routes/scripts.tsx` to render `entry.body` directly.
+- Optional cleanup: keep `useLazySource` only for non-script document readers, or remove it later if no longer used.
 
-- Chat UI using AI Elements components (`Conversation`, `Message`, `MessageResponse`, `PromptInput`, `Shimmer`).
-- Two affordances on every assistant message: **Insert** (append at cursor) and **Replace script** (swap full body). The model is instructed to return clean markdown the editor can convert to HTML.
-- Quick actions above the composer: "Generate full script from idea", "Tighten current draft", "Rewrite hook", "Convert to [brand] voice".
-- Chat history persists per script.
-
-### Master prompt
-
-System prompt is auto-assembled on the server from existing repo files:
-- `src/content/scripts/Strategy/Cross-Venture Master Brief.md`
-- `src/content/scripts/Strategy/YourBoyJevoy - Content Strategy Engine.md`
-- `src/content/scripts/Strategy/Palmer House - The Investigative Universe.md`
-- `src/content/scripts/Skills/jevoy-palmer-operating-manual/SKILL.md` (+ its `references/*.md`)
-
-Plus the current script's brand, title, and current body are injected as context each turn. No settings UI yet — defaults are loaded from the files, which you already edit directly.
-
-### Data model (Lovable Cloud)
-
-```text
-scripts
-  id uuid pk, user_id uuid, title text, brand text,
-  body_html text, body_md text, created_at, updated_at
-
-script_messages
-  id uuid pk, script_id uuid fk, user_id uuid,
-  role text ('user'|'assistant'), content text, created_at
-```
-
-RLS: each user reads/writes only their own rows. Auth: email/password + Google (Lovable Cloud defaults).
-
-### Technical details
-
-- **Stack additions**: `@tiptap/react`, `@tiptap/starter-kit`, `@tiptap/extension-underline`, `@tiptap/extension-link`, `@tiptap/extension-placeholder`, `turndown`, `marked`, `docx`, `file-saver`, AI Elements components (`conversation`, `message`, `prompt-input`, `shimmer`).
-- **Backend**: enable Lovable Cloud; create `scripts` + `script_messages` tables with grants + RLS; add `/api/chat` server route using AI SDK (`streamText`, `google/gemini-3-flash-preview`) that loads the master-prompt files at server boot and persists the assistant turn in `onFinish`.
-- **Server fns** (`src/lib/studio.functions.ts`): `listScripts`, `getScript`, `createScript`, `updateScript`, `deleteScript`, `listMessages` — all `requireSupabaseAuth`.
-- **Routes**:
-  - `src/routes/studio.tsx` — layout (left rail + outlet), redirects `/studio` → newest or new script.
-  - `src/routes/studio.$id.tsx` — editor + chat panel for one script.
-- **Sidebar**: add "Script Studio" entry to `src/components/dashboard/Sidebar.tsx`.
-- **Auth**: a `/login` page if not already present, plus `_authenticated` wrap for `/studio/*`.
-
-### Out of scope (ask before adding)
-
-- Real-time collaboration / multi-user editing.
-- Versioning / diff history.
-- Pushing edits back into the bundled `src/content/scripts/**` files.
-- A settings UI for editing the master prompt (files remain the source of truth).
+Result:
+- No dynamic script chunk requests.
+- No `/hubs/scripts/*.md` fetch dependency.
+- No “couldn’t load this script” for bundled scripts.
+- Script dropdowns work permanently from the app bundle itself.
