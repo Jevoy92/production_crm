@@ -234,7 +234,7 @@ function load(): Store {
 
 function ChecklistsPage() {
   const [data, setData] = useState<Store>(() => seed());
-  const [tab, setTab] = useState<TabKey>("pre");
+  const [tab, setTab] = useState<TabKey>("overview");
   const [draft, setDraft] = useState("");
 
   useEffect(() => {
@@ -246,27 +246,29 @@ function ChecklistsPage() {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }, [data]);
 
-  const items = data[tab];
+  const isChecklist = tab !== "overview";
+  const checklistKey = tab as ChecklistKey;
+  const items = isChecklist ? data[checklistKey] : [];
   const stats = useMemo(() => {
     const done = items.filter((i) => i.done).length;
     return { done, total: items.length, pct: items.length ? Math.round((done / items.length) * 100) : 0 };
   }, [items]);
 
   const toggle = (id: string) =>
-    setData((d) => ({ ...d, [tab]: d[tab].map((i) => (i.id === id ? { ...i, done: !i.done } : i)) }));
+    setData((d) => ({ ...d, [checklistKey]: d[checklistKey].map((i) => (i.id === id ? { ...i, done: !i.done } : i)) }));
   const remove = (id: string) =>
-    setData((d) => ({ ...d, [tab]: d[tab].filter((i) => i.id !== id) }));
+    setData((d) => ({ ...d, [checklistKey]: d[checklistKey].filter((i) => i.id !== id) }));
   const add = () => {
     const text = draft.trim();
     if (!text) return;
-    setData((d) => ({ ...d, [tab]: [...d[tab], { id: uid(), text, done: false }] }));
+    setData((d) => ({ ...d, [checklistKey]: [...d[checklistKey], { id: uid(), text, done: false }] }));
     setDraft("");
   };
   const resetChecks = () =>
-    setData((d) => ({ ...d, [tab]: d[tab].map((i) => ({ ...i, done: false })) }));
+    setData((d) => ({ ...d, [checklistKey]: d[checklistKey].map((i) => ({ ...i, done: false })) }));
   const resetDefaults = () => {
     if (!confirm("Reset this checklist to the defaults? Your custom items on this tab will be removed.")) return;
-    setData((d) => ({ ...d, [tab]: toItems(DEFAULTS[tab]) }));
+    setData((d) => ({ ...d, [checklistKey]: toItems(DEFAULTS[checklistKey]) }));
   };
 
   const activeTab = TABS.find((t) => t.key === tab)!;
@@ -276,6 +278,7 @@ function ChecklistsPage() {
       title="Production Checklists"
       subtitle="Pre-shoot, on set, wrap, and end-of-day closeouts. Tap to check off."
       actions={
+        isChecklist ? (
         <>
           <Btn variant="ghost" onClick={resetChecks}>
             <RotateCcw className="size-3.5" /> Uncheck all
@@ -284,14 +287,15 @@ function ChecklistsPage() {
             Restore defaults
           </Btn>
         </>
+        ) : null
       }
     >
       <div className="flex flex-wrap gap-1.5 mb-4">
         {TABS.map((t) => {
           const active = t.key === tab;
           const Icon = t.icon;
-          const tabStats = data[t.key];
-          const done = tabStats.filter((i) => i.done).length;
+          const tabStats = t.key === "overview" ? null : data[t.key as ChecklistKey];
+          const done = tabStats ? tabStats.filter((i) => i.done).length : 0;
           return (
             <button
               key={t.key}
@@ -304,14 +308,19 @@ function ChecklistsPage() {
             >
               <Icon className="size-3.5" />
               {t.label}
-              <span className={`num text-[10.5px] rounded-md px-1.5 py-0.5 ${active ? "bg-primary-foreground/20" : "bg-surface-3 text-muted-foreground"}`}>
-                {done}/{tabStats.length}
-              </span>
+              {tabStats && (
+                <span className={`num text-[10.5px] rounded-md px-1.5 py-0.5 ${active ? "bg-primary-foreground/20" : "bg-surface-3 text-muted-foreground"}`}>
+                  {done}/{tabStats.length}
+                </span>
+              )}
             </button>
           );
         })}
       </div>
 
+      {tab === "overview" ? (
+        <OverviewPanel blurb={activeTab.blurb} label={activeTab.label} />
+      ) : (
       <div className="rounded-xl border border-border bg-surface-1 p-4">
         <div className="flex items-center justify-between mb-3">
           <div>
@@ -347,6 +356,7 @@ function ChecklistsPage() {
           </Btn>
         </div>
       </div>
+      )}
     </Shell>
   );
 }
