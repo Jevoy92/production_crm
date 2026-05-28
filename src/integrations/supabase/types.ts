@@ -14,6 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
+      checklist_items: {
+        Row: {
+          created_at: string
+          done: boolean
+          id: string
+          section: string | null
+          sort_order: number
+          tab: string
+          text: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          done?: boolean
+          id?: string
+          section?: string | null
+          sort_order?: number
+          tab: string
+          text: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          done?: boolean
+          id?: string
+          section?: string | null
+          sort_order?: number
+          tab?: string
+          text?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      overview_logs: {
+        Row: {
+          customs: Json
+          date: string
+          notes: string
+          picks: Json
+          updated_at: string
+        }
+        Insert: {
+          customs?: Json
+          date: string
+          notes?: string
+          picks?: Json
+          updated_at?: string
+        }
+        Update: {
+          customs?: Json
+          date?: string
+          notes?: string
+          picks?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       studio_messages: {
         Row: {
           content: string
