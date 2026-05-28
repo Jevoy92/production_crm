@@ -3,15 +3,22 @@
 // script fetches that one markdown module instead of the full content library.
 
 type LazyMap = Record<string, () => Promise<string>>;
+type EagerMap = Record<string, string>;
 
-const originalsRaw = import.meta.glob("/src/content/scripts/Originals/*.md", {
+// Eager-load script bodies — these must be bulletproof and always render
+// without a runtime fetch / dynamic chunk.
+const originalsEager = import.meta.glob("/src/content/scripts/Originals/*.md", {
   query: "?raw",
   import: "default",
-}) as LazyMap;
-const versionsRaw = import.meta.glob("/src/content/scripts/Versions/*.md", {
+  eager: true,
+}) as EagerMap;
+const versionsEager = import.meta.glob("/src/content/scripts/Versions/*.md", {
   query: "?raw",
   import: "default",
-}) as LazyMap;
+  eager: true,
+}) as EagerMap;
+
+// Reference docs remain lazy — they're large and not on the critical path.
 const strategyRaw = import.meta.glob("/src/content/scripts/Strategy/*.md", {
   query: "?raw",
   import: "default",
@@ -51,7 +58,7 @@ export type ScriptEntry = {
   versions: Partial<
     Record<
       ScriptVersion,
-      { load: () => Promise<string>; originalPath: string; filename: string }
+      { body: string; originalPath: string; filename: string }
     >
   >;
 };
@@ -77,7 +84,7 @@ function parseVersion(filename: string): { num: string; brand: ScriptVersion } |
 
 const byNum = new Map<string, ScriptEntry>();
 
-for (const [path, load] of Object.entries(originalsRaw)) {
+for (const [path, body] of Object.entries(originalsEager)) {
   const name = basename(path);
   const parsed = parseOriginal(name);
   if (!parsed) continue;
@@ -91,14 +98,14 @@ for (const [path, load] of Object.entries(originalsRaw)) {
   entry.title = parsed.title;
   entry.originalPath = `/hubs/scripts/Originals/${encodeURIComponent(`${name}.md`)}`;
   entry.versions.original = {
-    load,
+    body,
     originalPath: `/hubs/scripts/Originals/${encodeURIComponent(`${name}.md`)}`,
     filename: `${name}.md`,
   };
   byNum.set(parsed.num, entry);
 }
 
-for (const [path, load] of Object.entries(versionsRaw)) {
+for (const [path, body] of Object.entries(versionsEager)) {
   const name = basename(path);
   const parsed = parseVersion(name);
   if (!parsed) continue;
@@ -110,7 +117,7 @@ for (const [path, load] of Object.entries(versionsRaw)) {
       versions: {},
     };
   entry.versions[parsed.brand] = {
-    load,
+    body,
     originalPath: `/hubs/scripts/Versions/${encodeURIComponent(`${name}.md`)}`,
     filename: `${name}.md`,
   };
