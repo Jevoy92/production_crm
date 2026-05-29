@@ -1,5 +1,13 @@
-import { Search, Bell, Command, Menu } from "lucide-react";
+import { Search, Bell, Command, Menu, Check, ChevronDown } from "lucide-react";
 import { useStore } from "@/lib/store";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const dayName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const monthName = [
@@ -65,36 +73,60 @@ export function Topbar({
             </kbd>
           </div>
 
-          <div className="hidden lg:flex items-center rounded-lg bg-surface-2 ring-inset-soft p-0.5">
-            {(["owner", "cfo", "pa"] as const).map((r) => (
-              <button
-                key={r}
-                onClick={() => setRole(r)}
-                className={`px-2.5 py-1 text-[11.5px] rounded-md capitalize ${role === r ? "bg-card text-foreground ring-inset-soft" : "text-muted-foreground hover:text-foreground"}`}
-              >
-                {r === "pa" ? "PA" : r}
-              </button>
-            ))}
-          </div>
-
           <button className="hidden sm:grid size-9 place-items-center rounded-lg bg-surface-2 ring-inset-soft hover:bg-surface-3">
             <Bell className="size-4 text-muted-foreground" />
           </button>
 
           {actions}
 
-          <div className="ml-0 md:ml-2 flex items-center gap-2 pl-0 md:pl-3 md:border-l border-border">
-            <div
-              className="size-8 rounded-full grid place-items-center text-[12px] font-semibold text-primary-foreground"
-              style={{ background: active.color }}
-            >
-              {active.initials}
-            </div>
-            <div className="hidden xl:block leading-tight">
-              <div className="text-[12.5px] font-medium">{active.name}</div>
-              <div className="text-[11px] text-muted-foreground capitalize">{active.role}</div>
-            </div>
-          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                aria-label="Switch account"
+                className="ml-0 md:ml-2 flex items-center gap-2.5 rounded-full pl-1 pr-2.5 md:pr-3 py-1 bg-card ring-1 ring-border hover:ring-primary/60 hover:bg-surface-2 transition-all shadow-sm"
+              >
+                <div
+                  className="size-8 rounded-full grid place-items-center text-[12px] font-semibold text-primary-foreground shrink-0"
+                  style={{ background: active.color }}
+                >
+                  {active.initials}
+                </div>
+                <div className="hidden sm:block leading-tight text-left">
+                  <div className="text-[12.5px] font-semibold">{active.name}</div>
+                  <div className="text-[10.5px] text-muted-foreground capitalize">{active.role === "pa" ? "PA" : active.role}</div>
+                </div>
+                <ChevronDown className="size-3.5 text-muted-foreground" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-64">
+              <DropdownMenuLabel className="text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground font-medium">
+                Switch account
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {team.map((m) => {
+                const isActive = m.role === role;
+                return (
+                  <DropdownMenuItem
+                    key={m.id}
+                    onSelect={() => setRole(m.role as typeof role)}
+                    className="gap-3 py-2 cursor-pointer"
+                  >
+                    <div
+                      className="size-9 rounded-full grid place-items-center text-[12.5px] font-semibold text-primary-foreground shrink-0"
+                      style={{ background: m.color }}
+                    >
+                      {m.initials}
+                    </div>
+                    <div className="flex-1 leading-tight">
+                      <div className="text-[13px] font-medium">{m.name}</div>
+                      <div className="text-[11px] text-muted-foreground capitalize">{m.role === "pa" ? "PA" : m.role}</div>
+                    </div>
+                    {isActive && <Check className="size-4 text-primary" />}
+                  </DropdownMenuItem>
+                );
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>
