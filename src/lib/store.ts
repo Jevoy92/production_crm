@@ -144,17 +144,17 @@ export const useStore = create<State>()(
       trackedKpis: SEED.trackedKpis,
 
       finance: {
-        cashCollectedMonth: 64200,
-        outstanding: 28400,
-        toolSpend: 1280,
-        aiSpend: 340,
-        contractorSpend: 8600,
-        bookedMonth: 84500,
-        bookedQuarter: 218400,
-        retainerRevenue: 12000,
-        ar30: 18400,
-        ar60: 6200,
-        ar90: 3800,
+        cashCollectedMonth: 0,
+        outstanding: 0,
+        toolSpend: 0,
+        aiSpend: 0,
+        contractorSpend: 0,
+        bookedMonth: 0,
+        bookedQuarter: 0,
+        retainerRevenue: 0,
+        ar30: 0,
+        ar60: 0,
+        ar90: 0,
       },
       setFinance: (patch) => set({ finance: { ...get().finance, ...patch } }),
 
@@ -360,17 +360,17 @@ export const useStore = create<State>()(
           contentPieces: SEED.contentPieces,
           trackedKpis: SEED.trackedKpis,
           finance: {
-            cashCollectedMonth: 64200,
-            outstanding: 28400,
-            toolSpend: 1280,
-            aiSpend: 340,
-            contractorSpend: 8600,
-            bookedMonth: 84500,
-            bookedQuarter: 218400,
-            retainerRevenue: 12000,
-            ar30: 18400,
-            ar60: 6200,
-            ar90: 3800,
+            cashCollectedMonth: 0,
+            outstanding: 0,
+            toolSpend: 0,
+            aiSpend: 0,
+            contractorSpend: 0,
+            bookedMonth: 0,
+            bookedQuarter: 0,
+            retainerRevenue: 0,
+            ar30: 0,
+            ar60: 0,
+            ar90: 0,
           },
         }),
       clearSeedData: () =>
@@ -390,10 +390,12 @@ export const useStore = create<State>()(
     }),
     {
       name: "phpos:v2",
-      version: 13,
+      version: 14,
       // Migrate persisted state forward without nuking the user's own data.
       // v11 — rebuilt playbook seed (tables, callouts, Pal characters).
       // v12 — gear items get real photos + seeded sample tasks.
+      // v14 — wipe all seed data (clients, projects, shoots, gear, assets,
+      //       tasks, content, KPIs, finance) so every device starts empty.
       migrate: (persisted: any, fromVersion) => {
         if (!persisted) return persisted;
         if (fromVersion < 11) {
@@ -404,6 +406,30 @@ export const useStore = create<State>()(
           if (!persisted.tasks || persisted.tasks.length === 0) {
             persisted.tasks = SEED.tasks;
           }
+        }
+        if (fromVersion < 14) {
+          persisted.clients = [];
+          persisted.projects = [];
+          persisted.shoots = [];
+          persisted.gearItems = [];
+          persisted.gearKits = [];
+          persisted.assets = [];
+          persisted.tasks = [];
+          persisted.contentPieces = [];
+          persisted.trackedKpis = [];
+          persisted.finance = {
+            cashCollectedMonth: 0,
+            outstanding: 0,
+            toolSpend: 0,
+            aiSpend: 0,
+            contractorSpend: 0,
+            bookedMonth: 0,
+            bookedQuarter: 0,
+            retainerRevenue: 0,
+            ar30: 0,
+            ar60: 0,
+            ar90: 0,
+          };
         }
         return persisted;
       },

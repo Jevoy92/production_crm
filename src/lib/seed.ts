@@ -1438,16 +1438,16 @@ const TASKS: Task[] = [
 
 export const SEED = {
   team: TEAM,
-  clients: CLIENTS,
-  projects: PROJECTS,
-  shoots: SHOOTS,
+  clients: [] as Client[],
+  projects: [] as Project[],
+  shoots: [] as Shoot[],
   playbook: PLAYBOOK,
-  gearItems: GEAR_ITEMS,
-  gearKits: GEAR_KITS,
-  assets: ASSETS,
-  tasks: TASKS,
+  gearItems: [] as GearItem[],
+  gearKits: [] as GearKit[],
+  assets: [] as Asset[],
+  tasks: [] as Task[],
   templates: DEFAULT_TEMPLATES,
-  contentPieces: CONTENT_PIECES,
-  trackedKpis: TRACKED_KPIS,
+  contentPieces: [] as ContentPiece[],
+  trackedKpis: [] as TrackedKpi[],
 };
 
