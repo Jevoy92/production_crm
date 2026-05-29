@@ -4,7 +4,7 @@ import { Shell } from "@/components/dashboard/Shell";
 import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
 import { useStore } from "@/lib/store";
 import type { Task } from "@/lib/types";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Pencil } from "lucide-react";
 
 export const Route = createFileRoute("/tasks")({
   component: TasksPage,
@@ -24,6 +24,7 @@ function TasksPage() {
   const activeRole = useStore((s) => s.activeRole);
   const [mineOnly, setMine] = useState(activeRole === "pa");
   const [open, setOpen] = useState(false);
+  const [editing, setEditing] = useState<Task | null>(null);
 
   const me = team.find((m) => m.role === activeRole);
   const filtered = mineOnly && me ? tasks.filter((t) => t.assigneeId === me.id) : tasks;
@@ -84,12 +85,26 @@ function TasksPage() {
                             <div className="text-[13px] font-medium leading-snug">{t.title}</div>
                           )}
                         </div>
-                        <button
-                          onClick={() => remove(t.id)}
-                          className="opacity-0 group-hover:opacity-100"
-                        >
-                          <Trash2 className="size-3.5 text-muted-foreground hover:text-destructive" />
-                        </button>
+                        <div className="flex items-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                          <button
+                            onClick={() => setEditing(t)}
+                            className="size-7 grid place-items-center rounded-md hover:bg-surface-3"
+                            aria-label="Edit task"
+                            title="Edit task"
+                          >
+                            <Pencil className="size-3.5 text-muted-foreground hover:text-foreground" />
+                          </button>
+                          <button
+                            onClick={() => {
+                              if (confirm(`Delete "${t.title}"?`)) remove(t.id);
+                            }}
+                            className="size-7 grid place-items-center rounded-md hover:bg-surface-3"
+                            aria-label="Delete task"
+                            title="Delete task"
+                          >
+                            <Trash2 className="size-3.5 text-muted-foreground hover:text-destructive" />
+                          </button>
+                        </div>
                       </div>
                       <div className="mt-2 flex items-center gap-2 text-[11px] text-muted-foreground">
                         {assignee && (
@@ -136,41 +151,76 @@ function TasksPage() {
         })}
       </div>
 
-      <NewTaskModal open={open} onClose={() => setOpen(false)} onCreate={add} />
+      <TaskModal open={open} onClose={() => setOpen(false)} onCreate={add} />
+      <TaskModal
+        open={!!editing}
+        onClose={() => setEditing(null)}
+        editing={editing ?? undefined}
+        onUpdate={(patch) => editing && update(editing.id, patch)}
+      />
     </Shell>
   );
 }
 
-function NewTaskModal({
+function TaskModal({
   open,
   onClose,
   onCreate,
+  onUpdate,
+  editing,
 }: {
   open: boolean;
   onClose: () => void;
-  onCreate: (t: Omit<Task, "id" | "createdAt">) => string;
+  onCreate?: (t: Omit<Task, "id" | "createdAt">) => string;
+  onUpdate?: (patch: Partial<Task>) => void;
+  editing?: Task;
 }) {
   const team = useStore((s) => s.team);
   const projects = useStore((s) => s.projects);
-  const [title, setTitle] = useState("");
-  const [assigneeId, setA] = useState(team[0]?.id ?? "");
-  const [projectId, setP] = useState("");
-  const [dueDate, setD] = useState("");
-  const [priority, setPrio] = useState<Task["priority"]>("Med");
+  const isEdit = !!editing;
+  const [title, setTitle] = useState(editing?.title ?? "");
+  const [assigneeId, setA] = useState(editing?.assigneeId ?? team[0]?.id ?? "");
+  const [projectId, setP] = useState(editing?.projectId ?? "");
+  const [dueDate, setD] = useState(
+    editing?.dueDate ? new Date(editing.dueDate).toISOString().slice(0, 10) : "",
+  );
+  const [priority, setPrio] = useState<Task["priority"]>(editing?.priority ?? "Med");
+  const [status, setStatus] = useState<Task["status"]>(editing?.status ?? "todo");
+
+  // Re-sync when editing target changes
+  useEffect(() => {
+    if (editing) {
+      setTitle(editing.title);
+      setA(editing.assigneeId);
+      setP(editing.projectId ?? "");
+      setD(editing.dueDate ? new Date(editing.dueDate).toISOString().slice(0, 10) : "");
+      setPrio(editing.priority);
+      setStatus(editing.status);
+    } else if (open && !isEdit) {
+      setTitle("");
+      setA(team[0]?.id ?? "");
+      setP("");
+      setD("");
+      setPrio("Med");
+      setStatus("todo");
+    }
+  }, [editing, open, isEdit, team]);
 
   const submit = () => {
     if (!title.trim() || !assigneeId) return;
-    onCreate({
-      title,
+    const payload = {
+      title: title.trim(),
       assigneeId,
       projectId: projectId || undefined,
       dueDate: dueDate ? new Date(dueDate).toISOString() : undefined,
-      status: "todo",
+      status,
       priority,
-    });
-    setTitle("");
-    setD("");
-    setP("");
+    };
+    if (isEdit && onUpdate) {
+      onUpdate(payload);
+    } else if (onCreate) {
+      onCreate(payload);
+    }
     onClose();
   };
 
@@ -178,14 +228,14 @@ function NewTaskModal({
     <Modal
       open={open}
       onClose={onClose}
-      title="New task"
+      title={isEdit ? "Edit task" : "New task"}
       footer={
         <>
           <Btn variant="subtle" onClick={onClose}>
             Cancel
           </Btn>
           <Btn variant="primary" onClick={submit}>
-            Create
+            {isEdit ? "Save changes" : "Create"}
           </Btn>
         </>
       }
@@ -232,6 +282,19 @@ function NewTaskModal({
             <option>High</option>
           </select>
         </Field>
+        {isEdit && (
+          <Field label="Status">
+            <select
+              className={inputCls}
+              value={status}
+              onChange={(e) => setStatus(e.target.value as Task["status"])}
+            >
+              <option value="todo">To do</option>
+              <option value="doing">Doing</option>
+              <option value="done">Done</option>
+            </select>
+          </Field>
+        )}
       </div>
     </Modal>
   );
