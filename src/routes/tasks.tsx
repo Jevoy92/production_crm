@@ -25,6 +25,8 @@ function TasksPage() {
   const [mineOnly, setMine] = useState(activeRole === "pa");
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Task | null>(null);
+  const [draggingId, setDraggingId] = useState<string | null>(null);
+  const [dragOverCol, setDragOverCol] = useState<Task["status"] | null>(null);
 
   const me = team.find((m) => m.role === activeRole);
   const filtered = mineOnly && me ? tasks.filter((t) => t.assigneeId === me.id) : tasks;
@@ -52,8 +54,32 @@ function TasksPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {COLS.map((col) => {
           const items = filtered.filter((t) => t.status === col);
+          const isOver = dragOverCol === col;
           return (
-            <div key={col} className="card-elevated rounded-2xl p-3">
+            <div
+              key={col}
+              onDragOver={(e) => {
+                e.preventDefault();
+                if (dragOverCol !== col) setDragOverCol(col);
+              }}
+              onDragLeave={(e) => {
+                if (e.currentTarget.contains(e.relatedTarget as Node)) return;
+                setDragOverCol((c) => (c === col ? null : c));
+              }}
+              onDrop={(e) => {
+                e.preventDefault();
+                const id = e.dataTransfer.getData("text/plain") || draggingId;
+                if (id) {
+                  const task = tasks.find((t) => t.id === id);
+                  if (task && task.status !== col) update(id, { status: col });
+                }
+                setDraggingId(null);
+                setDragOverCol(null);
+              }}
+              className={`card-elevated rounded-2xl p-3 transition-all ${
+                isOver ? "ring-2 ring-primary/60 bg-primary/[0.04]" : ""
+              }`}
+            >
               <div className="flex items-center justify-between px-1 pb-2">
                 <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
                   {LABEL[col]}
@@ -62,12 +88,28 @@ function TasksPage() {
                   {items.length}
                 </span>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 min-h-[60px]">
                 {items.map((t) => {
                   const assignee = team.find((m) => m.id === t.assigneeId);
                   const project = projects.find((p) => p.id === t.projectId);
+                  const isDragging = draggingId === t.id;
                   return (
-                    <div key={t.id} className="rounded-xl bg-surface-2 ring-inset-soft p-3 group">
+                    <div
+                      key={t.id}
+                      draggable
+                      onDragStart={(e) => {
+                        e.dataTransfer.effectAllowed = "move";
+                        e.dataTransfer.setData("text/plain", t.id);
+                        setDraggingId(t.id);
+                      }}
+                      onDragEnd={() => {
+                        setDraggingId(null);
+                        setDragOverCol(null);
+                      }}
+                      className={`rounded-xl bg-surface-2 ring-inset-soft p-3 group cursor-grab active:cursor-grabbing transition-opacity ${
+                        isDragging ? "opacity-40" : ""
+                      }`}
+                    >
                       <div className="flex items-start gap-2">
                         <div className="flex-1 min-w-0">
                           {project ? (
