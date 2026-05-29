@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
+import { startCloudSync, useSyncStatus } from "@/lib/cloudSync";
 
 export function AuthGate({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
@@ -18,6 +19,12 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
     return () => sub.subscription.unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (session) {
+      startCloudSync();
+    }
+  }, [session]);
+
   if (!ready) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background text-muted-foreground text-sm">
@@ -26,7 +33,36 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
     );
   }
   if (!session) return <LoginScreen />;
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <SyncIndicator />
+    </>
+  );
+}
+
+function SyncIndicator() {
+  const status = useSyncStatus();
+  const label =
+    status === "loading"
+      ? "Loading team data…"
+      : status === "syncing"
+        ? "Syncing…"
+        : status === "error"
+          ? "Sync error"
+          : "Synced";
+  const color =
+    status === "error"
+      ? "bg-red-500"
+      : status === "syncing" || status === "loading"
+        ? "bg-amber-400"
+        : "bg-emerald-500";
+  return (
+    <div className="pointer-events-none fixed bottom-3 right-3 z-50 flex items-center gap-2 rounded-full border border-border/60 bg-background/80 px-3 py-1 text-[11px] text-muted-foreground shadow-sm backdrop-blur">
+      <span className={`h-1.5 w-1.5 rounded-full ${color}`} />
+      {label}
+    </div>
+  );
 }
 
 function LoginScreen() {
