@@ -390,12 +390,13 @@ export const useStore = create<State>()(
     }),
     {
       name: "phpos:v2",
-      version: 14,
+      version: 15,
       // Migrate persisted state forward without nuking the user's own data.
       // v11 — rebuilt playbook seed (tables, callouts, Pal characters).
       // v12 — gear items get real photos + seeded sample tasks.
       // v14 — wipe all seed data (clients, projects, shoots, gear, assets,
       //       tasks, content, KPIs, finance) so every device starts empty.
+      // v15 — bulk-add today's recording to-dos for Jevoy, Adrienne, and Shannen.
       migrate: (persisted: any, fromVersion) => {
         if (!persisted) return persisted;
         if (fromVersion < 11) {
@@ -430,6 +431,37 @@ export const useStore = create<State>()(
             ar60: 0,
             ar90: 0,
           };
+        }
+        if (fromVersion < 15) {
+          const now = new Date().toISOString();
+          const recordingTodos: Array<{ title: string; priority: "Low" | "Med" | "High" }> = [
+            { title: "Cancel Buffer free trial + pick social scheduler (LinkedIn + GBP + 1 social)", priority: "High" },
+            { title: "Audit & clean Instagram + other social profiles (archive old posts, update names)", priority: "Med" },
+            { title: "Finalize shared Palmer House task account (login, password, saving verified)", priority: "High" },
+            { title: "Populate task system with current work + delete remaining seed data", priority: "Med" },
+            { title: "Review TV show PR permissions + decide channels (LinkedIn confirmed, YouTube TBD)", priority: "Med" },
+            { title: "Cancel any other free trials / accidental automations + confirm no billing entered", priority: "High" },
+            { title: "Health insurance: make phone call to verify identity", priority: "High" },
+            { title: "Schedule 10 min/day typing lessons (Jevoy + Shannen)", priority: "Low" },
+            { title: "Take a 5-min water break (health reminder)", priority: "Low" },
+          ];
+          const assignees = ["u_jevoy", "u_adrienne", "u_shannen"];
+          const bulkTasks = assignees.flatMap((assigneeId, ai) =>
+            recordingTodos.map((t, ti) => ({
+              id: `t_rec_${ai}_${ti}`,
+              title: t.title,
+              assigneeId,
+              status: "todo" as const,
+              priority: t.priority,
+              createdAt: now,
+            })),
+          );
+          const existing = Array.isArray(persisted.tasks) ? persisted.tasks : [];
+          const existingIds = new Set(existing.map((t: any) => t.id));
+          persisted.tasks = [
+            ...bulkTasks.filter((t) => !existingIds.has(t.id)),
+            ...existing,
+          ];
         }
         return persisted;
       },
