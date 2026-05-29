@@ -133,6 +133,30 @@ export type Database = {
         }
         Relationships: []
       }
+      workspace_state: {
+        Row: {
+          data: Json
+          id: string
+          updated_at: string
+          updated_by: string | null
+          version: number
+        }
+        Insert: {
+          data?: Json
+          id?: string
+          updated_at?: string
+          updated_by?: string | null
+          version?: number
+        }
+        Update: {
+          data?: Json
+          id?: string
+          updated_at?: string
+          updated_by?: string | null
+          version?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
