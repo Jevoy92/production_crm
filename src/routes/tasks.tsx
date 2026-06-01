@@ -4,7 +4,7 @@ import { Shell } from "@/components/dashboard/Shell";
 import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
 import { useStore } from "@/lib/store";
 import type { Task } from "@/lib/types";
-import { Plus, Trash2, Pencil } from "lucide-react";
+import { Plus, Trash2, Pencil, Repeat, Zap } from "lucide-react";
 
 export const Route = createFileRoute("/tasks")({
   component: TasksPage,
@@ -15,6 +15,7 @@ const COLS: Task["status"][] = ["todo", "doing", "done"];
 const LABEL: Record<Task["status"], string> = { todo: "To do", doing: "Doing", done: "Done" };
 const PRIORITY_RANK: Record<Task["priority"], number> = { High: 0, Med: 1, Low: 2 };
 type SortMode = "priority" | "due" | "created";
+type KindFilter = "all" | "recurring" | "oneoff";
 
 function TasksPage() {
   const tasks = useStore((s) => s.tasks);
@@ -30,9 +31,16 @@ function TasksPage() {
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [dragOverCol, setDragOverCol] = useState<Task["status"] | null>(null);
   const [sortBy, setSortBy] = useState<SortMode>("priority");
+  const [kindFilter, setKindFilter] = useState<KindFilter>("all");
 
   const me = team.find((m) => m.role === activeRole);
-  const filtered = mineOnly && me ? tasks.filter((t) => t.assigneeId === me.id) : tasks;
+  const base = mineOnly && me ? tasks.filter((t) => t.assigneeId === me.id) : tasks;
+  const filtered =
+    kindFilter === "all"
+      ? base
+      : kindFilter === "recurring"
+        ? base.filter((t) => t.recurring)
+        : base.filter((t) => !t.recurring);
 
   const sortTasks = (list: Task[]) => {
     const arr = [...list];
@@ -65,6 +73,25 @@ function TasksPage() {
       subtitle={`${tasks.length} total · ${tasks.filter((t) => t.status !== "done").length} open`}
       actions={
         <>
+          <div className="flex items-center rounded-lg bg-surface-2 ring-inset-soft p-0.5 text-[11.5px]">
+            {([
+              { id: "all", label: "All" },
+              { id: "recurring", label: "Recurring" },
+              { id: "oneoff", label: "One-off" },
+            ] as { id: KindFilter; label: string }[]).map((opt) => (
+              <button
+                key={opt.id}
+                onClick={() => setKindFilter(opt.id)}
+                className={`px-2.5 py-1 rounded-md transition-colors ${
+                  kindFilter === opt.id
+                    ? "bg-surface-3 text-foreground ring-inset-soft"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
           <div className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
             <span>Sort</span>
             <select
@@ -93,7 +120,9 @@ function TasksPage() {
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {COLS.map((col) => {
-          const items = sortTasks(filtered.filter((t) => t.status === col));
+          const colItems = filtered.filter((t) => t.status === col);
+          const recurring = sortTasks(colItems.filter((t) => t.recurring));
+          const oneoff = sortTasks(colItems.filter((t) => !t.recurring));
           const isOver = dragOverCol === col;
           return (
             <div
@@ -125,11 +154,40 @@ function TasksPage() {
                   {LABEL[col]}
                 </div>
                 <span className="num text-[10.5px] rounded-md bg-surface-3 px-1.5 py-0.5 text-muted-foreground">
-                  {items.length}
+                  {colItems.length}
                 </span>
               </div>
-              <div className="space-y-2 min-h-[60px]">
-                {items.map((t) => {
+              <div className="space-y-3 min-h-[60px]">
+                {recurring.length > 0 && kindFilter !== "oneoff" && (
+                  <TaskGroup
+                    icon={<Repeat className="size-3" />}
+                    label="Recurring"
+                    tone="recurring"
+                  />
+                )}
+                {kindFilter !== "oneoff" &&
+                  recurring.map((t) => renderCard(t))}
+                {recurring.length > 0 &&
+                  oneoff.length > 0 &&
+                  kindFilter === "all" && (
+                    <TaskGroup
+                      icon={<Zap className="size-3" />}
+                      label="One-off"
+                      tone="oneoff"
+                    />
+                  )}
+                {kindFilter !== "recurring" &&
+                  oneoff.map((t) => renderCard(t))}
+                {colItems.length === 0 && (
+                  <div className="text-[11px] text-muted-foreground/70 px-1 py-3 text-center">
+                    Empty
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+
+          function renderCard(t: Task) {
                   const assignee = team.find((m) => m.id === t.assigneeId);
                   const project = projects.find((p) => p.id === t.projectId);
                   const isDragging = draggingId === t.id;
@@ -168,11 +226,22 @@ function TasksPage() {
                       />
                       <div className="flex items-start gap-2">
                         <div className="flex-1 min-w-0">
-                          {isHigh && (
-                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-destructive mb-1">
-                              ● High priority
-                            </span>
-                          )}
+                          <div className="flex items-center gap-1.5 mb-1 flex-wrap">
+                            {isHigh && (
+                              <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-destructive">
+                                ● High priority
+                              </span>
+                            )}
+                            {t.recurring ? (
+                              <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-primary/90">
+                                <Repeat className="size-2.5" /> Recurring
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                                <Zap className="size-2.5" /> One-off
+                              </span>
+                            )}
+                          </div>
                           {project ? (
                             <Link
                               to="/projects/$id"
@@ -245,15 +314,7 @@ function TasksPage() {
                       </select>
                     </div>
                   );
-                })}
-                {items.length === 0 && (
-                  <div className="text-[11px] text-muted-foreground/70 px-1 py-3 text-center">
-                    Empty
-                  </div>
-                )}
-              </div>
-            </div>
-          );
+          }
         })}
       </div>
 
