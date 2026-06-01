@@ -17,6 +17,27 @@ const PRIORITY_RANK: Record<Task["priority"], number> = { High: 0, Med: 1, Low: 
 type SortMode = "priority" | "due" | "created";
 type KindFilter = "all" | "recurring" | "oneoff";
 
+function TaskGroup({
+  icon,
+  label,
+  tone,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  tone: "recurring" | "oneoff";
+}) {
+  return (
+    <div
+      className={`flex items-center gap-1.5 px-1 pt-1 text-[10px] uppercase tracking-[0.14em] ${
+        tone === "recurring" ? "text-primary/90" : "text-muted-foreground"
+      }`}
+    >
+      {icon}
+      <span>{label}</span>
+    </div>
+  );
+}
+
 function TasksPage() {
   const tasks = useStore((s) => s.tasks);
   const team = useStore((s) => s.team);
