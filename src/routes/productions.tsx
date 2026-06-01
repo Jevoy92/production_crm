@@ -383,6 +383,7 @@ function ClientSelect({
         onChange={handleSelectChange}
         className={inputCls}
       >
+        <option value="">— No client —</option>
         {clients.map((c) => (
           <option key={c.id} value={c.id}>
             {c.company ?? c.name}
