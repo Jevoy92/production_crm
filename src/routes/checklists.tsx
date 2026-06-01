@@ -417,64 +417,52 @@ type OverviewLog = {
 };
 
 const OVERVIEW_GROUPS: { section: string; items: { id: string; text: string }[] }[] = [
-  { section: "Location & Planning", items: [
-    { id: "loc-scout", text: "Scouted locations" },
-    { id: "loc-permits", text: "Confirmed permits / access" },
-    { id: "loc-parking", text: "Mapped parking + load-in" },
-    { id: "loc-weather", text: "Checked weather + sunset" },
-    { id: "loc-callsheet", text: "Built / sent call sheet" },
+  { section: "Daily Basics", items: [
+    { id: "day-standup", text: "Team check-in / standup" },
+    { id: "day-priorities", text: "Set today's top priorities" },
+    { id: "day-calendar", text: "Reviewed calendar + deadlines" },
+    { id: "day-email", text: "Cleared inbox / replied to clients" },
+    { id: "day-tasks", text: "Updated task board" },
   ]},
-  { section: "Camera & Test Shoots", items: [
-    { id: "cam-test", text: "Ran a test shoot" },
-    { id: "cam-framing", text: "Locked framing + composition" },
-    { id: "cam-focus", text: "Calibrated focus / monitor" },
-    { id: "cam-wb", text: "White balance + color check" },
-    { id: "cam-broll", text: "Captured B-roll / cutaways" },
+  { section: "Production", items: [
+    { id: "prod-shoot", text: "Worked on a shoot" },
+    { id: "prod-prep", text: "Prepped gear / location for upcoming shoot" },
+    { id: "prod-edit", text: "Edited / reviewed footage" },
+    { id: "prod-deliver", text: "Delivered work to a client" },
+    { id: "prod-review", text: "Internal review / QC pass" },
   ]},
-  { section: "Audio", items: [
-    { id: "aud-issues", text: "Identified audio issues" },
-    { id: "aud-levels", text: "Set + monitored levels" },
-    { id: "aud-roomtone", text: "Captured room tone" },
-    { id: "aud-lav", text: "Tested lav placement" },
-    { id: "aud-wind", text: "Addressed wind / outdoor noise" },
+  { section: "Clients & Sales", items: [
+    { id: "cli-call", text: "Client call or meeting" },
+    { id: "cli-proposal", text: "Sent a proposal or quote" },
+    { id: "cli-followup", text: "Followed up on outstanding leads" },
+    { id: "cli-onboard", text: "Onboarded a new client" },
+    { id: "cli-recap", text: "Sent recap / thank-you" },
   ]},
-  { section: "Lighting", items: [
-    { id: "lit-outside", text: "Logged lighting needs for outside" },
-    { id: "lit-office", text: "Logged lighting needs for the office" },
-    { id: "lit-keyfill", text: "Set key + fill + back" },
-    { id: "lit-modifiers", text: "Tested diffusion / modifiers" },
-    { id: "lit-fixes", text: "Flagged fixtures to add or fix" },
-  ]},
-  { section: "Power & Batteries", items: [
-    { id: "bat-protocol", text: "Reviewed battery charging protocols" },
-    { id: "bat-charged", text: "Put all batteries on chargers" },
-    { id: "bat-labeled", text: "Labeled charged vs. dead" },
-    { id: "pow-strips", text: "Sorted power strips + extensions" },
-    { id: "pow-banks", text: "Topped off power banks" },
-  ]},
-  { section: "Crew & Talent", items: [
-    { id: "crew-brief", text: "Briefed crew on next shoot" },
-    { id: "talent-confirm", text: "Confirmed talent / wardrobe" },
-    { id: "talent-release", text: "Collected releases" },
-    { id: "crew-feed", text: "Fed + hydrated the team" },
-  ]},
-  { section: "Files & Post", items: [
-    { id: "post-offload", text: "Offloaded footage to primary drive" },
-    { id: "post-backup", text: "Mirrored to backup drive" },
-    { id: "post-verify", text: "Verified file counts before wiping cards" },
-    { id: "post-format", text: "Formatted + labeled cards" },
-    { id: "post-log", text: "Updated project log" },
-  ]},
-  { section: "Client & Admin", items: [
-    { id: "cl-recap", text: "Sent client recap / thank-you" },
-    { id: "cl-next", text: "Confirmed next step with client" },
-    { id: "cl-invoice", text: "Sent invoice / balance reminder" },
+  { section: "Finance & Admin", items: [
+    { id: "fin-invoice", text: "Sent an invoice" },
+    { id: "fin-paid", text: "Logged a payment received" },
+    { id: "fin-expense", text: "Tracked expenses / receipts" },
+    { id: "adm-files", text: "Filed / organized documents" },
     { id: "adm-tasks", text: "Logged follow-up tasks" },
   ]},
-  { section: "Issues & Fixes", items: [
-    { id: "iss-damage", text: "Logged damage / missing gear" },
-    { id: "iss-buy", text: "Added items to buy list" },
-    { id: "iss-protocol", text: "Updated a protocol / SOP" },
+  { section: "Marketing & Content", items: [
+    { id: "mkt-post", text: "Posted on social media" },
+    { id: "mkt-content", text: "Created marketing content" },
+    { id: "mkt-engage", text: "Engaged with audience / DMs" },
+    { id: "mkt-website", text: "Updated website / portfolio" },
+  ]},
+  { section: "Studio & Gear", items: [
+    { id: "gear-charge", text: "Charged batteries" },
+    { id: "gear-offload", text: "Offloaded + backed up footage" },
+    { id: "gear-reset", text: "Reset studio / packed gear" },
+    { id: "gear-maint", text: "Cleaned or maintained equipment" },
+    { id: "gear-buy", text: "Added something to the buy list" },
+  ]},
+  { section: "Team & Operations", items: [
+    { id: "team-hire", text: "Recruiting / hiring activity" },
+    { id: "team-train", text: "Trained team or yourself" },
+    { id: "team-sop", text: "Updated a process or SOP" },
+    { id: "team-issue", text: "Resolved an issue / blocker" },
   ]},
 ];
 
