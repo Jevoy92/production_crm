@@ -383,6 +383,7 @@ function ClientSelect({
         onChange={handleSelectChange}
         className={inputCls}
       >
+        <option value="">— No client —</option>
         {clients.map((c) => (
           <option key={c.id} value={c.id}>
             {c.company ?? c.name}
@@ -444,9 +445,9 @@ function NewProjectModal({ open, onClose }: { open: boolean; onClose: () => void
   const clients = useStore((s) => s.clients);
   const team = useStore((s) => s.team);
   const [title, setTitle] = useState("");
-  const [clientId, setClient] = useState(clients[0]?.id ?? "");
+  const [clientId, setClient] = useState("");
   const [palType, setPal] = useState<PalType>("Visibility");
-  const [ownerId, setOwner] = useState(team[0]?.id ?? "");
+  const [ownerId, setOwner] = useState("");
   const [stage, setStage] = useState<Stage>("Lead");
   const [shootDate, setShoot] = useState("");
   const [deliveryDate, setDel] = useState("");
@@ -454,9 +455,8 @@ function NewProjectModal({ open, onClose }: { open: boolean; onClose: () => void
   const [internal, setInternal] = useState(false);
 
   const submit = () => {
-    if (!title.trim()) return;
     addProject({
-      title,
+      title: title.trim() || "Untitled project",
       clientId,
       palType,
       ownerId,
@@ -471,6 +471,8 @@ function NewProjectModal({ open, onClose }: { open: boolean; onClose: () => void
     setShoot("");
     setDel("");
     setInternal(false);
+    setClient("");
+    setOwner("");
     onClose();
   };
 
@@ -491,12 +493,15 @@ function NewProjectModal({ open, onClose }: { open: boolean; onClose: () => void
         </>
       }
     >
+      <p className="text-[12px] text-muted-foreground mb-3">
+        All fields are optional — just fill in what you have. You can update everything later.
+      </p>
       <Field label="Project title">
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className={inputCls}
-          placeholder="e.g. Founder Story · Pt. 3"
+          placeholder="e.g. Founder Story · Pt. 3 (optional)"
         />
       </Field>
       <div className="grid grid-cols-2 gap-3">
@@ -518,6 +523,7 @@ function NewProjectModal({ open, onClose }: { open: boolean; onClose: () => void
         </Field>
         <Field label="Owner">
           <select value={ownerId} onChange={(e) => setOwner(e.target.value)} className={inputCls}>
+            <option value="">— Unassigned —</option>
             {team.map((m) => (
               <option key={m.id} value={m.id}>
                 {m.name}

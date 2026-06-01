@@ -60,9 +60,7 @@ type State = {
   setFinance: (patch: Partial<State["finance"]>) => void;
 
   // mutations
-  addProject: (
-    p: Partial<Project> & Pick<Project, "title" | "clientId" | "palType" | "ownerId">,
-  ) => string;
+  addProject: (p: Partial<Project>) => string;
   updateProject: (id: string, patch: Partial<Project>) => void;
   removeProject: (id: string) => void;
   setStage: (id: string, stage: Stage) => void;
@@ -160,14 +158,15 @@ export const useStore = create<State>()(
 
       addProject: (p) => {
         const id = uid("p");
+        const palType = (p.palType ?? "Visibility") as Project["palType"];
         const project: Project = {
           id,
-          title: p.title,
-          clientId: p.clientId,
+          title: p.title?.trim() || "Untitled project",
+          clientId: p.clientId ?? "",
           internal: p.internal ?? false,
-          palType: p.palType,
+          palType,
           stage: p.stage ?? "Lead",
-          ownerId: p.ownerId,
+          ownerId: p.ownerId ?? "",
           shootDate: p.shootDate,
           deliveryDate: p.deliveryDate,
           quoted: p.quoted,
@@ -178,7 +177,7 @@ export const useStore = create<State>()(
           notes: p.notes,
           priority: p.priority ?? "Med",
           blocker: p.blocker,
-          checklists: p.checklists ?? buildChecklistsFromTemplate(get().templates, p.palType),
+          checklists: p.checklists ?? buildChecklistsFromTemplate(get().templates, palType),
           log: p.log ?? [],
           createdAt: new Date().toISOString(),
         };
