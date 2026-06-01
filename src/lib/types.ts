@@ -94,6 +94,7 @@ export type Task = {
   status: "todo" | "doing" | "done";
   priority: "Low" | "Med" | "High";
   stage?: ChecklistStage;
+  recurring?: boolean;
   createdAt: string;
 };
 
