@@ -13,6 +13,8 @@ export const Route = createFileRoute("/tasks")({
 
 const COLS: Task["status"][] = ["todo", "doing", "done"];
 const LABEL: Record<Task["status"], string> = { todo: "To do", doing: "Doing", done: "Done" };
+const PRIORITY_RANK: Record<Task["priority"], number> = { High: 0, Med: 1, Low: 2 };
+type SortMode = "priority" | "due" | "created";
 
 function TasksPage() {
   const tasks = useStore((s) => s.tasks);
@@ -27,9 +29,35 @@ function TasksPage() {
   const [editing, setEditing] = useState<Task | null>(null);
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [dragOverCol, setDragOverCol] = useState<Task["status"] | null>(null);
+  const [sortBy, setSortBy] = useState<SortMode>("priority");
 
   const me = team.find((m) => m.role === activeRole);
   const filtered = mineOnly && me ? tasks.filter((t) => t.assigneeId === me.id) : tasks;
+
+  const sortTasks = (list: Task[]) => {
+    const arr = [...list];
+    if (sortBy === "priority") {
+      arr.sort((a, b) => {
+        const p = PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority];
+        if (p !== 0) return p;
+        const ad = a.dueDate ? new Date(a.dueDate).getTime() : Infinity;
+        const bd = b.dueDate ? new Date(b.dueDate).getTime() : Infinity;
+        return ad - bd;
+      });
+    } else if (sortBy === "due") {
+      arr.sort((a, b) => {
+        const ad = a.dueDate ? new Date(a.dueDate).getTime() : Infinity;
+        const bd = b.dueDate ? new Date(b.dueDate).getTime() : Infinity;
+        if (ad !== bd) return ad - bd;
+        return PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority];
+      });
+    } else {
+      arr.sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
+    }
+    return arr;
+  };
 
   return (
     <Shell
@@ -37,6 +65,18 @@ function TasksPage() {
       subtitle={`${tasks.length} total · ${tasks.filter((t) => t.status !== "done").length} open`}
       actions={
         <>
+          <div className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
+            <span>Sort</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortMode)}
+              className="rounded-md bg-surface-2 ring-inset-soft px-2 py-1 text-[12px] text-foreground"
+            >
+              <option value="priority">Priority</option>
+              <option value="due">Due date</option>
+              <option value="created">Newest</option>
+            </select>
+          </div>
           <label className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
             <input type="checkbox" checked={mineOnly} onChange={(e) => setMine(e.target.checked)} />{" "}
             My tasks only
@@ -53,7 +93,7 @@ function TasksPage() {
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {COLS.map((col) => {
-          const items = filtered.filter((t) => t.status === col);
+          const items = sortTasks(filtered.filter((t) => t.status === col));
           const isOver = dragOverCol === col;
           return (
             <div
@@ -93,6 +133,8 @@ function TasksPage() {
                   const assignee = team.find((m) => m.id === t.assigneeId);
                   const project = projects.find((p) => p.id === t.projectId);
                   const isDragging = draggingId === t.id;
+                  const isHigh = t.priority === "High";
+                  const isMed = t.priority === "Med";
                   return (
                     <div
                       key={t.id}
@@ -106,12 +148,31 @@ function TasksPage() {
                         setDraggingId(null);
                         setDragOverCol(null);
                       }}
-                      className={`rounded-xl bg-surface-2 ring-inset-soft p-3 group cursor-grab active:cursor-grabbing transition-opacity ${
-                        isDragging ? "opacity-40" : ""
-                      }`}
+                      className={`relative overflow-hidden rounded-xl ring-inset-soft p-3 pl-4 group cursor-grab active:cursor-grabbing transition-opacity ${
+                        isHigh
+                          ? "bg-destructive/10 ring-1 ring-destructive/40"
+                          : isMed
+                            ? "bg-surface-2"
+                            : "bg-surface-2"
+                      } ${isDragging ? "opacity-40" : ""}`}
                     >
+                      <span
+                        aria-hidden
+                        className={`absolute left-0 top-0 bottom-0 w-1 ${
+                          isHigh
+                            ? "bg-destructive"
+                            : isMed
+                              ? "bg-primary/60"
+                              : "bg-muted-foreground/30"
+                        }`}
+                      />
                       <div className="flex items-start gap-2">
                         <div className="flex-1 min-w-0">
+                          {isHigh && (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-destructive mb-1">
+                              ● High priority
+                            </span>
+                          )}
                           {project ? (
                             <Link
                               to="/projects/$id"
@@ -166,7 +227,10 @@ function TasksPage() {
                             })}
                           </span>
                         )}
-                        {t.priority === "High" && <span className="text-destructive">● High</span>}
+                        {isMed && <span className="text-primary/80">● Med</span>}
+                        {t.priority === "Low" && (
+                          <span className="text-muted-foreground/70">● Low</span>
+                        )}
                       </div>
                       <select
                         value={t.status}
