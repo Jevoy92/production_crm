@@ -493,12 +493,15 @@ function NewProjectModal({ open, onClose }: { open: boolean; onClose: () => void
         </>
       }
     >
+      <p className="text-[12px] text-muted-foreground mb-3">
+        All fields are optional — just fill in what you have. You can update everything later.
+      </p>
       <Field label="Project title">
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className={inputCls}
-          placeholder="e.g. Founder Story · Pt. 3"
+          placeholder="e.g. Founder Story · Pt. 3 (optional)"
         />
       </Field>
       <div className="grid grid-cols-2 gap-3">
@@ -520,6 +523,7 @@ function NewProjectModal({ open, onClose }: { open: boolean; onClose: () => void
         </Field>
         <Field label="Owner">
           <select value={ownerId} onChange={(e) => setOwner(e.target.value)} className={inputCls}>
+            <option value="">— Unassigned —</option>
             {team.map((m) => (
               <option key={m.id} value={m.id}>
                 {m.name}
