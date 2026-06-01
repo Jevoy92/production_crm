@@ -374,6 +374,7 @@ function TaskModal({
   );
   const [priority, setPrio] = useState<Task["priority"]>(editing?.priority ?? "Med");
   const [status, setStatus] = useState<Task["status"]>(editing?.status ?? "todo");
+  const [recurring, setRecurring] = useState<boolean>(editing?.recurring ?? false);
 
   // Re-sync when editing target changes
   useEffect(() => {
@@ -384,6 +385,7 @@ function TaskModal({
       setD(editing.dueDate ? new Date(editing.dueDate).toISOString().slice(0, 10) : "");
       setPrio(editing.priority);
       setStatus(editing.status);
+      setRecurring(editing.recurring ?? false);
     } else if (open && !isEdit) {
       setTitle("");
       setA(team[0]?.id ?? "");
@@ -391,6 +393,7 @@ function TaskModal({
       setD("");
       setPrio("Med");
       setStatus("todo");
+      setRecurring(false);
     }
   }, [editing, open, isEdit, team]);
 
@@ -403,6 +406,7 @@ function TaskModal({
       dueDate: dueDate ? new Date(dueDate).toISOString() : undefined,
       status,
       priority,
+      recurring,
     };
     if (isEdit && onUpdate) {
       onUpdate(payload);
@@ -468,6 +472,16 @@ function TaskModal({
             <option>Low</option>
             <option>Med</option>
             <option>High</option>
+          </select>
+        </Field>
+        <Field label="Type">
+          <select
+            className={inputCls}
+            value={recurring ? "recurring" : "oneoff"}
+            onChange={(e) => setRecurring(e.target.value === "recurring")}
+          >
+            <option value="oneoff">One-off</option>
+            <option value="recurring">Recurring / everyday</option>
           </select>
         </Field>
         {isEdit && (
