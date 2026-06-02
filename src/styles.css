@@ -119,6 +119,12 @@
   --gradient-rose: oklch(0.62 0.22 350);
   --gradient-surface: var(--card);
   --gradient-hero: var(--background);
+
+  /* Content Command Center — Pal lane tokens */
+  --lane-reel: oklch(0.7 0.18 50);
+  --lane-spotlight: oklch(0.55 0.18 305);
+  --lane-evergreen: oklch(0.65 0.12 155);
+  --lane-system: oklch(0.65 0.12 200);
 }
 
 .dark {
