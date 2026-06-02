@@ -244,10 +244,14 @@ export const Route = createFileRoute("/api/pals")({
         const gateway = createLovableAiGatewayProvider(key);
         const messages = parsed.data.messages as UIMessage[];
 
+        const modelMessages = await convertToModelMessages(messages);
+        if (process.env.NODE_ENV !== "production") {
+          console.log("[pals] modelMessages", JSON.stringify(modelMessages, null, 2));
+        }
         const result = streamText({
           model: gateway("google/gemini-3-pro-preview"),
           system: buildSystemPrompt(parsed.data.snapshot),
-          messages: await convertToModelMessages(messages),
+          messages: modelMessages,
           tools: buildTools(),
           stopWhen: stepCountIs(50),
         });
