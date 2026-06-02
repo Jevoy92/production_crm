@@ -5,8 +5,10 @@ const TABS = [
   { to: "/cc/core12", label: "Core 12" },
   { to: "/cc/sprint", label: "30-Day Sprint" },
   { to: "/cc/shoots", label: "Shoot Planner" },
+  { to: "/cc/photo-to-video", label: "Photo → Video" },
   { to: "/cc/tasks", label: "Shannen Tasks" },
   { to: "/cc/library", label: "Library" },
+  { to: "/schedule", label: "Calendar", search: { view: "publishing" as const } },
 ];
 
 export function CCNav() {
@@ -19,6 +21,7 @@ export function CCNav() {
           <Link
             key={t.to}
             to={t.to}
+            search={t.search as never}
             className={`px-3 py-1.5 text-[13px] rounded-t-md whitespace-nowrap transition-colors ${
               active
                 ? "bg-surface text-foreground border-b-2 border-primary -mb-px"
