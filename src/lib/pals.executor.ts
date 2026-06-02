@@ -1,5 +1,5 @@
 import { useStore } from "@/lib/store";
-import { useCC, type ContentItem, type CCShootDay } from "@/lib/ccStore";
+import { useCCStore, type ContentItem, type CCShootDay } from "@/lib/ccStore";
 import { generateShorts } from "@/lib/repurpose.functions";
 import type { PalsToolName } from "@/lib/pals.tools";
 
@@ -17,8 +17,8 @@ export async function executePalsTool(
   name: PalsToolName | string,
   input: any,
 ): Promise<unknown> {
-  const store = useStore.getState();
-  const cc = useCC.getState();
+  const store = useStore.getState() as any;
+  const cc = useCCStore.getState() as any;
 
   switch (name) {
     // -------- READS --------
@@ -261,8 +261,8 @@ export async function executePalsTool(
 
 /** Build the workspace snapshot sent to the server with each request. */
 export function buildPalsSnapshot() {
-  const store = useStore.getState();
-  const cc = useCC.getState();
+  const store = useStore.getState() as any;
+  const cc = useCCStore.getState() as any;
   const today = new Date().toISOString().slice(0, 10);
 
   return {
