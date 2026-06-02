@@ -64,8 +64,8 @@
 :root {
   --radius: 0.875rem;
 
-  /* Soft, refined light — Apple Pro feel */
-  --background: oklch(0.985 0.003 250);
+  /* Pure white workspace to match Palmer House dashboard tokens */
+  --background: oklch(1 0 0);
   --foreground: oklch(0.2 0.02 260);
 
   --surface: oklch(1 0 0);
