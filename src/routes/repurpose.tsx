@@ -5,7 +5,8 @@ import { AppShell, PageHeader, Card } from "@/components/app/AppShell";
 import { SCRIPTS } from "@/lib/scriptsIndex";
 import { useCCStore, type Platform, type PalLane } from "@/lib/ccStore";
 import { generateShorts } from "@/lib/repurpose.functions";
-import { Sparkles, FileText, Loader2, Check, ArrowRight } from "lucide-react";
+import { Sparkles, FileText, Loader2, Check, ArrowRight, Library, Plus } from "lucide-react";
+import { shortsForCore12, colorForShortType, type CoreShort } from "@/lib/coreShortsLibrary";
 
 export const Route = createFileRoute("/repurpose")({
   component: RepurposePage,
@@ -44,15 +45,58 @@ function platformToLibrary(p: Short["platform"]): Platform {
 function RepurposePage() {
   const generate = useServerFn(generateShorts);
   const addContentItem = useCCStore((s) => s.addContentItem);
+  const library = useCCStore((s) => s.library);
   const [activeNum, setActiveNum] = useState<string>(SCRIPTS[0]?.num ?? "01");
   const [platforms, setPlatforms] = useState<Short["platform"][]>([...ALL_PLATFORMS]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [shorts, setShorts] = useState<Short[] | null>(null);
   const [savedIds, setSavedIds] = useState<Set<number>>(new Set());
+  const [libSaved, setLibSaved] = useState<Set<string>>(new Set());
 
   const active = useMemo(() => SCRIPTS.find((s) => s.num === activeNum), [activeNum]);
   const body = useMemo(() => (active ? pickScriptBody(active.num) : ""), [active]);
+  const prewritten = useMemo<CoreShort[]>(
+    () => (active ? shortsForCore12(active.number) : []),
+    [active],
+  );
+
+  // Detect shorts already saved (by exact caption match to avoid dupes within session)
+  const savedTitleSet = useMemo(
+    () => new Set(library.map((c) => c.title)),
+    [library],
+  );
+
+  const saveOneFromLibrary = (s: CoreShort) => {
+    if (!active) return;
+    const lane: PalLane = s.lane;
+    addContentItem({
+      title: `${s.num} ${s.hook}`.slice(0, 140),
+      type: "Short",
+      platform: "Instagram Reels",
+      status: "Ready to Film",
+      palLane: lane,
+      relatedCore12: active.number,
+      parentScriptNum: active.number,
+      businessPurpose: `${s.type} — funnels back to long-form #${active.num}: ${active.title}`,
+      cta: s.cta,
+      fileLocation: "",
+      editorNotes: `Type: ${s.type} · Target ${s.durationSec}s`,
+      caption: `${s.hook}\n\n${s.body}\n\n${s.cta}`,
+      thumbnailIdea: "",
+      repurposingStatus: `Pre-written short ${s.num}`,
+      performanceNotes: "",
+    });
+    setLibSaved((prev) => new Set(prev).add(s.num));
+  };
+
+  const saveAllFromLibrary = () => {
+    prewritten.forEach((s) => {
+      const title = `${s.num} ${s.hook}`.slice(0, 140);
+      if (savedTitleSet.has(title)) return;
+      saveOneFromLibrary(s);
+    });
+  };
 
   const togglePlatform = (p: Short["platform"]) => {
     setPlatforms((prev) =>
@@ -276,6 +320,94 @@ function RepurposePage() {
               <div style={{ marginTop: 14, fontSize: 12, color: "var(--ph-text-secondary)", display: "flex", alignItems: "center", gap: 6 }}>
                 <FileText size={13} /> Edit captions / status anytime in{" "}
                 <Link to="/content" style={{ color: "var(--ph-primary)", fontWeight: 700 }}>Content</Link>.
+              </div>
+            </Card>
+          )}
+
+          {active && prewritten.length > 0 && (
+            <Card
+              title={`Pre-written shorts (${prewritten.length})`}
+              action={
+                <button
+                  type="button"
+                  onClick={saveAllFromLibrary}
+                  className="ph-btn ph-btn-soft"
+                >
+                  <Library size={14} /> Save all to Library
+                </button>
+              }
+            >
+              <div style={{ fontSize: 12.5, color: "var(--ph-text-secondary)", marginBottom: 12 }}>
+                5 hand-written supporting shorts for <strong>#{active.num} {active.title}</strong>.
+                Each is standalone and funnels viewers back to the long-form.
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: 14 }}>
+                {prewritten.map((s) => {
+                  const saved = libSaved.has(s.num) || savedTitleSet.has(`${s.num} ${s.hook}`.slice(0, 140));
+                  return (
+                    <div
+                      key={s.num}
+                      style={{
+                        background: "var(--ph-surface-soft)",
+                        borderRadius: "var(--ph-radius-md)",
+                        padding: 16,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 10,
+                        borderLeft: `3px solid ${colorForShortType(s.type)}`,
+                      }}
+                    >
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                          <span style={{
+                            fontVariantNumeric: "tabular-nums",
+                            fontWeight: 700,
+                            fontSize: 11,
+                            color: "var(--ph-text-muted)",
+                          }}>{s.num}</span>
+                          <span
+                            className="ph-badge"
+                            style={{
+                              background: `${colorForShortType(s.type)}1a`,
+                              color: colorForShortType(s.type),
+                              border: 0,
+                            }}
+                          >
+                            {s.type}
+                          </span>
+                          <span className="ph-badge ph-badge-neutral">{s.lane}</span>
+                        </div>
+                        <span style={{ fontSize: 11, color: "var(--ph-text-muted)", fontWeight: 700 }}>
+                          {s.durationSec}s
+                        </span>
+                      </div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ph-text-primary)", lineHeight: 1.35 }}>
+                        {s.hook}
+                      </div>
+                      <div style={{ fontSize: 12, color: "var(--ph-text-secondary)", lineHeight: 1.5, whiteSpace: "pre-wrap", maxHeight: 140, overflow: "hidden", maskImage: "linear-gradient(to bottom, black 60%, transparent)" }}>
+                        {s.body}
+                      </div>
+                      <div style={{ fontSize: 11.5, color: "var(--ph-primary)", fontWeight: 600 }}>
+                        → {s.cta}
+                      </div>
+                      <div style={{ marginTop: "auto", display: "flex", justifyContent: "flex-end" }}>
+                        {saved ? (
+                          <span className="ph-badge ph-badge-success">
+                            <Check size={11} /> In Library
+                          </span>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => saveOneFromLibrary(s)}
+                            className="ph-btn ph-btn-primary"
+                          >
+                            <Plus size={13} /> Save to Library
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </Card>
           )}
