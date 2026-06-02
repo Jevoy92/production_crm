@@ -20,6 +20,7 @@ import { Route as ProductionsRouteImport } from './routes/productions'
 import { Route as PlaybookRouteImport } from './routes/playbook'
 import { Route as GearRouteImport } from './routes/gear'
 import { Route as FinanceRouteImport } from './routes/finance'
+import { Route as ContentRouteImport } from './routes/content'
 import { Route as ClientsRouteImport } from './routes/clients'
 import { Route as ChecklistsRouteImport } from './routes/checklists'
 import { Route as BrandRouteImport } from './routes/brand'
@@ -96,6 +97,11 @@ const GearRoute = GearRouteImport.update({
 const FinanceRoute = FinanceRouteImport.update({
   id: '/finance',
   path: '/finance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContentRoute = ContentRouteImport.update({
+  id: '/content',
+  path: '/content',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ClientsRoute = ClientsRouteImport.update({
@@ -216,6 +222,7 @@ export interface FileRoutesByFullPath {
   '/brand': typeof BrandRoute
   '/checklists': typeof ChecklistsRoute
   '/clients': typeof ClientsRouteWithChildren
+  '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
   '/gear': typeof GearRoute
   '/playbook': typeof PlaybookRouteWithChildren
@@ -251,6 +258,7 @@ export interface FileRoutesByTo {
   '/brand': typeof BrandRoute
   '/checklists': typeof ChecklistsRoute
   '/clients': typeof ClientsRouteWithChildren
+  '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
   '/gear': typeof GearRoute
   '/playbook': typeof PlaybookRouteWithChildren
@@ -287,6 +295,7 @@ export interface FileRoutesById {
   '/brand': typeof BrandRoute
   '/checklists': typeof ChecklistsRoute
   '/clients': typeof ClientsRouteWithChildren
+  '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
   '/gear': typeof GearRoute
   '/playbook': typeof PlaybookRouteWithChildren
@@ -324,6 +333,7 @@ export interface FileRouteTypes {
     | '/brand'
     | '/checklists'
     | '/clients'
+    | '/content'
     | '/finance'
     | '/gear'
     | '/playbook'
@@ -359,6 +369,7 @@ export interface FileRouteTypes {
     | '/brand'
     | '/checklists'
     | '/clients'
+    | '/content'
     | '/finance'
     | '/gear'
     | '/playbook'
@@ -394,6 +405,7 @@ export interface FileRouteTypes {
     | '/brand'
     | '/checklists'
     | '/clients'
+    | '/content'
     | '/finance'
     | '/gear'
     | '/playbook'
@@ -430,6 +442,7 @@ export interface RootRouteChildren {
   BrandRoute: typeof BrandRoute
   ChecklistsRoute: typeof ChecklistsRoute
   ClientsRoute: typeof ClientsRouteWithChildren
+  ContentRoute: typeof ContentRoute
   FinanceRoute: typeof FinanceRoute
   GearRoute: typeof GearRoute
   PlaybookRoute: typeof PlaybookRouteWithChildren
@@ -528,6 +541,13 @@ declare module '@tanstack/react-router' {
       path: '/finance'
       fullPath: '/finance'
       preLoaderRoute: typeof FinanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/content': {
+      id: '/content'
+      path: '/content'
+      fullPath: '/content'
+      preLoaderRoute: typeof ContentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/clients': {
@@ -747,6 +767,7 @@ const rootRouteChildren: RootRouteChildren = {
   BrandRoute: BrandRoute,
   ChecklistsRoute: ChecklistsRoute,
   ClientsRoute: ClientsRouteWithChildren,
+  ContentRoute: ContentRoute,
   FinanceRoute: FinanceRoute,
   GearRoute: GearRoute,
   PlaybookRoute: PlaybookRouteWithChildren,
