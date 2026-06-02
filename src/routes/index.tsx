@@ -28,20 +28,20 @@ function RoleKpis() {
     const k = cfoKpis();
     return (
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <KpiCard label="Booked revenue" value={usd(k.bookedRevenue ?? 0)} sub="confirmed" accent="var(--color-chart-1)" />
-        <KpiCard label="Cash collected MTD" value={usd(k.cashCollectedMonth ?? 0)} accent="var(--color-chart-2)" />
-        <KpiCard label="Outstanding" value={usd(k.outstanding ?? 0)} sub="AR" accent="var(--color-chart-3)" />
-        <KpiCard label="Active projects" value={k.activeCount ?? 0} accent="var(--color-chart-4)" />
+        <KpiCard label="Booked revenue" value={usd(k.booked)} sub="confirmed" accent="var(--color-chart-1)" />
+        <KpiCard label="Cash collected MTD" value={usd(k.cashCollected)} accent="var(--color-chart-2)" />
+        <KpiCard label="Outstanding" value={usd(k.outstanding)} sub="AR" accent="var(--color-chart-3)" />
+        <KpiCard label="Retainer revenue" value={usd(k.retainer)} accent="var(--color-chart-4)" />
       </div>
     );
   }
   const k = paKpis();
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard label="Open tasks" value={k.openTasks ?? 0} accent="var(--color-chart-1)" />
-      <KpiCard label="Shoots this week" value={k.shootsThisWeek ?? 0} accent="var(--color-chart-2)" />
-      <KpiCard label="Projects in flight" value={k.activeProjects ?? 0} accent="var(--color-chart-3)" />
-      <KpiCard label="Checklists ready" value={k.readyChecklists ?? 0} accent="var(--color-chart-4)" />
+      <KpiCard label="Shoots this week" value={k.upcomingThisWeek} accent="var(--color-chart-1)" />
+      <KpiCard label="Upcoming shoots" value={k.upcomingAll} accent="var(--color-chart-2)" />
+      <KpiCard label="Checklist avg" value={`${k.checklistAvg}%`} sub="across projects" accent="var(--color-chart-3)" />
+      <KpiCard label="On-time delivery" value={`${k.onTimePct}%`} accent="var(--color-chart-4)" />
     </div>
   );
 }
