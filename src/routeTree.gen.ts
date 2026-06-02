@@ -44,6 +44,7 @@ import { Route as ClientsIdRouteImport } from './routes/clients.$id'
 import { Route as CcTasksRouteImport } from './routes/cc.tasks'
 import { Route as CcSprintRouteImport } from './routes/cc.sprint'
 import { Route as CcShootsRouteImport } from './routes/cc.shoots'
+import { Route as CcLibraryRouteImport } from './routes/cc.library'
 import { Route as CcCore12RouteImport } from './routes/cc.core12'
 import { Route as ApiStudioChatRouteImport } from './routes/api/studio-chat'
 import { Route as ApiPalsRouteImport } from './routes/api/pals'
@@ -226,6 +227,11 @@ const CcShootsRoute = CcShootsRouteImport.update({
   path: '/shoots',
   getParentRoute: () => CcRoute,
 } as any)
+const CcLibraryRoute = CcLibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => CcRoute,
+} as any)
 const CcCore12Route = CcCore12RouteImport.update({
   id: '/core12',
   path: '/core12',
@@ -281,6 +287,7 @@ export interface FileRoutesByFullPath {
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
   '/cc/core12': typeof CcCore12RouteWithChildren
+  '/cc/library': typeof CcLibraryRoute
   '/cc/shoots': typeof CcShootsRouteWithChildren
   '/cc/sprint': typeof CcSprintRoute
   '/cc/tasks': typeof CcTasksRoute
@@ -324,6 +331,7 @@ export interface FileRoutesByTo {
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
   '/cc/core12': typeof CcCore12RouteWithChildren
+  '/cc/library': typeof CcLibraryRoute
   '/cc/shoots': typeof CcShootsRouteWithChildren
   '/cc/sprint': typeof CcSprintRoute
   '/cc/tasks': typeof CcTasksRoute
@@ -368,6 +376,7 @@ export interface FileRoutesById {
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
   '/cc/core12': typeof CcCore12RouteWithChildren
+  '/cc/library': typeof CcLibraryRoute
   '/cc/shoots': typeof CcShootsRouteWithChildren
   '/cc/sprint': typeof CcSprintRoute
   '/cc/tasks': typeof CcTasksRoute
@@ -413,6 +422,7 @@ export interface FileRouteTypes {
     | '/api/pals'
     | '/api/studio-chat'
     | '/cc/core12'
+    | '/cc/library'
     | '/cc/shoots'
     | '/cc/sprint'
     | '/cc/tasks'
@@ -456,6 +466,7 @@ export interface FileRouteTypes {
     | '/api/pals'
     | '/api/studio-chat'
     | '/cc/core12'
+    | '/cc/library'
     | '/cc/shoots'
     | '/cc/sprint'
     | '/cc/tasks'
@@ -499,6 +510,7 @@ export interface FileRouteTypes {
     | '/api/pals'
     | '/api/studio-chat'
     | '/cc/core12'
+    | '/cc/library'
     | '/cc/shoots'
     | '/cc/sprint'
     | '/cc/tasks'
@@ -796,6 +808,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CcShootsRouteImport
       parentRoute: typeof CcRoute
     }
+    '/cc/library': {
+      id: '/cc/library'
+      path: '/library'
+      fullPath: '/cc/library'
+      preLoaderRoute: typeof CcLibraryRouteImport
+      parentRoute: typeof CcRoute
+    }
     '/cc/core12': {
       id: '/cc/core12'
       path: '/core12'
@@ -867,6 +886,7 @@ const CcShootsRouteWithChildren = CcShootsRoute._addFileChildren(
 
 interface CcRouteChildren {
   CcCore12Route: typeof CcCore12RouteWithChildren
+  CcLibraryRoute: typeof CcLibraryRoute
   CcShootsRoute: typeof CcShootsRouteWithChildren
   CcSprintRoute: typeof CcSprintRoute
   CcTasksRoute: typeof CcTasksRoute
@@ -874,6 +894,7 @@ interface CcRouteChildren {
 
 const CcRouteChildren: CcRouteChildren = {
   CcCore12Route: CcCore12RouteWithChildren,
+  CcLibraryRoute: CcLibraryRoute,
   CcShootsRoute: CcShootsRouteWithChildren,
   CcSprintRoute: CcSprintRoute,
   CcTasksRoute: CcTasksRoute,
