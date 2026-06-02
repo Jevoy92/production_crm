@@ -3,9 +3,17 @@ import { useMemo, useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
 import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
 import { useStore, palColor } from "@/lib/store";
-import { ChevronLeft, ChevronRight, Plus, MapPin } from "lucide-react";
+import { useCCStore, platformColor, PLATFORMS, type Platform } from "@/lib/ccStore";
+import { ChevronLeft, ChevronRight, Plus, MapPin, X } from "lucide-react";
+import { fallback, zodValidator } from "@tanstack/zod-adapter";
+import { z } from "zod";
+
+const ViewSchema = z.object({
+  view: fallback(z.enum(["shoots", "publishing", "all"]), "all").default("all"),
+});
 
 export const Route = createFileRoute("/schedule")({
+  validateSearch: zodValidator(ViewSchema),
   component: SchedulePage,
   head: () => ({ meta: [{ title: "Schedule · Palmer House" }] }),
 });
@@ -16,11 +24,20 @@ function SchedulePage() {
   const shoots = useStore((s) => s.shoots);
   const projects = useStore((s) => s.projects);
   const team = useStore((s) => s.team);
-  const addShoot = useStore((s) => s.addShoot);
   const removeShoot = useStore((s) => s.removeShoot);
+
+  const library = useCCStore((s) => s.library);
+  const setPublishDate = useCCStore((s) => s.setPublishDate);
+
+  const { view } = Route.useSearch();
+  const navigate = Route.useNavigate();
+  const setView = (v: "shoots" | "publishing" | "all") =>
+    navigate({ search: { view: v }, replace: true });
 
   const [cursor, setCursor] = useState(new Date());
   const [openNew, setOpenNew] = useState(false);
+  const [activeItemId, setActiveItemId] = useState<string | null>(null);
+  const activeItem = library.find((l) => l.id === activeItemId);
 
   const monthStart = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
   const monthEnd = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 0);
@@ -47,6 +64,31 @@ function SchedulePage() {
     return m;
   }, [shoots]);
 
+  const publishByDay = useMemo(() => {
+    const m = new Map<string, typeof library>();
+    library.forEach((it) => {
+      if (!it.publishDate) return;
+      const arr = m.get(it.publishDate) ?? [];
+      arr.push(it);
+      m.set(it.publishDate, arr);
+    });
+    return m;
+  }, [library]);
+
+  const unscheduled = useMemo(
+    () => library.filter((l) => !l.publishDate && l.status !== "Archived"),
+    [library],
+  );
+
+  const showShoots = view === "shoots" || view === "all";
+  const showPublishing = view === "publishing" || view === "all";
+
+  const onDropDay = (e: React.DragEvent, dayKey: string) => {
+    e.preventDefault();
+    const id = e.dataTransfer.getData("text/cc-item");
+    if (id) setPublishDate(id, dayKey);
+  };
+
   const today = new Date();
   const todayKey = today.toISOString().slice(0, 10);
   const monthLabel = monthStart.toLocaleString(undefined, { month: "long", year: "numeric" });
@@ -54,7 +96,7 @@ function SchedulePage() {
   return (
     <Shell
       title="Schedule"
-      subtitle={`${shoots.length} shoots tracked`}
+      subtitle={`${shoots.length} shoots · ${library.filter((l) => l.publishDate).length} scheduled posts`}
       actions={
         <Btn
           variant="primary"
@@ -65,7 +107,7 @@ function SchedulePage() {
         </Btn>
       }
     >
-      <div className="flex items-center gap-2 mb-4">
+      <div className="flex items-center gap-2 mb-4 flex-wrap">
         <Btn
           variant="subtle"
           onClick={() => setCursor(new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1))}
@@ -82,8 +124,28 @@ function SchedulePage() {
         <Btn variant="ghost" onClick={() => setCursor(new Date())}>
           Today
         </Btn>
+
+        <div className="ml-auto flex items-center gap-1 rounded-full bg-surface-2 p-0.5 ring-inset-soft">
+          {(["shoots", "publishing", "all"] as const).map((v) => (
+            <button
+              key={v}
+              type="button"
+              onClick={() => setView(v)}
+              className={`px-3 py-1 text-[12px] rounded-full capitalize transition-colors ${
+                view === v ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {v === "all" ? "All" : v}
+            </button>
+          ))}
+        </div>
       </div>
 
+      {showPublishing && (
+        <PlatformLegend />
+      )}
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-4">
       <div className="card-elevated rounded-2xl overflow-hidden">
         <div className="grid grid-cols-7 border-b border-border bg-surface-2">
           {WEEKDAYS.map((d) => (
@@ -100,10 +162,22 @@ function SchedulePage() {
             const k = d.toISOString().slice(0, 10);
             const inMonth = d.getMonth() === cursor.getMonth();
             const dayShoots = byDay.get(k) ?? [];
+            const dayPubs = publishByDay.get(k) ?? [];
             return (
               <div
                 key={k}
-                className={`min-h-[110px] p-2 border-r border-b border-border last:border-r-0 ${inMonth ? "bg-card" : "bg-surface-2/40"}`}
+                className={`min-h-[120px] p-2 border-r border-b border-border last:border-r-0 transition-colors ${inMonth ? "bg-card" : "bg-surface-2/40"}`}
+                onDragOver={(e) => {
+                  if (e.dataTransfer.types.includes("text/cc-item")) {
+                    e.preventDefault();
+                    e.currentTarget.classList.add("ring-2", "ring-primary/40");
+                  }
+                }}
+                onDragLeave={(e) => e.currentTarget.classList.remove("ring-2", "ring-primary/40")}
+                onDrop={(e) => {
+                  e.currentTarget.classList.remove("ring-2", "ring-primary/40");
+                  onDropDay(e, k);
+                }}
               >
                 <div
                   className={`text-[11px] num ${k === todayKey ? "inline-flex size-5 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold" : "text-muted-foreground"}`}
@@ -111,7 +185,7 @@ function SchedulePage() {
                   {d.getDate()}
                 </div>
                 <div className="mt-1.5 space-y-1">
-                  {dayShoots.map((s) => {
+                  {showShoots && dayShoots.map((s) => {
                     const proj = projects.find((p) => p.id === s.projectId);
                     if (!proj) return null;
                     return (
@@ -132,11 +206,41 @@ function SchedulePage() {
                       </Link>
                     );
                   })}
+                  {showPublishing && dayPubs.map((it) => {
+                    const color = platformColor(it.platform);
+                    return (
+                      <button
+                        key={it.id}
+                        type="button"
+                        draggable
+                        onDragStart={(e) => e.dataTransfer.setData("text/cc-item", it.id)}
+                        onClick={() => setActiveItemId(it.id)}
+                        className="block w-full text-left rounded-md px-1.5 py-1 text-[10.5px] truncate hover:opacity-90 cursor-grab active:cursor-grabbing"
+                        style={{
+                          background: `color-mix(in oklab, ${color} 15%, transparent)`,
+                          color,
+                          borderLeft: `2px solid ${color}`,
+                        }}
+                        title={`${it.platform} · ${it.title}`}
+                      >
+                        ▸ {it.title}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             );
           })}
         </div>
+      </div>
+
+      {showPublishing && (
+        <UnscheduledQueue
+          items={unscheduled}
+          onClearDrop={(id) => setPublishDate(id, undefined)}
+          onPick={(id) => setActiveItemId(id)}
+        />
+      )}
       </div>
 
       <h2 className="mt-6 mb-2 text-[15px] font-semibold tracking-tight">Upcoming shoots</h2>
@@ -211,7 +315,155 @@ function SchedulePage() {
       </div>
 
       <NewShootModal open={openNew} onClose={() => setOpenNew(false)} />
+      {activeItem && (
+        <PublishDrawer
+          itemId={activeItem.id}
+          onClose={() => setActiveItemId(null)}
+        />
+      )}
     </Shell>
+  );
+}
+
+const LEGEND: { label: string; platform: Platform }[] = [
+  { label: "YouTube", platform: "YouTube" },
+  { label: "Instagram", platform: "Instagram Reels" },
+  { label: "TikTok", platform: "TikTok" },
+  { label: "LinkedIn", platform: "LinkedIn" },
+  { label: "Website", platform: "Website" },
+  { label: "Newsletter", platform: "Newsletter" },
+  { label: "YourBoyJevoy", platform: "YourBoyJevoy" },
+];
+
+function PlatformLegend() {
+  return (
+    <div className="flex flex-wrap items-center gap-2 mb-3 text-[11px] text-muted-foreground">
+      <span className="uppercase tracking-wider">Platforms</span>
+      {LEGEND.map((p) => (
+        <span key={p.label} className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 ring-inset-soft"
+          style={{
+            background: `color-mix(in oklab, ${platformColor(p.platform)} 12%, transparent)`,
+            color: platformColor(p.platform),
+          }}
+        >
+          <span className="size-1.5 rounded-full" style={{ background: platformColor(p.platform) }} />
+          {p.label}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function UnscheduledQueue({
+  items, onClearDrop, onPick,
+}: {
+  items: ReturnType<typeof useCCStore.getState>["library"];
+  onClearDrop: (id: string) => void;
+  onPick: (id: string) => void;
+}) {
+  return (
+    <aside
+      className="card-elevated rounded-2xl p-3 h-fit max-h-[600px] overflow-y-auto"
+      onDragOver={(e) => { if (e.dataTransfer.types.includes("text/cc-item")) e.preventDefault(); }}
+      onDrop={(e) => {
+        const id = e.dataTransfer.getData("text/cc-item");
+        if (id) onClearDrop(id);
+      }}
+    >
+      <div className="text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
+        Unscheduled · {items.length}
+      </div>
+      <p className="text-[11px] text-muted-foreground mb-3">
+        Drag onto a day to schedule. Drag back here to unschedule.
+      </p>
+      <div className="space-y-1.5">
+        {items.length === 0 && (
+          <div className="text-[12px] text-muted-foreground py-4 text-center">Inbox zero.</div>
+        )}
+        {items.map((it) => {
+          const color = platformColor(it.platform);
+          return (
+            <button
+              key={it.id}
+              type="button"
+              draggable
+              onDragStart={(e) => e.dataTransfer.setData("text/cc-item", it.id)}
+              onClick={() => onPick(it.id)}
+              className="block w-full text-left rounded-lg p-2 ring-inset-soft hover:bg-surface-2 cursor-grab active:cursor-grabbing"
+            >
+              <div className="flex items-center justify-between gap-2 mb-1">
+                <span className="text-[10px] uppercase tracking-wider" style={{ color }}>{it.platform}</span>
+                <span className="text-[10px] text-muted-foreground">{it.type}</span>
+              </div>
+              <div className="text-[12px] font-medium leading-tight line-clamp-2">{it.title}</div>
+            </button>
+          );
+        })}
+      </div>
+    </aside>
+  );
+}
+
+function PublishDrawer({ itemId, onClose }: { itemId: string; onClose: () => void }) {
+  const item = useCCStore((s) => s.library.find((l) => l.id === itemId));
+  const update = useCCStore((s) => s.updateContentItem);
+  const setPublishDate = useCCStore((s) => s.setPublishDate);
+  const setPlatform = useCCStore((s) => s.setPublishPlatform);
+  if (!item) return null;
+  const color = platformColor(item.platform);
+  return (
+    <div className="fixed inset-0 z-50 flex" onClick={onClose}>
+      <div className="flex-1 bg-foreground/20" />
+      <div
+        className="w-full max-w-md bg-card border-l border-border h-full overflow-y-auto p-5"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <span className="text-[10px] uppercase tracking-wider" style={{ color }}>{item.platform}</span>
+            <h2 className="text-[16px] font-semibold leading-tight mt-1">{item.title}</h2>
+            <div className="text-[11px] text-muted-foreground mt-1">{item.type} · {item.palLane} · {item.status}</div>
+          </div>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground"><X className="size-4" /></button>
+        </div>
+
+        <Field label="Publish date">
+          <input
+            type="date" className={inputCls}
+            value={item.publishDate ?? ""}
+            onChange={(e) => setPublishDate(item.id, e.target.value || undefined)}
+          />
+        </Field>
+        <Field label="Platform">
+          <select className={inputCls} value={item.platform} onChange={(e) => setPlatform(item.id, e.target.value as Platform)}>
+            {PLATFORMS.map((p) => <option key={p} value={p}>{p}</option>)}
+          </select>
+        </Field>
+        <Field label="Publish status">
+          <select
+            className={inputCls}
+            value={item.publishStatus ?? "Draft"}
+            onChange={(e) => update(item.id, { publishStatus: e.target.value as "Draft" | "Scheduled" | "Published" })}
+          >
+            <option value="Draft">Draft</option>
+            <option value="Scheduled">Scheduled</option>
+            <option value="Published">Published</option>
+          </select>
+        </Field>
+        <Field label="Caption">
+          <textarea rows={4} className={inputCls} value={item.caption} onChange={(e) => update(item.id, { caption: e.target.value })} />
+        </Field>
+
+        <div className="flex gap-2 mt-4">
+          <Btn variant="subtle" onClick={() => setPublishDate(item.id, undefined)}>Unschedule</Btn>
+          {item.relatedCore12 && (
+            <Link to="/cc/core12/$num" params={{ num: String(item.relatedCore12) }}>
+              <Btn variant="primary">Open Core 12</Btn>
+            </Link>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 

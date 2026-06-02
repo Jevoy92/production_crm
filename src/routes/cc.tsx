@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Shell } from "@/components/dashboard/Shell";
 import { CCNav, LaneBadge, StatusBadge } from "@/components/cc/CCNav";
-import { useCCStore } from "@/lib/ccStore";
+import { useCCStore, platformColor } from "@/lib/ccStore";
 import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/cc")({
@@ -52,6 +52,13 @@ function CCDashboard() {
     ?? shoots.find((s) => s.status === "Planned");
 
   const todayTask = tasks.find((t) => t.status !== "done");
+
+  const todayKey = new Date().toISOString().slice(0, 10);
+  const in7 = new Date(); in7.setDate(in7.getDate() + 7);
+  const in7Key = in7.toISOString().slice(0, 10);
+  const thisWeekPublishing = library
+    .filter((l) => l.publishDate && l.publishDate >= todayKey && l.publishDate <= in7Key)
+    .sort((a, b) => (a.publishDate ?? "").localeCompare(b.publishDate ?? ""));
 
   return (
     <Shell title="Content Command Center" subtitle="30-day internal production sprint">
@@ -111,6 +118,39 @@ function CCDashboard() {
             </Link>
           ))}
         </div>
+      </div>
+
+      <div className="mt-6 card-elevated rounded-xl p-4">
+        <div className="flex items-center justify-between mb-3">
+          <div className="text-[11px] uppercase tracking-wider text-muted-foreground">This week publishing</div>
+          <Link to="/schedule" search={{ view: "publishing" }} className="text-[12px] text-primary">Open calendar →</Link>
+        </div>
+        {thisWeekPublishing.length === 0 ? (
+          <div className="text-[12px] text-muted-foreground">Nothing scheduled this week. Drop something onto the calendar.</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+            {thisWeekPublishing.slice(0, 9).map((it) => {
+              const color = platformColor(it.platform);
+              const d = new Date((it.publishDate ?? "") + "T00:00:00");
+              return (
+                <Link
+                  key={it.id}
+                  to="/schedule"
+                  search={{ view: "publishing" }}
+                  className="block rounded-lg p-2.5 ring-inset-soft hover:bg-surface-2"
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[10px] uppercase tracking-wider" style={{ color }}>{it.platform}</span>
+                    <span className="num text-[11px] text-muted-foreground">
+                      {d.toLocaleString(undefined, { weekday: "short", month: "short", day: "numeric" })}
+                    </span>
+                  </div>
+                  <div className="text-[12.5px] font-medium leading-tight line-clamp-2">{it.title}</div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <div className="mt-6 card-elevated rounded-xl p-4">
