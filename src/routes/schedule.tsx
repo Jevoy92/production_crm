@@ -363,7 +363,7 @@ function UnscheduledQueue({
 }) {
   return (
     <aside
-      className="card-elevated rounded-2xl p-3 h-fit max-h-[600px] overflow-y-auto"
+      className="card-elevated rounded-2xl p-3 self-stretch min-h-0 overflow-y-auto"
       onDragOver={(e) => { if (e.dataTransfer.types.includes("text/cc-item")) e.preventDefault(); }}
       onDrop={(e) => {
         const id = e.dataTransfer.getData("text/cc-item");
