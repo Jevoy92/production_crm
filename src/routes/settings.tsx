@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Shell } from "@/components/dashboard/Shell";
-import { Btn } from "@/components/ui-bits/Modal";
 import { useStore } from "@/lib/store";
 import { palColor } from "@/lib/store";
 import { PAL_TYPES, CHECKLIST_STAGES } from "@/lib/types";
@@ -11,7 +10,6 @@ export const Route = createFileRoute("/settings")({
 });
 
 function SettingsPage() {
-  const reset = useStore((s) => s.resetData);
   const projects = useStore((s) => s.projects);
 
   return (
@@ -56,17 +54,8 @@ function SettingsPage() {
           <h3 className="text-[15px] font-semibold tracking-tight">Data</h3>
           <p className="text-[12px] text-muted-foreground mt-1">
             {projects.length} projects loaded. State persists locally in this browser.
+            Seed/sample data has been retired — every list starts empty until you add your own.
           </p>
-          <div className="mt-3 flex gap-2">
-            <Btn
-              variant="danger"
-              onClick={() => {
-                if (confirm("Reset all data to seed?")) reset();
-              }}
-            >
-              Reset to seed data
-            </Btn>
-          </div>
         </div>
       </div>
     </Shell>
