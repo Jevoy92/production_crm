@@ -164,6 +164,38 @@ export const generateSupportingShortsInput = z.object({
   scriptNum: z.number().int().min(1).max(12).describe("Core 12 episode number"),
 });
 
+export const BrandSchema = z.enum(["original", "jevoy", "palmer-house", "mindyourbizniz"]);
+
+export const brainstormIdeasInput = z.object({
+  topic: z.string().min(1).max(500).describe("What the ideas should be about"),
+  count: z.number().int().min(1).max(10).default(5),
+  brand: BrandSchema.default("jevoy"),
+  pillar: z.number().int().min(1).max(12).optional().describe("Optional Core 12 episode the ideas support"),
+  ideas: z
+    .array(
+      z.object({
+        title: z.string().min(1).max(200),
+        hook: z.string().min(1).max(500),
+        angle: z.string().max(1000).default(""),
+        format: z.enum(["long", "short"]).default("long"),
+      }),
+    )
+    .min(1)
+    .max(10)
+    .describe("The proposed ideas. Draft these yourself before calling — they are saved to the Content library as ideas on approval."),
+});
+
+export const generateLongFormScriptInput = z.object({
+  title: z.string().min(1).max(200),
+  brand: BrandSchema.default("jevoy"),
+  body_md: z
+    .string()
+    .min(50)
+    .max(50_000)
+    .describe("The full long-form script in markdown. Include hook, body sections, and CTA. Draft this yourself before calling — it is saved to the Scripts library on approval."),
+  pillar: z.number().int().min(1).max(12).optional().describe("Optional Core 12 episode this script belongs to"),
+});
+
 /** Set of tool names that require user approval before executing on the client. */
 export const WRITE_TOOL_NAMES = new Set([
   "createTask",
@@ -176,6 +208,8 @@ export const WRITE_TOOL_NAMES = new Set([
   "updateShoot",
   "updateCore12",
   "generateSupportingShorts",
+  "brainstormIdeas",
+  "generateLongFormScript",
 ]);
 
 export type PalsToolName =
@@ -191,4 +225,6 @@ export type PalsToolName =
   | "createShoot"
   | "updateShoot"
   | "updateCore12"
-  | "generateSupportingShorts";
+  | "generateSupportingShorts"
+  | "brainstormIdeas"
+  | "generateLongFormScript";

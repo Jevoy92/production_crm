@@ -1,6 +1,7 @@
 import { useStore } from "@/lib/store";
 import { useCCStore, type ContentItem, type CCShootDay } from "@/lib/ccStore";
 import { generateShorts } from "@/lib/repurpose.functions";
+import { supabase } from "@/integrations/supabase/client";
 import type { PalsToolName } from "@/lib/pals.tools";
 
 /**
@@ -254,16 +255,106 @@ export async function executePalsTool(
       };
     }
 
+    case "brainstormIdeas": {
+      const ideas = Array.isArray(input?.ideas) ? input.ideas : [];
+      if (!ideas.length) return { ok: false, error: "No ideas were provided." };
+      const ids = ideas.map((idea: any) => {
+        const isShort = idea.format === "short";
+        return cc.addContentItem({
+          title: idea.title,
+          type: isShort ? "Short" : "Core 12",
+          platform: isShort ? "YouTube Shorts" : "YouTube",
+          palLane: "Evergreen",
+          status: "Idea",
+          businessPurpose: idea.angle || "",
+          cta: "",
+          relatedCore12: input.pillar,
+          fileLocation: "",
+          editorNotes: `HOOK: ${idea.hook}\n\nANGLE: ${idea.angle ?? ""}`,
+          caption: idea.hook,
+          thumbnailIdea: "",
+          repurposingStatus: "",
+          performanceNotes: `Brand: ${input.brand ?? "jevoy"}`,
+        } as Omit<ContentItem, "id">);
+      });
+      return {
+        ok: true,
+        message: `Saved ${ids.length} idea${ids.length === 1 ? "" : "s"} to the Content library.`,
+        ids,
+      };
+    }
+
+    case "generateLongFormScript": {
+      const { data, error } = await supabase
+        .from("studio_scripts")
+        .insert({
+          title: input.title,
+          brand: input.brand ?? "jevoy",
+          body_md: input.body_md,
+          body_html: "",
+        })
+        .select("id,title")
+        .single();
+      if (error) return { ok: false, error: error.message };
+      // Also drop a placeholder content item so it shows in the library.
+      const contentId = cc.addContentItem({
+        title: input.title,
+        type: "Core 12",
+        platform: "YouTube",
+        palLane: "Evergreen",
+        status: "Script Ready",
+        businessPurpose: "",
+        cta: "",
+        relatedCore12: input.pillar,
+        fileLocation: `script:${data.id}`,
+        editorNotes: "",
+        caption: "",
+        thumbnailIdea: "",
+        repurposingStatus: "",
+        performanceNotes: `Brand: ${input.brand ?? "jevoy"} • script_id: ${data.id}`,
+      } as Omit<ContentItem, "id">);
+      return {
+        ok: true,
+        message: `Long-form script "${input.title}" saved to Scripts library.`,
+        scriptId: data.id,
+        contentId,
+      };
+    }
+
     default:
       return { ok: false, error: `Unknown tool: ${name}` };
   }
 }
 
 /** Build the workspace snapshot sent to the server with each request. */
-export function buildPalsSnapshot() {
+export async function buildPalsSnapshot() {
   const store = useStore.getState() as any;
   const cc = useCCStore.getState() as any;
   const today = new Date().toISOString().slice(0, 10);
+
+  // Fetch every script (RLS allows open read). Cap each body to keep tokens in check.
+  let scripts: Array<{ id: string; title: string; brand: string; updated_at: string; body_md: string }> = [];
+  try {
+    const { data } = await supabase
+      .from("studio_scripts")
+      .select("id,title,brand,updated_at,body_md")
+      .order("updated_at", { ascending: false });
+    if (data) {
+      scripts = data.map((s: any) => {
+        const body = (s.body_md ?? "") as string;
+        const truncated = body.length > 8000 ? body.slice(0, 8000) + "\n…[truncated]" : body;
+        return {
+          id: s.id,
+          title: s.title,
+          brand: s.brand,
+          updated_at: s.updated_at,
+          body_md: truncated,
+        };
+      });
+    }
+  } catch (e) {
+    console.warn("[pals] failed to fetch scripts for snapshot", e);
+  }
 
   return {
     today,
@@ -274,6 +365,7 @@ export function buildPalsSnapshot() {
       contentItems: cc.library.length,
       clients: store.clients.length,
       projects: store.projects.length,
+      scripts: scripts.length,
     },
     tasks: store.tasks.slice(0, 60).map((t: any) => ({
       id: t.id,
@@ -311,5 +403,6 @@ export function buildPalsSnapshot() {
       status: c.status,
       relatedCore12: c.relatedCore12,
     })),
+    scripts,
   };
 }
