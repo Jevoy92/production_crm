@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { AppSidebar } from "./AppSidebar";
+import { PalsLauncher } from "@/components/pals/PalsLauncher";
 
 export function AppShell({
   children,
@@ -15,6 +16,7 @@ export function AppShell({
         <main className="app-main">{children}</main>
         {rightPanel && <aside className="app-panel">{rightPanel}</aside>}
       </div>
+      <PalsLauncher />
     </div>
   );
 }

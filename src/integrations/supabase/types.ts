@@ -71,6 +71,30 @@ export type Database = {
         }
         Relationships: []
       }
+      pals_messages: {
+        Row: {
+          created_at: string
+          id: string
+          message_id: string | null
+          parts: Json
+          role: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message_id?: string | null
+          parts?: Json
+          role: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message_id?: string | null
+          parts?: Json
+          role?: string
+        }
+        Relationships: []
+      }
       studio_messages: {
         Row: {
           content: string
