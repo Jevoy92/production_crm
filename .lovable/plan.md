@@ -1,108 +1,47 @@
-## Pals — Floating AI Assistant Overlay
+## Goal
 
-Build an always-available AI assistant ("Pals") that knows the entire Palmer House workspace and can take real actions on it. Scope is strictly the assistant — no Today/Tasks/Content refactors this turn. The doc gaps you listed go in a follow-up.
+Make Pals genuinely useful for content work: it should *know every script you have*, brainstorm new video ideas, draft full long-form scripts, and continue to spin up the 3 supporting shorts from any long-form.
 
-### Surface
+## What changes
 
-- Floating launcher pinned bottom-right, visible on every authenticated page (mounted inside `AppShell`).
-- Click → side drawer (right, ~420px, full height) with chat. Esc / outside click closes.
-- Header: "Pals", model badge, "New conversation" (clears history after confirm), close.
-- Built on AI Elements primitives (`Conversation`, `Message`, `MessageResponse`, `PromptInput`, `Tool`, `Shimmer`). No `Sparkles` mascot — use a small custom Pals avatar.
-- Composer auto-focuses on open, after send, after stream completes.
+### 1. Pals snapshot — include full script bodies
+Extend the workspace snapshot the server builds before each model call to include every row from `studio_scripts`: `id`, `title`, `brand`, `updated_at`, and full `body_md`. Pals can now quote, summarize, critique, and reference scripts by name.
 
-### Memory — DB single rolling conversation
+Guardrails:
+- Cap bodies at ~8k chars each in the snapshot (truncate with a marker). Full long-form rarely exceeds this; if it does, Pals can ask for the rest via a follow-up tool later.
+- Sort by `updated_at desc` so the most recent work is most prominent.
 
-One shared conversation (matches the app's single-workspace model, like `workspace_state`).
+### 2. New tool: `brainstormIdeas`
+Pals proposes N video ideas (default 5). Each idea: `title`, `hook`, `angle`, `pillar` (Core 12 reference), `format` (long | short). Approval-gated. On approve, ideas are saved as **content items** with `type: "idea"` (or the closest existing type) into the existing content library — no new table.
 
-New table `pals_messages`:
-- `id uuid pk`, `role text` ('user'|'assistant'|'system'), `parts jsonb` (full AI SDK `UIMessage.parts`), `created_at timestamptz`
-- RLS: authenticated read/insert/delete; service_role all
-- Loaded on first drawer open, then kept in `useChat` state and persisted in `onFinish`
+### 3. New tool: `generateLongFormScript`
+Inputs: `title`, `brand` (`jevoy` | default), `outline` or `topic`, optional `pillar`. Pals drafts a full long-form script (hook → body → CTA) and on approval inserts a new row into `studio_scripts`. Returns the new `script_id` so the user (or Pals) can immediately run `generateSupportingShorts` on it.
 
-"New conversation" deletes all rows after a confirm.
+### 4. Keep existing `generateSupportingShorts`
+No change — already auto-saves the 3 shorts to Library. Pals now has the long-form bodies in context, so it can pick a script by title without you pasting it.
 
-### Model & gateway
+### 5. System prompt update
+Add a short section: "You can see every script in the Scripts library. You can brainstorm ideas, draft new long-form scripts, and generate 3 supporting shorts for any long-form. Always propose via the right tool — never paste a full script into chat as the only output."
 
-- Lovable AI Gateway via `@ai-sdk/openai-compatible` using existing `ai-gateway.ts` pattern (`LOVABLE_API_KEY` already set).
-- Default model: `google/gemini-3-pro-preview` (latest, strongest reasoning + tool use). Falls back to `google/gemini-3-flash-preview` on rate limit.
-- Streaming via `streamText` + `toUIMessageStreamResponse`.
+## Files touched
 
-### Server route
+- `src/routes/api/pals.ts` — extend snapshot builder to fetch `studio_scripts`, inject into system prompt; update system prompt text.
+- `src/lib/pals.tools.ts` — add `brainstormIdeas` and `generateLongFormScript` schemas; add both to `WRITE_TOOL_NAMES`.
+- `src/lib/pals.executor.ts` — client-side executors:
+  - `brainstormIdeas` → push N items into content store as ideas
+  - `generateLongFormScript` → insert into `studio_scripts` via supabase client, refresh local script list
+- No DB migration needed (reusing `studio_scripts` and existing content items).
 
-`src/routes/api/pals.ts` — POST streaming chat endpoint.
+## Out of scope
 
-Flow per request:
-1. Validate body (`{ messages: UIMessage[] }`).
-2. Build a fresh **workspace snapshot** server-side by reading `workspace_state` (the shared zustand sync row) + `pals_messages`. Inject as a system message summarizing: counts, today's date, upcoming shoots, open tasks per owner, content by status, Core 12 script statuses, blocked items.
-3. Call `streamText` with tools (below) and `stopWhen: stepCountIs(50)`.
-4. `toUIMessageStreamResponse({ originalMessages, onFinish })` — persist new user msg + final assistant msg to `pals_messages`.
-5. Wrap with `withLovableAiGatewayRunIdHeader` for log correlation.
+- New `script_ideas` table (you chose content-items-only)
+- Multi-thread chat, voice, file upload
+- Editing existing script bodies via Pals (read-only for now; can add `updateScript` in a follow-up if you want)
+- Any page/sidebar/UI restructuring
 
-### Tools (full write access, with confirmation gating)
+## Acceptance
 
-All tools defined with `tool({ inputSchema: z…, execute })`. Tools that mutate use `needsApproval: true` so the user clicks "Approve" inline before it runs.
-
-Read tools (no approval):
-- `searchWorkspace({ query, kinds? })` — fuzzy search across content, scripts, Core 12, shoots, tasks, clients
-- `getEntity({ kind, id })`
-- `listTasks({ owner?, due?, status? })`
-- `listContent({ filter? })`
-- `getTodayBrief()` — derived summary
-
-Write tools (`needsApproval: true`):
-- `createTask({ title, owner, dueDate?, category?, relatedContentId?, relatedShootId? })`
-- `updateTask({ id, patch })` / `completeTask({ id })`
-- `createContentItem({ title, type, platform, palLane, businessPurpose, cta, relatedCore12? })`
-- `updateContentItem({ id, patch })` — status, dates, fileLocation, caption, etc.
-- `createShoot({ date, location, theme, videos })` / `updateShoot({ id, patch })`
-- `updateCore12({ number, patch })` — set status, mark scriptDone/filmedDone/etc., add notes
-- `scheduleContent({ id, publishDate, platform })`
-- `generateSupportingShorts({ scriptNum })` — invokes existing `repurpose.functions.ts`
-- `addChecklistItem` / `toggleChecklistItem`
-
-All write tools execute against the same zustand-backed `workspace_state` row via a server helper, then the client re-syncs (the existing `cloudSync` listener picks up the version bump).
-
-Tool UI renders via AI Elements `<Tool defaultOpen={false}>` — collapsed by default, expand to see input/output, approve button inline for pending writes.
-
-### System prompt
-
-Detailed system prompt covering:
-- Pals is the Palmer House Productions ops assistant for Jevoy and Shannen
-- Workspace structure (Core 12, Scripts, Productions, Content, Tasks, Schedule, Library)
-- Owner conventions (Jevoy = creative/film/approve; Shannen = prep/organize/handoff/publish)
-- Always propose action via the right tool rather than instructing the user to click
-- For destructive/mutating actions, confirm intent first then call the tool (which itself requires approval)
-- Markdown formatting allowed
-
-### Files
-
-New:
-- `supabase/migrations/<ts>_pals_messages.sql` — table + RLS + grants
-- `src/routes/api/pals.ts` — streaming chat route with tools
-- `src/lib/pals.tools.ts` — tool definitions (shared types)
-- `src/lib/pals.snapshot.server.ts` — workspace snapshot builder
-- `src/lib/pals.actions.server.ts` — server-side mutators against `workspace_state`
-- `src/components/pals/PalsLauncher.tsx` — floating bubble
-- `src/components/pals/PalsDrawer.tsx` — drawer + `useChat` + AI Elements composition
-- `src/components/pals/PalsToolCard.tsx` — custom rendering for known tool results
-- `src/assets/pals-avatar.png` — generated identity mark
-
-Modified:
-- `src/components/app/AppShell.tsx` — mount `<PalsLauncher />`
-- AI Elements install: `bun x ai-elements@latest add conversation message prompt-input shimmer tool`
-
-### Out of scope (explicit)
-
-- No changes to Today, Tasks, Content, Core 12, Productions, Schedule pages
-- No new sidebar item (overlay only, per choice)
-- No multi-thread UI
-- No voice / file attachments
-- No image generation
-
-### Verify before done
-
-- Open drawer on `/`, `/content`, `/schedule` — bubble present, chat opens
-- Ask "what's on for today?" — Pals reads snapshot, replies
-- Ask "add a task for Shannen to prep teleprompter notes for tomorrow" — tool call shows in chat, Approve → task appears on `/tasks`
-- Reload page → chat history restored from DB
-- "New conversation" wipes history
+- Open Pals, ask "what scripts do I have?" → it lists titles + brands accurately.
+- Ask "give me 5 ideas for Jevoy around [topic]" → proposes 5, approve → they appear in Content library as ideas.
+- Ask "draft a long-form on [topic]" → proposes script, approve → new row in Scripts library.
+- Ask "make 3 shorts for [script title]" → existing repurpose flow runs, 3 shorts saved to Library.
