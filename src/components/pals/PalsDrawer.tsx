@@ -156,7 +156,7 @@ function PalsChat({
     transport: new DefaultChatTransport({
       api: "/api/pals",
       prepareSendMessagesRequest: ({ messages }) => ({
-        body: { messages, snapshot: buildPalsSnapshot() },
+        body: { messages, snapshot: await buildPalsSnapshot() },
       }),
     }),
     onError: (err: any) => console.error("[pals] chat error", err),
