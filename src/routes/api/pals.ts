@@ -16,6 +16,8 @@ import {
   updateShootInput,
   updateCore12Input,
   generateSupportingShortsInput,
+  brainstormIdeasInput,
+  generateLongFormScriptInput,
 } from "@/lib/pals.tools";
 
 /** Minimal snapshot the client sends. Keep small — model context budget. */
@@ -73,6 +75,18 @@ const SnapshotSchema = z.object({
     )
     .max(60)
     .optional(),
+  scripts: z
+    .array(
+      z.object({
+        id: z.string(),
+        title: z.string(),
+        brand: z.string().optional(),
+        updated_at: z.string().optional(),
+        body_md: z.string().optional(),
+      }),
+    )
+    .max(100)
+    .optional(),
 }).partial();
 
 const BodySchema = z.object({
@@ -95,10 +109,16 @@ function buildSystemPrompt(snapshot: z.infer<typeof SnapshotSchema> | undefined)
     "  • Productions / Shoots — filming days with checklists.",
     "  • Tasks — work items owned by Jevoy or Shannen.",
     "  • Repurposing — turn ONE long-form Core 12 script into 3 supporting shorts (Curiosity Hook, Problem/Aha, Practical Takeaway).",
+    "  • Scripts library — every long-form script (studio_scripts). You can READ the full body of every script in the snapshot below.",
     "",
     "Owner conventions:",
     "  • Jevoy: scripting, filming, creative direction, approvals, decisions.",
     "  • Shannen: shoot prep, BTS, file organization, editor handoff, captions, publishing, weekly recap.",
+    "",
+    "Content creation capabilities:",
+    "  • brainstormIdeas — propose N video ideas (title + hook + angle + format). Draft the ideas YOURSELF in the tool input. They save to the Content library as ideas on approval.",
+    "  • generateLongFormScript — draft a FULL long-form script (markdown: hook, body, CTA) and save it to the Scripts library. Match the voice and structure of the existing scripts shown below. Write the entire script in body_md before calling — do not call with a placeholder.",
+    "  • generateSupportingShorts — once a long-form exists as a Core 12 episode, generate the 3 supporting shorts and auto-save to Library.",
     "",
     "Mutating tools (create/update/schedule/complete/generate) will ask the user to APPROVE before they run. Don't apologize for asking — call the tool and let the UI handle confirmation.",
     "Read tools (search/list) run silently.",
@@ -151,6 +171,17 @@ function buildSystemPrompt(snapshot: z.infer<typeof SnapshotSchema> | undefined)
         lines.push(
           `  ${c.title} — ${c.type} on ${c.platform ?? "?"} [${c.status}]${c.relatedCore12 ? ` (→ Core12 #${c.relatedCore12})` : ""} (id: ${c.id})`,
         );
+      }
+    }
+    if (snapshot.scripts?.length) {
+      lines.push("", `Scripts library (${snapshot.scripts.length}) — full bodies follow:`);
+      for (const s of snapshot.scripts) {
+        lines.push("", `### ${s.title} [brand: ${s.brand ?? "?"}] (id: ${s.id})`);
+        if (s.body_md && s.body_md.trim()) {
+          lines.push(s.body_md);
+        } else {
+          lines.push("(empty)");
+        }
       }
     }
     lines.push("--- END SNAPSHOT ---");
@@ -218,6 +249,16 @@ function buildTools() {
     generateSupportingShorts: passthrough(
       generateSupportingShortsInput,
       "Run the Repurposing Engine for a Core 12 episode. Generates the 3 supporting short-form scripts (Curiosity Hook, Problem/Aha, Practical Takeaway) and saves them to the library.",
+    ),
+
+    brainstormIdeas: passthrough(
+      brainstormIdeasInput,
+      "Propose N video ideas. YOU draft the ideas yourself (title, hook, angle, format) in the tool input. On user approval, each idea is saved to the Content library as an idea.",
+    ),
+
+    generateLongFormScript: passthrough(
+      generateLongFormScriptInput,
+      "Draft a full long-form script and save it to the Scripts library. YOU write the entire script body in markdown (body_md) in the tool input — hook, body sections, and CTA. Match the voice/structure of existing scripts shown in the snapshot. Approval-gated.",
     ),
   };
 }
