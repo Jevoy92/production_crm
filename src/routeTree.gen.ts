@@ -16,6 +16,7 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ScriptsRouteImport } from './routes/scripts'
 import { Route as ScoreboardRouteImport } from './routes/scoreboard'
 import { Route as ScheduleRouteImport } from './routes/schedule'
+import { Route as RepurposeRouteImport } from './routes/repurpose'
 import { Route as ProductionsRouteImport } from './routes/productions'
 import { Route as PlaybookRouteImport } from './routes/playbook'
 import { Route as GearRouteImport } from './routes/gear'
@@ -77,6 +78,11 @@ const ScoreboardRoute = ScoreboardRouteImport.update({
 const ScheduleRoute = ScheduleRouteImport.update({
   id: '/schedule',
   path: '/schedule',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RepurposeRoute = RepurposeRouteImport.update({
+  id: '/repurpose',
+  path: '/repurpose',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductionsRoute = ProductionsRouteImport.update({
@@ -227,6 +233,7 @@ export interface FileRoutesByFullPath {
   '/gear': typeof GearRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
+  '/repurpose': typeof RepurposeRoute
   '/schedule': typeof ScheduleRoute
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
@@ -263,6 +270,7 @@ export interface FileRoutesByTo {
   '/gear': typeof GearRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
+  '/repurpose': typeof RepurposeRoute
   '/schedule': typeof ScheduleRoute
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
@@ -300,6 +308,7 @@ export interface FileRoutesById {
   '/gear': typeof GearRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
+  '/repurpose': typeof RepurposeRoute
   '/schedule': typeof ScheduleRoute
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
@@ -338,6 +347,7 @@ export interface FileRouteTypes {
     | '/gear'
     | '/playbook'
     | '/productions'
+    | '/repurpose'
     | '/schedule'
     | '/scoreboard'
     | '/scripts'
@@ -374,6 +384,7 @@ export interface FileRouteTypes {
     | '/gear'
     | '/playbook'
     | '/productions'
+    | '/repurpose'
     | '/schedule'
     | '/scoreboard'
     | '/scripts'
@@ -410,6 +421,7 @@ export interface FileRouteTypes {
     | '/gear'
     | '/playbook'
     | '/productions'
+    | '/repurpose'
     | '/schedule'
     | '/scoreboard'
     | '/scripts'
@@ -447,6 +459,7 @@ export interface RootRouteChildren {
   GearRoute: typeof GearRoute
   PlaybookRoute: typeof PlaybookRouteWithChildren
   ProductionsRoute: typeof ProductionsRoute
+  RepurposeRoute: typeof RepurposeRoute
   ScheduleRoute: typeof ScheduleRoute
   ScoreboardRoute: typeof ScoreboardRoute
   ScriptsRoute: typeof ScriptsRouteWithChildren
@@ -513,6 +526,13 @@ declare module '@tanstack/react-router' {
       path: '/schedule'
       fullPath: '/schedule'
       preLoaderRoute: typeof ScheduleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/repurpose': {
+      id: '/repurpose'
+      path: '/repurpose'
+      fullPath: '/repurpose'
+      preLoaderRoute: typeof RepurposeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/productions': {
@@ -772,6 +792,7 @@ const rootRouteChildren: RootRouteChildren = {
   GearRoute: GearRoute,
   PlaybookRoute: PlaybookRouteWithChildren,
   ProductionsRoute: ProductionsRoute,
+  RepurposeRoute: RepurposeRoute,
   ScheduleRoute: ScheduleRoute,
   ScoreboardRoute: ScoreboardRoute,
   ScriptsRoute: ScriptsRouteWithChildren,
@@ -791,3 +812,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
