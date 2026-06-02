@@ -58,14 +58,13 @@ export const generateShorts = createServerFn({ method: "POST" })
       "Each CTA must reference the long-form: 'Full breakdown on YouTube — link in bio' or similar.",
     ].join("\n");
 
-    const { experimental_output } = await generateText({
+    const { output: result } = await generateText({
       model: gateway("google/gemini-3-flash-preview"),
       system,
       prompt,
-      experimental_output: Output.object({ schema: OutputSchema }),
+      output: Output.object({ schema: OutputSchema }),
     });
 
-    const result = experimental_output;
     // Ensure platform order matches request (model sometimes shuffles)
     const byPlatform = new Map(result.shorts.map((s) => [s.platform, s]));
     const ordered = platforms.map((p) => byPlatform.get(p)).filter(Boolean) as typeof result.shorts;
