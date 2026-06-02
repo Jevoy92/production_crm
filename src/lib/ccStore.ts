@@ -41,6 +41,8 @@ export type ContentItem = {
   businessPurpose: string; cta: string; shootDate?: string; publishedDate?: string;
   fileLocation: string; editorNotes: string; caption: string;
   thumbnailIdea: string; repurposingStatus: string; performanceNotes: string;
+  publishDate?: string; // YYYY-MM-DD — scheduled publish date for calendar
+  publishStatus?: "Draft" | "Scheduled" | "Published";
 };
 
 export type CCShootDay = {
@@ -72,6 +74,23 @@ export type SprintWeek = {
   shortsTarget: number; photoTarget: number; websiteVideos: string[];
   shannenTasks: string[]; jevoyTasks: string[]; editorHandoff: string[];
   publishingPriorities: string[]; reviewNotes: string;
+};
+
+export const PHOTO_STAGES = ["Selected", "Scripted", "Recorded", "Handoff", "Published"] as const;
+export type PhotoStage = (typeof PHOTO_STAGES)[number];
+
+export type PhotoAsset = {
+  id: string;
+  title: string;
+  source: "Palmer House" | "YourBoyJevoy";
+  photoUrl?: string;
+  story: string;
+  technicalBreakdown: string;
+  voiceoverScript: string;
+  stage: PhotoStage;
+  linkedContentId?: string;
+  notes: string;
+  createdAt: string;
 };
 
 const C12_RAW: Array<Omit<CoreTwelve, "id" | "updatedAt" | "scriptDone" | "filmedDone" | "editorDone" | "thumbnailDone" | "captionDone" | "publishedDone" | "editorNotes" | "shannenNotes" | "jevoyNotes" | "relatedShorts" | "relatedWebsite" | "relatedPhoto" | "relatedBTS">> = [
@@ -150,10 +169,13 @@ const SEED_SHOOTS: Omit<CCShootDay, "id">[] = [
 type CCState = {
   core12: CoreTwelve[]; library: ContentItem[]; shoots: CCShootDay[];
   tasks: CCTask[]; weeks: SprintWeek[];
+  photoAssets: PhotoAsset[];
   updateCore12: (id: string, patch: Partial<CoreTwelve>) => void;
   addContentItem: (i: Omit<ContentItem, "id">) => string;
   updateContentItem: (id: string, patch: Partial<ContentItem>) => void;
   removeContentItem: (id: string) => void;
+  setPublishDate: (id: string, date: string | undefined) => void;
+  setPublishPlatform: (id: string, platform: Platform) => void;
   addShoot: (s?: Partial<CCShootDay>) => string;
   updateShoot: (id: string, patch: Partial<CCShootDay>) => void;
   removeShoot: (id: string) => void;
@@ -164,6 +186,10 @@ type CCState = {
   cycleTaskStatus: (id: string) => void;
   generateWeekTasks: () => void;
   updateWeek: (n: number, patch: Partial<SprintWeek>) => void;
+  addPhotoAsset: (p?: Partial<PhotoAsset>) => string;
+  updatePhotoAsset: (id: string, patch: Partial<PhotoAsset>) => void;
+  removePhotoAsset: (id: string) => void;
+  promotePhotoToLibrary: (id: string) => string | undefined;
   resetCC: () => void;
 };
 
@@ -174,7 +200,13 @@ function buildSeed() {
   const library = [...baseLib(WEBSITE_TITLES, "Website", "Spotlight"), ...baseLib(SYSTEM_TITLES, "System", "System")];
   const shoots = SEED_SHOOTS.map((s) => ({ ...s, id: uid("sd") }));
   const tasks = RECURRING_TASKS.map((t) => ({ ...t, id: uid("cct"), createdAt: now() }));
-  return { core12, library, shoots, tasks, weeks: SPRINT_WEEKS };
+  const photoAssets: PhotoAsset[] = [
+    { id: uid("pa"), title: "Backlit founder portrait — kitchen window", source: "Palmer House", story: "Used as a hero on the About page. Demonstrates how natural light + framing tells a trust story without props.", technicalBreakdown: "85mm at f/2, ISO 400, 1/250s. Window left, white bounce camera-right. Subject placed on rule-of-thirds intersection.", voiceoverScript: "This shot wasn't planned. The light was. That's the difference between a portrait and a brand image.", stage: "Selected", notes: "", createdAt: now() },
+    { id: uid("pa"), title: "Studio overhead — gear flat lay", source: "Palmer House", story: "Shows the kit behind every Spotlight shoot. Builds confidence in what clients are paying for.", technicalBreakdown: "35mm overhead rig, f/5.6, soft key from above, no fill. Negative space for caption overlay.", voiceoverScript: "Every shoot starts here. Not with the camera. With the question we're trying to answer.", stage: "Scripted", notes: "", createdAt: now() },
+    { id: uid("pa"), title: "Kingston street — golden hour", source: "YourBoyJevoy", story: "Origin story photo. Connects the Jamaica chapter to the Seattle work — a recurring motif across the YBJ feed.", technicalBreakdown: "50mm at f/1.8, captured 20 minutes before sunset. Slight desaturation in post to match the YBJ palette.", voiceoverScript: "I grew up watching people make a lot from a little. That's still the lens I work through.", stage: "Recorded", notes: "Voiceover recorded — needs Jevoy review.", createdAt: now() },
+    { id: uid("pa"), title: "Coffee + notebook — morning ritual", source: "YourBoyJevoy", story: "Quiet, repeatable. Anchors the 'Something on my mind' short series.", technicalBreakdown: "Phone macro, natural light, shallow DOF using portrait mode.", voiceoverScript: "Most of what I think gets written here before it becomes anything else.", stage: "Handoff", notes: "Ready to promote to library.", createdAt: now() },
+  ];
+  return { core12, library, shoots, tasks, weeks: SPRINT_WEEKS, photoAssets };
 }
 
 export const useCCStore = create<CCState>()(
@@ -185,6 +217,14 @@ export const useCCStore = create<CCState>()(
       addContentItem: (i) => { const id = uid("ci"); set({ library: [{ id, ...i }, ...get().library] }); return id; },
       updateContentItem: (id, patch) => set({ library: get().library.map((c) => (c.id === id ? { ...c, ...patch } : c)) }),
       removeContentItem: (id) => set({ library: get().library.filter((c) => c.id !== id) }),
+      setPublishDate: (id, date) => set({
+        library: get().library.map((c) =>
+          c.id === id
+            ? { ...c, publishDate: date, publishStatus: date ? (c.publishStatus === "Published" ? "Published" : "Scheduled") : "Draft" }
+            : c,
+        ),
+      }),
+      setPublishPlatform: (id, platform) => set({ library: get().library.map((c) => (c.id === id ? { ...c, platform } : c)) }),
       addShoot: (s) => {
         const id = uid("sd");
         const base: CCShootDay = { id, date: "", location: "", theme: "", videos: "", wardrobe: "", props: "", gear: "", lighting: "", audio: "", teleprompter: "", btsPlan: "", shotList: "", timeBlocks: "", shannenRoles: "", jevoyRoles: "", pickups: "", status: "Planned", before: ckList(BEFORE), during: ckList(DURING), after: ckList(AFTER), ...s };
@@ -204,11 +244,50 @@ export const useCCStore = create<CCState>()(
         set({ tasks: [...next, ...get().tasks] });
       },
       updateWeek: (n, patch) => set({ weeks: get().weeks.map((w) => (w.number === n ? { ...w, ...patch } : w)) }),
+      addPhotoAsset: (p) => {
+        const id = uid("pa");
+        const base: PhotoAsset = { id, title: p?.title ?? "New photo asset", source: p?.source ?? "Palmer House", story: "", technicalBreakdown: "", voiceoverScript: "", stage: "Selected", notes: "", createdAt: now(), ...p };
+        set({ photoAssets: [base, ...get().photoAssets] });
+        return id;
+      },
+      updatePhotoAsset: (id, patch) => set({ photoAssets: get().photoAssets.map((p) => (p.id === id ? { ...p, ...patch } : p)) }),
+      removePhotoAsset: (id) => set({ photoAssets: get().photoAssets.filter((p) => p.id !== id) }),
+      promotePhotoToLibrary: (id) => {
+        const p = get().photoAssets.find((x) => x.id === id);
+        if (!p) return undefined;
+        if (p.linkedContentId) return p.linkedContentId;
+        const ciId = uid("ci");
+        const ci: ContentItem = {
+          id: ciId, title: p.title, type: "Photo-to-Video",
+          platform: p.source === "YourBoyJevoy" ? "YourBoyJevoy" : "Instagram Reels",
+          status: p.stage === "Published" ? "Published" : "Ready to Publish",
+          palLane: p.source === "YourBoyJevoy" ? "Reel" : "Spotlight",
+          businessPurpose: p.story, cta: "", fileLocation: "", editorNotes: p.technicalBreakdown,
+          caption: p.voiceoverScript, thumbnailIdea: "", repurposingStatus: "", performanceNotes: "",
+        };
+        set({
+          library: [ci, ...get().library],
+          photoAssets: get().photoAssets.map((x) => (x.id === id ? { ...x, linkedContentId: ciId } : x)),
+        });
+        return ciId;
+      },
       resetCC: () => set(buildSeed()),
     }),
-    { name: "cc:v1", version: 1 },
+    { name: "cc:v1", version: 2 },
   ),
 );
 
 export const palLaneColor = (l: PalLane) =>
   l === "Reel" ? "var(--lane-reel)" : l === "Spotlight" ? "var(--lane-spotlight)" : l === "Evergreen" ? "var(--lane-evergreen)" : "var(--lane-system)";
+
+export function platformColor(p: Platform | undefined): string {
+  if (!p) return "var(--muted-foreground)";
+  if (p === "YouTube" || p === "YouTube Shorts") return "var(--platform-youtube)";
+  if (p === "Instagram" || p === "Instagram Reels") return "var(--platform-instagram)";
+  if (p === "TikTok") return "var(--platform-tiktok)";
+  if (p === "LinkedIn") return "var(--platform-linkedin)";
+  if (p === "Website") return "var(--platform-web)";
+  if (p === "Newsletter") return "var(--platform-email)";
+  if (p === "YourBoyJevoy") return "var(--platform-ybj)";
+  return "var(--muted-foreground)";
+}
