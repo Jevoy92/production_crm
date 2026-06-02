@@ -159,8 +159,8 @@ function PalsChat({
         body: { messages, snapshot: buildPalsSnapshot() },
       }),
     }),
-    onError: (err) => console.error("[pals] chat error", err),
-    sendAutomaticallyWhen: ({ messages }) => {
+    onError: (err: any) => console.error("[pals] chat error", err),
+    sendAutomaticallyWhen: ({ messages }: { messages: UIMessage[] }) => {
       const last = messages[messages.length - 1];
       if (!last) return false;
       return (last.parts as any[]).some(
