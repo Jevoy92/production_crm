@@ -45,7 +45,7 @@ function platformToLibrary(p: Short["platform"]): Platform {
 function RepurposePage() {
   const generate = useServerFn(generateShorts);
   const addContentItem = useCCStore((s) => s.addContentItem);
-  const contentItems = useCCStore((s) => s.contentItems);
+  const library = useCCStore((s) => s.library);
   const [activeNum, setActiveNum] = useState<string>(SCRIPTS[0]?.num ?? "01");
   const [platforms, setPlatforms] = useState<Short["platform"][]>([...ALL_PLATFORMS]);
   const [busy, setBusy] = useState(false);
@@ -63,8 +63,8 @@ function RepurposePage() {
 
   // Detect shorts already saved (by exact caption match to avoid dupes within session)
   const savedTitleSet = useMemo(
-    () => new Set(contentItems.map((c) => c.title)),
-    [contentItems],
+    () => new Set(library.map((c) => c.title)),
+    [library],
   );
 
   const saveOneFromLibrary = (s: CoreShort) => {
