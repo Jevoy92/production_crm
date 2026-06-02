@@ -41,10 +41,12 @@ import { Route as KpisPaRouteImport } from './routes/kpis.pa'
 import { Route as KpisOwnerRouteImport } from './routes/kpis.owner'
 import { Route as KpisCfoRouteImport } from './routes/kpis.cfo'
 import { Route as ClientsIdRouteImport } from './routes/clients.$id'
+import { Route as CcSprintRouteImport } from './routes/cc.sprint'
 import { Route as CcCore12RouteImport } from './routes/cc.core12'
 import { Route as ApiStudioChatRouteImport } from './routes/api/studio-chat'
 import { Route as ApiPalsRouteImport } from './routes/api/pals'
 import { Route as AdminTemplatesRouteImport } from './routes/admin.templates'
+import { Route as CcCore12NumRouteImport } from './routes/cc.core12.$num'
 
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
@@ -206,6 +208,11 @@ const ClientsIdRoute = ClientsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => ClientsRoute,
 } as any)
+const CcSprintRoute = CcSprintRouteImport.update({
+  id: '/sprint',
+  path: '/sprint',
+  getParentRoute: () => CcRoute,
+} as any)
 const CcCore12Route = CcCore12RouteImport.update({
   id: '/core12',
   path: '/core12',
@@ -225,6 +232,11 @@ const AdminTemplatesRoute = AdminTemplatesRouteImport.update({
   id: '/admin/templates',
   path: '/admin/templates',
   getParentRoute: () => rootRouteImport,
+} as any)
+const CcCore12NumRoute = CcCore12NumRouteImport.update({
+  id: '/$num',
+  path: '/$num',
+  getParentRoute: () => CcCore12Route,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -250,7 +262,8 @@ export interface FileRoutesByFullPath {
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
-  '/cc/core12': typeof CcCore12Route
+  '/cc/core12': typeof CcCore12RouteWithChildren
+  '/cc/sprint': typeof CcSprintRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -264,6 +277,7 @@ export interface FileRoutesByFullPath {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/cc/core12/$num': typeof CcCore12NumRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -288,7 +302,8 @@ export interface FileRoutesByTo {
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
-  '/cc/core12': typeof CcCore12Route
+  '/cc/core12': typeof CcCore12RouteWithChildren
+  '/cc/sprint': typeof CcSprintRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -302,6 +317,7 @@ export interface FileRoutesByTo {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/cc/core12/$num': typeof CcCore12NumRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -327,7 +343,8 @@ export interface FileRoutesById {
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
-  '/cc/core12': typeof CcCore12Route
+  '/cc/core12': typeof CcCore12RouteWithChildren
+  '/cc/sprint': typeof CcSprintRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -341,6 +358,7 @@ export interface FileRoutesById {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/cc/core12/$num': typeof CcCore12NumRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -368,6 +386,7 @@ export interface FileRouteTypes {
     | '/api/pals'
     | '/api/studio-chat'
     | '/cc/core12'
+    | '/cc/sprint'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -381,6 +400,7 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/cc/core12/$num'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -406,6 +426,7 @@ export interface FileRouteTypes {
     | '/api/pals'
     | '/api/studio-chat'
     | '/cc/core12'
+    | '/cc/sprint'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -419,6 +440,7 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/cc/core12/$num'
   id:
     | '__root__'
     | '/'
@@ -444,6 +466,7 @@ export interface FileRouteTypes {
     | '/api/pals'
     | '/api/studio-chat'
     | '/cc/core12'
+    | '/cc/sprint'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -457,6 +480,7 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/cc/core12/$num'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -715,6 +739,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientsIdRouteImport
       parentRoute: typeof ClientsRoute
     }
+    '/cc/sprint': {
+      id: '/cc/sprint'
+      path: '/sprint'
+      fullPath: '/cc/sprint'
+      preLoaderRoute: typeof CcSprintRouteImport
+      parentRoute: typeof CcRoute
+    }
     '/cc/core12': {
       id: '/cc/core12'
       path: '/core12'
@@ -743,15 +774,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cc/core12/$num': {
+      id: '/cc/core12/$num'
+      path: '/$num'
+      fullPath: '/cc/core12/$num'
+      preLoaderRoute: typeof CcCore12NumRouteImport
+      parentRoute: typeof CcCore12Route
+    }
   }
 }
 
+interface CcCore12RouteChildren {
+  CcCore12NumRoute: typeof CcCore12NumRoute
+}
+
+const CcCore12RouteChildren: CcCore12RouteChildren = {
+  CcCore12NumRoute: CcCore12NumRoute,
+}
+
+const CcCore12RouteWithChildren = CcCore12Route._addFileChildren(
+  CcCore12RouteChildren,
+)
+
 interface CcRouteChildren {
-  CcCore12Route: typeof CcCore12Route
+  CcCore12Route: typeof CcCore12RouteWithChildren
+  CcSprintRoute: typeof CcSprintRoute
 }
 
 const CcRouteChildren: CcRouteChildren = {
-  CcCore12Route: CcCore12Route,
+  CcCore12Route: CcCore12RouteWithChildren,
+  CcSprintRoute: CcSprintRoute,
 }
 
 const CcRouteWithChildren = CcRoute._addFileChildren(CcRouteChildren)
