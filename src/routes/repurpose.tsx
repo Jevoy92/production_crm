@@ -1,8 +1,6 @@
 import { useState, useMemo } from "react";
-import { createFileRoute, useServerFn, Link } from "@tanstack/react-router";
-// useServerFn lives in @tanstack/react-start
-// (kept the type-safe Link from react-router above)
-import { useServerFn as useFn } from "@tanstack/react-start";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { AppShell, PageHeader, Card } from "@/components/app/AppShell";
 import { SCRIPTS } from "@/lib/scriptsIndex";
 import { useCCStore, type Platform, type PalLane } from "@/lib/ccStore";
@@ -44,7 +42,7 @@ function platformToLibrary(p: Short["platform"]): Platform {
 }
 
 function RepurposePage() {
-  const generate = useFn(generateShorts);
+  const generate = useServerFn(generateShorts);
   const addContentItem = useCCStore((s) => s.addContentItem);
   const [activeNum, setActiveNum] = useState<string>(SCRIPTS[0]?.num ?? "01");
   const [platforms, setPlatforms] = useState<Short["platform"][]>([...ALL_PLATFORMS]);
