@@ -34,7 +34,7 @@ export async function loadPalsMessages(): Promise<UIMessage[]> {
 export async function savePalsMessage(msg: UIMessage): Promise<void> {
   const { error } = await supabase.from("pals_messages").insert({
     role: msg.role,
-    parts: msg.parts as unknown as object,
+    parts: msg.parts as unknown as never,
     message_id: msg.id,
   });
   if (error) console.error("[pals] save failed", error);
