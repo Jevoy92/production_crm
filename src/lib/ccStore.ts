@@ -156,15 +156,7 @@ function emptyFlags() {
   return { scriptDone: false, filmedDone: false, editorDone: false, thumbnailDone: false, captionDone: false, publishedDone: false, editorNotes: "", shannenNotes: "", jevoyNotes: "", relatedShorts: [] as string[], relatedWebsite: [] as string[], relatedPhoto: [] as string[], relatedBTS: [] as string[] };
 }
 
-const SEED_SHOOTS: Omit<CCShootDay, "id">[] = [
-  { date: "", location: "Studio", theme: "Day 1 — Setup & Command Center Lock", videos: "(no filming — setup)", wardrobe: "", props: "", gear: "", lighting: "", audio: "", teleprompter: "", btsPlan: "", shotList: "", timeBlocks: "", shannenRoles: "Build tracker, set folders, draft shoot list", jevoyRoles: "Approve Core 12 order, write hooks", pickups: "", status: "Planned", before: ckList(BEFORE), during: ckList(DURING), after: ckList(AFTER) },
-  { date: "", location: "Studio", theme: "Day 2 — Translation Project #1", videos: "Core 12 #1 + Website: What Palmer House Does", wardrobe: "Black tee, neutral", props: "Notebook", gear: "C70 + 35mm, RØDE", lighting: "Key + soft fill", audio: "Lav + boom backup", teleprompter: "Bullet outline", btsPlan: "3 BTS phone clips", shotList: "Wide/mid/close x 3 blocks", timeBlocks: "9–11 setup, 11–1 record", shannenRoles: "Teleprompter, audio check, BTS", jevoyRoles: "Talent, lock final hooks", pickups: "", status: "Planned", before: ckList(BEFORE), during: ckList(DURING), after: ckList(AFTER) },
-  { date: "", location: "Studio", theme: "Day 3 — Translation Project #2", videos: "Core 12 #2 + Website: Video Is Infrastructure", wardrobe: "Continuity w/ Day 2", props: "Two-monitor comparison setup", gear: "C70 + 35mm, RØDE", lighting: "Two-look toggle", audio: "Lav", teleprompter: "Outline", btsPlan: "Side-by-side BTS", shotList: "Generic vs strategic side-by-side", timeBlocks: "9–1", shannenRoles: "Run comparison playback", jevoyRoles: "Talent", pickups: "", status: "Planned", before: ckList(BEFORE), during: ckList(DURING), after: ckList(AFTER) },
-  { date: "", location: "Studio", theme: "Day 4 — Authority / Search Video", videos: "Core 12 #3 — 100 Business Videos", wardrobe: "Editorial", props: "Laptop / reference screens", gear: "C70 + 50mm", lighting: "Key only", audio: "Lav", teleprompter: "Outline + clip refs", btsPlan: "Screen recordings", shotList: "Direct address + B-roll examples", timeBlocks: "9–1", shannenRoles: "Capture 5 direct shorts after main take", jevoyRoles: "Talent", pickups: "", status: "Planned", before: ckList(BEFORE), during: ckList(DURING), after: ckList(AFTER) },
-  { date: "", location: "Studio", theme: "Day 5 — Website Trust Videos", videos: "Meet Jevoy; How a Shoot Works; Camera-Shy Reassurance", wardrobe: "Soft tone", props: "—", gear: "C70 + 35mm", lighting: "Soft warm key", audio: "Lav", teleprompter: "Bullets", btsPlan: "Optional", shotList: "3 short pieces ~60s each", timeBlocks: "9–1", shannenRoles: "Track takes, log best", jevoyRoles: "Talent", pickups: "", status: "Planned", before: ckList(BEFORE), during: ckList(DURING), after: ckList(AFTER) },
-  { date: "", location: "Studio", theme: "Day 6 — Photo-to-Video Batch", videos: "3 Palmer House photo breakdowns + 2 YourBoyJevoy story videos + 3 BTS clips", wardrobe: "Casual", props: "iPad / monitor w/ photo set", gear: "C70 + macro phone for BTS", lighting: "Practical", audio: "Lav VO", teleprompter: "Photo cue list", btsPlan: "Workflow rig BTS", shotList: "Photo onscreen → commentary", timeBlocks: "9–1", shannenRoles: "Load photo set, run VO record", jevoyRoles: "Narrate stories + technique", pickups: "", status: "Planned", before: ckList(BEFORE), during: ckList(DURING), after: ckList(AFTER) },
-  { date: "", location: "Desk", theme: "Day 7 — Review & Package Handoff", videos: "(handoff day)", wardrobe: "", props: "", gear: "", lighting: "", audio: "", teleprompter: "", btsPlan: "", shotList: "", timeBlocks: "9–1", shannenRoles: "Ingest, rename, organize, editor notes, update tracker", jevoyRoles: "Review top takes, choose edit priority, pickup VO", pickups: "", status: "Planned", before: ckList(BEFORE), during: ckList(DURING), after: ckList(AFTER) },
-];
+// Seed shoots removed — the user adds real shoot days from the Shoot Planner.
 
 type CCState = {
   core12: CoreTwelve[]; library: ContentItem[]; shoots: CCShootDay[];
@@ -190,7 +182,6 @@ type CCState = {
   updatePhotoAsset: (id: string, patch: Partial<PhotoAsset>) => void;
   removePhotoAsset: (id: string) => void;
   promotePhotoToLibrary: (id: string) => string | undefined;
-  resetCC: () => void;
 };
 
 function buildSeed() {
@@ -198,14 +189,9 @@ function buildSeed() {
   const baseLib = (titles: string[], type: ContentType, lane: PalLane): ContentItem[] =>
     titles.map((title) => ({ id: uid("ci"), title, type, platform: "Website", status: "Idea", palLane: lane, businessPurpose: "", cta: "", fileLocation: "", editorNotes: "", caption: "", thumbnailIdea: "", repurposingStatus: "", performanceNotes: "" }));
   const library = [...baseLib(WEBSITE_TITLES, "Website", "Spotlight"), ...baseLib(SYSTEM_TITLES, "System", "System")];
-  const shoots = SEED_SHOOTS.map((s) => ({ ...s, id: uid("sd") }));
   const tasks = RECURRING_TASKS.map((t) => ({ ...t, id: uid("cct"), createdAt: now() }));
-  const photoAssets: PhotoAsset[] = [
-    { id: uid("pa"), title: "Backlit founder portrait — kitchen window", source: "Palmer House", story: "Used as a hero on the About page. Demonstrates how natural light + framing tells a trust story without props.", technicalBreakdown: "85mm at f/2, ISO 400, 1/250s. Window left, white bounce camera-right. Subject placed on rule-of-thirds intersection.", voiceoverScript: "This shot wasn't planned. The light was. That's the difference between a portrait and a brand image.", stage: "Selected", notes: "", createdAt: now() },
-    { id: uid("pa"), title: "Studio overhead — gear flat lay", source: "Palmer House", story: "Shows the kit behind every Spotlight shoot. Builds confidence in what clients are paying for.", technicalBreakdown: "35mm overhead rig, f/5.6, soft key from above, no fill. Negative space for caption overlay.", voiceoverScript: "Every shoot starts here. Not with the camera. With the question we're trying to answer.", stage: "Scripted", notes: "", createdAt: now() },
-    { id: uid("pa"), title: "Kingston street — golden hour", source: "YourBoyJevoy", story: "Origin story photo. Connects the Jamaica chapter to the Seattle work — a recurring motif across the YBJ feed.", technicalBreakdown: "50mm at f/1.8, captured 20 minutes before sunset. Slight desaturation in post to match the YBJ palette.", voiceoverScript: "I grew up watching people make a lot from a little. That's still the lens I work through.", stage: "Recorded", notes: "Voiceover recorded — needs Jevoy review.", createdAt: now() },
-    { id: uid("pa"), title: "Coffee + notebook — morning ritual", source: "YourBoyJevoy", story: "Quiet, repeatable. Anchors the 'Something on my mind' short series.", technicalBreakdown: "Phone macro, natural light, shallow DOF using portrait mode.", voiceoverScript: "Most of what I think gets written here before it becomes anything else.", stage: "Handoff", notes: "Ready to promote to library.", createdAt: now() },
-  ];
+  const shoots: CCShootDay[] = [];
+  const photoAssets: PhotoAsset[] = [];
   return { core12, library, shoots, tasks, weeks: SPRINT_WEEKS, photoAssets };
 }
 
@@ -271,9 +257,20 @@ export const useCCStore = create<CCState>()(
         });
         return ciId;
       },
-      resetCC: () => set(buildSeed()),
     }),
-    { name: "cc:v1", version: 2 },
+    {
+      name: "cc:v1",
+      version: 3,
+      // v3 — permanent seed-data purge: drop sample shoots and photo assets.
+      migrate: (persisted: any, fromVersion) => {
+        if (!persisted) return persisted;
+        if (fromVersion < 3) {
+          persisted.shoots = [];
+          persisted.photoAssets = [];
+        }
+        return persisted;
+      },
+    },
   ),
 );
 

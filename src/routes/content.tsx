@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
 import { useStore } from "@/lib/store";
@@ -483,6 +483,16 @@ function ContentPipeline() {
           </Btn>
         }
       >
+        <div className="mb-4 rounded-xl border border-warning/30 bg-warning/5 px-4 py-3 text-[12.5px] flex items-center justify-between gap-3">
+          <div>
+            <span className="font-medium">This view has moved.</span>{" "}
+            <span className="text-muted-foreground">
+              Internal content lives in Content Command → Library. This page is kept so old links still work.
+            </span>
+          </div>
+          <Link to="/cc/library" className="text-primary text-[12px] whitespace-nowrap">Open Library →</Link>
+        </div>
+
         {/* Summary strip */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
           {[

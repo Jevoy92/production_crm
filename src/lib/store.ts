@@ -118,8 +118,6 @@ type State = {
   updateKpi: (id: string, patch: Partial<TrackedKpi>) => void;
   removeKpi: (id: string) => void;
 
-  resetData: () => void;
-  clearSeedData: () => void;
 };
 
 export const useStore = create<State>()(
@@ -344,68 +342,18 @@ export const useStore = create<State>()(
         }),
       removeKpi: (id) => set({ trackedKpis: get().trackedKpis.filter((k) => k.id !== id) }),
 
-      resetData: () =>
-        set({
-          team: SEED.team,
-          clients: SEED.clients,
-          projects: SEED.projects,
-          shoots: SEED.shoots,
-          playbook: SEED.playbook,
-          gearItems: SEED.gearItems,
-          gearKits: SEED.gearKits,
-          assets: SEED.assets,
-          tasks: SEED.tasks,
-          templates: SEED.templates,
-          contentPieces: SEED.contentPieces,
-          trackedKpis: SEED.trackedKpis,
-          finance: {
-            cashCollectedMonth: 0,
-            outstanding: 0,
-            toolSpend: 0,
-            aiSpend: 0,
-            contractorSpend: 0,
-            bookedMonth: 0,
-            bookedQuarter: 0,
-            retainerRevenue: 0,
-            ar30: 0,
-            ar60: 0,
-            ar90: 0,
-          },
-        }),
-      clearSeedData: () =>
-        set({
-          clients: [],
-          projects: [],
-          shoots: [],
-          playbook: [],
-          gearItems: [],
-          gearKits: [],
-          assets: [],
-          tasks: [],
-          contentPieces: [],
-          trackedKpis: [],
-          finance: { cashCollectedMonth: 0, outstanding: 0, toolSpend: 0, aiSpend: 0, contractorSpend: 0, bookedMonth: 0, bookedQuarter: 0, retainerRevenue: 0, ar30: 0, ar60: 0, ar90: 0 },
-        }),
     }),
     {
       name: "phpos:v2",
-      version: 15,
-      // Migrate persisted state forward without nuking the user's own data.
-      // v11 — rebuilt playbook seed (tables, callouts, Pal characters).
-      // v12 — gear items get real photos + seeded sample tasks.
-      // v14 — wipe all seed data (clients, projects, shoots, gear, assets,
-      //       tasks, content, KPIs, finance) so every device starts empty.
-      // v15 — bulk-add today's recording to-dos for Jevoy, Adrienne, and Shannen.
+      version: 16,
+      // v11 — rebuilt playbook seed.
+      // v14 — wiped all sample data so every device starts empty.
+      // v16 — permanent seed-data purge: drop the v15 "recording todos"
+      //       and any other auto-seeded fake tasks (ids prefixed t_rec_).
       migrate: (persisted: any, fromVersion) => {
         if (!persisted) return persisted;
         if (fromVersion < 11) {
           persisted.playbook = SEED.playbook;
-        }
-        if (fromVersion < 13) {
-          persisted.gearItems = SEED.gearItems;
-          if (!persisted.tasks || persisted.tasks.length === 0) {
-            persisted.tasks = SEED.tasks;
-          }
         }
         if (fromVersion < 14) {
           persisted.clients = [];
@@ -431,36 +379,12 @@ export const useStore = create<State>()(
             ar90: 0,
           };
         }
-        if (fromVersion < 15) {
-          const now = new Date().toISOString();
-          const recordingTodos: Array<{ title: string; priority: "Low" | "Med" | "High" }> = [
-            { title: "Cancel Buffer free trial + pick social scheduler (LinkedIn + GBP + 1 social)", priority: "High" },
-            { title: "Audit & clean Instagram + other social profiles (archive old posts, update names)", priority: "Med" },
-            { title: "Finalize shared Palmer House task account (login, password, saving verified)", priority: "High" },
-            { title: "Populate task system with current work + delete remaining seed data", priority: "Med" },
-            { title: "Review TV show PR permissions + decide channels (LinkedIn confirmed, YouTube TBD)", priority: "Med" },
-            { title: "Cancel any other free trials / accidental automations + confirm no billing entered", priority: "High" },
-            { title: "Health insurance: make phone call to verify identity", priority: "High" },
-            { title: "Schedule 10 min/day typing lessons (Jevoy + Shannen)", priority: "Low" },
-            { title: "Take a 5-min water break (health reminder)", priority: "Low" },
-          ];
-          const assignees = ["u_jevoy", "u_adrienne", "u_shannen"];
-          const bulkTasks = assignees.flatMap((assigneeId, ai) =>
-            recordingTodos.map((t, ti) => ({
-              id: `t_rec_${ai}_${ti}`,
-              title: t.title,
-              assigneeId,
-              status: "todo" as const,
-              priority: t.priority,
-              createdAt: now,
-            })),
-          );
-          const existing = Array.isArray(persisted.tasks) ? persisted.tasks : [];
-          const existingIds = new Set(existing.map((t: any) => t.id));
-          persisted.tasks = [
-            ...bulkTasks.filter((t) => !existingIds.has(t.id)),
-            ...existing,
-          ];
+        if (fromVersion < 16) {
+          if (Array.isArray(persisted.tasks)) {
+            persisted.tasks = persisted.tasks.filter(
+              (t: any) => typeof t?.id !== "string" || !t.id.startsWith("t_rec_"),
+            );
+          }
         }
         return persisted;
       },
