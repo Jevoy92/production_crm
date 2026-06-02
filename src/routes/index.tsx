@@ -141,8 +141,8 @@ function Today() {
                   t.priority === "High" ? "danger" :
                   t.priority === "Med" ? "warning" : "muted";
                 const badgeCls =
-                  t.status === "in_progress" ? "ph-badge ph-badge-warning" :
-                  t.status === "blocked" ? "ph-badge ph-badge-danger" :
+                  t.status === "doing" ? "ph-badge ph-badge-warning" :
+                  t.status === "done" ? "ph-badge ph-badge-success" :
                   "ph-badge ph-badge-neutral";
                 return (
                   <div key={t.id} className="ph-row">
