@@ -23,6 +23,7 @@ import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as ContentRouteImport } from './routes/content'
 import { Route as ClientsRouteImport } from './routes/clients'
 import { Route as ChecklistsRouteImport } from './routes/checklists'
+import { Route as CcRouteImport } from './routes/cc'
 import { Route as BrandRouteImport } from './routes/brand'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
@@ -40,6 +41,7 @@ import { Route as KpisPaRouteImport } from './routes/kpis.pa'
 import { Route as KpisOwnerRouteImport } from './routes/kpis.owner'
 import { Route as KpisCfoRouteImport } from './routes/kpis.cfo'
 import { Route as ClientsIdRouteImport } from './routes/clients.$id'
+import { Route as CcCore12RouteImport } from './routes/cc.core12'
 import { Route as ApiStudioChatRouteImport } from './routes/api/studio-chat'
 import { Route as ApiPalsRouteImport } from './routes/api/pals'
 import { Route as AdminTemplatesRouteImport } from './routes/admin.templates'
@@ -112,6 +114,11 @@ const ClientsRoute = ClientsRouteImport.update({
 const ChecklistsRoute = ChecklistsRouteImport.update({
   id: '/checklists',
   path: '/checklists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CcRoute = CcRouteImport.update({
+  id: '/cc',
+  path: '/cc',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandRoute = BrandRouteImport.update({
@@ -199,6 +206,11 @@ const ClientsIdRoute = ClientsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => ClientsRoute,
 } as any)
+const CcCore12Route = CcCore12RouteImport.update({
+  id: '/core12',
+  path: '/core12',
+  getParentRoute: () => CcRoute,
+} as any)
 const ApiStudioChatRoute = ApiStudioChatRouteImport.update({
   id: '/api/studio-chat',
   path: '/api/studio-chat',
@@ -220,6 +232,7 @@ export interface FileRoutesByFullPath {
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
   '/brand': typeof BrandRoute
+  '/cc': typeof CcRouteWithChildren
   '/checklists': typeof ChecklistsRoute
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
@@ -237,6 +250,7 @@ export interface FileRoutesByFullPath {
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
+  '/cc/core12': typeof CcCore12Route
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -256,6 +270,7 @@ export interface FileRoutesByTo {
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
   '/brand': typeof BrandRoute
+  '/cc': typeof CcRouteWithChildren
   '/checklists': typeof ChecklistsRoute
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
@@ -273,6 +288,7 @@ export interface FileRoutesByTo {
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
+  '/cc/core12': typeof CcCore12Route
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -293,6 +309,7 @@ export interface FileRoutesById {
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
   '/brand': typeof BrandRoute
+  '/cc': typeof CcRouteWithChildren
   '/checklists': typeof ChecklistsRoute
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
@@ -310,6 +327,7 @@ export interface FileRoutesById {
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
+  '/cc/core12': typeof CcCore12Route
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -331,6 +349,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/assets'
     | '/brand'
+    | '/cc'
     | '/checklists'
     | '/clients'
     | '/content'
@@ -348,6 +367,7 @@ export interface FileRouteTypes {
     | '/admin/templates'
     | '/api/pals'
     | '/api/studio-chat'
+    | '/cc/core12'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -367,6 +387,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/assets'
     | '/brand'
+    | '/cc'
     | '/checklists'
     | '/clients'
     | '/content'
@@ -384,6 +405,7 @@ export interface FileRouteTypes {
     | '/admin/templates'
     | '/api/pals'
     | '/api/studio-chat'
+    | '/cc/core12'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -403,6 +425,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/assets'
     | '/brand'
+    | '/cc'
     | '/checklists'
     | '/clients'
     | '/content'
@@ -420,6 +443,7 @@ export interface FileRouteTypes {
     | '/admin/templates'
     | '/api/pals'
     | '/api/studio-chat'
+    | '/cc/core12'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -440,6 +464,7 @@ export interface RootRouteChildren {
   AnalyticsRoute: typeof AnalyticsRoute
   AssetsRoute: typeof AssetsRoute
   BrandRoute: typeof BrandRoute
+  CcRoute: typeof CcRouteWithChildren
   ChecklistsRoute: typeof ChecklistsRoute
   ClientsRoute: typeof ClientsRouteWithChildren
   ContentRoute: typeof ContentRoute
@@ -564,6 +589,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChecklistsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cc': {
+      id: '/cc'
+      path: '/cc'
+      fullPath: '/cc'
+      preLoaderRoute: typeof CcRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/brand': {
       id: '/brand'
       path: '/brand'
@@ -683,6 +715,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientsIdRouteImport
       parentRoute: typeof ClientsRoute
     }
+    '/cc/core12': {
+      id: '/cc/core12'
+      path: '/core12'
+      fullPath: '/cc/core12'
+      preLoaderRoute: typeof CcCore12RouteImport
+      parentRoute: typeof CcRoute
+    }
     '/api/studio-chat': {
       id: '/api/studio-chat'
       path: '/api/studio-chat'
@@ -706,6 +745,16 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface CcRouteChildren {
+  CcCore12Route: typeof CcCore12Route
+}
+
+const CcRouteChildren: CcRouteChildren = {
+  CcCore12Route: CcCore12Route,
+}
+
+const CcRouteWithChildren = CcRoute._addFileChildren(CcRouteChildren)
 
 interface ClientsRouteChildren {
   ClientsIdRoute: typeof ClientsIdRoute
@@ -765,6 +814,7 @@ const rootRouteChildren: RootRouteChildren = {
   AnalyticsRoute: AnalyticsRoute,
   AssetsRoute: AssetsRoute,
   BrandRoute: BrandRoute,
+  CcRoute: CcRouteWithChildren,
   ChecklistsRoute: ChecklistsRoute,
   ClientsRoute: ClientsRouteWithChildren,
   ContentRoute: ContentRoute,
@@ -791,3 +841,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
