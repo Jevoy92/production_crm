@@ -20,6 +20,7 @@ import {
   FileText,
   Palette,
   PenLine,
+  Command,
 } from "lucide-react";
 import { useStore } from "@/lib/store";
 
@@ -30,6 +31,7 @@ const AiAssistantModal = lazy(() =>
 const nav = [
   { label: "Team & KPIs", to: "/team", icon: Users },
   { label: "Scoreboard", to: "/scoreboard", icon: Target },
+  { label: "Content Command", to: "/cc", icon: Command },
   { label: "Productions", to: "/productions", icon: Film },
   { label: "Schedule", to: "/schedule", icon: Calendar },
   { label: "Tasks", to: "/tasks", icon: CheckSquare },
