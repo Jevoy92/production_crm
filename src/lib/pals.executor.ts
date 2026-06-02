@@ -33,44 +33,44 @@ export async function executePalsTool(
       if (kinds.has("task"))
         out.push(
           ...store.tasks
-            .filter((t) => lc(t.title).includes(q) || lc((t as any).notes).includes(q))
+            .filter((t: any) => lc(t.title).includes(q) || lc((t as any).notes).includes(q))
             .slice(0, 10)
-            .map((t) => ({ kind: "task", id: t.id, label: t.title, owner: (t as any).owner, status: t.status })),
+            .map((t: any) => ({ kind: "task", id: t.id, label: t.title, owner: (t as any).owner, status: t.status })),
         );
       if (kinds.has("content"))
         out.push(
           ...cc.library
-            .filter((c) => lc(c.title).includes(q) || lc(c.businessPurpose).includes(q))
+            .filter((c: any) => lc(c.title).includes(q) || lc(c.businessPurpose).includes(q))
             .slice(0, 10)
-            .map((c) => ({ kind: "content", id: c.id, label: c.title, type: c.type, status: c.status })),
+            .map((c: any) => ({ kind: "content", id: c.id, label: c.title, type: c.type, status: c.status })),
         );
       if (kinds.has("core12"))
         out.push(
           ...cc.core12
-            .filter((c) => lc(c.title).includes(q) || lc(c.hook).includes(q) || lc(c.businessPurpose).includes(q))
+            .filter((c: any) => lc(c.title).includes(q) || lc(c.hook).includes(q) || lc(c.businessPurpose).includes(q))
             .slice(0, 5)
-            .map((c) => ({ kind: "core12", number: c.number, label: c.title, status: c.status })),
+            .map((c: any) => ({ kind: "core12", number: c.number, label: c.title, status: c.status })),
         );
       if (kinds.has("shoot"))
         out.push(
           ...cc.shoots
-            .filter((s) => lc(s.theme).includes(q) || lc(s.location).includes(q) || lc(s.videos).includes(q))
+            .filter((s: any) => lc(s.theme).includes(q) || lc(s.location).includes(q) || lc(s.videos).includes(q))
             .slice(0, 10)
-            .map((s) => ({ kind: "shoot", id: s.id, date: s.date, label: s.theme || s.location })),
+            .map((s: any) => ({ kind: "shoot", id: s.id, date: s.date, label: s.theme || s.location })),
         );
       if (kinds.has("client"))
         out.push(
           ...store.clients
-            .filter((c) => lc(c.name).includes(q))
+            .filter((c: any) => lc(c.name).includes(q))
             .slice(0, 10)
-            .map((c) => ({ kind: "client", id: c.id, label: c.name })),
+            .map((c: any) => ({ kind: "client", id: c.id, label: c.name })),
         );
       if (kinds.has("project"))
         out.push(
           ...store.projects
-            .filter((p) => lc(p.title).includes(q))
+            .filter((p: any) => lc(p.title).includes(q))
             .slice(0, 10)
-            .map((p) => ({ kind: "project", id: p.id, label: p.title, stage: p.stage })),
+            .map((p: any) => ({ kind: "project", id: p.id, label: p.title, stage: p.stage })),
         );
       return { results: out, total: out.length };
     }
@@ -81,11 +81,11 @@ export async function executePalsTool(
       const dueBefore = input?.dueBefore as string | undefined;
       const limit = (input?.limit as number) ?? 20;
       let tasks = store.tasks.slice();
-      if (owner) tasks = tasks.filter((t) => ((t as any).owner ?? "") === owner);
-      if (status) tasks = tasks.filter((t) => t.status === status);
-      if (dueBefore) tasks = tasks.filter((t) => (t as any).dueDate && (t as any).dueDate <= dueBefore);
+      if (owner) tasks = tasks.filter((t: any) => ((t as any).owner ?? "") === owner);
+      if (status) tasks = tasks.filter((t: any) => t.status === status);
+      if (dueBefore) tasks = tasks.filter((t: any) => (t as any).dueDate && (t as any).dueDate <= dueBefore);
       return {
-        tasks: tasks.slice(0, limit).map((t) => ({
+        tasks: tasks.slice(0, limit).map((t: any) => ({
           id: t.id,
           title: t.title,
           owner: (t as any).owner,
@@ -99,13 +99,13 @@ export async function executePalsTool(
 
     case "listContent": {
       let items = cc.library.slice();
-      if (input?.type) items = items.filter((c) => c.type === input.type);
-      if (input?.status) items = items.filter((c) => c.status === input.status);
-      if (input?.platform) items = items.filter((c) => c.platform === input.platform);
-      if (input?.relatedCore12) items = items.filter((c) => c.relatedCore12 === input.relatedCore12);
+      if (input?.type) items = items.filter((c: any) => c.type === input.type);
+      if (input?.status) items = items.filter((c: any) => c.status === input.status);
+      if (input?.platform) items = items.filter((c: any) => c.platform === input.platform);
+      if (input?.relatedCore12) items = items.filter((c: any) => c.relatedCore12 === input.relatedCore12);
       const limit = (input?.limit as number) ?? 20;
       return {
-        items: items.slice(0, limit).map((c) => ({
+        items: items.slice(0, limit).map((c: any) => ({
           id: c.id,
           title: c.title,
           type: c.type,
@@ -193,14 +193,14 @@ export async function executePalsTool(
     }
 
     case "updateCore12": {
-      const ep = cc.core12.find((c) => c.number === input.number);
+      const ep = cc.core12.find((c: any) => c.number === input.number);
       if (!ep) return { ok: false, error: `Core 12 #${input.number} not found.` };
       cc.updateCore12(ep.id, input.patch);
       return { ok: true, number: input.number, message: `Core 12 #${input.number} updated.` };
     }
 
     case "generateSupportingShorts": {
-      const ep = cc.core12.find((c) => c.number === input.scriptNum);
+      const ep = cc.core12.find((c: any) => c.number === input.scriptNum);
       if (!ep) return { ok: false, error: `Core 12 #${input.scriptNum} not found.` };
       // Build a script body from available fields.
       const scriptBody = [
@@ -211,7 +211,7 @@ export async function executePalsTool(
         `CTA: ${ep.cta}`,
         "",
         "Supporting hooks already drafted:",
-        ...ep.shortsHooks.map((h, i) => `  ${i + 1}. ${h}`),
+        ...ep.shortsHooks.map((h: any, i: any) => `  ${i + 1}. ${h}`),
       ].join("\n");
       const { shorts } = await generateShorts({
         data: {
@@ -221,7 +221,7 @@ export async function executePalsTool(
         },
       });
       // Save each as a content item in the library.
-      const ids = shorts.map((s, idx) => {
+      const ids = shorts.map((s: any, idx: any) => {
         const label = idx === 0 ? "Curiosity Hook" : idx === 1 ? "Problem/Aha" : "Practical Takeaway";
         return cc.addContentItem({
           title: `${ep.title} — ${label} Short`,
@@ -245,7 +245,7 @@ export async function executePalsTool(
         ok: true,
         message: `Generated 3 supporting shorts for Core 12 #${ep.number}.`,
         ids,
-        shorts: shorts.map((s, i) => ({
+        shorts: shorts.map((s: any, i: any) => ({
           label: i === 0 ? "Curiosity Hook" : i === 1 ? "Problem/Aha" : "Practical Takeaway",
           platform: s.platform,
           hook: s.hook,
@@ -269,13 +269,13 @@ export function buildPalsSnapshot() {
     today,
     counts: {
       tasks: store.tasks.length,
-      openTasks: store.tasks.filter((t) => t.status !== "done").length,
+      openTasks: store.tasks.filter((t: any) => t.status !== "done").length,
       shoots: cc.shoots.length,
       contentItems: cc.library.length,
       clients: store.clients.length,
       projects: store.projects.length,
     },
-    tasks: store.tasks.slice(0, 60).map((t) => ({
+    tasks: store.tasks.slice(0, 60).map((t: any) => ({
       id: t.id,
       title: t.title,
       owner: (t as any).owner,
@@ -285,17 +285,17 @@ export function buildPalsSnapshot() {
     })),
     shoots: cc.shoots
       .slice()
-      .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""))
-      .filter((s) => !s.date || s.date >= today)
+      .sort((a: any, b: any) => (a.date ?? "").localeCompare(b.date ?? ""))
+      .filter((s: any) => !s.date || s.date >= today)
       .slice(0, 20)
-      .map((s) => ({
+      .map((s: any) => ({
         id: s.id,
         date: s.date,
         location: s.location,
         theme: s.theme,
         status: s.status,
       })),
-    core12: cc.core12.map((c) => ({
+    core12: cc.core12.map((c: any) => ({
       number: c.number,
       title: c.title,
       status: c.status,
@@ -303,7 +303,7 @@ export function buildPalsSnapshot() {
       filmedDone: c.filmedDone,
       publishedDone: c.publishedDone,
     })),
-    content: cc.library.slice(0, 50).map((c) => ({
+    content: cc.library.slice(0, 50).map((c: any) => ({
       id: c.id,
       title: c.title,
       type: c.type,
