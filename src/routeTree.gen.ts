@@ -16,6 +16,7 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ScriptsRouteImport } from './routes/scripts'
 import { Route as ScoreboardRouteImport } from './routes/scoreboard'
 import { Route as ScheduleRouteImport } from './routes/schedule'
+import { Route as RepurposeRouteImport } from './routes/repurpose'
 import { Route as ProductionsRouteImport } from './routes/productions'
 import { Route as PlaybookRouteImport } from './routes/playbook'
 import { Route as GearRouteImport } from './routes/gear'
@@ -23,7 +24,6 @@ import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as ContentRouteImport } from './routes/content'
 import { Route as ClientsRouteImport } from './routes/clients'
 import { Route as ChecklistsRouteImport } from './routes/checklists'
-import { Route as CcRouteImport } from './routes/cc'
 import { Route as BrandRouteImport } from './routes/brand'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
@@ -41,17 +41,9 @@ import { Route as KpisPaRouteImport } from './routes/kpis.pa'
 import { Route as KpisOwnerRouteImport } from './routes/kpis.owner'
 import { Route as KpisCfoRouteImport } from './routes/kpis.cfo'
 import { Route as ClientsIdRouteImport } from './routes/clients.$id'
-import { Route as CcTasksRouteImport } from './routes/cc.tasks'
-import { Route as CcSprintRouteImport } from './routes/cc.sprint'
-import { Route as CcShootsRouteImport } from './routes/cc.shoots'
-import { Route as CcPhotoToVideoRouteImport } from './routes/cc.photo-to-video'
-import { Route as CcLibraryRouteImport } from './routes/cc.library'
-import { Route as CcCore12RouteImport } from './routes/cc.core12'
 import { Route as ApiStudioChatRouteImport } from './routes/api/studio-chat'
 import { Route as ApiPalsRouteImport } from './routes/api/pals'
 import { Route as AdminTemplatesRouteImport } from './routes/admin.templates'
-import { Route as CcShootsIdRouteImport } from './routes/cc.shoots.$id'
-import { Route as CcCore12NumRouteImport } from './routes/cc.core12.$num'
 
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
@@ -88,6 +80,11 @@ const ScheduleRoute = ScheduleRouteImport.update({
   path: '/schedule',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RepurposeRoute = RepurposeRouteImport.update({
+  id: '/repurpose',
+  path: '/repurpose',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductionsRoute = ProductionsRouteImport.update({
   id: '/productions',
   path: '/productions',
@@ -121,11 +118,6 @@ const ClientsRoute = ClientsRouteImport.update({
 const ChecklistsRoute = ChecklistsRouteImport.update({
   id: '/checklists',
   path: '/checklists',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CcRoute = CcRouteImport.update({
-  id: '/cc',
-  path: '/cc',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandRoute = BrandRouteImport.update({
@@ -213,36 +205,6 @@ const ClientsIdRoute = ClientsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => ClientsRoute,
 } as any)
-const CcTasksRoute = CcTasksRouteImport.update({
-  id: '/tasks',
-  path: '/tasks',
-  getParentRoute: () => CcRoute,
-} as any)
-const CcSprintRoute = CcSprintRouteImport.update({
-  id: '/sprint',
-  path: '/sprint',
-  getParentRoute: () => CcRoute,
-} as any)
-const CcShootsRoute = CcShootsRouteImport.update({
-  id: '/shoots',
-  path: '/shoots',
-  getParentRoute: () => CcRoute,
-} as any)
-const CcPhotoToVideoRoute = CcPhotoToVideoRouteImport.update({
-  id: '/photo-to-video',
-  path: '/photo-to-video',
-  getParentRoute: () => CcRoute,
-} as any)
-const CcLibraryRoute = CcLibraryRouteImport.update({
-  id: '/library',
-  path: '/library',
-  getParentRoute: () => CcRoute,
-} as any)
-const CcCore12Route = CcCore12RouteImport.update({
-  id: '/core12',
-  path: '/core12',
-  getParentRoute: () => CcRoute,
-} as any)
 const ApiStudioChatRoute = ApiStudioChatRouteImport.update({
   id: '/api/studio-chat',
   path: '/api/studio-chat',
@@ -258,23 +220,12 @@ const AdminTemplatesRoute = AdminTemplatesRouteImport.update({
   path: '/admin/templates',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CcShootsIdRoute = CcShootsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => CcShootsRoute,
-} as any)
-const CcCore12NumRoute = CcCore12NumRouteImport.update({
-  id: '/$num',
-  path: '/$num',
-  getParentRoute: () => CcCore12Route,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
   '/brand': typeof BrandRoute
-  '/cc': typeof CcRouteWithChildren
   '/checklists': typeof ChecklistsRoute
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
@@ -282,6 +233,7 @@ export interface FileRoutesByFullPath {
   '/gear': typeof GearRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
+  '/repurpose': typeof RepurposeRoute
   '/schedule': typeof ScheduleRoute
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
@@ -292,12 +244,6 @@ export interface FileRoutesByFullPath {
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
-  '/cc/core12': typeof CcCore12RouteWithChildren
-  '/cc/library': typeof CcLibraryRoute
-  '/cc/photo-to-video': typeof CcPhotoToVideoRoute
-  '/cc/shoots': typeof CcShootsRouteWithChildren
-  '/cc/sprint': typeof CcSprintRoute
-  '/cc/tasks': typeof CcTasksRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -311,15 +257,12 @@ export interface FileRoutesByFullPath {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
-  '/cc/core12/$num': typeof CcCore12NumRoute
-  '/cc/shoots/$id': typeof CcShootsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
   '/brand': typeof BrandRoute
-  '/cc': typeof CcRouteWithChildren
   '/checklists': typeof ChecklistsRoute
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
@@ -327,6 +270,7 @@ export interface FileRoutesByTo {
   '/gear': typeof GearRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
+  '/repurpose': typeof RepurposeRoute
   '/schedule': typeof ScheduleRoute
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
@@ -337,12 +281,6 @@ export interface FileRoutesByTo {
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
-  '/cc/core12': typeof CcCore12RouteWithChildren
-  '/cc/library': typeof CcLibraryRoute
-  '/cc/photo-to-video': typeof CcPhotoToVideoRoute
-  '/cc/shoots': typeof CcShootsRouteWithChildren
-  '/cc/sprint': typeof CcSprintRoute
-  '/cc/tasks': typeof CcTasksRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -356,8 +294,6 @@ export interface FileRoutesByTo {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
-  '/cc/core12/$num': typeof CcCore12NumRoute
-  '/cc/shoots/$id': typeof CcShootsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -365,7 +301,6 @@ export interface FileRoutesById {
   '/analytics': typeof AnalyticsRoute
   '/assets': typeof AssetsRoute
   '/brand': typeof BrandRoute
-  '/cc': typeof CcRouteWithChildren
   '/checklists': typeof ChecklistsRoute
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
@@ -373,6 +308,7 @@ export interface FileRoutesById {
   '/gear': typeof GearRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
+  '/repurpose': typeof RepurposeRoute
   '/schedule': typeof ScheduleRoute
   '/scoreboard': typeof ScoreboardRoute
   '/scripts': typeof ScriptsRouteWithChildren
@@ -383,12 +319,6 @@ export interface FileRoutesById {
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
-  '/cc/core12': typeof CcCore12RouteWithChildren
-  '/cc/library': typeof CcLibraryRoute
-  '/cc/photo-to-video': typeof CcPhotoToVideoRoute
-  '/cc/shoots': typeof CcShootsRouteWithChildren
-  '/cc/sprint': typeof CcSprintRoute
-  '/cc/tasks': typeof CcTasksRoute
   '/clients/$id': typeof ClientsIdRoute
   '/kpis/cfo': typeof KpisCfoRoute
   '/kpis/owner': typeof KpisOwnerRoute
@@ -402,8 +332,6 @@ export interface FileRoutesById {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
-  '/cc/core12/$num': typeof CcCore12NumRoute
-  '/cc/shoots/$id': typeof CcShootsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -412,7 +340,6 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/assets'
     | '/brand'
-    | '/cc'
     | '/checklists'
     | '/clients'
     | '/content'
@@ -420,6 +347,7 @@ export interface FileRouteTypes {
     | '/gear'
     | '/playbook'
     | '/productions'
+    | '/repurpose'
     | '/schedule'
     | '/scoreboard'
     | '/scripts'
@@ -430,12 +358,6 @@ export interface FileRouteTypes {
     | '/admin/templates'
     | '/api/pals'
     | '/api/studio-chat'
-    | '/cc/core12'
-    | '/cc/library'
-    | '/cc/photo-to-video'
-    | '/cc/shoots'
-    | '/cc/sprint'
-    | '/cc/tasks'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -449,15 +371,12 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
-    | '/cc/core12/$num'
-    | '/cc/shoots/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/analytics'
     | '/assets'
     | '/brand'
-    | '/cc'
     | '/checklists'
     | '/clients'
     | '/content'
@@ -465,6 +384,7 @@ export interface FileRouteTypes {
     | '/gear'
     | '/playbook'
     | '/productions'
+    | '/repurpose'
     | '/schedule'
     | '/scoreboard'
     | '/scripts'
@@ -475,12 +395,6 @@ export interface FileRouteTypes {
     | '/admin/templates'
     | '/api/pals'
     | '/api/studio-chat'
-    | '/cc/core12'
-    | '/cc/library'
-    | '/cc/photo-to-video'
-    | '/cc/shoots'
-    | '/cc/sprint'
-    | '/cc/tasks'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -494,15 +408,12 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
-    | '/cc/core12/$num'
-    | '/cc/shoots/$id'
   id:
     | '__root__'
     | '/'
     | '/analytics'
     | '/assets'
     | '/brand'
-    | '/cc'
     | '/checklists'
     | '/clients'
     | '/content'
@@ -510,6 +421,7 @@ export interface FileRouteTypes {
     | '/gear'
     | '/playbook'
     | '/productions'
+    | '/repurpose'
     | '/schedule'
     | '/scoreboard'
     | '/scripts'
@@ -520,12 +432,6 @@ export interface FileRouteTypes {
     | '/admin/templates'
     | '/api/pals'
     | '/api/studio-chat'
-    | '/cc/core12'
-    | '/cc/library'
-    | '/cc/photo-to-video'
-    | '/cc/shoots'
-    | '/cc/sprint'
-    | '/cc/tasks'
     | '/clients/$id'
     | '/kpis/cfo'
     | '/kpis/owner'
@@ -539,8 +445,6 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
-    | '/cc/core12/$num'
-    | '/cc/shoots/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -548,7 +452,6 @@ export interface RootRouteChildren {
   AnalyticsRoute: typeof AnalyticsRoute
   AssetsRoute: typeof AssetsRoute
   BrandRoute: typeof BrandRoute
-  CcRoute: typeof CcRouteWithChildren
   ChecklistsRoute: typeof ChecklistsRoute
   ClientsRoute: typeof ClientsRouteWithChildren
   ContentRoute: typeof ContentRoute
@@ -556,6 +459,7 @@ export interface RootRouteChildren {
   GearRoute: typeof GearRoute
   PlaybookRoute: typeof PlaybookRouteWithChildren
   ProductionsRoute: typeof ProductionsRoute
+  RepurposeRoute: typeof RepurposeRoute
   ScheduleRoute: typeof ScheduleRoute
   ScoreboardRoute: typeof ScoreboardRoute
   ScriptsRoute: typeof ScriptsRouteWithChildren
@@ -624,6 +528,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScheduleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/repurpose': {
+      id: '/repurpose'
+      path: '/repurpose'
+      fullPath: '/repurpose'
+      preLoaderRoute: typeof RepurposeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/productions': {
       id: '/productions'
       path: '/productions'
@@ -671,13 +582,6 @@ declare module '@tanstack/react-router' {
       path: '/checklists'
       fullPath: '/checklists'
       preLoaderRoute: typeof ChecklistsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cc': {
-      id: '/cc'
-      path: '/cc'
-      fullPath: '/cc'
-      preLoaderRoute: typeof CcRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brand': {
@@ -799,48 +703,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientsIdRouteImport
       parentRoute: typeof ClientsRoute
     }
-    '/cc/tasks': {
-      id: '/cc/tasks'
-      path: '/tasks'
-      fullPath: '/cc/tasks'
-      preLoaderRoute: typeof CcTasksRouteImport
-      parentRoute: typeof CcRoute
-    }
-    '/cc/sprint': {
-      id: '/cc/sprint'
-      path: '/sprint'
-      fullPath: '/cc/sprint'
-      preLoaderRoute: typeof CcSprintRouteImport
-      parentRoute: typeof CcRoute
-    }
-    '/cc/shoots': {
-      id: '/cc/shoots'
-      path: '/shoots'
-      fullPath: '/cc/shoots'
-      preLoaderRoute: typeof CcShootsRouteImport
-      parentRoute: typeof CcRoute
-    }
-    '/cc/photo-to-video': {
-      id: '/cc/photo-to-video'
-      path: '/photo-to-video'
-      fullPath: '/cc/photo-to-video'
-      preLoaderRoute: typeof CcPhotoToVideoRouteImport
-      parentRoute: typeof CcRoute
-    }
-    '/cc/library': {
-      id: '/cc/library'
-      path: '/library'
-      fullPath: '/cc/library'
-      preLoaderRoute: typeof CcLibraryRouteImport
-      parentRoute: typeof CcRoute
-    }
-    '/cc/core12': {
-      id: '/cc/core12'
-      path: '/core12'
-      fullPath: '/cc/core12'
-      preLoaderRoute: typeof CcCore12RouteImport
-      parentRoute: typeof CcRoute
-    }
     '/api/studio-chat': {
       id: '/api/studio-chat'
       path: '/api/studio-chat'
@@ -862,66 +724,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/cc/shoots/$id': {
-      id: '/cc/shoots/$id'
-      path: '/$id'
-      fullPath: '/cc/shoots/$id'
-      preLoaderRoute: typeof CcShootsIdRouteImport
-      parentRoute: typeof CcShootsRoute
-    }
-    '/cc/core12/$num': {
-      id: '/cc/core12/$num'
-      path: '/$num'
-      fullPath: '/cc/core12/$num'
-      preLoaderRoute: typeof CcCore12NumRouteImport
-      parentRoute: typeof CcCore12Route
-    }
   }
 }
-
-interface CcCore12RouteChildren {
-  CcCore12NumRoute: typeof CcCore12NumRoute
-}
-
-const CcCore12RouteChildren: CcCore12RouteChildren = {
-  CcCore12NumRoute: CcCore12NumRoute,
-}
-
-const CcCore12RouteWithChildren = CcCore12Route._addFileChildren(
-  CcCore12RouteChildren,
-)
-
-interface CcShootsRouteChildren {
-  CcShootsIdRoute: typeof CcShootsIdRoute
-}
-
-const CcShootsRouteChildren: CcShootsRouteChildren = {
-  CcShootsIdRoute: CcShootsIdRoute,
-}
-
-const CcShootsRouteWithChildren = CcShootsRoute._addFileChildren(
-  CcShootsRouteChildren,
-)
-
-interface CcRouteChildren {
-  CcCore12Route: typeof CcCore12RouteWithChildren
-  CcLibraryRoute: typeof CcLibraryRoute
-  CcPhotoToVideoRoute: typeof CcPhotoToVideoRoute
-  CcShootsRoute: typeof CcShootsRouteWithChildren
-  CcSprintRoute: typeof CcSprintRoute
-  CcTasksRoute: typeof CcTasksRoute
-}
-
-const CcRouteChildren: CcRouteChildren = {
-  CcCore12Route: CcCore12RouteWithChildren,
-  CcLibraryRoute: CcLibraryRoute,
-  CcPhotoToVideoRoute: CcPhotoToVideoRoute,
-  CcShootsRoute: CcShootsRouteWithChildren,
-  CcSprintRoute: CcSprintRoute,
-  CcTasksRoute: CcTasksRoute,
-}
-
-const CcRouteWithChildren = CcRoute._addFileChildren(CcRouteChildren)
 
 interface ClientsRouteChildren {
   ClientsIdRoute: typeof ClientsIdRoute
@@ -981,7 +785,6 @@ const rootRouteChildren: RootRouteChildren = {
   AnalyticsRoute: AnalyticsRoute,
   AssetsRoute: AssetsRoute,
   BrandRoute: BrandRoute,
-  CcRoute: CcRouteWithChildren,
   ChecklistsRoute: ChecklistsRoute,
   ClientsRoute: ClientsRouteWithChildren,
   ContentRoute: ContentRoute,
@@ -989,6 +792,7 @@ const rootRouteChildren: RootRouteChildren = {
   GearRoute: GearRoute,
   PlaybookRoute: PlaybookRouteWithChildren,
   ProductionsRoute: ProductionsRoute,
+  RepurposeRoute: RepurposeRoute,
   ScheduleRoute: ScheduleRoute,
   ScoreboardRoute: ScoreboardRoute,
   ScriptsRoute: ScriptsRouteWithChildren,

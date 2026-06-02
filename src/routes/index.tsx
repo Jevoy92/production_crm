@@ -93,7 +93,7 @@ function Today() {
       <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr)", gap: 20 }}>
         <Card
           title="Content sprint"
-          action={<Link to="/cc" style={{ fontSize: 12, fontWeight: 700, color: "var(--ph-primary)" }}>Open Content →</Link>}
+          action={<Link to="/content" style={{ fontSize: 12, fontWeight: 700, color: "var(--ph-primary)" }}>Open Content →</Link>}
         >
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
             <div style={{ fontSize: 13, color: "var(--ph-text-secondary)" }}>
@@ -107,7 +107,7 @@ function Today() {
             Next shoot
           </div>
           {nextShoot ? (
-            <Link to="/cc/shoots/$id" params={{ id: nextShoot.id }} style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "var(--ph-text-primary)", fontSize: 14 }}>
+            <Link to="/shoots/$id" params={{ id: nextShoot.id }} style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "var(--ph-text-primary)", fontSize: 14 }}>
               <span className="metric-icon" style={{ background: "var(--ph-primary-soft)", color: "var(--ph-primary)" }}>
                 <Sparkles size={16} />
               </span>
