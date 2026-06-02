@@ -43,6 +43,7 @@ export type ContentItem = {
   thumbnailIdea: string; repurposingStatus: string; performanceNotes: string;
   publishDate?: string; // YYYY-MM-DD — scheduled publish date for calendar
   publishStatus?: "Draft" | "Scheduled" | "Published";
+  parentScriptNum?: number; // long-form script this short was generated from
 };
 
 export type CCShootDay = {

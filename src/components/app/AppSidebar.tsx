@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Home, Command, Film, Calendar, CheckSquare, FileText, PenLine,
   Contact, Users, Target, Folder, Boxes, ClipboardList, Wallet,
-  BarChart3, Palette, SlidersHorizontal, Settings, Sparkles,
+  BarChart3, Palette, SlidersHorizontal, Settings, Sparkles, Scissors,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useStore } from "@/lib/store";
@@ -19,11 +19,12 @@ function useNav(): NavGroup[] {
       heading: "Work",
       items: [
         { label: "Today", to: "/", icon: Home },
-        { label: "Content", to: "/cc", icon: Command },
+        { label: "Content", to: "/content", icon: Command },
         { label: "Productions", to: "/productions", icon: Film, badge: activeProjects || undefined },
         { label: "Schedule", to: "/schedule", icon: Calendar },
         { label: "Tasks", to: "/tasks", icon: CheckSquare },
         { label: "Scripts", to: "/scripts", icon: FileText },
+        { label: "Repurpose", to: "/repurpose", icon: Scissors },
         { label: "Studio", to: "/studio", icon: PenLine },
       ],
     },
