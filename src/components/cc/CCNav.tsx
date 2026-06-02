@@ -1,12 +1,12 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 
 const TABS = [
-  { to: "/cc", label: "Dashboard", exact: true },
+  { to: "/cc", label: "Overview", exact: true },
   { to: "/cc/core12", label: "Core 12" },
   { to: "/cc/sprint", label: "30-Day Sprint" },
   { to: "/cc/shoots", label: "Shoot Planner" },
   { to: "/cc/photo-to-video", label: "Photo → Video" },
-  { to: "/cc/tasks", label: "Shannen Tasks" },
+  { to: "/cc/tasks", label: "Weekly Cadence" },
   { to: "/cc/library", label: "Library" },
   { to: "/schedule", label: "Calendar", search: { view: "publishing" as const } },
 ];
