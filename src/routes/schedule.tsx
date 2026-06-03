@@ -5,7 +5,8 @@ import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
 import { GoogleCalendarPanel } from "@/components/calendar/GoogleCalendar";
 import { useStore, palColor } from "@/lib/store";
 import { useCCStore, platformColor, PLATFORMS, type Platform } from "@/lib/ccStore";
-import { ChevronLeft, ChevronRight, Plus, MapPin, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, MapPin, X, BarChart3, Film } from "lucide-react";
+import type { Project } from "@/lib/types";
 import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 
@@ -247,8 +248,12 @@ function SchedulePage() {
       )}
       </div>
 
-      <h2 className="mt-6 mb-2 text-[15px] font-semibold tracking-tight">Upcoming shoots</h2>
-      <div className="space-y-2">
+      <ProductionTimeline cursor={cursor} projects={projects} />
+
+      <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px] gap-6 mt-6 items-start">
+        <div>
+          <h2 className="mb-2 text-[15px] font-semibold tracking-tight">Upcoming shoots</h2>
+          <div className="space-y-2">
         {shoots
           .filter((s) => new Date(s.date) >= new Date(new Date().toDateString()))
           .sort((a, b) => +new Date(a.date) - +new Date(b.date))
@@ -316,6 +321,9 @@ function SchedulePage() {
               </div>
             );
           })}
+          </div>
+        </div>
+        <UpcomingDeliverables projects={projects} />
       </div>
 
       <NewShootModal open={openNew} onClose={() => setOpenNew(false)} />
@@ -586,5 +594,232 @@ function NewShootModal({ open, onClose }: { open: boolean; onClose: () => void }
         </div>
       </Field>
     </Modal>
+  );
+}
+
+// ─── Production Timeline (Gantt) ──────────────────────────────────────────────
+const PHASE_STYLES = {
+  prepro: { label: "Pre-Pro", color: "#f59e0b" },
+  shoot: { label: "Shoot", color: "#6366f1" },
+  post: { label: "Post-Production", color: "#8b5cf6" },
+  delivery: { label: "Deliver", color: "#10b981" },
+} as const;
+type PhaseType = keyof typeof PHASE_STYLES;
+const DAY_MS = 86_400_000;
+
+function projectPhases(p: Project): { type: PhaseType; start: Date; end: Date }[] {
+  const out: { type: PhaseType; start: Date; end: Date }[] = [];
+  const shoot = p.shootDate ? new Date(p.shootDate) : null;
+  const delivery = p.deliveryDate ? new Date(p.deliveryDate) : null;
+  if (shoot) {
+    const pre = new Date(shoot.getTime() - 4 * DAY_MS);
+    out.push({ type: "prepro", start: pre, end: new Date(shoot.getTime() - DAY_MS) });
+    out.push({ type: "shoot", start: shoot, end: shoot });
+  }
+  if (shoot && delivery && delivery.getTime() > shoot.getTime() + DAY_MS) {
+    out.push({ type: "post", start: new Date(shoot.getTime() + DAY_MS), end: new Date(delivery.getTime() - DAY_MS) });
+  }
+  if (delivery) out.push({ type: "delivery", start: delivery, end: delivery });
+  return out;
+}
+
+function clampPhase(
+  ph: { type: PhaseType; start: Date; end: Date },
+  monthStart: Date,
+  monthEnd: Date,
+  daysInMonth: number,
+) {
+  if (ph.end < monthStart || ph.start > monthEnd) return null;
+  const startDay = ph.start < monthStart ? 1 : ph.start.getDate();
+  const endDay = ph.end > monthEnd ? daysInMonth : ph.end.getDate();
+  return { type: ph.type, colStart: startDay, span: Math.max(1, endDay - startDay + 1) };
+}
+
+function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Project[] }) {
+  const year = cursor.getFullYear();
+  const month = cursor.getMonth();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const monthStart = new Date(year, month, 1);
+  const monthEnd = new Date(year, month, daysInMonth, 23, 59, 59);
+  const monthLabel = monthStart.toLocaleString(undefined, { month: "long", year: "numeric" });
+
+  const rows = useMemo(
+    () =>
+      projects
+        .filter((p) => p.stage !== "Archived")
+        .map((p) => ({
+          p,
+          bars: projectPhases(p)
+            .map((ph) => clampPhase(ph, monthStart, monthEnd, daysInMonth))
+            .filter((b): b is NonNullable<typeof b> => b !== null),
+        }))
+        .filter((r) => r.bars.length > 0),
+    [projects, year, month, daysInMonth],
+  );
+
+  const now = new Date();
+  const todayCol = now.getFullYear() === year && now.getMonth() === month ? now.getDate() : null;
+  const ticks = Array.from({ length: Math.ceil(daysInMonth / 5) }, (_, i) => i * 5 + 1);
+
+  return (
+    <div className="card-elevated rounded-2xl overflow-hidden">
+      <div className="px-5 py-4 border-b border-border flex items-center justify-between flex-wrap gap-3">
+        <div className="flex items-center gap-3">
+          <div className="size-8 rounded-lg bg-primary/12 grid place-items-center">
+            <BarChart3 className="size-4 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-[15px] font-semibold tracking-tight">Production Timeline</h2>
+            <p className="text-[11.5px] text-muted-foreground">Gantt view · {monthLabel}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          {(Object.keys(PHASE_STYLES) as PhaseType[]).map((t) => (
+            <span key={t} className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+              <span className="size-2.5 rounded-sm" style={{ background: PHASE_STYLES[t].color }} />
+              {PHASE_STYLES[t].label.replace("-Production", "")}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {rows.length === 0 ? (
+        <div className="px-5 py-10 text-center text-[12.5px] text-muted-foreground">
+          No productions with scheduled shoot or delivery dates in {monthLabel}.
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <div style={{ minWidth: 720 }}>
+            <div className="flex border-b border-border bg-surface-2">
+              <div className="w-44 flex-shrink-0 px-4 py-2 text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">
+                Project
+              </div>
+              <div
+                className="flex-1 py-2 px-2"
+                style={{ display: "grid", gridTemplateColumns: `repeat(${daysInMonth}, minmax(0,1fr))` }}
+              >
+                {ticks.map((d) => (
+                  <div
+                    key={d}
+                    className="text-[10px] text-muted-foreground"
+                    style={{ gridColumn: `${d} / span 5` }}
+                  >
+                    {monthStart.toLocaleString(undefined, { month: "short" })} {d}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {rows.map(({ p, bars }) => (
+              <div
+                key={p.id}
+                className="flex items-center border-b border-border last:border-b-0 hover:bg-surface-2/50 transition-colors"
+              >
+                <Link
+                  to="/projects/$id"
+                  params={{ id: p.id }}
+                  className="w-44 flex-shrink-0 px-4 py-3 min-w-0 hover:opacity-80"
+                >
+                  <div className="text-[12px] font-semibold truncate flex items-center gap-1.5">
+                    <span className="size-2 rounded-full flex-shrink-0" style={{ background: palColor(p.palType) }} />
+                    {p.title}
+                  </div>
+                  <div className="text-[10.5px] text-muted-foreground truncate">
+                    {p.palType} · {p.stage}
+                  </div>
+                </Link>
+                <div
+                  className="flex-1 px-2 py-3 relative"
+                  style={{ display: "grid", gridTemplateColumns: `repeat(${daysInMonth}, minmax(0,1fr))`, gap: 0 }}
+                >
+                  {todayCol && (
+                    <div
+                      className="absolute top-0 bottom-0 w-px bg-primary/40 pointer-events-none"
+                      style={{ left: `${((todayCol - 0.5) / daysInMonth) * 100}%` }}
+                    />
+                  )}
+                  {bars.map((b, i) => (
+                    <div
+                      key={i}
+                      className="h-6 rounded-md flex items-center px-2 overflow-hidden"
+                      style={{ gridColumn: `${b.colStart} / span ${b.span}`, background: PHASE_STYLES[b.type].color }}
+                      title={`${PHASE_STYLES[b.type].label} · ${p.title}`}
+                    >
+                      <span className="text-white text-[10.5px] font-medium truncate">
+                        {PHASE_STYLES[b.type].label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Upcoming Deliverables ────────────────────────────────────────────────────
+function UpcomingDeliverables({ projects }: { projects: Project[] }) {
+  const today = new Date(new Date().toDateString());
+  const items = useMemo(
+    () =>
+      projects
+        .filter((p) => p.deliveryDate && p.stage !== "Archived")
+        .map((p) => ({ p, due: new Date(p.deliveryDate as string) }))
+        .filter((x) => (x.due.getTime() - today.getTime()) / DAY_MS >= -3)
+        .sort((a, b) => +a.due - +b.due)
+        .slice(0, 8),
+    [projects],
+  );
+
+  return (
+    <aside className="card-elevated rounded-2xl overflow-hidden">
+      <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+        <h2 className="text-[15px] font-semibold tracking-tight">Upcoming deliverables</h2>
+        <span className="text-[11px] text-muted-foreground">{items.length}</span>
+      </div>
+      <div className="p-3 space-y-1.5">
+        {items.length === 0 && (
+          <div className="text-[12px] text-muted-foreground py-6 text-center">No deliveries on the calendar.</div>
+        )}
+        {items.map(({ p, due }) => {
+          const days = Math.ceil((due.getTime() - today.getTime()) / DAY_MS);
+          const overdue = days < 0;
+          const soon = days >= 0 && days <= 5;
+          const color = palColor(p.palType);
+          const pill = overdue
+            ? "text-rose-500 bg-rose-500/10"
+            : soon
+              ? "text-amber-500 bg-amber-500/10"
+              : "text-emerald-500 bg-emerald-500/10";
+          return (
+            <Link
+              key={p.id}
+              to="/projects/$id"
+              params={{ id: p.id }}
+              className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-surface-2 transition-colors"
+            >
+              <div
+                className="size-8 rounded-lg grid place-items-center flex-shrink-0"
+                style={{ background: `color-mix(in oklab, ${color} 16%, transparent)` }}
+              >
+                <Film className="size-3.5" style={{ color }} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[12.5px] font-semibold truncate">{p.title}</p>
+                <p className="text-[11px] text-muted-foreground truncate">
+                  Due {due.toLocaleDateString(undefined, { month: "short", day: "numeric" })} · {p.palType}
+                </p>
+              </div>
+              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${pill}`}>
+                {overdue ? `${Math.abs(days)}d late` : days === 0 ? "Today" : `${days}d`}
+              </span>
+            </Link>
+          );
+        })}
+      </div>
+    </aside>
   );
 }
