@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   DollarSign, FolderKanban, FileVideo, Users, Video, TriangleAlert,
-  ChartArea, ListChecks, Zap, ArrowRight, ChevronRight, Plus, CircleCheck, Mail, Sparkles,
+  ChartArea, ListChecks, Zap, ArrowRight, ChevronRight, Plus, CircleCheck, CalendarDays, Sparkles,
 } from "lucide-react";
+import { useCalendarEvents } from "@/components/calendar/GoogleCalendar";
 import { AppShell } from "@/components/app/AppShell";
 import { Reveal, Stagger, StaggerItem, AnimatedNumber } from "@/components/motion/Motion";
 import { AreaTrend } from "@/components/charts/Charts";
@@ -55,6 +56,7 @@ function Today() {
   const ok = ownerKpis();
   const cf = cfoKpis();
   const { core12, library, shoots } = useCCStore();
+  const { data: calEvents } = useCalendarEvents();
 
   const todayKey = new Date().toISOString().slice(0, 10);
   const upcomingShoots = [...shoots]
@@ -82,8 +84,11 @@ function Today() {
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
   const todayLabel = new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
 
-  // ── Day at a glance (synthesized from Production OS data) ──
+  // ── Day at a glance (synthesized from Production OS data + Google Calendar) ──
   const todayStr = new Date().toDateString();
+  const todayEvents = (calEvents ?? [])
+    .filter((e) => new Date(e.start).toDateString() === todayStr)
+    .sort((a, b) => a.start.localeCompare(b.start));
   const dueToday = openTasks.filter((t) => t.dueDate && new Date(t.dueDate).toDateString() === todayStr);
   const shootsToday = shoots.filter((s) => s.date === todayKey);
   const publishingToday = library.filter((l) => l.publishDate === todayKey);
@@ -179,9 +184,24 @@ function Today() {
               ))}
             </div>
           )}
-          <div className="mt-4 pt-3 border-t border-line flex items-center gap-2 text-lo text-xs">
-            <Mail size={12} />
-            <span>Inbox triage &amp; calendar sync activate once Gmail/Google Calendar is connected in Settings.</span>
+          <div className="mt-4 pt-3 border-t border-line">
+            <div className="flex items-center gap-2 mb-2">
+              <CalendarDays size={12} className="text-brand-400" />
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.14em] text-lo">Today's calendar</span>
+              <Link to="/schedule" className="ml-auto text-brand-400 text-xs font-semibold hover:text-brand-300">Open →</Link>
+            </div>
+            {todayEvents.length === 0 ? (
+              <p className="text-lo text-xs">No Google Calendar events today.</p>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {todayEvents.slice(0, 6).map((e) => (
+                  <span key={e.uid} className="inline-flex items-center gap-1.5 text-xs bg-sunken border border-line rounded-lg px-2.5 py-1">
+                    <span className="text-brand-400 font-semibold num">{e.allDay ? "All day" : new Date(e.start).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}</span>
+                    <span className="text-hi truncate max-w-[180px]">{e.title}</span>
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </Reveal>
