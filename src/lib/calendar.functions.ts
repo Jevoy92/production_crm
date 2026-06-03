@@ -61,12 +61,13 @@ function parseICS(text: string): CalEvent[] {
 export const fetchCalendar = createServerFn({ method: "GET" })
   .inputValidator((d: { url?: string }) => z.object({ url: z.string().url().optional() }).parse(d ?? {}))
   .handler(async ({ data }): Promise<CalEvent[]> => {
-    // Prefer the server-only secret iCal address (full event details, bypasses
-    // public free/busy-only sharing). Falls back to any explicitly passed URL.
-    // The secret URL is a credential — keep it in CALENDAR_ICS_URL (.env, never
-    // VITE_-prefixed) so it stays server-side and out of the client bundle.
-    const url = process.env.CALENDAR_ICS_URL || data.url;
-    if (!url) throw new Error("No calendar feed configured (set CALENDAR_ICS_URL).");
+    // Public iCal address for the Palmer House calendar. Returns full event
+    // details once the calendar's external sharing is set to "Share all
+    // information" (admin.google.com → Calendar → Sharing). Override with a
+    // server-only CALENDAR_ICS_URL (e.g. a secret address) if ever needed.
+    const PUBLIC_ICS =
+      "https://calendar.google.com/calendar/ical/info%40palmerhouseproductions.com/public/basic.ics";
+    const url = process.env.CALENDAR_ICS_URL || data.url || PUBLIC_ICS;
     const res = await fetch(url, { headers: { Accept: "text/calendar" } });
     if (!res.ok) throw new Error(`Calendar fetch failed (${res.status})`);
     const text = await res.text();

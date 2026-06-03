@@ -64,7 +64,7 @@ export function GoogleCalendarPanel() {
           ) : error ? (
             <div className="text-center py-6 text-xs text-mid px-2">
               <p className="text-rose mb-1 font-medium">Calendar feed unavailable.</p>
-              <p className="text-lo">Set <span className="text-hi">CALENDAR_ICS_URL</span> to the calendar's <span className="text-hi">Secret address in iCal format</span> (Settings → Integrate calendar) for full event details. The embed above still works.</p>
+              <p className="text-lo">The public iCal feed couldn't be read. Confirm the calendar's external sharing is set to <span className="text-hi">"Share all information"</span>. The embed above still works.</p>
             </div>
           ) : (events ?? []).length === 0 ? (
             <div className="text-center py-8 text-mid text-sm">No events in the next 45 days.</div>
