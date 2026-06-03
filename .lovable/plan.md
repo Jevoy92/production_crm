@@ -1,47 +1,31 @@
-## Goal
+## What's actually wrong
 
-Make Pals genuinely useful for content work: it should *know every script you have*, brainstorm new video ideas, draft full long-form scripts, and continue to spin up the 3 supporting shorts from any long-form.
+The published site at `productionphp.lovable.app` is broken — not the preview, and not "a different computer" issue.
 
-## What changes
+The published JS bundle was built at a moment when the Supabase environment variables (`VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`) were missing from the build environment. Because Vite inlines those at build time, the bundle now permanently throws this on load:
 
-### 1. Pals snapshot — include full script bodies
-Extend the workspace snapshot the server builds before each model call to include every row from `studio_scripts`: `id`, `title`, `brand`, `updated_at`, and full `body_md`. Pals can now quote, summarize, critique, and reference scripts by name.
+> [Supabase] Missing Supabase environment variable(s): SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY.
 
-Guardrails:
-- Cap bodies at ~8k chars each in the snapshot (truncate with a marker). Full long-form rarely exceeds this; if it does, Pals can ask for the rest via a follow-up tool later.
-- Sort by `updated_at desc` so the most recent work is most prominent.
+That throw happens inside the Supabase client proxy, which the root `<AuthGate>` calls immediately on mount. The error escapes to the root route's `errorComponent`, which is exactly the "This page didn't load / Try again / Go home" screen you screenshotted.
 
-### 2. New tool: `brainstormIdeas`
-Pals proposes N video ideas (default 5). Each idea: `title`, `hook`, `angle`, `pillar` (Core 12 reference), `format` (long | short). Approval-gated. On approve, ideas are saved as **content items** with `type: "idea"` (or the closest existing type) into the existing content library — no new table.
+The preview (`id-preview--…lovable.app`) works because the sandbox has a healthy `.env` with both vars present.
 
-### 3. New tool: `generateLongFormScript`
-Inputs: `title`, `brand` (`jevoy` | default), `outline` or `topic`, optional `pillar`. Pals drafts a full long-form script (hook → body → CTA) and on approval inserts a new row into `studio_scripts`. Returns the new `script_id` so the user (or Pals) can immediately run `generateSupportingShorts` on it.
+## The fix
 
-### 4. Keep existing `generateSupportingShorts`
-No change — already auto-saves the 3 shorts to Library. Pals now has the long-form bodies in context, so it can pick a script by title without you pasting it.
+No code change is needed. The codebase, `.env`, and Cloud backend are all healthy right now. You just need to rebuild the published bundle so the current env vars get inlined.
 
-### 5. System prompt update
-Add a short section: "You can see every script in the Scripts library. You can brainstorm ideas, draft new long-form scripts, and generate 3 supporting shorts for any long-form. Always propose via the right tool — never paste a full script into chat as the only output."
+1. Click **Publish → Update** in the top-right of the editor. This rebuilds with the current env and overwrites the broken `index-DviYBQZa.js` chunk.
+2. Once it finishes (usually ~30s), open `https://productionphp.lovable.app` in an incognito window (to avoid any cached old chunk) and confirm the Palmer House "Welcome back" sign-in card appears instead of "This page didn't load".
+3. Sign in with the shared team account — you should land on the Today dashboard.
 
-## Files touched
+## Why the error boundary masked it
 
-- `src/routes/api/pals.ts` — extend snapshot builder to fetch `studio_scripts`, inject into system prompt; update system prompt text.
-- `src/lib/pals.tools.ts` — add `brainstormIdeas` and `generateLongFormScript` schemas; add both to `WRITE_TOOL_NAMES`.
-- `src/lib/pals.executor.ts` — client-side executors:
-  - `brainstormIdeas` → push N items into content store as ideas
-  - `generateLongFormScript` → insert into `studio_scripts` via supabase client, refresh local script list
-- No DB migration needed (reusing `studio_scripts` and existing content items).
+The root `errorComponent` in `src/routes/__root.tsx` renders a friendly fallback for any thrown error during render. That's correct behavior — but it makes a missing-env crash look identical to a transient network error, which is why "Try again" never helps (the bundle is the bug, retrying re-runs the same bundle).
 
-## Out of scope
+## Optional follow-up (not required for the fix)
 
-- New `script_ideas` table (you chose content-items-only)
-- Multi-thread chat, voice, file upload
-- Editing existing script bodies via Pals (read-only for now; can add `updateScript` in a follow-up if you want)
-- Any page/sidebar/UI restructuring
+If you want the published site to fail more loudly the next time env injection breaks, I can update `src/integrations/supabase/client.ts` to render a dedicated "Backend not connected — republish required" screen instead of throwing into the generic error boundary. Say the word and I'll do it after you republish.
 
-## Acceptance
-
-- Open Pals, ask "what scripts do I have?" → it lists titles + brands accurately.
-- Ask "give me 5 ideas for Jevoy around [topic]" → proposes 5, approve → they appear in Content library as ideas.
-- Ask "draft a long-form on [topic]" → proposes script, approve → new row in Scripts library.
-- Ask "make 3 shorts for [script title]" → existing repurpose flow runs, 3 shorts saved to Library.
+<presentation-actions>
+<presentation-open-publish>Publish your app</presentation-open-publish>
+</presentation-actions>
