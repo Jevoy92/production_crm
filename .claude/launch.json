@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "production-crm",
+      "runtimeExecutable": "/Users/yourboyjevoy/.bun/bin/bun",
+      "runtimeArgs": ["run", "dev"],
+      "port": 8080
+    }
+  ]
+}
