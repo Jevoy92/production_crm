@@ -3,18 +3,18 @@ import { useServerFn } from "@tanstack/react-start";
 import { CalendarDays, RefreshCw, ExternalLink, Loader2 } from "lucide-react";
 import { fetchCalendar, type CalEvent } from "@/lib/calendar.functions";
 
-// Palmer House Google Calendar (read-only). Public feeds — no OAuth needed.
-export const CALENDAR_ICS_URL =
-  "https://calendar.google.com/calendar/ical/info%40palmerhouseproductions.com/public/basic.ics";
+// Palmer House Google Calendar (read-only). The iCal feed URL lives server-side
+// in CALENDAR_ICS_URL (.env) — use the "Secret address in iCal format" so full
+// event details come through even when the org blocks public detail sharing.
 export const CALENDAR_EMBED_URL =
   "https://calendar.google.com/calendar/embed?src=info%40palmerhouseproductions.com&ctz=America%2FLos_Angeles&mode=AGENDA&showTitle=0&showPrint=0&showCalendars=0";
 
-/** Parsed events from the public iCal feed — powers the Today digest. */
+/** Parsed events from the server-side iCal feed — powers the Today digest. */
 export function useCalendarEvents() {
   const fn = useServerFn(fetchCalendar);
   return useQuery({
-    queryKey: ["calendar", CALENDAR_ICS_URL],
-    queryFn: () => fn({ data: { url: CALENDAR_ICS_URL } }),
+    queryKey: ["calendar"],
+    queryFn: () => fn({ data: {} }),
     staleTime: 1000 * 60 * 5,
     retry: false,
   });
@@ -64,7 +64,7 @@ export function GoogleCalendarPanel() {
           ) : error ? (
             <div className="text-center py-6 text-xs text-mid px-2">
               <p className="text-rose mb-1 font-medium">Calendar feed unavailable.</p>
-              <p className="text-lo">The agenda needs this calendar's sharing set to <span className="text-hi">"Make available to public"</span> so the iCal feed is readable. The embed above still works.</p>
+              <p className="text-lo">Set <span className="text-hi">CALENDAR_ICS_URL</span> to the calendar's <span className="text-hi">Secret address in iCal format</span> (Settings → Integrate calendar) for full event details. The embed above still works.</p>
             </div>
           ) : (events ?? []).length === 0 ? (
             <div className="text-center py-8 text-mid text-sm">No events in the next 45 days.</div>

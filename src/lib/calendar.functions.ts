@@ -59,9 +59,15 @@ function parseICS(text: string): CalEvent[] {
  * (avoids CORS) and return upcoming events. Read-only — no OAuth required.
  */
 export const fetchCalendar = createServerFn({ method: "GET" })
-  .inputValidator((d: { url: string }) => z.object({ url: z.string().url() }).parse(d))
+  .inputValidator((d: { url?: string }) => z.object({ url: z.string().url().optional() }).parse(d ?? {}))
   .handler(async ({ data }): Promise<CalEvent[]> => {
-    const res = await fetch(data.url, { headers: { Accept: "text/calendar" } });
+    // Prefer the server-only secret iCal address (full event details, bypasses
+    // public free/busy-only sharing). Falls back to any explicitly passed URL.
+    // The secret URL is a credential — keep it in CALENDAR_ICS_URL (.env, never
+    // VITE_-prefixed) so it stays server-side and out of the client bundle.
+    const url = process.env.CALENDAR_ICS_URL || data.url;
+    if (!url) throw new Error("No calendar feed configured (set CALENDAR_ICS_URL).");
+    const res = await fetch(url, { headers: { Accept: "text/calendar" } });
     if (!res.ok) throw new Error(`Calendar fetch failed (${res.status})`);
     const text = await res.text();
     if (!text.includes("BEGIN:VCALENDAR")) throw new Error("That URL didn't return a calendar feed.");
