@@ -19,6 +19,13 @@ export const Route = createFileRoute("/studio/$id")({
 
 type Tab = "script" | "ideas" | "outline" | "revisions";
 
+const EXPORT_OPTIONS = [
+  { k: "txt", label: "Plain Text (.txt)", sub: "Download the script now", iconClass: "bg-emerald/15 border-emerald/20 text-emerald", live: true },
+  { k: "pdf", label: "PDF — Final Script", sub: "Formatted screenplay layout", iconClass: "bg-rose/15 border-rose/20 text-rose" },
+  { k: "fdx", label: "Final Draft (.fdx)", sub: "Industry standard format", iconClass: "bg-brand-600/15 border-brand-500/20 text-brand-400" },
+  { k: "docx", label: "Word Document (.docx)", sub: "For client sharing", iconClass: "bg-cyan/15 border-cyan/20 text-cyan" },
+];
+
 function StudioEditor() {
   const { id } = Route.useParams();
   const navigate = useNavigate();
@@ -292,15 +299,10 @@ function StudioEditor() {
                 <button onClick={() => setExportOpen(false)} className="w-7 h-7 rounded-lg bg-sunken hover:bg-raised flex items-center justify-center text-mid"><X size={13} /></button>
               </div>
               <div className="space-y-3 mb-4">
-                {[
-                  { k: "txt", label: "Plain Text (.txt)", sub: "Download the script now", tone: "emerald", live: true },
-                  { k: "pdf", label: "PDF — Final Script", sub: "Formatted screenplay layout", tone: "rose" },
-                  { k: "fdx", label: "Final Draft (.fdx)", sub: "Industry standard format", tone: "brand" },
-                  { k: "docx", label: "Word Document (.docx)", sub: "For client sharing", tone: "cyan" },
-                ].map((o) => (
+                {EXPORT_OPTIONS.map((o) => (
                   <button key={o.k} onClick={o.live ? exportTxt : () => { alert("That format needs an export service — .txt works now."); }} className="w-full flex items-center gap-3 p-3.5 bg-sunken border border-line rounded-xl hover:border-brand-500/40 transition-all text-left">
-                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-${o.tone === "brand" ? "brand-600" : o.tone}/15 border border-${o.tone === "brand" ? "brand-500" : o.tone}/20`}>
-                      <FileText size={15} className={o.tone === "brand" ? "text-brand-400" : `text-${o.tone}`} />
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 border ${o.iconClass}`}>
+                      <FileText size={15} />
                     </div>
                     <div className="flex-1">
                       <div className="text-hi text-sm font-semibold">{o.label}{o.live && <span className="ml-2 text-[10px] text-emerald">ready</span>}</div>
