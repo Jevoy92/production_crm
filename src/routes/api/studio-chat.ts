@@ -3,7 +3,6 @@ import { streamText, type UIMessage, convertToModelMessages } from "ai";
 import { z } from "zod";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 import { buildSystemPrompt } from "@/lib/masterPrompt.server";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const BodySchema = z.object({
   scriptId: z.string().uuid(),
@@ -43,6 +42,7 @@ export const Route = createFileRoute("/api/studio-chat")({
           messages: await convertToModelMessages(uiMessages),
           onFinish: async ({ text }) => {
             try {
+              const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
               if (lastUserText) {
                 await supabaseAdmin.from("studio_messages").insert({
                   script_id: scriptId,
