@@ -583,7 +583,7 @@ function NewProjectModal({ open, onClose }: { open: boolean; onClose: () => void
           <input
             type="date"
             value={shootDate}
-            onChange={(e) => setShoot(e.target.value ? new Date(e.target.value).toISOString() : "")}
+            onChange={(e) => setShoot(e.target.value)}
             className={inputCls}
           />
         </Field>
@@ -591,7 +591,7 @@ function NewProjectModal({ open, onClose }: { open: boolean; onClose: () => void
           <input
             type="date"
             value={deliveryDate}
-            onChange={(e) => setDel(e.target.value ? new Date(e.target.value).toISOString() : "")}
+            onChange={(e) => setDel(e.target.value)}
             className={inputCls}
           />
         </Field>
