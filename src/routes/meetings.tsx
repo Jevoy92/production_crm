@@ -122,7 +122,7 @@ function MeetingsPage() {
   }
 
   return (
-    <Shell>
+    <Shell title="Meetings" subtitle="Shared meeting notes & transcripts">
       <div className="flex h-[calc(100vh-64px)] gap-4 p-4">
         {/* List */}
         <aside className="w-80 flex-shrink-0 bg-panel border border-line rounded-2xl flex flex-col overflow-hidden">
