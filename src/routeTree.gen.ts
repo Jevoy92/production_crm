@@ -44,6 +44,7 @@ import { Route as ClientsIdRouteImport } from './routes/clients.$id'
 import { Route as ApiStudioChatRouteImport } from './routes/api/studio-chat'
 import { Route as ApiPalsRouteImport } from './routes/api/pals'
 import { Route as AdminTemplatesRouteImport } from './routes/admin.templates'
+import { Route as ApiPublicHooksMorningDigestRouteImport } from './routes/api/public/hooks/morning-digest'
 
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
@@ -220,6 +221,12 @@ const AdminTemplatesRoute = AdminTemplatesRouteImport.update({
   path: '/admin/templates',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicHooksMorningDigestRoute =
+  ApiPublicHooksMorningDigestRouteImport.update({
+    id: '/api/public/hooks/morning-digest',
+    path: '/api/public/hooks/morning-digest',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -257,6 +264,7 @@ export interface FileRoutesByFullPath {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/api/public/hooks/morning-digest': typeof ApiPublicHooksMorningDigestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -294,6 +302,7 @@ export interface FileRoutesByTo {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/api/public/hooks/morning-digest': typeof ApiPublicHooksMorningDigestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -332,6 +341,7 @@ export interface FileRoutesById {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/api/public/hooks/morning-digest': typeof ApiPublicHooksMorningDigestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -371,6 +381,7 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/api/public/hooks/morning-digest'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -408,6 +419,7 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/api/public/hooks/morning-digest'
   id:
     | '__root__'
     | '/'
@@ -445,6 +457,7 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/api/public/hooks/morning-digest'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -475,6 +488,7 @@ export interface RootRouteChildren {
   KpisPaRoute: typeof KpisPaRoute
   ProjectsIdRoute: typeof ProjectsIdRoute
   ShootsIdRoute: typeof ShootsIdRoute
+  ApiPublicHooksMorningDigestRoute: typeof ApiPublicHooksMorningDigestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -724,6 +738,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/morning-digest': {
+      id: '/api/public/hooks/morning-digest'
+      path: '/api/public/hooks/morning-digest'
+      fullPath: '/api/public/hooks/morning-digest'
+      preLoaderRoute: typeof ApiPublicHooksMorningDigestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -808,6 +829,7 @@ const rootRouteChildren: RootRouteChildren = {
   KpisPaRoute: KpisPaRoute,
   ProjectsIdRoute: ProjectsIdRoute,
   ShootsIdRoute: ShootsIdRoute,
+  ApiPublicHooksMorningDigestRoute: ApiPublicHooksMorningDigestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

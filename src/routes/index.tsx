@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { useCalendarEvents } from "@/components/calendar/GoogleCalendar";
 import { AppShell } from "@/components/app/AppShell";
+import { MorningBriefCard } from "@/components/MorningBriefCard";
 import { Reveal, Stagger, StaggerItem, AnimatedNumber } from "@/components/motion/Motion";
 import { AreaTrend } from "@/components/charts/Charts";
 import { useStore } from "@/lib/store";
@@ -156,6 +157,7 @@ function Today() {
     >
       {/* Day at a glance */}
       <Reveal>
+        <MorningBriefCard />
         <div className="bg-panel border border-line rounded-2xl p-5 mb-6 overflow-hidden relative">
           <div className="absolute top-0 right-0 w-48 h-48 bg-brand-600/5 rounded-full -translate-y-16 translate-x-16" />
           <div className="flex items-start gap-3 mb-4">
