@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createClient } from "@supabase/supabase-js";
 import { generateText } from "ai";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
+import palmerSkillMd from "@/content/scripts/Skills/jevoy-palmer-operating-manual/references/palmer-script-writer.md?raw";
+import blueprintMd from "@/content/scripts/Strategy/00 - Script Blueprint - Award-Winning Rules.md?raw";
+import monthPlanMd from "@/content/scripts/Strategy/Month Plan - Wonder-Keyed + Mirror With Memory Reels.md?raw";
 
 /**
  * Daily 7am AM digest generator.
@@ -248,7 +251,17 @@ export const Route = createFileRoute("/api/public/hooks/morning-digest")({
           "2. **Threads to close** — explicit next actions for open commitments mentioned yesterday or sitting in the inbox.",
           "3. **Today's plan** — a numbered, prioritized list of 5–8 concrete actions for today, written in Jevoy's voice (direct, action-first). Slot work AROUND today's calendar events; call out conflicts.",
           "4. **Watch-outs** — 1–3 risks, conflicts, or follow-ups that could slip.",
+          "5. **Script ideas (Palmer ventures)** — 2–4 concrete script/title/concept suggestions for Jevoy Palmer, Palmer House, or MindYourBizniz. Pull from yesterday's pendant transcripts, today's news/email themes, and the Month Plan attached below. Each idea must include: venture, working title (Johnny Harris / Veritasium / Leila Hormozi packaging), the felt-moment hook, and the verified mechanism/study it would rest on. Obey the Palmer Script Writer skill rules — Twelve Laws, Altitude Rule, launch-stage honesty, no fabricated anecdotes, no soft numbers.",
           "Be specific. No filler, no preamble, no 'Good morning'. Use names and numbers from the inputs.",
+          "",
+          "--- PALMER SCRIPT WRITER SKILL (authoritative) ---",
+          palmerSkillMd,
+          "",
+          "--- SCRIPT BLUEPRINT (Twelve Laws) ---",
+          blueprintMd,
+          "",
+          "--- CURRENT MONTH PLAN (ideas already banked / in flight) ---",
+          monthPlanMd,
         ].join("\n");
 
         let digestMd = "";
