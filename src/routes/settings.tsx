@@ -43,8 +43,8 @@ function SettingsPage() {
 
   const INTERNAL_BRANDS = [
     { name: "Jevoy Palmer", company: "Personal brand · long-form YouTube + speaking", palType: "Visibility" as const },
-    { name: "Your Boy Jevoy", company: "Lifestyle / behind-the-scenes channel", palType: "Resonance" as const },
-    { name: "MindYourBizniz", company: "Business education channel", palType: "Authority" as const },
+    { name: "Your Boy Jevoy", company: "Lifestyle / behind-the-scenes channel", palType: "YouTube" as const },
+    { name: "MindYourBizniz", company: "Business education channel", palType: "YouTube" as const },
   ];
   const missingBrands = INTERNAL_BRANDS.filter((b) => !clients.some((c) => c.name.toLowerCase() === b.name.toLowerCase()));
   const [seedMsg, setSeedMsg] = useState<string | null>(null);
