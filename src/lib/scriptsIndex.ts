@@ -120,6 +120,17 @@ for (const [path, body] of Object.entries(versionsEager)) {
       title: `Script ${parsed.num}`,
       versions: {},
     };
+  // If no original has set a real title yet, derive one from this version's H1.
+  if (entry.title === `Script ${parsed.num}`) {
+    const h1 = body.match(/^#\s+(.+)$/m)?.[1] ?? "";
+    // Strip leading brand label like "JEVOY PALMER — " and surrounding quotes.
+    const cleaned = h1
+      .replace(/^[^—:"']*[—:]\s*/, "")
+      .replace(/^["“'']|["”'']$/g, "")
+      .replace(/^["“'']|["”'']$/g, "")
+      .trim();
+    if (cleaned) entry.title = cleaned;
+  }
   entry.versions[parsed.brand] = {
     body,
     originalPath: `/hubs/scripts/Versions/${encodeURIComponent(`${name}.md`)}`,

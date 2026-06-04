@@ -1,0 +1,143 @@
+# PALMER HOUSE PRODUCTIONS — "Your Business Has Amnesia Coming: What Dies When Your Best Person Leaves"
+## Cinematic Brand Monologue | ~9–10 min | Teleprompter Ready
+## The Recorded Animal · Trilogy 4 · Altitude: the business cost
+### Twelve Laws check: Contrarian Swap hook ✓ cliché kill ✓ spine promise ✓ accumulating device (the ONLY-MARIA-KNOWS board) ✓ armed skeptic ✓ flip ✓ crew reveal ✓ invitation + verse ✓
+
+---
+
+## CHAPTER 1: THE RESIGNATION LETTER
+
+[VISUAL: Cold open, no music. An office, morning. A printed resignation letter on a desk. A coffee mug abandoned next to it, still steaming. Cut to Jevoy in the Palmer House studio.]
+
+What if I told you that the most valuable asset in your business has never appeared on a balance sheet, has never been backed up, and gives two weeks' notice?
+
+Here's the scene. It's a Tuesday. Your best person — the one who's been there since the early days, the one whose name is the answer to half the questions anyone asks — walks in holding a piece of paper and an apologetic face. New opportunity. Closer to family. Two weeks.
+
+And you're happy for them. You are. And underneath the congratulations, a cold inventory starts running, and it gets worse the longer it runs. The pricing logic that lives in her judgment, not the spreadsheet. The reason the Henderson account almost left in 2023 and what we promised them — she knows. The supplier guy who only deals straight when *she* calls. The way the machine sounds right before it breaks. The actual onboarding process — not the wiki page from two years ago, the *real* one, the one in her hands.
+
+Two weeks. Then a goodbye lunch. And then your business wakes up with amnesia and has to relearn, at full price, things it already paid to learn once.
+
+Now — this is not a video about retention bonuses or "documenting your SOPs," in the way that phrase makes everyone's eyes glaze. Come on now. You've been told to "write things down" for years. You haven't. There's a reason, and it's not laziness — and that reason is where we're going.
+
+Here's the spine. This week's main investigation is about a man who recorded a message when he realized nobody knew where he was — and what that tape did. The business version of that story is sitting in your office right now. I'm going to show you the psychology of *where knowledge actually lives* in a company — there's a researcher who proved your team shares one distributed brain, and it has a fatal design flaw. Then the honest math of what walks out the door in week two. And then the fix — which is not a wiki. It's a camera.
+
+[VISUAL: Beside him, a whiteboard, blank, titled: THINGS ONLY MARIA KNOWS. The device — it fills through the episode.]
+
+---
+
+## CHAPTER 2: THE MECHANISM — THE SHARED BRAIN
+
+[VISUAL: Jevoy stands. Insert graphics: a network of heads, lines between them.]
+
+In the 1980s, a psychologist named Daniel Wegner noticed something about long-married couples. Neither one remembered everything — but *together* they remembered far more than two separate people should. One held the birthdays and the social map; the other held the finances and how the furnace works. And — this is the key — each one reliably remembered *who remembered what.* Ask the husband about the holiday plans and he doesn't know — but he knows *instantly* that she does.
+
+Wegner called it **transactive memory**: a memory system distributed across people, where the individuals store knowledge *and* a directory of who holds the rest. It's why losing a long partner includes a specific cognitive devastation — half your memory was stored in another person.
+
+Now here's the move: your business is exactly this. Every functional team is a transactive memory system. Nobody knows everything — but everybody knows that pricing questions go to Maria, the legacy code lives in Devon's head, and only Sam can calm down the Henderson account. The company "knows" enormous amounts — but huge portions of that knowledge have exactly **one physical copy**, stored in one skull, walking around on two legs, free to leave.
+
+[VISUAL: The whiteboard gets its first entries as he speaks: PRICING EXCEPTIONS. HENDERSON HISTORY. SUPPLIER HANDSHAKE. THE MACHINE'S SOUND.]
+
+Software engineers have a brutally honest name for this. They call it the **bus factor**: how many people would have to get hit by a bus before the project dies? For most small businesses, the honest answer for entire functions is *one.* And here's the founder's twist, bro — run the audit on yourself. In most owner-led companies, the person with the lowest bus factor, the single point of failure for the largest amount of irreplaceable knowledge... is reading this script's audience right now. Your business knows almost everything through you. Which means your business is Aron Ralston at hour zero: deep in the canyon, full of skill — and nobody knows where anything is.
+
+---
+
+## CHAPTER 3: THE EVIDENCE — THE INVOICE FOR FORGETTING
+
+[VISUAL: At the table. A banker's box, the kind you pack a desk into — the hero prop. Empty.]
+
+Let's do the honest math on what amnesia costs, because it hides in lines of the P&L that never say "knowledge loss."
+
+Start with replacement. The standard HR research range for replacing an employee runs from half to two times their annual salary once you count recruiting, ramp-up, and lost productivity — and for your *most knowledgeable* person, you should be looking at the high end, because you're not replacing labor. Labor is replaceable in a job market. You're replacing *memory*, and memory isn't on the market at any price. The new hire arrives smart and skilled and *blank.* The directory entry that said "Maria knows" now points at nothing.
+
+Then count the slower invoices. The client who leaves eight months later — not angrily, just drifts — because the person who *knew them* is gone and being re-explained to a stranger feels like being demoted from relationship to account. The mistake your company already made in 2021, made again at full cost in 2027, because the lesson lived in someone's scar tissue and the scar tissue resigned. The quality drift nobody can name — the machine sound, the plating standard, the "that's not how we'd phrase it" — a hundred micro-judgments that were never rules anywhere except in someone's taste.
+
+[VISUAL: The whiteboard is getting full now: WHY WE DON'T DISCOUNT IN Q4. THE ONBOARDING THAT ACTUALLY WORKS. WHO TO CALL AT THE CITY.]
+
+And here's why "just write it down" has failed you every time you've tried — this is the part nobody says out loud. Wegner's research explains it: in a *working* transactive system, documentation feels redundant. Why write down what Maria knows? Asking Maria is faster, richer, more current. The system is genuinely more efficient than any wiki — *right up until the moment it isn't.* Knowledge transfer always feels optional in exactly the periods when it's still possible. It only becomes urgent when it's already too late. That's not your discipline failing, my friend. That's the design flaw in distributed memory. It runs perfectly until the day it loses a node — and it gives you no warning, because the node *is* the warning system.
+
+---
+
+## CHAPTER 4: THE STRONGEST OBJECTION
+
+[VISUAL: Apple box. Eye level.]
+
+Now the strongest objection — and this one comes from the best operators, so it deserves the floor.
+
+"Jevoy, knowledge that can be written down is the *cheap* kind. The valuable stuff — Maria's judgment, her feel for a client, twenty years of pattern recognition — that's tacit knowledge. It doesn't survive transcription. You can't video-tape wisdom. And the wiki graveyard proves it: every company has three hundred outdated documents nobody reads. Documentation is a tax everyone pretends to believe in. The real answer is keeping good people — culture, pay, loyalty. Retention beats recording, every time."
+
+There's real truth here. Tacit knowledge is real — the philosopher Michael Polanyi said it best: *we know more than we can tell.* The wiki graveyard is real; I've seen yours. And yes — retention is strategy number one. Keep Maria. Pay Maria. I will never sell you recording as a substitute for being a company worth staying at.
+
+But the objection smuggles in two errors. First: retention has a 100% failure rate at the horizon. People retire. People get sick. People's spouses get jobs in Denver. *Every* node leaves eventually — the only variable is whether the memory was transferred first. Loyalty changes the date on the amnesia. It doesn't cancel it.
+
+And second — "you can't tape wisdom" is true for *text* and false for *video*, and this distinction is the whole reason this episode exists. Polanyi's point is that tacit knowledge resists being *told.* But it doesn't resist being *shown.* You can't write down how Maria handles an angry client. But you can sit her in front of a camera and ask, "Walk me through the Henderson save — what did you see, what did you say, why that order?" — and twenty minutes of her face, her pauses, her emphasis, her *war stories* will transfer more judgment than fifty pages of process documentation. Apprenticeship has known this for ten thousand years: tacit knowledge moves person-to-person, by demonstration and story. Video is the first technology in history that lets demonstration and story *scale beyond the room.* The wiki failed because text was the wrong container. You don't document a master. You *film* one.
+
+---
+
+## CHAPTER 5: THE FLIP
+
+[VISUAL: First music — low, warm. Tight on Jevoy.]
+
+So here's the flip.
+
+In the main investigation this week, a man trapped in a canyon used his last battery to record what he knew and loved — for the people who'd come after. We called it the goodbye tape. And the flip for your business is this: **record the goodbye tape now, while it's not a goodbye.** While Maria is happy, employed, and sitting right there. While the founder — you — can still narrate the why behind every weird pricing rule and every sacred client. The canyon clarified what Ralston should say with his battery. Don't wait for the canyon, bro. The resignation letter is the boulder. By the time it lands, the transfer window is two weeks and a goodbye lunch.
+
+And reframe what you'd actually be making, because this is not "documentation." Documentation is a chore about processes. This is an *inheritance* — the company's memory, in the voices of the people who built it. There's a reason families pay to have grandparents interviewed on camera. Businesses are families with revenue, and they lose their elders constantly, and almost none of them keep the voices.
+
+We blamed the team for never updating the wiki. The wiki was the wrong container. Memory lives in people — so the backup has to look like a person. It has to have a face.
+
+---
+
+## CHAPTER 6: WHAT PALMER HOUSE ACTUALLY DOES
+
+[VISUAL: Frame widens. The crew, the studio. On screen behind Jevoy: a clean library interface — faces as thumbnails, titled clips: "MARIA — THE HENDERSON SAVE." "DEVON — WHY THE LEGACY SYSTEM WORKS THIS WAY."]
+
+This is the **System** lane — the least glamorous pillar at Palmer House, and honestly, the one I might believe in most. Usual disclosure: young company, building in the open; this is the system we build with clients, not a trophy case.
+
+Here's what a knowledge engagement actually looks like. We don't hand you a documentation template — we run *interviews.* A real conversation, cameras rolling, with the people who hold your single-copy knowledge. The craft is in the questions: not "describe the process" — that gets you the wiki voice, the dead voice. We ask for stories. "Tell me about the time it went wrong." "What do you check that isn't on the checklist?" "What would the new person not believe until they saw it?" Stories are where tacit knowledge hides — Pennebaker's research says narrating organizes knowledge even for the *teller*; half our clients learn things about their own business listening to their own people.
+
+Then we cut it the 1-to-12 way: the long interview becomes the library — searchable, titled, internal. Onboarding modules from the same footage. The founder's why-we-exist piece that doubles as **Spotlight** material when it's strong enough — because it usually is; the same honesty that transfers knowledge builds trust. One shoot, compounding shelf life. Some of the most valuable footage we will ever shoot for you will never be published anywhere. It'll just quietly make your business immortal.
+
+[VISUAL: The whiteboard — THINGS ONLY MARIA KNOWS — gets a red line struck through the title. Re-titled: THINGS THE COMPANY KNOWS.]
+
+You bring what's true. We make it visible — *and this lane, we make it permanent.*
+
+---
+
+## CHAPTER 7: THE INVITATION
+
+[VISUAL: Music holds. Crew silhouettes. Direct to lens.]
+
+Here's where I'll leave it.
+
+There's a verse in Habakkuk — God tells the prophet: *"Write down the vision; make it plain on tablets, so that a herald may run with it."* Three thousand years old, and it's a knowledge-transfer protocol: get it out of the one head, into a durable medium, plain enough that the *next* runner — not you — can carry it at speed. That's the whole episode in one line. The vision that stays in the visionary dies with the visionary's tenure. Written plain, it runs on legs that haven't been hired yet.
+
+So — homework, two parts. Tonight: take ten minutes and write your own whiteboard. *Things only ___ knows.* Put real names. Put your own name — that list will be the longest, and it should scare you a little. That list is your bus factor, itemized.
+
+And when you're ready to turn that list into a library — book a strategy call with Palmer House. Real conversation, not a sales call dressed up as one. Bring the list. We'll tell you honestly which knowledge needs a camera, which needs a checklist, and which just needs Maria to get a raise.
+
+The link is below. Record the tape before the canyon.
+
+[VISUAL: The banker's box on the table — Jevoy places the small camera from the flagship episode inside it, gently. Palmer House logo over room tone. End.]
+
+---
+
+### CLIP-WORTHY SEGMENTS (1-to-12 map)
+1. Cold open — the resignation letter inventory (Ch1)
+2. Transactive memory — the married-couple shared brain (Ch2)
+3. The bus factor — "one skull, two legs, free to leave" (Ch2)
+4. "You're not replacing labor. You're replacing memory." (Ch3)
+5. "Knowledge transfer feels optional exactly as long as it's possible" (Ch3)
+6. The objection beat — "you don't document a master, you film one" (Ch4)
+7. The flip — "record the goodbye tape while it's not a goodbye" (Ch5)
+8. "Businesses are families with revenue, and they lose their elders constantly" (Ch5)
+9. The interview method — "stories are where tacit knowledge hides" (Ch6)
+10. Habakkuk — "plain enough that the next runner can carry it" + the whiteboard homework (Ch7)
+
+### SOURCES TO LINK IN DESCRIPTION
+- Wegner (1985–) — transactive memory research
+- Michael Polanyi, *The Tacit Dimension* (1966) — "we know more than we can tell"
+- SHRM / Gallup replacement-cost ranges (one-half to 2x salary)
+- Pennebaker — narrating organizes knowledge for the teller
+- Habakkuk 2:2
+
+**Word target: ~2,500 spoken. Hero device: the ONLY-MARIA-KNOWS whiteboard. Hero prop: the banker's box + the camcorder passed forward from the flagship.**
