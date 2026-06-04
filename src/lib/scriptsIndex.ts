@@ -18,23 +18,27 @@ const versionsEager = import.meta.glob("/src/content/scripts/Versions/*.md", {
   eager: true,
 }) as EagerMap;
 
-// Reference docs remain lazy — they're large and not on the critical path.
+// Eager-load reference docs too — lazy chunks with spaces in filenames
+// were failing to resolve at runtime, leaving the reader blank.
 const strategyRaw = import.meta.glob("/src/content/scripts/Strategy/*.md", {
   query: "?raw",
   import: "default",
-}) as LazyMap;
+  eager: true,
+}) as EagerMap;
 const researchRaw = import.meta.glob("/src/content/scripts/Research/*.md", {
   query: "?raw",
   import: "default",
-}) as LazyMap;
+  eager: true,
+}) as EagerMap;
 const yourboyRaw = import.meta.glob("/src/content/scripts/YourBoyJevoy/*.md", {
   query: "?raw",
   import: "default",
-}) as LazyMap;
+  eager: true,
+}) as EagerMap;
 const manualRaw = import.meta.glob(
   "/src/content/scripts/Skills/jevoy-palmer-operating-manual/**/*.md",
-  { query: "?raw", import: "default" },
-) as LazyMap;
+  { query: "?raw", import: "default", eager: true },
+) as EagerMap;
 
 function basename(path: string): string {
   const segs = path.split("/");
@@ -136,9 +140,9 @@ export type DocEntry = {
   filename: string;
 };
 
-function toDocList(raw: LazyMap, folder: string): DocEntry[] {
+function toDocList(raw: EagerMap, folder: string): DocEntry[] {
   return Object.entries(raw)
-    .map(([path, load]) => {
+    .map(([path, body]) => {
       const name = basename(path);
       return {
         slug: name
@@ -146,7 +150,7 @@ function toDocList(raw: LazyMap, folder: string): DocEntry[] {
           .replace(/[^a-z0-9]+/g, "-")
           .replace(/^-|-$/g, ""),
         title: name,
-        load,
+        load: () => Promise.resolve(body),
         originalPath: `/hubs/scripts/${folder}/${encodeURIComponent(`${name}.md`)}`,
         filename: `${name}.md`,
       };
@@ -171,13 +175,13 @@ export type ManualEntry = {
 };
 
 export const MANUAL: ManualEntry[] = Object.entries(manualRaw)
-  .map(([path, load]) => {
+  .map(([path, body]) => {
     const name = basename(path);
     const isRoot = /SKILL$/i.test(name);
     return {
       slug: isRoot ? "overview" : name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       title: isRoot ? "Operating Manual" : name,
-      load,
+      load: () => Promise.resolve(body),
       isRoot,
     };
   })
