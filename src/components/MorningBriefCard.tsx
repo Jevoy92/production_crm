@@ -57,7 +57,7 @@ export function MorningBriefCard() {
             Morning brief · auto-generated 7am
           </div>
           <p className="text-hi text-sm font-medium leading-snug">
-            Today's plan, drafted from yesterday's pendant transcripts, completed tasks, and overview log.
+            Today's plan, drafted from yesterday's pendant transcripts, important inbox, completed tasks, and overview log.
           </p>
         </div>
         <button
