@@ -19,6 +19,7 @@ import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as RepurposeRouteImport } from './routes/repurpose'
 import { Route as ProductionsRouteImport } from './routes/productions'
 import { Route as PlaybookRouteImport } from './routes/playbook'
+import { Route as MeetingsRouteImport } from './routes/meetings'
 import { Route as GearRouteImport } from './routes/gear'
 import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as ContentRouteImport } from './routes/content'
@@ -94,6 +95,11 @@ const ProductionsRoute = ProductionsRouteImport.update({
 const PlaybookRoute = PlaybookRouteImport.update({
   id: '/playbook',
   path: '/playbook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeetingsRoute = MeetingsRouteImport.update({
+  id: '/meetings',
+  path: '/meetings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GearRoute = GearRouteImport.update({
@@ -238,6 +244,7 @@ export interface FileRoutesByFullPath {
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
   '/gear': typeof GearRoute
+  '/meetings': typeof MeetingsRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
   '/repurpose': typeof RepurposeRoute
@@ -276,6 +283,7 @@ export interface FileRoutesByTo {
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
   '/gear': typeof GearRoute
+  '/meetings': typeof MeetingsRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
   '/repurpose': typeof RepurposeRoute
@@ -315,6 +323,7 @@ export interface FileRoutesById {
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
   '/gear': typeof GearRoute
+  '/meetings': typeof MeetingsRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
   '/repurpose': typeof RepurposeRoute
@@ -355,6 +364,7 @@ export interface FileRouteTypes {
     | '/content'
     | '/finance'
     | '/gear'
+    | '/meetings'
     | '/playbook'
     | '/productions'
     | '/repurpose'
@@ -393,6 +403,7 @@ export interface FileRouteTypes {
     | '/content'
     | '/finance'
     | '/gear'
+    | '/meetings'
     | '/playbook'
     | '/productions'
     | '/repurpose'
@@ -431,6 +442,7 @@ export interface FileRouteTypes {
     | '/content'
     | '/finance'
     | '/gear'
+    | '/meetings'
     | '/playbook'
     | '/productions'
     | '/repurpose'
@@ -470,6 +482,7 @@ export interface RootRouteChildren {
   ContentRoute: typeof ContentRoute
   FinanceRoute: typeof FinanceRoute
   GearRoute: typeof GearRoute
+  MeetingsRoute: typeof MeetingsRoute
   PlaybookRoute: typeof PlaybookRouteWithChildren
   ProductionsRoute: typeof ProductionsRoute
   RepurposeRoute: typeof RepurposeRoute
@@ -561,6 +574,13 @@ declare module '@tanstack/react-router' {
       path: '/playbook'
       fullPath: '/playbook'
       preLoaderRoute: typeof PlaybookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meetings': {
+      id: '/meetings'
+      path: '/meetings'
+      fullPath: '/meetings'
+      preLoaderRoute: typeof MeetingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gear': {
@@ -811,6 +831,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContentRoute: ContentRoute,
   FinanceRoute: FinanceRoute,
   GearRoute: GearRoute,
+  MeetingsRoute: MeetingsRoute,
   PlaybookRoute: PlaybookRouteWithChildren,
   ProductionsRoute: ProductionsRoute,
   RepurposeRoute: RepurposeRoute,
