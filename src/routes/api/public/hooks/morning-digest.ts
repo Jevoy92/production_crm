@@ -12,6 +12,7 @@ import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
  *   • Yesterday's Limitless pendant transcripts
  *   • Yesterday's completed checklist items
  *   • Yesterday's overview log entries
+ *   • Yesterday's important Gmail (inbox, unread/important, last 24h)
  * Generates today's plan via Lovable AI, upserts into morning_digests.
  */
 
@@ -51,6 +52,41 @@ async function fetchLimitless(date: string) {
   };
 }
 
+async function fetchGmailYesterday() {
+  const lovKey = process.env.LOVABLE_API_KEY;
+  const gmailKey = process.env.GOOGLE_MAIL_API_KEY;
+  if (!lovKey || !gmailKey) return { error: "no Gmail connector", messages: [] as Array<{ from: string; subject: string; snippet: string; date: string }> };
+  const base = "https://connector-gateway.lovable.dev/google_mail/gmail/v1";
+  const headers = {
+    Authorization: `Bearer ${lovKey}`,
+    "X-Connection-Api-Key": gmailKey,
+    Accept: "application/json",
+  };
+  // Important or primary-inbox messages from the last day
+  const q = encodeURIComponent("newer_than:1d (is:important OR is:starred OR category:primary) -category:promotions -category:social");
+  const listRes = await fetch(`${base}/users/me/messages?maxResults=15&q=${q}`, { headers });
+  if (!listRes.ok) return { error: `Gmail list ${listRes.status}`, messages: [] };
+  const list = (await listRes.json()) as { messages?: Array<{ id: string }> };
+  const ids = (list.messages ?? []).slice(0, 15).map((m) => m.id);
+  const messages: Array<{ from: string; subject: string; snippet: string; date: string }> = [];
+  for (const id of ids) {
+    const r = await fetch(`${base}/users/me/messages/${id}?format=metadata&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date`, { headers });
+    if (!r.ok) continue;
+    const m = (await r.json()) as {
+      snippet?: string;
+      payload?: { headers?: Array<{ name: string; value: string }> };
+    };
+    const h = (n: string) => m.payload?.headers?.find((x) => x.name.toLowerCase() === n.toLowerCase())?.value ?? "";
+    messages.push({
+      from: h("From"),
+      subject: h("Subject"),
+      date: h("Date"),
+      snippet: (m.snippet ?? "").slice(0, 400),
+    });
+  }
+  return { messages };
+}
+
 export const Route = createFileRoute("/api/public/hooks/morning-digest")({
   server: {
     handlers: {
@@ -78,6 +114,9 @@ export const Route = createFileRoute("/api/public/hooks/morning-digest")({
 
         // 1) Limitless transcripts from yesterday
         const lim = await fetchLimitless(yesterday);
+
+        // 1b) Important Gmail from the last 24h
+        const gmail = await fetchGmailYesterday();
 
         // 2) Yesterday's completed checklist items + open ones
         const yStart = `${yesterday}T00:00:00`;
@@ -134,12 +173,21 @@ export const Route = createFileRoute("/api/public/hooks/morning-digest")({
             sections.push(`Customs: ${JSON.stringify(ovYesterday.customs)}`);
         }
 
+        sections.push("\n## Important emails (last 24h)");
+        if (!gmail.messages.length) {
+          sections.push(`(none${gmail.error ? ` — ${gmail.error}` : ""})`);
+        } else {
+          for (const m of gmail.messages) {
+            sections.push(`- **${m.subject || "(no subject)"}** — ${m.from}\n  ${m.snippet}`);
+          }
+        }
+
         const gateway = createLovableAiGatewayProvider(LOVABLE_KEY);
         const sys = [
           "You are Pals — Jevoy & Shannen's production operating-system AI.",
           "Generate Jevoy's MORNING DIGEST for today in tight markdown. Sections, in order:",
-          "1. **Yesterday in one paragraph** — synthesize what actually happened (from pendant + completed tasks).",
-          "2. **Threads to close** — explicit next actions for open commitments mentioned yesterday.",
+          "1. **Yesterday in one paragraph** — synthesize what actually happened (from pendant, completed tasks, and inbox).",
+          "2. **Threads to close** — explicit next actions for open commitments mentioned yesterday or sitting in the inbox.",
           "3. **Today's plan** — a numbered, prioritized list of 5–8 concrete actions for today, written in Jevoy's voice (direct, action-first).",
           "4. **Watch-outs** — 1–3 risks, conflicts, or follow-ups that could slip.",
           "Be specific. No filler, no preamble, no 'Good morning'. Use names and numbers from the inputs.",
@@ -168,6 +216,8 @@ export const Route = createFileRoute("/api/public/hooks/morning-digest")({
                 limitless_error: lim.error ?? null,
                 completed_count: completedYesterday?.length ?? 0,
                 open_count: openItems?.length ?? 0,
+                gmail_count: gmail.messages.length,
+                gmail_error: gmail.error ?? null,
                 generated_at: new Date().toISOString(),
               },
               updated_at: new Date().toISOString(),
