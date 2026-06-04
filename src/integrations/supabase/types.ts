@@ -47,6 +47,30 @@ export type Database = {
         }
         Relationships: []
       }
+      morning_digests: {
+        Row: {
+          body_md: string
+          created_at: string
+          date: string
+          source: Json
+          updated_at: string
+        }
+        Insert: {
+          body_md?: string
+          created_at?: string
+          date: string
+          source?: Json
+          updated_at?: string
+        }
+        Update: {
+          body_md?: string
+          created_at?: string
+          date?: string
+          source?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       overview_logs: {
         Row: {
           customs: Json
