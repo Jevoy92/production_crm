@@ -489,6 +489,7 @@ function NewProjectModal({ open, onClose }: { open: boolean; onClose: () => void
   const [internal, setInternal] = useState(false);
 
   const submit = () => {
+    const toIso = (d: string) => (d ? new Date(`${d}T12:00:00`).toISOString() : undefined);
     addProject({
       title: title.trim() || "Untitled project",
       clientId,
@@ -496,8 +497,8 @@ function NewProjectModal({ open, onClose }: { open: boolean; onClose: () => void
       ownerId,
       stage,
       internal,
-      shootDate: shootDate || undefined,
-      deliveryDate: deliveryDate || undefined,
+      shootDate: toIso(shootDate),
+      deliveryDate: toIso(deliveryDate),
       quoted: quoted ? Number(quoted) : undefined,
     });
     setTitle("");
