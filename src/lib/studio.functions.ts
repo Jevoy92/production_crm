@@ -1,10 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const BRANDS = ["original", "jevoy", "palmer-house", "mindyourbizniz"] as const;
 
 export const listScripts = createServerFn({ method: "GET" }).handler(async () => {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data, error } = await supabaseAdmin
     .from("studio_scripts")
     .select("id,title,brand,updated_at")
@@ -16,6 +16,7 @@ export const listScripts = createServerFn({ method: "GET" }).handler(async () =>
 export const getScript = createServerFn({ method: "GET" })
   .inputValidator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: script, error } = await supabaseAdmin
       .from("studio_scripts")
       .select("*")
@@ -35,6 +36,7 @@ export const createScript = createServerFn({ method: "POST" })
       .parse(d ?? {}),
   )
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: row, error } = await supabaseAdmin
       .from("studio_scripts")
       .insert({
@@ -60,6 +62,7 @@ export const updateScript = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { id, ...patch } = data;
     const { error } = await supabaseAdmin
       .from("studio_scripts")
@@ -72,6 +75,7 @@ export const updateScript = createServerFn({ method: "POST" })
 export const deleteScript = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("studio_scripts").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
@@ -82,6 +86,7 @@ export const listMessages = createServerFn({ method: "GET" })
     z.object({ scriptId: z.string().uuid() }).parse(d),
   )
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: rows, error } = await supabaseAdmin
       .from("studio_messages")
       .select("id,role,content,created_at")
@@ -96,6 +101,7 @@ export const clearMessages = createServerFn({ method: "POST" })
     z.object({ scriptId: z.string().uuid() }).parse(d),
   )
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("studio_messages")
       .delete()
