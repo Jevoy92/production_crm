@@ -10,7 +10,7 @@ const backendUrl = process.env.VITE_SUPABASE_URL ?? process.env.SUPABASE_URL ?? 
 const backendPublishableKey =
   process.env.VITE_SUPABASE_PUBLISHABLE_KEY ??
   process.env.SUPABASE_PUBLISHABLE_KEY ??
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIUzI1NiIsInJlZiI6ImN4YmljYXhkaG53a2pid3BrZW1kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MDYyMTcsImV4cCI6MjA5NTQ4MjIxN30.r4bRAZBRd2ksZwr3pNjmJ1zh97VGf6L-7cVx5IF0ee4";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN4YmljYXhkaG53a2pid3BrZW1kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MDYyMTcsImV4cCI6MjA5NTQ4MjIxN30.r4bRAZBRd2ksZwr3pNjmJ1zh97VGf6L-7cVx5IF0ee4";
 
 // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
 // @cloudflare/vite-plugin builds from this — wrangler.jsonc main alone is insufficient.
