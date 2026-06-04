@@ -41,11 +41,11 @@ const BRANDS: { value: BrandFilter; label: string }[] = [
   { value: "mindyourbizniz", label: "MindYourBizniz" },
 ];
 
-const PILLARS = ["Reel", "Spotlight", "Evergreen", "System"] as const;
-function pillarFor(num: string) {
-  const n = parseInt(num, 10);
-  return PILLARS[(n - 1) % 4];
-}
+const BRAND_TAGS: { key: "jevoy" | "palmer-house" | "mindyourbizniz"; label: string }[] = [
+  { key: "jevoy", label: "JP" },
+  { key: "palmer-house", label: "PHP" },
+  { key: "mindyourbizniz", label: "MYB" },
+];
 
 function ScriptsHub() {
   const [q, setQ] = useState("");
@@ -214,7 +214,7 @@ function ScriptRow({
     { key: "palmer-house", label: "Palmer House" },
     { key: "mindyourbizniz", label: "MindYourBizniz" },
   ];
-  const pillar = pillarFor(script.num);
+  const brandTags = BRAND_TAGS.filter((b) => script.versions[b.key]);
   const initial = (preferredBrand && preferredBrand !== "all" && script.versions[preferredBrand])
     ? preferredBrand
     : (versions.find((v) => script.versions[v.key])?.key ?? "original");
@@ -256,8 +256,15 @@ function ScriptRow({
         >
           {script.title}
         </span>
-        <span className="hidden md:inline text-[9px] tracking-[0.24em] font-bold uppercase text-muted-foreground/70 shrink-0">
-          {pillar}
+        <span className="hidden md:flex items-center gap-1.5 shrink-0">
+          {brandTags.map((b) => (
+            <span
+              key={b.key}
+              className="text-[9px] tracking-[0.18em] font-bold uppercase px-1.5 py-0.5 border border-border text-muted-foreground/80"
+            >
+              {b.label}
+            </span>
+          ))}
         </span>
         <ChevronDown
           className={`size-4 text-muted-foreground shrink-0 transition-transform duration-300 ${
