@@ -13,6 +13,7 @@ import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
  *   • Yesterday's completed checklist items
  *   • Yesterday's overview log entries
  *   • Yesterday's important Gmail (inbox, unread/important, last 24h)
+ *   • Today's Google Calendar events (primary calendar)
  * Generates today's plan via Lovable AI, upserts into morning_digests.
  */
 
@@ -87,6 +88,49 @@ async function fetchGmailYesterday() {
   return { messages };
 }
 
+async function fetchTodayCalendar(today: string) {
+  const lovKey = process.env.LOVABLE_API_KEY;
+  const calKey = process.env.GOOGLE_CALENDAR_API_KEY;
+  if (!lovKey || !calKey) return { error: "no Calendar connector", events: [] as Array<{ summary: string; start: string; end: string; location: string; attendees: number }> };
+  // Build a UTC window covering "today" in ET (handles DST safely with a wide range).
+  const startIso = new Date(`${today}T00:00:00-05:00`).toISOString();
+  const endIso = new Date(`${today}T23:59:59-04:00`).toISOString();
+  const url = new URL("https://connector-gateway.lovable.dev/google_calendar/calendar/v3/calendars/primary/events");
+  url.searchParams.set("timeMin", startIso);
+  url.searchParams.set("timeMax", endIso);
+  url.searchParams.set("singleEvents", "true");
+  url.searchParams.set("orderBy", "startTime");
+  url.searchParams.set("maxResults", "25");
+  const res = await fetch(url.toString(), {
+    headers: {
+      Authorization: `Bearer ${lovKey}`,
+      "X-Connection-Api-Key": calKey,
+      Accept: "application/json",
+    },
+  });
+  if (!res.ok) return { error: `Calendar ${res.status}`, events: [] };
+  const json = (await res.json()) as {
+    items?: Array<{
+      summary?: string;
+      location?: string;
+      start?: { dateTime?: string; date?: string };
+      end?: { dateTime?: string; date?: string };
+      attendees?: Array<unknown>;
+      status?: string;
+    }>;
+  };
+  const events = (json.items ?? [])
+    .filter((e) => e.status !== "cancelled")
+    .map((e) => ({
+      summary: e.summary ?? "(no title)",
+      start: e.start?.dateTime ?? e.start?.date ?? "",
+      end: e.end?.dateTime ?? e.end?.date ?? "",
+      location: e.location ?? "",
+      attendees: e.attendees?.length ?? 0,
+    }));
+  return { events };
+}
+
 export const Route = createFileRoute("/api/public/hooks/morning-digest")({
   server: {
     handlers: {
@@ -117,6 +161,9 @@ export const Route = createFileRoute("/api/public/hooks/morning-digest")({
 
         // 1b) Important Gmail from the last 24h
         const gmail = await fetchGmailYesterday();
+
+        // 1c) Today's calendar
+        const cal = await fetchTodayCalendar(today);
 
         // 2) Yesterday's completed checklist items + open ones
         const yStart = `${yesterday}T00:00:00`;
@@ -182,6 +229,17 @@ export const Route = createFileRoute("/api/public/hooks/morning-digest")({
           }
         }
 
+        sections.push("\n## Today's calendar");
+        if (!cal.events.length) {
+          sections.push(`(nothing scheduled${cal.error ? ` — ${cal.error}` : ""})`);
+        } else {
+          for (const e of cal.events) {
+            const loc = e.location ? ` @ ${e.location}` : "";
+            const att = e.attendees ? ` · ${e.attendees} attendees` : "";
+            sections.push(`- ${e.start} → ${e.end} — **${e.summary}**${loc}${att}`);
+          }
+        }
+
         const gateway = createLovableAiGatewayProvider(LOVABLE_KEY);
         const sys = [
           "You are Pals — Jevoy & Shannen's production operating-system AI.",
@@ -218,6 +276,8 @@ export const Route = createFileRoute("/api/public/hooks/morning-digest")({
                 open_count: openItems?.length ?? 0,
                 gmail_count: gmail.messages.length,
                 gmail_error: gmail.error ?? null,
+                calendar_count: cal.events.length,
+                calendar_error: cal.error ?? null,
                 generated_at: new Date().toISOString(),
               },
               updated_at: new Date().toISOString(),
