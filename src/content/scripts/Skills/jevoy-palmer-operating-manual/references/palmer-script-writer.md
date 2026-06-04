@@ -41,6 +41,7 @@ Casual, warm, direct. "Bro," "come on now," "you feel me?" used sparingly and na
 10. Re-hook every 2–3 minutes — every chapter ends with an open loop.
 11. The flip (~65%): redefine the problem, absolve the viewer (it's the mechanism, not them), then re-empower.
 12. End with identity, not summary — who they become. Then ONE soft CTA.
+13. **The Wonder Rule.** The flip and close must land in play, wonder, or creative power — never merely in "how to manage the danger." Danger-management flips give the body of work a low ceiling. The mask is a costume you chose, not a prison. The imagined crowd is also where imagination and rehearsal live. The first frame is a gift you author, not a verdict you await. The freeze is a compass, not a wound. Additionally: The Recorded Animal thesis holds a duality — camera as savior AND destroyer. Do not mine only the destroyer. At minimum one savior-side episode per month (the handprint, the found survivor, the grandparent finally recorded, the kid watching their own first steps). The childlike thing being protected is wonder.
 
 ## Chapter spine (~2,500 words)
 

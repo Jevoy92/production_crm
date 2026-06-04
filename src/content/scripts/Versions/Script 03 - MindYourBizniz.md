@@ -1,231 +1,184 @@
-# Theme 3: How One Clip Can Redefine You Forever (MindYourBizniz Version)
+# MINDYOURBIZNIZ — "The Watched Brain: Why Being Seen Feels Like Danger"
+## Solo Podcast Monologue | ~15 min | Read-Ready | No props, no acting, no scene cuts
+### Built on the Blueprint: cold open confession → mechanism → the picture of eyes → the friend who pushes back → the flip → the emotional chapter → invitation + verse
+
+---
 
 [COLD OPEN]
+[ROOM TONE — quiet, close. A ceramic mug set down gently on wood. A slow breath.]
 
-[ROOM TONE — quiet, intimate, a slightly hollow room sound. A ceramic mug is set down on a wooden table. A slow exhale.]
+**JEVOY:**
 
-I want to talk about something that happens quietly. It happens on our phones, it happens in our minds, and it happens to our reputations before we even realize the rules of the game have changed. 
+I want to talk about something today that I've been carrying around for a few weeks now. Turning it over. And I'm just going to say it plain and then we'll sit with it together.
 
-We live in a world where you can spend ten years building a business, a character, a life... and someone who has never met you can decide exactly who you are based on a seven-second video they watched while waiting in line for coffee.
-
-[BEAT]
-
-That’s terrifying, isn’t it? The idea that one moment, stripped of all its context, can become the anchor for your entire identity. But it happens every day. And if you’re a business owner, a creator, or just someone trying to do meaningful work in public, you have to understand how this works. Because if you don’t build the context around your life, the internet will gladly build it for you.
-
-[MUSIC FADES IN — a low, slow, ambient pad. Barely there.]
-
-Welcome to MindYourBizniz. Let’s sit with this for a minute.
-
-[MUSIC FADES OUT]
-
-## Chapter 1: The Felt Moment
-
-[PAUSE — 2 seconds]
-
-I was scrolling the other day, and I saw a clip of a guy. I don’t know his name. I don’t know his business. But in this clip, he was frustrated. He was talking down to someone off-camera. He looked arrogant. He looked dismissive. 
-
-And instantly, my brain did what our brains are wired to do. It categorized him. *Arrogant boss. Bad guy. Skip.*
-
-But then I stopped. I looked at the comments. Thousands of people, all agreeing with my split-second assessment. Tearing this guy apart. And I realized... I have no idea what happened five minutes before that camera started rolling. I have no idea if he had just been pushed to his absolute limit after months of grace. I have no idea if he apologized immediately after. 
-
-I just had the clip.
-
-And because I only had the clip, the clip became the whole truth. 
+Why does being seen feel like danger?
 
 [BEAT]
 
-Have you ever felt that fear? The fear that if someone caught you in your worst three seconds, or even just your most awkward three seconds, and put it on the internet... that it would become the only thing people knew about you? 
+Not being attacked. Not being criticized. Just... seen. Watched. Because I've noticed something, and once you notice it you can't stop noticing it. The same person — could be you, could be me — who is fully alive in a room of people they trust... something in them goes quiet the moment they know they're being observed. The voice changes. The words get careful. The realness steps back from the edge.
 
-It’s a heavy thing to carry. Especially when you’re trying to build something visible. You start second-guessing every post, every video, every word. You freeze. Because you know that one clip can redefine you forever.
+And we do it everywhere, you feel me? On camera, sure. But also in the meeting when the boss walks in. On the post we typed and deleted. In the prayer we won't say out loud in front of people. The watched version of us is a different person than the unwatched version. And today I want to investigate why — because I found some research that honestly rearranged me a little bit. There's a study involving a coffee tin and a piece of paper that I'm going to tell you about, and by the end of it I think you'll understand something about yourself that you've felt your whole life and never had words for.
 
-And it’s not just about going viral for the wrong reasons. It’s about the subtle, everyday misunderstandings. It’s about the client who sees one piece of content that doesn’t quite land, and decides your entire service isn’t for them. It’s about the potential partner who watches a thirty-second reel and assumes you don’t have the depth they’re looking for. 
-
-We are constantly being judged on fragments. And the weight of that judgment can paralyze even the most confident business owners. You sit down to record a video, or write a post, and suddenly you’re thinking about every possible way it could be misinterpreted. You try to caveat everything. You try to explain every angle. And before you know it, the message is diluted, the energy is gone, and you just decide not to post it at all.
-
-That’s the founder’s freeze. That’s the moment where the fear of being misunderstood overpowers the desire to be seen. And it’s costing you more than you realize.
-
-## Chapter 2: The Mechanism
-
-Why does this happen? Why are we so quick to let a tiny fragment of information define a whole person?
-
-It’s not because we’re malicious. It’s because we’re efficient. 
-
-There’s a concept in psychology called the anchoring bias. Amos Tversky and Daniel Kahneman talked about this back in the seventies. Basically, human beings rely heavily on the first piece of information they receive when making decisions. That first piece of information becomes the "anchor." Everything else is judged in relation to that anchor.
-
-If the first time I hear about a car, someone tells me it’s unreliable, that becomes my anchor. Even if I later read ten reviews saying it’s a great car, I’m still going to view those reviews through the lens of that initial anchor. I’ll think, "Well, maybe those reviewers got lucky." The anchor is incredibly hard to dislodge.
-
-There’s also something called "thin-slice judgments." Nalini Ambady and Robert Rosenthal did research showing that people can make incredibly accurate—or at least incredibly confident—judgments about someone based on less than five minutes of observation. Sometimes less than thirty seconds.
-
-Our brains are processing machines. We don’t have the time or the cognitive energy to deeply investigate every person we encounter online. So we take the thin slice. We take the anchor. And we build a whole narrative around it.
-
-If the first time I see you, you’re yelling... you’re a yeller.
-If the first time I see you, you stumble over your words... you’re incompetent.
-If the first time I see you, you make a brilliant point... you’re a genius.
-
-The mechanism is neutral. But the outcome can be devastating if the anchor is wrong.
-
-And here’s the thing about the internet: it is an absolute machine for generating thin slices. Every scroll, every swipe, is a new thin slice. We are constantly being bombarded with fragments of people’s lives, and our brains are desperately trying to stitch them together into coherent narratives. 
-
-But when you only have one fragment, the narrative is almost always going to be incomplete. And often, it’s going to be completely wrong.
-
-This isn’t just a social media problem. This is a human cognition problem, amplified by technology. We are asking our brains to do something they were never designed to do: to understand complex human beings based on isolated, out-of-context data points. 
-
-And the result is a culture of snap judgments, where one clip can redefine you forever.
-
-## Chapter 3: The Object in Mind
-
-[PAUSE — 3 seconds]
-
-I want you to picture something with me. Just in your mind. 
-
-Imagine I hand you a single puzzle piece. It’s mostly blue, maybe a little bit of grey on the edge. 
-
-I ask you, "What is this a picture of?"
-
-You might say, "It’s the sky." Or "It’s the ocean." You’re guessing based on the tiny fragment you have. And if that’s the only piece I ever give you, that guess becomes your reality. You will walk away believing the picture is of the ocean.
-
-Now, imagine I take that same blue puzzle piece, and I snap it into a massive, thousand-piece puzzle that’s already mostly finished. You step back and look at it. 
-
-It’s not the ocean. It’s the blue eye of a husky dog running through the snow. 
-
-The piece didn’t change. The context changed. 
+This is not an episode about confidence tips. Come on now — you know me better than that by now. This is about machinery. Old machinery. Let's get into it.
 
 [BEAT]
 
-When you only have one clip online, you are handing the world a single puzzle piece. And you are letting them guess what the rest of the picture looks like. 
+---
 
-One clip without context is like judging a whole movie by one screenshot. It’s impossible to get the real story. But people will try anyway.
+## CHAPTER 2: THE MECHANISM
 
-Think about an evidence board in a detective movie. You know the ones—corkboard, red string, blurry photos pinned up. If there’s only one photo on that board, that person is the prime suspect. All the attention, all the theory, revolves around that one image. 
+So the first thing I found is that psychology actually has a name for what happens in that moment. They call it objective self-awareness. Two researchers, Duval and Wicklund, wrote about it back in 1972 — over fifty years ago — and listen to how clean this is.
 
-But what happens when the detective starts adding more photos? More documents? More timelines? The board gets crowded. The single photo is no longer the whole story; it’s just one data point among many. It loses its outsized power.
+Most of your life, you experience the world from the inside out. You're not thinking about yourself. You're just... in it. Talking, laughing, working. The self isn't an object to you. You're the one looking, not the thing being looked at.
 
-That’s what context does. It dilutes the power of the single fragment. 
+And then somebody watches you. And the whole thing flips. Suddenly you're not just having the experience — you're observing yourself having it. You step outside your own body and take a seat in the audience of your own life. And from that seat, you start grading. Is my voice okay? Did that sound smart? Am I too much? Am I enough?
 
-If you only have one video online, that video is the only photo on the evidence board. It carries all the weight. If it’s a great video, maybe that’s fine. But if it’s a mediocre video, or an awkward video, or a video that gets taken out of context... that’s your whole identity. 
+[PAUSE]
 
-You have to give people more puzzle pieces. You have to put more photos on the board. You have to build the context so that no single clip can define you.
+Two jobs at once. Living, and monitoring the living. And the monitoring is expensive, bro. It runs on the same fuel as the living. That's why the watched version of you is stiffer, slower, more careful — half of you got reassigned to security detail.
 
-## Chapter 4: The Friend Who Pushes Back
+And it's not in your head — it's in your body. There's a thing doctors call white coat hypertension. Some people's blood pressure goes up only when the doctor is the one measuring it. Same body, same health, same afternoon. The only thing that changed is that someone in a white coat is watching the number come up. Being observed — just observed — moves the needle on your heart.
 
-Now, I know what some of you are thinking. I have a friend who always pushes back on this kind of thing. We’ll be sitting on the porch, and he’ll say, "Jevoy, bro, come on now. If one clip can ruin you, the answer is simple: don’t make the clip. Don’t put yourself out there. Stay off the radar. If you don’t play the game, you can’t lose."
+So when you feel yourself tighten up under someone's gaze? That's not insecurity. That's biology doing what biology does.
 
-And I hear that. I really do. The instinct to hide is strong. It feels safe. 
+And here's the cruel joke layered on top of it — the audience you're performing for is mostly imaginary. There's a famous study from Cornell, around 2000, Thomas Gilovich. He had students walk into a room of strangers wearing an embarrassing t-shirt — a big Barry Manilow face on it, on purpose — and then asked them, how many people noticed? The students figured about half the room clocked it. The real number was under a quarter. They call it the spotlight effect: we overestimate how much other people watch us, judge us, *remember* us — by roughly double. Everybody's too busy being the main character of their own movie to study yours, bro.
 
-He’ll say, "Look at all these people getting canceled over one out-of-context moment. Why would I risk my business, my reputation, my peace of mind, just to post videos online? I’ll just rely on word of mouth. I’ll just do good work and let the work speak for itself."
+So sit with the full picture. Your alarm fires hard for eyes that are barely even pointed at you. The watching is real — but the courtroom is mostly empty. Hold that. Because it gets stranger.
 
-It’s a fair question. The risk is real. One clip *can* damage you. 
+---
 
-But here’s what I tell him. 
+## CHAPTER 3: THE PICTURE OF EYES
 
-Silence has a risk, too. If you hide, if you refuse to put yourself out there, you aren’t protecting your narrative. You’re just leaving it blank. And nature abhors a vacuum. If you don’t tell people who you are, they will eventually invent a story about you anyway. 
+Okay. The coffee tin. This is the one I haven't been able to put down.
 
-Hiding doesn’t make you safe. It just makes you invisible. And in business, invisibility is a slow death.
+Newcastle University, England, 2006. There's a break room — the kind every office has. Coffee station, honor system. You make your drink, you drop your coins in the tin, nobody's checking. And three researchers — Bateson, Nettle, and Roberts — decided to run the quietest experiment ever designed on their own coworkers.
 
-Word of mouth is great, but it doesn’t scale. And more importantly, word of mouth is still just other people telling your story. You are still relying on someone else to provide the context. 
-
-If you want to control your narrative—or at least, if you want to have a say in it—you have to be the one providing the evidence. You have to be the one putting the puzzle pieces on the table. 
-
-Yes, there is a risk in being visible. But there is a much greater risk in being unknown. Because when you are unknown, you are entirely at the mercy of whatever thin slice someone happens to stumble across. 
-
-You can’t control how people interpret your work. But you can control how much evidence they have to work with.
-
-## Chapter 5: The Flip
-
-[MUSIC FADES IN — a warm, steady, building pad. Emotional but grounded.]
-
-So, what’s the answer? If hiding isn’t the solution, and putting out one clip is dangerous, what do we do?
-
-Here is the flip. Here is the thing that changes how you look at all of this.
-
-The answer isn’t hiding from the cameras. 
-The answer is building enough context that one clip *can’t* become your whole identity.
+All they did was change the little picture on the price sheet. Some weeks, the sheet had flowers on it. Other weeks, it had a photograph of a pair of human eyes. That's it. That's the whole intervention. Flowers, or eyes.
 
 [BEAT]
 
-Think about someone you’ve known for ten years. A best friend. A spouse. If you see a video of them snapping at a waiter, you don’t instantly think, "Oh, they are a terrible, abusive person." You think, "Wow, they must be having a really bad day. That’s not like them."
+Now picture the eye weeks. Nothing in that room is different. No camera. No supervisor. Just ink on paper, up by the kettle, *looking* at you.
 
-Why? Because you have a thousand other puzzle pieces. You have a massive body of evidence that contradicts that one bad moment. The anchor has already been set, and it was set by years of consistent behavior.
+People paid nearly three times more into the tin on the eye weeks.
 
-You have to do the same thing for your business and your brand. You have to build a body of work. 
+[PAUSE]
 
-If you have one video online, and it’s awkward, you’re the awkward guy.
-If you have fifty videos online, and one is awkward, you’re just a guy who had an awkward moment. 
+Three times. A *picture* of being watched — not even the real thing — and a whole room of adults changed their behavior without a single one of them realizing why. Scientists have been arguing about and re-running that study for twenty years, and the heart of it keeps standing up: the human nervous system treats eyes — even fake eyes, even paper eyes — as an event.
 
-The volume of your truth dilutes the power of any single misunderstanding.
+And when I sat with that, the question got bigger. Why would we be built like this?
 
-This is why we talk about systems, not just single videos. A single brand film is great. It’s a beautiful puzzle piece. But if it’s the only piece you have, it’s still vulnerable. 
+So you run the clock backwards. For almost all of human history — hundreds of thousands of years — being watched meant one specific thing: the people of your own small world. A band of maybe a hundred, hundred and fifty people you'd know your entire life. And in that world, being observed was genuinely high stakes. Your reputation was your food, your protection, your belonging. If those eyes decided you were selfish, or false, or strange — that could be the whole story for you. So your brain evolved a tripwire: eyes on you, switch modes. Manage the impression. Survive the watching.
 
-You need the evergreen content that explains your philosophy. You need the spotlight content that shows your expertise in action. You need the consistent, everyday presence that reminds people who you are and what you stand for. 
+That tripwire is still installed. It fired in a break room in England over a coffee tin. And it fires in you every time a camera, a crowd, or a comment section looks your way — except now the eyes aren't a hundred and fifty people who know your heart. They're strangers. Infinite, invisible, permanent strangers.
 
-You are building a library of context. And every time you publish something real, something honest, something valuable, you are adding another book to that library. 
+Your alarm was built for a village. We handed it the internet.
 
-When someone stumbles across a single clip of you, they shouldn’t just see that clip. They should see the library behind it. They should see the depth. They should see the consistency. 
+---
 
-That’s how you protect yourself from the thin-slice judgment. You overwhelm it with evidence.
+## CHAPTER 4: THE FRIEND WHO PUSHES BACK
 
-## Chapter 6: The Emotional Part
+Now. I've got a friend in my head right now, and I love this friend, because they keep me honest. And I can hear them setting their cup down, going —
 
-[MUSIC SWELLS SLIGHTLY, THEN SETTLES]
-
-This is where the room gets built quietly. This is the architecture of trust.
-
-You don’t need to go viral. You don’t need millions of views. You just need to consistently, quietly, honestly put your puzzle pieces on the table. 
-
-Every time you share a real thought, you add a piece.
-Every time you explain your process, you add a piece.
-Every time you show up with integrity, you add a piece.
-
-And over time, you build a fortress of context around your name. 
-
-I talk to so many business owners who are paralyzed by the fear of being misunderstood. They have incredible value to offer. They have deep expertise. They care about their clients. But they are terrified of that one bad clip. 
-
-And my heart breaks for them, because their fear of being misunderstood is actually guaranteeing that they won’t be understood at all. 
-
-You have to give people the chance to see the whole picture. You owe it to the work you’ve done. You owe it to the people you can help. Don’t let the fear of a thin-slice judgment keep you from building a deep, meaningful body of work. 
-
-It’s not about being perfect. It’s about being present. It’s about showing up enough times that your true character becomes undeniable. 
-
-When you build that body of work, you aren’t just marketing your business. You are documenting your integrity. You are creating a record of your values. 
-
-And that record is the most powerful defense you have against a world that wants to judge you on a fragment. 
-
-So start building the room. Start putting the pieces on the table. Let people see the whole picture. Because the whole picture is always more beautiful, and more true, than any single clip could ever be.
-
-[MUSIC FADES OUT SLOWLY]
-
-## Chapter 7: Invitation & Verse
-
-[ROOM TONE RETURNS]
-
-If that’s the kind of conversation you’ve been needing... if you’ve been feeling that paralysis and you know it’s time to start building your context... stay close. There’s more to come. 
-
-We’re going to keep unpacking this. Because your work matters too much to leave it up to a single, out-of-context guess.
-
-[PAUSE — 3 seconds]
-
-There’s a verse that grounds me when I think about identity and how we are seen. Genesis 1:27. "So God created mankind in his own image, in the image of God he created them; male and female he created them."
-
-You are not a fragment. You are not a thin slice. You are a complete, intentional design. Don’t let a fragmented world convince you to hide the whole picture.
+"Jevoy. Okay. The eyes, the tin, the caveman stuff — it's interesting. But be real with me. Isn't this just you dressing up shyness in a lab coat? Because some people genuinely don't care. Some people perform *better* when everybody's watching — that's literally what makes some people stars. So maybe the watched brain isn't a human thing. Maybe it's a *you* thing. And maybe all this research is just a real comfortable excuse to keep hiding."
 
 [BEAT]
+
+That lands. I want you to feel it land, because it should. Nobody gets to use science as a blanket.
+
+And my friend is half right. There's real research — going back to the sixties, a man named Zajonc — showing an audience genuinely *improves* performance on things that are simple and well-practiced. Run faster, lift heavier, hit the rehearsed note. The crowd helps. That part's true.
+
+But the same line of research found the other half. On anything *complex* — anything requiring thought, nuance, honesty, self-expression — being observed makes performance worse. And being yourself out loud? Telling the truth about what you're building, what you're afraid of, what you believe? That's the most complex performance a human being ever gives.
+
+So no — it's not shyness, and it's not an excuse. The stars my friend is talking about aren't proof the alarm doesn't exist. They're proof it can be *retrained.* They've just been watched so much, by audiences they chose, that the tripwire finally got quiet. That's not a different species. That's a different rep count.
+
+And the excuse thing — I'll flip it, actually. The excuse isn't acknowledging the alarm. The excuse is pretending the freeze means *stop.* It doesn't mean stop. It means *this matters.* Big difference.
+
+Because here's what the reps were actually building all along. Not courage — a *room.* A set of conditions. A way of starting, a way of resetting, enough familiarity that the alarm finally stands down. All this time, when people gave up on being seen, we blamed their courage. The problem was their setup.
+
+---
+
+## CHAPTER 5: THE FLIP
+
+[MUSIC FADES IN — a single low, warm pad, barely there. It stays under everything from here through the next chapter.]
+
+So here's where the whole thing turned for me.
+
+If a paper pair of eyes can triple what people put in a tin... then the tightness you feel when you're seen is not a verdict on you. It's not weakness. It's not fakeness. It is the oldest, most loyal part of you, standing up at the exact moment something real is at stake, saying — *they're watching, be careful, this could cost us the village.*
+
+It's wrong about the stakes now. But it was never wrong about *you.* It only fires for things you actually care about. Nobody freezes doing something that means nothing to them.
+
+[PAUSE]
+
+So the freeze is a compass, you feel me? It points directly at what matters to you most. The post you're scared to make. The conversation you keep rehearsing. The thing you'd build if nobody could laugh at it. The alarm rings loudest right there — not because you should run, but because that's where your treasure is buried.
+
+And the people who seem free under all those eyes — they didn't kill the alarm. They renegotiated who it listens for. They stopped performing for the infinite crowd and started speaking to one person. One face. Somebody specific, somebody safe, somebody real. The brain can't handle infinity, but it has always known how to talk to *one.*
+
+---
+
+## CHAPTER 6: THE EMOTIONAL PART
+
+And I want to sit in this part for a minute, because this is where it stopped being research for me and started being personal.
+
+[BEAT]
+
+I'm building things right now. Out loud. A company, this podcast, all of it — at the stage where nothing is proven yet and everything is exposed. And I know that watched feeling from the inside. The take you delete. The idea you soften before you say it. The week you go quiet and call it "being strategic."
+
+[PAUSE]
+
+And here's what I had to admit to myself. All that hiding — it was never really about quality, or timing, or strategy. It was the village alarm. It was a part of me that's been guarding humans since the campfire, trying to protect me from eyes that might decide I'm not enough. It meant well. It always meant well.
+
+But here's the cost nobody tells you about. When you hide the real thing, the watching doesn't stop. People still see you — they just see the careful version. The managed version. And then the loneliest thing happens: even when they accept that version... *you* know it wasn't you they accepted. The applause lands on the costume.
+
+[BEAT]
+
+That's the real price of the watched brain left unexamined. Not embarrassment. Loneliness. You can be fully visible and completely unseen at the same time.
+
+And I don't want that. Not for me, not for you. I'd rather be truly seen by a few than carefully packaged for thousands. The tin doesn't lie — we are built to live watched. The only question we actually get to answer is whether the watchers ever meet the real one.
+
+[MUSIC FADES OUT — slowly, under the next lines.]
+
+---
+
+## CHAPTER 7: THE INVITATION
+
+So here's where I land, and then I'll let you go.
+
+This week, notice the freeze. Don't fight it — just notice it. The moment your voice gets careful, the moment you reach for the delete, the moment the watched version steps in front of the real one. And instead of asking "what's wrong with me," ask the better question: *what does this part of me think it's protecting?* And then — gently, bro, no force — pick one watched moment, just one, and let the real version speak instead. One sentence. One post. One truth at one dinner table. That's the rep. That's how the alarm learns the new world.
+
+[BEAT]
+
+There's a psalm I keep close — Psalm 139. David says, "You have searched me, Lord, and you know me... you are familiar with all my ways." Fully watched. Nothing hidden, nothing managed, no careful version. And he calls that knowledge *wonderful.* Not terrifying — wonderful. The most-watched man in scripture, and it's the safest he ever sounds.
+
+Maybe that's the whole investigation, right there. We were never built to escape being seen. We were built to be seen all the way through — and loved anyway. Everything else is just practice for that.
+
+[PAUSE]
+
+If that's the kind of conversation you've been needing — stay close. We're just getting started over here.
 
 Thanks for being here. MindYourBizniz is a Palmer House conversation. New episode next week.
 
-***
+[ROOM TONE — the mug lifts off the table. Out.]
 
-### Production Notes
-- **Audio Profile:** Intimate, close-mic proximity. Minimal room echo. The listener should feel like they are sitting across a small table from Jevoy.
-- **Pacing:** Slow. Allow the pauses to breathe. Do not rush the transitions between chapters.
-- **Music:** The pad in Chapter 5 and 6 should be felt more than heard. It should not distract from the vocal delivery.
+---
 
-### Clip-Worthy Lines
-1. "One clip without context is like judging a whole movie by one screenshot."
-2. "If you don’t build the context around your life, the internet will gladly build it for you."
-3. "Hiding doesn’t make you safe. It just makes you invisible."
-4. "The volume of your truth dilutes the power of any single misunderstanding."
+### CLIP-WORTHY LINES
+1. "Your alarm was built for a village. We handed it the internet." (Ch3)
+2. "The freeze doesn't mean stop. It means *this matters.*" (Ch4)
+3. "Nobody freezes doing something that means nothing to them. The freeze is a compass." (Ch5)
+4. "You can be fully visible and completely unseen at the same time." (Ch6)
+5. "The applause lands on the costume." (Ch6)
+6. "We were never built to escape being seen. We were built to be seen all the way through — and loved anyway." (Ch7)
 
-### Guest Expansion Options
-- **A Crisis PR Expert:** To discuss how they rebuild context for public figures after a "one clip" disaster.
-- **A Psychologist:** To dive deeper into thin-slice judgments and how we can train ourselves to look past the anchor.
-- **A Creator who survived a viral misunderstanding:** To share the emotional toll and the practical steps they took to reclaim their narrative.
+### GUEST EXPANSION OPTIONS
+- A therapist or performance psychologist on observation anxiety and exposure work
+- A working actor or pastor on being watched professionally — what the reps actually feel like
+- A founder who went from invisible to on-camera — the before/after, honestly told
+
+### SOURCES (show notes)
+- Duval & Wicklund (1972), *A Theory of Objective Self-Awareness*
+- Bateson, Nettle & Roberts (2006), *Biology Letters* — the watching-eyes honesty box study
+- Zajonc (1965), "Social Facilitation," *Science*
+- White coat hypertension — American Heart Association
+- Psalm 139
+
+**Word count target: ~2,500 spoken words. ✓**

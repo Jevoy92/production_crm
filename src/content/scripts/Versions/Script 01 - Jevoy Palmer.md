@@ -1,190 +1,182 @@
-# SCRIPT 1 — JEVOY PALMER VERSION
-## "Why the Camera Makes You Act Different"
-
-*Format: Teleprompter / cinematic monologue · Target runtime: 9–11 min · ~2,460 words*
-*Pillar: Evergreen · Status: Draft V1 · Last updated: 2026-04-27*
+# JEVOY PALMER — "Why You Stop Being Yourself on Camera"
+## Cinematic Investigative Monologue | ~10–11 min | Teleprompter Ready
+### Built on the Blueprint: Quiet Universal hook → cliché kill → spine promise → case file device → time-shift → steelman skeptic → flip → practical → identity close + verse
 
 ---
 
-## CHAPTER 1 — THE FELT MOMENT
+## CHAPTER 1: THE FELT MOMENT
 
-[OPEN: medium shot, available light, no music. JEVOY in a kitchen or dining room. Conversation faintly audible behind him.]
+[VISUAL: Cold open. Tight shot of a phone on a tripod, red recording light blinking. Silence. Cut to Jevoy at the kitchen island, warm practical light, no music. He's relaxed — mid-laugh, like we caught him between takes.]
 
-I want to start with something specific. Not a theory. Not a study. A moment.
+Every single day, millions of people set up a camera, hit record, look into the lens... and disappear.
 
-You're at a dinner with friends. You're laughing. You're slouching a little. You're saying things without thinking. Your hands are doing whatever hands do when you're not paying attention to them. Maybe you've got food in front of you. Maybe you've got a drink. You're not performing. You're just *being*.
+Not physically. Something quieter than that. The person who was just laughing in the kitchen thirty seconds ago — gone. Shoulders square up. The voice drops into this strange, formal register. The hands forget what hands do. And the words — words you've said out loud a thousand times — suddenly come out like you're reading a hostage statement.
 
-Then somebody pulls out their phone and says, "Wait, say that again, this is funny."
+[VISUAL: Jevoy glances at the phone on the tripod beside him, then back to the lens.]
 
-[VISUAL: someone's hand raises a phone into frame. Tight shot on Jevoy's face — micro-shift. Posture corrects. Eye-line steadies. Smile becomes deliberate.]
+And here's what gets me. It's not just nervous people. It's funny people. Confident people. People who can hold a whole dinner table for an hour without trying. Point a lens at them and watch the light go out in real time.
 
-And immediately — not dramatically, not theatrically, but really — something in you changes. You sit up a little straighter. Your voice settles into a slightly different pitch. The joke you were about to tell, the one that landed easy three seconds ago, you suddenly second-guess. *Is it funny enough? Will it sound the same out of context? What if my face does that thing when I deliver the punchline?* And the worst part — the part nobody likes admitting — is that you can feel yourself doing it. You know you're performing. And knowing makes it worse.
+Now — this is not a video where I tell you to "just be yourself" or "practice in the mirror" or "imagine the audience in their underwear." Come on now. You've heard all that. It doesn't work, and I think I found out why it doesn't work.
 
-Everybody at that table feels it. Nobody talks about it. We've collectively decided this is just a thing that happens. Phones come out, vibe shifts, conversation gets slightly less honest. Cost of doing business.
+Because what's happening to you in front of a camera is not a confidence problem. It's a collision — between a piece of glass invented about two hundred years ago and a threat-detection system your brain has been running for three hundred thousand years.
 
-I want to pause on that for a second. Because the thing that just happened — that small, ordinary, almost invisible shift — is one of the more interesting things human beings do. And almost nobody investigates it. We call it shyness. We call it being awkward. We tell each other to "just be yourself." We treat it like a personality defect or a confidence problem.
+So here's what I want to do. I want to investigate three things. Why being watched physically changes what your body does — there's a study with a coffee tin and a piece of paper that genuinely rearranged how I think about this. Why the camera is worse than any audience humans have ever faced. And why the people who seem "natural" on camera are not doing what you think they're doing.
 
-It's not.
+[VISUAL: Jevoy picks up a small stack of blank index cards and a marker, sets them on the counter.]
 
-It's a mechanism. A specific, predictable, well-documented psychological mechanism. And it's been operating in you long before anyone ever pointed a camera at you. The camera didn't create it. The camera just made it visible.
-
-Here's the question I want to spend the next ten minutes inside: **why does a small piece of glass and electronics change who you are in real time — and what does that say about the rest of the time, when no camera is in the room?**
-
-[CUT TO: title card — *Why the Camera Makes You Act Different* — in serif, no music. Hold three seconds.]
+I'm gonna build the case as we go. Stay with me.
 
 ---
 
-## CHAPTER 2 — THE MECHANISM
+## CHAPTER 2: THE MECHANISM
 
-There's a concept in psychology called *objective self-awareness*. Two researchers, Shelley Duval and Robert Wicklund, formalized it in 1972. The basic idea is this:
+[VISUAL: Jevoy walks to a corkboard. B-roll inserts as he speaks: extreme close-up of a lens iris, an eye, the red tally light.]
 
-Most of the time, you're not thinking about yourself. You're inside your life, looking out at it. You're the subject of your own experience. Psychologists call that *subjective self-awareness*. It's the default. It's how you spend most of your waking hours. You're a person doing things. You're not a person watching yourself do things.
+Okay. First question. What actually happens in your brain when you know you're being watched?
 
-But the moment something in the environment makes you aware of yourself as an object — a mirror, an audience, an evaluation, *a camera* — you flip. You stop being the subject. You become the object. You step outside yourself and start watching yourself from somewhere up and slightly to the right. You become the audience of your own life.
+There's a concept in psychology called objective self-awareness — two researchers, Duval and Wicklund, mapped it out back in 1972. And it describes a switch. Most of the time, you live your life from the inside looking out. You're the camera, not the footage. You're experiencing the world — you're not watching yourself experience it.
 
-[VISUAL: split screen. Left: Jevoy talking normally to camera. Right: same shot, but a second small monitor in the room shows the live feed of him. He glances at the monitor. The shift is visible.]
+The moment you know you're being observed, that flips. You stop being the person having the experience and become the person being *seen* having the experience. You start running a second program: how do I look, how do I sound, is this okay? And that second program is expensive. It's burning the exact processing power you needed for the first program — the talking, the joking, the being a person.
 
-And the research on what happens next is uncomfortable to read. When people become objectively self-aware, they start comparing themselves to a standard. They start asking, consciously or not — *Am I performing well enough? Am I saying the right things? Do I look the way I want to look?* That comparison creates a low hum of anxiety. Not panic. Just monitoring. Just a small portion of your cognitive bandwidth permanently allocated to watching yourself.
+That's why you can't "just relax." You're not doing one thing anymore, bro. You're doing two.
 
-This is not unique to cameras. This is what mirrors do. This is what audiences do. This is what knowing you're being evaluated for a promotion does. The camera is just an unusually portable, unusually efficient version of the same trigger.
+And your body joins in. Doctors have a name for a version of this — white coat hypertension. Some people's blood pressure reads high *only* when a doctor is taking it. Same heart. Same arteries. The only variable that changed is that somebody in authority is watching the measurement happen. Observation alone — no threat, no danger, nothing — physically moves the needle on your cardiovascular system.
 
-There's also a study from the 1920s I keep coming back to. The Hawthorne Works, a Western Electric factory in Cicero, Illinois — researchers led by Elton Mayo wanted to know what made workers more productive. They turned up the lights. Productivity went up. They turned them down. Productivity went up. They changed the temperature. Productivity went up. Everything they changed made productivity go up, which made no sense, until they realized: the workers weren't responding to the lighting. They were responding to *being watched*. That study became known as the Hawthorne Effect. One of the most replicated findings in social psychology.
+[VISUAL: Jevoy writes on the first index card — "BEING WATCHED = TWO PROGRAMS AT ONCE" — and pins it to the board.]
 
-But here's what the original write-up didn't fully reckon with. The Hawthorne Effect assumes being observed makes people perform *better*. Sometimes it does. Sometimes it makes them freeze. Sometimes it makes them stilted. Sometimes the watching collides with the doing and the doing falls apart.
-
-Think about every time you were asked to demonstrate something you're actually good at — in front of people, on demand — and suddenly you weren't as good at it as you normally are. That's not stage fright in the dramatic sense. That's objective self-awareness colliding with skill. The watching is interfering with the doing.
-
-The camera does the same thing to conversation. To storytelling. To being yourself.
+So that's finding number one. Being watched splits you in two. But here's where it gets weird. Because your brain doesn't even need a real person watching to do this. It does it for *pictures* of eyes.
 
 ---
 
-## CHAPTER 3 — THE OBJECT
+## CHAPTER 3: THE EVIDENCE
 
-[VISUAL: cut to a clean tabletop. Jevoy on one side. On the table: a small handheld mirror, and an iPhone face-up.]
+[VISUAL: Jevoy holds up a printed sheet of paper — a black-and-white photo of a pair of human eyes. The hero prop.]
 
-I want to show you something. Two objects.
+This is the part I can't stop thinking about.
 
-[He picks up the mirror.]
+In 2006, at Newcastle University, there was a break room with an honesty box. A coffee station — you take a coffee, you drop your money in the tin, nobody checks. Classic trust system. Three researchers — Bateson, Nettle, and Roberts — ran a quiet little experiment on it. Some weeks, they put a picture of flowers on the price list. Other weeks... they put this.
 
-This is a mirror. When you look into it, you become aware of yourself. Your face. Your expression. The way you're holding your shoulders. You can correct things in real time. You smile, the mirror smiles. You frown, the mirror frowns. The data is instant and it disappears the second you look away.
+[VISUAL: He taps the printed eyes.]
 
-[He sets the mirror down. Picks up the phone, faces the camera at himself.]
+A photo of eyes. Not a camera. Not a security guard. Ink on paper.
 
-This is also a mirror. Sort of. But this one is different in one important way.
+On the weeks with the eyes, people paid nearly *three times* more into the tin. Same coffee. Same prices. Same people. The only thing that changed was a picture that *suggested* being watched — and behavior transformed. Check my sources, the study's linked below — it's been argued over and re-tested for twenty years, and the core finding keeps showing up: the watched brain is a different brain.
 
-This one *remembers*.
+[VISUAL: He pins the eyes printout to the corkboard, writes a second card — "EVEN FAKE EYES CHANGE US" — pins it beside the eyes.]
 
-This one creates a version of you that can travel without you. A version of you that can be paused. Slowed down. Replayed. Screenshotted. Shared with people who weren't in the room. Shown to people who haven't met you yet. Shown to people who already decided what they think of you.
+Now run the timeline backwards and this starts making sense. For about ninety-nine percent of human history, being watched meant one thing: people from your own band. Maybe a hundred and fifty faces you'd known your whole life. Being observed by them mattered — your reputation in that group was survival. Get labeled selfish, dishonest, strange? You could lose protection, food, belonging. So evolution built you an early-warning system: the instant eyes are on you, change your behavior. Manage the impression. That coffee tin study? That's the system working exactly as designed, three hundred thousand years later, fooled by a piece of paper.
 
-A regular mirror shows you yourself in the present tense.
+Then in 1924, at a factory in Hawthorne, Illinois, researchers accidentally proved how deep this runs. They wanted to know if better lighting made workers more productive. Brighter lights — productivity up. Then they *dimmed* the lights — productivity went up *again.* Everything they changed made productivity rise, which made no sense — until they realized the workers weren't responding to the lighting. They were responding to being *studied.* The watching was the variable. We call it the Hawthorne Effect now, and it's one of the most famous findings in the history of psychology.
 
-A camera shows you yourself in the future tense — and the past tense — at the same time.
+So your brain treats eyes — real eyes, paper eyes, glass eyes — as high-stakes. Always has.
 
-That's why it feels heavier. That's why the moment a phone comes out, the room changes. It's not vanity. It's not insecurity. Your brain is doing a real calculation about a real audience that may or may not exist yet, and it is correctly identifying that the stakes of this moment just changed. Whatever happens next will exist longer than this moment. So the moment matters more.
-
-[VISUAL: slow zoom on the phone's screen reflecting his face. Hold.]
-
-The camera is not just a window. It's a mirror with memory. And memory changes everything about how you decide to show up.
+And then we handed it a camera.
 
 ---
 
-## CHAPTER 4 — THE COUNTERARGUMENT
+## CHAPTER 4: THE SKEPTIC
 
-Now. I want to be careful here, because there's a real objection to everything I just said, and I think the people raising it deserve a fair hearing.
+[VISUAL: Jevoy pulls a stool over. Sits. Energy shifts — conversational, fair.]
 
-The objection sounds like this. *Jevoy, you're overcomplicating something simple. People are just self-conscious. Tell them to relax. Tell them to be themselves. Tell them practice helps. Don't turn every dinner-table phone into a psychology lecture.*
+Now hold on. Because there's a skeptic in the room, and the skeptic has a real point. Let me make it properly.
 
-That objection is, in part, correct.
+The skeptic says: "Humans have always performed for audiences. Preachers, teachers, market sellers, griots telling stories around the fire — being watched is not new, Jevoy. Some people are even *better* when they're watched. Athletes feed off a crowd. So isn't this just stage fright with extra steps? Some people have it, some people don't?"
 
-Practice does help. Confidence is real. Some people genuinely are camera-natural in a way other people aren't. And I want to grant all of that without flinching, because if I dismiss it I'm not making an argument anymore — I'm just performing one.
+And the skeptic is right about the first part. There's solid research — goes back to Robert Zajonc in the sixties — showing that an audience genuinely improves performance... on *simple, well-practiced* tasks. Run faster. Lift heavier. Crowd helps. That's real.
 
-So let's give the skeptic full marks. Yes, "be yourself" is decent advice in casual contexts. Yes, repetition softens self-consciousness. Yes, the more you do something the less you panic doing it. And yes, some of what I'm describing as a *mechanism* is also just nerves, which most adults learn to manage.
+But the same research found the dark side: on *complex* tasks — anything requiring thought, nuance, self-expression — observation makes performance *worse.* And talking like a full human being, with timing and warmth and spontaneity? That's one of the most complex things you do.
 
-Here's where I think the skeptic has less ground than they think.
+And here's where the camera breaks every audience rule your brain knows. A fire-circle audience was bounded. You could see every face. The moment passed, and it was *gone* — kept only in fallible, forgiving human memory.
 
-"Be yourself" presumes the self that shows up in safe rooms is the same self that shows up in observed ones. The research says otherwise. It says the *self that you are* when no one is watching and the *self that emerges* when someone is, are not exactly the same person. They share a body. They share a name. They share a history. But they're operating on different software. One is running subjective self-awareness. The other is running objective. And no amount of "just be yourself" can will them into being the same self, because they were never going to be.
+The camera removed every one of those limits. The audience is invisible — your brain can't count it, so it assumes the worst. The audience is *future* people — strangers with no context for who you are. And the moment doesn't pass. It's permanent, replayable, clippable, frozen.
 
-This is not a flaw in you. This is not a failure of authenticity. This is human beings doing what human beings do — adapting in real time to the social conditions of the moment. The same trait that lets you read a room, modulate your tone for a child versus a client, soften your voice in a hospital and raise it in a crowd — that exact trait — is the one running when a camera enters the room. You can't turn it off. It's not a bug. It's not even a feature. It's just *how you work*.
+Here's the cleanest way I've found to say it. A mirror shows you yourself in the present tense — you look, you adjust, you walk away, and the mirror forgets. A camera is a mirror with memory. It creates a version of you that travels without you, into rooms you'll never enter, in front of people you'll never meet. Your nervous system knows the difference. That's why the mirror is easy and the lens is not.
 
-So the goal isn't to defeat the mechanism. The goal isn't to become the rare person who is unaffected by being watched. That person doesn't exist, and the people who claim to be that person are usually performing a different version of the same self-monitoring — they've just gotten good at hiding it.
+[VISUAL: He writes a third card — "THE CAMERA = INFINITE, INVISIBLE, PERMANENT EYES" — pins it.]
 
-The goal is to understand the mechanism well enough to work with it instead of being surprised by it every single time.
-
----
-
-## CHAPTER 5 — THE FLIP
-
-Here's the reframe I want to leave you with. And I think it changes the whole thing.
-
-We've been treating the camera as if its job is to *capture* you. Like a butterfly net. Like the camera goes out into the world, finds the real you, and brings back evidence of it.
-
-That's not what's happening. That was never what was happening.
-
-The camera doesn't capture you. The camera *adds an audience to the moment*. And once an audience is in the moment, the moment changes. You change. The room changes. The conversation changes. The version of you that was happening before the camera arrived is — by the laws of human social psychology — already gone the second the lens points at you. It didn't survive the lens. It can't. That's not how the system works.
-
-So the question stops being *"how do I be more authentic on camera?"* and starts being something more honest.
-
-The question becomes: *if a version of me is going to emerge when the camera is here, which version do I want it to be? And what kind of conditions does that version need in order to come through?*
-
-That's a completely different conversation. The first question is impossible. The second one is just architecture.
-
-Because here's what I've come to believe, after years of watching people freeze on cameras I owned, on shoots I directed, on calls I produced: the people who are good on camera are not people who escaped the mechanism. They're people who designed *around* it. They built rooms where the version of them that emerges under observation is close enough to the version that lives off-camera that the gap stops costing them.
-
-That's not a personality trait. That's a practice.
-
-And what most people call "camera shyness" is really just the noise of doing that practice for the first time, in public, without instructions, with high stakes, while feeling like everyone else figured it out years ago.
-
-They didn't. They built the room.
+So no — it's not stage fright. Stage fright is your brain doing math on a hundred faces. The camera asks it to do math on infinity. Of course it stalls.
 
 ---
 
-## CHAPTER 6 — THE PRACTICAL
+## CHAPTER 5: THE FLIP
 
-[VISUAL: cut to handheld. Walking shot through a hallway. Direct address.]
+[VISUAL: Lighting tightens on Jevoy's face. The first music of the entire video fades in — low, warm pad. He leans forward.]
 
-So what does this look like in practice. Three things.
+Okay. So here's the flip. And I need you to actually hear this.
 
-First. **Stop trying to be yourself on camera. Start deciding which self.** This sounds harsh; I mean it kindly. You don't have one self. You have several, and they all live in your body. There's the dinner self. The client self. The Sunday-morning self. The 3am self. The first-meeting self. The camera does not have access to all of them, and pretending it does is the source of half your friction. Pick one. Show up as that one. Let the others stay backstage.
+If a picture of eyes can triple what people put in a coffee tin... if factory workers transform because researchers are present... if blood pressure rises just because a doctor is looking... then what you do in front of a camera — the stiffness, the second-guessing, the disappearing —
 
-Second. **Design the room before you press record.** Most camera anxiety isn't about cameras. It's about doing a hard thing in a room that wasn't built for it. Bad lighting. Wrong angle. A phone propped on a stack of books. Family in the next room. No coffee. The body reads all of this. The body decides this is not a safe place to be observed. The body locks up. None of that is your courage failing. That's your room failing. Fix the room before you fix yourself.
+That's not a flaw in you. That's the machinery *working.* You freeze on camera for the same reason you flinch at a loud sound. It's an ancient, honest, protective system meeting a situation it was never built for. Evolutionary mismatch — a Stone Age alarm in a fiber-optic world.
 
-Third. **Treat the first ten minutes of any shoot as warm-up, not output.** Nobody starts cold and lands clean. Olympic athletes don't. Surgeons don't. The version of you that's worth recording is the one that shows up after your nervous system has accepted that the camera isn't an immediate threat. Give that version permission to take a while.
+Which means every "fix" you've tried was aimed at the wrong target. You tried to delete self-awareness. Can't be done. The people who look natural on camera did not delete it either.
 
----
+They renegotiated it.
 
-## CHAPTER 7 — THE INSIGHT + CTA + VERSE
+Because here's what I found when I really studied the people who feel "real" on a screen. They're not performing *less.* They've stopped performing for the infinite crowd and started talking to *one person.* Watch them closely — the great ones talk to the lens like it's a friend who texted them a question. They gave their ancient alarm system an audience it could actually handle: one face. One pair of eyes. Somebody specific.
 
-[VISUAL: return to opening room. Single source light. Calm.]
-
-The camera is not the enemy of authenticity. The camera just refuses to participate in the lie we tell ourselves — the lie that we are one consistent person, all the time, across every context. We are not. We never were. And the camera, by being unmoved and unblinking and uncomfortably patient, just makes that obvious.
-
-The question was never *how do I be the same person on camera that I am off it*. The question is — and always has been — *who do I want to be when I am observed, and am I willing to do the work to become that person on purpose instead of by accident*?
-
-That's not a video question. That's an identity question.
-
-And it's the question I find myself coming back to, in different forms, in nearly everything I'm thinking about right now. Visibility. Authority. Communication. Trust. They all sit on top of the same foundation: *who do you become when you are seen*.
-
-If that question lives inside you, too — if you're a builder, a leader, a creative, a founder, someone trying to do something real and trying to figure out how to be seen doing it — then you and I are working on the same problem. Stay close. There's more coming.
-
-[VISUAL: text overlay, slow fade.]
-
-> "So God created mankind in his own image."
-> — Genesis 1:27
-
-The image. Not the performance. Not the polish. Not the curated self. The image. The thing that was already there, long before the camera, long before the audience, long before any of us learned to monitor ourselves into stillness.
-
-The work isn't *manufacturing* something for the camera.
-
-The work is finding what was already there — and learning to let it through.
-
-[FADE TO BLACK.]
+Your brain cannot make the camera safe. But it can make the camera *somebody.* And those are very different problems — because the first one is impossible, and the second one is just practice.
 
 ---
 
-## Stage notes / cut list for Palmer House editors
+## CHAPTER 6: THE PRACTICAL
 
-- **Hero props:** handheld mirror, iPhone face-up on tabletop, dinner-table B-roll (phone raised, posture shift on guest), single-source room light.
-- **Key visual beats:** subject-to-object flip on monitor (Ch 2) · two-mirror demo on table (Ch 3) · hallway walking shot for "practical" section (Ch 6).
-- **No music until Ch 5 flip.** Let silence carry weight in chapters 1–4.
-- **Lower-thirds to set:** OBJECTIVE SELF-AWARENESS (Ch 2) · DUVAL & WICKLUND · 1972 (Ch 2) · HAWTHORNE WORKS · 1924–1932 (Ch 2).
-- **Reel-cut candidates:** Ch 3 mirror/phone demo (60s) · Ch 5 reframe ("the camera adds an audience") (45s) · Ch 7 verse beat (30s).
+[VISUAL: Music stays under, quieter. Jevoy stands, moves back to the board.]
+
+So let me give you the working framework. Three moves — each one aimed at the actual mechanism, not the symptom.
+
+**Move one: shrink the audience to one.** Before you record anything, decide who the one person is. Not "my followers." A name. A face. Someone who'd genuinely want this from you. Then say what you'd say to *them*. You're not lowering the stakes — you're giving your threat system a number it evolved to handle. One.
+
+**Move two: let the Hawthorne Effect die of boredom.** Here's the underrated part of that factory study — observation effects *fade.* Watched long enough, people drift back to normal behavior. The alarm can't stay on forever; novelty is its fuel. So the camera that's out once a month stays a threat. The camera that's out every day becomes furniture. Don't practice until it's perfect — record until it's *boring.* Boring is the win condition.
+
+**Move two and a half — because this one's free: remember the spotlight effect.** In 2000, a psychologist named Thomas Gilovich ran a beautiful little study at Cornell. He made students walk into a room full of strangers wearing a Barry Manilow t-shirt — chosen specifically to be embarrassing. Then he asked them: how many people in that room noticed your shirt? The students guessed about half. The real number? Less than a quarter. We *chronically* overestimate how much other people are watching us — roughly by double. So that brutal audience you're performing for in your head, cataloguing every stumble and weird hand gesture? Half of it doesn't exist. Everyone else is too busy starring in their own movie. Your alarm inflates the crowd. Science says you can cut it in half before you even start.
+
+**Move three: stop trusting playback on day one.** Quick science: when you talk, you hear your voice through bone conduction — your skull adds depth the microphone never gets. So recorded-you sounds wrong *to you* — and only to you. Researchers called it voice confrontation, back in the sixties. Everyone else has only ever heard the recording version. The cringe you feel watching yourself back is not data about your quality. It's data about your skull. Judge the take a day later, or let somebody else judge it — never in the heat of the moment.
+
+[VISUAL: He writes the last card — "ONE FACE. BORING. DON'T TRUST DAY-ONE PLAYBACK." — and pins it. Steps back. The board now reads as a complete case file.]
+
+That's the case. Two programs. Paper eyes. Infinite audience. One face back.
+
+---
+
+## CHAPTER 7: THE INSIGHT
+
+[VISUAL: Jevoy returns to the kitchen island. Music swells slightly. Direct to lens. Slow.]
+
+Here's where I land on all of this.
+
+I'm building things right now — this channel, a production company, all of it — and the camera comes out almost every day. And I'd be lying if I told you the alarm never fires anymore. It does. But I stopped reading it as evidence that I'm not built for this. It's just the oldest part of me checking in: *people are watching — are we okay?*
+
+And I've started answering: yeah. We're okay. We chose this.
+
+Because the freeze was never proof that you're fake. It's proof that being seen *matters* to you — it always mattered, all the way back to the fire. The goal was never to stop caring that you're watched. The goal is to decide who you're showing up for, and let the rest of the math go.
+
+There's a line in the Psalms I keep coming back to — David writes, "You have searched me, Lord, and you know me." Fully watched. Fully known. And the wild part? He says it like it's the *safest* thing in the world. I'm starting to think being seen was never the threat. Being seen without deciding who you are — that's the threat.
+
+So decide. Then hit record.
+
+If that question lives inside you too — what it costs to be seen, and what it costs to hide — stay close. That's what I'm investigating here, one case at a time.
+
+[VISUAL: He reaches over and taps the phone on the tripod. The red light cuts. Black.]
+
+---
+
+### CLIP-WORTHY SEGMENTS (1-to-12 map)
+1. Cold open — "millions of people hit record... and disappear" (Ch1, 0:00–0:45)
+2. "Two programs at once" — objective self-awareness explainer (Ch2)
+3. The coffee tin / paper eyes story — strongest standalone clip (Ch3)
+4. Hawthorne lights up/down beat (Ch3)
+5. "The camera asks your brain to do math on infinity" (Ch4)
+6. The flip — "that's the machinery working" (Ch5)
+7. "Record until it's boring — boring is the win condition" (Ch6)
+8. Voice confrontation / "data about your skull" (Ch6)
+9. Psalm 139 close (Ch7)
+
+### SOURCES TO LINK IN DESCRIPTION
+- Duval & Wicklund (1972), *A Theory of Objective Self-Awareness*
+- Bateson, Nettle & Roberts (2006), "Cues of being watched enhance cooperation in a real-world setting," *Biology Letters*
+- Hawthorne studies, Western Electric Co., 1924–1932 (and modern critiques — be honest that the original data has been debated)
+- Zajonc (1965), "Social Facilitation," *Science*
+- Holzman & Rousey (1966), voice confrontation studies
+- White coat hypertension — American Heart Association overview
+
+**Word count target: ~2,500 spoken words. ✓**
