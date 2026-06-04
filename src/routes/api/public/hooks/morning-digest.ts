@@ -246,7 +246,7 @@ export const Route = createFileRoute("/api/public/hooks/morning-digest")({
           "Generate Jevoy's MORNING DIGEST for today in tight markdown. Sections, in order:",
           "1. **Yesterday in one paragraph** — synthesize what actually happened (from pendant, completed tasks, and inbox).",
           "2. **Threads to close** — explicit next actions for open commitments mentioned yesterday or sitting in the inbox.",
-          "3. **Today's plan** — a numbered, prioritized list of 5–8 concrete actions for today, written in Jevoy's voice (direct, action-first).",
+          "3. **Today's plan** — a numbered, prioritized list of 5–8 concrete actions for today, written in Jevoy's voice (direct, action-first). Slot work AROUND today's calendar events; call out conflicts.",
           "4. **Watch-outs** — 1–3 risks, conflicts, or follow-ups that could slip.",
           "Be specific. No filler, no preamble, no 'Good morning'. Use names and numbers from the inputs.",
         ].join("\n");
