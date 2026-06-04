@@ -20,6 +20,60 @@ import {
   generateLongFormScriptInput,
 } from "@/lib/pals.tools";
 
+// ---------- Limitless (server-executed tool) ----------
+const fetchLimitlessLifelogsInput = z.object({
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/)
+    .optional()
+    .describe("ISO date YYYY-MM-DD. Defaults to today (America/New_York)."),
+  timezone: z.string().default("America/New_York"),
+  limit: z.number().int().min(1).max(20).default(10),
+});
+
+async function fetchLimitlessLifelogs(args: {
+  date?: string;
+  timezone: string;
+  limit: number;
+}) {
+  const key = process.env.LIMITLESS_API_KEY;
+  if (!key) {
+    return { error: "LIMITLESS_API_KEY not configured", lifelogs: [] };
+  }
+  const date =
+    args.date ??
+    new Intl.DateTimeFormat("en-CA", { timeZone: args.timezone }).format(new Date());
+  const url = new URL("https://api.limitless.ai/v1/lifelogs");
+  url.searchParams.set("date", date);
+  url.searchParams.set("timezone", args.timezone);
+  url.searchParams.set("limit", String(args.limit));
+  url.searchParams.set("includeMarkdown", "true");
+  url.searchParams.set("direction", "asc");
+
+  try {
+    const res = await fetch(url.toString(), {
+      headers: { "X-API-Key": key, Accept: "application/json" },
+    });
+    if (!res.ok) {
+      const text = await res.text();
+      return { error: `Limitless API ${res.status}: ${text.slice(0, 300)}`, lifelogs: [] };
+    }
+    const json = (await res.json()) as {
+      data?: { lifelogs?: Array<{ id?: string; title?: string; startTime?: string; endTime?: string; markdown?: string }> };
+    };
+    const lifelogs = (json.data?.lifelogs ?? []).map((l) => ({
+      id: l.id,
+      title: l.title,
+      startTime: l.startTime,
+      endTime: l.endTime,
+      markdown: l.markdown?.slice(0, 4000) ?? "",
+    }));
+    return { date, timezone: args.timezone, count: lifelogs.length, lifelogs };
+  } catch (err) {
+    return { error: `Limitless fetch failed: ${String(err)}`, lifelogs: [] };
+  }
+}
+
 /** Minimal snapshot the client sends. Keep small — model context budget. */
 const SnapshotSchema = z.object({
   today: z.string(),
@@ -119,6 +173,7 @@ function buildSystemPrompt(snapshot: z.infer<typeof SnapshotSchema> | undefined)
     "  • brainstormIdeas — propose N video ideas (title + hook + angle + format). Draft the ideas YOURSELF in the tool input. They save to the Content library as ideas on approval.",
     "  • generateLongFormScript — draft a FULL long-form script (markdown: hook, body, CTA) and save it to the Scripts library. Match the voice and structure of the existing scripts shown below. Write the entire script in body_md before calling — do not call with a placeholder.",
     "  • generateSupportingShorts — once a long-form exists as a Core 12 episode, generate the 3 supporting shorts and auto-save to Library.",
+    "  • fetchLimitlessLifelogs — pull Jevoy's Limitless pendant transcriptions (daily briefs / conversations). Use this proactively when the user asks for a morning digest, daily recap, summary of yesterday, or anything that depends on what Jevoy actually said/heard. Runs silently — no approval needed. Default to today; pass `date` for a specific day.",
     "",
     "Mutating tools (create/update/schedule/complete/generate) will ask the user to APPROVE before they run. Don't apologize for asking — call the tool and let the UI handle confirmation.",
     "Read tools (search/list) run silently.",
@@ -260,6 +315,13 @@ function buildTools() {
       generateLongFormScriptInput,
       "Draft a full long-form script and save it to the Scripts library. YOU write the entire script body in markdown (body_md) in the tool input — hook, body sections, and CTA. Match the voice/structure of existing scripts shown in the snapshot. Approval-gated.",
     ),
+
+    fetchLimitlessLifelogs: tool({
+      description:
+        "Fetch Jevoy's Limitless pendant transcriptions for a given day (defaults to today). Returns the list of lifelogs with titles, times, and markdown transcripts. Use this for morning digests, daily recaps, or whenever you need to know what Jevoy actually discussed.",
+      inputSchema: fetchLimitlessLifelogsInput,
+      execute: async (args) => fetchLimitlessLifelogs(args),
+    }),
   };
 }
 
