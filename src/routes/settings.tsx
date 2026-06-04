@@ -22,6 +22,9 @@ const OPERATORS: { role: Role; name: string; sub: string; color: string; initial
 
 function SettingsPage() {
   const projects = useStore((s) => s.projects);
+  const clients = useStore((s) => s.clients);
+  const addClient = useStore((s) => s.addClient);
+  const addProject = useStore((s) => s.addProject);
   const activeRole = useStore((s) => s.activeRole);
   const setRole = useStore((s) => s.setRole);
 
@@ -38,9 +41,83 @@ function SettingsPage() {
     onError: (e: any) => setDigestMsg(e?.message ?? "Failed to run digest"),
   });
 
+  const INTERNAL_BRANDS = [
+    { name: "Jevoy Palmer", company: "Personal brand · long-form YouTube + speaking", palType: "Visibility" as const },
+    { name: "Your Boy Jevoy", company: "Lifestyle / behind-the-scenes channel", palType: "Resonance" as const },
+    { name: "MindYourBizniz", company: "Business education channel", palType: "Authority" as const },
+  ];
+  const missingBrands = INTERNAL_BRANDS.filter((b) => !clients.some((c) => c.name.toLowerCase() === b.name.toLowerCase()));
+  const [seedMsg, setSeedMsg] = useState<string | null>(null);
+  const seedInternal = () => {
+    let createdClients = 0;
+    let createdProjects = 0;
+    for (const b of INTERNAL_BRANDS) {
+      let client = clients.find((c) => c.name.toLowerCase() === b.name.toLowerCase());
+      if (!client) {
+        const id = addClient({ name: b.name, company: b.company, notes: "Internal brand — in-office shoots" });
+        client = { id, name: b.name, company: b.company } as any;
+        createdClients++;
+      }
+      const hasActiveProject = projects.some((p) => p.clientId === client!.id && p.internal);
+      if (!hasActiveProject) {
+        addProject({
+          title: `${b.name} · ongoing content`,
+          clientId: client!.id,
+          internal: true,
+          palType: b.palType,
+          stage: "Pre-Production",
+          priority: "Med",
+        });
+        createdProjects++;
+      }
+    }
+    setSeedMsg(`Added ${createdClients} brand${createdClients === 1 ? "" : "s"} and ${createdProjects} starter project${createdProjects === 1 ? "" : "s"}.`);
+  };
+
   return (
     <Shell title="Settings" subtitle="Templates · Data">
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+        <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
+          <div className="flex items-baseline justify-between flex-wrap gap-2">
+            <div>
+              <h3 className="text-[15px] font-semibold tracking-tight">Internal brands</h3>
+              <p className="text-[12px] text-muted-foreground mt-1">
+                Jevoy Palmer · Your Boy Jevoy · MindYourBizniz. Stored as both clients and internal projects so today's MindYourBizniz YouTube shoot — and the rest — can be scheduled with the lightweight in-office workflow.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={seedInternal}
+              className="ph-btn ph-btn-primary ph-btn-sm"
+              disabled={missingBrands.length === 0 && projects.some((p) => p.internal)}
+            >
+              {missingBrands.length === 0 ? "Already set up" : `Add ${missingBrands.length} missing brand${missingBrands.length === 1 ? "" : "s"}`}
+            </button>
+          </div>
+          {seedMsg && (
+            <div className="mt-3 text-[12px] rounded-lg px-3 py-2" style={{ background: "var(--ph-surface-2)", color: "var(--ph-text-secondary)" }}>
+              {seedMsg}
+            </div>
+          )}
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2">
+            {INTERNAL_BRANDS.map((b) => {
+              const exists = clients.some((c) => c.name.toLowerCase() === b.name.toLowerCase());
+              return (
+                <div key={b.name} className="rounded-lg bg-surface-2 ring-inset-soft p-3">
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full" style={{ background: exists ? "var(--accent-emerald, #10b981)" : "var(--ph-text-tertiary, #888)" }} />
+                    <div className="text-[13px] font-semibold tracking-tight">{b.name}</div>
+                  </div>
+                  <div className="text-[11.5px] text-muted-foreground mt-1">{b.company}</div>
+                  <div className="text-[10.5px] uppercase tracking-wider mt-2" style={{ color: exists ? "var(--accent-emerald)" : "var(--ph-text-tertiary)" }}>
+                    {exists ? "Created" : "Will be added"}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
           <div className="flex items-baseline justify-between">
             <div>
