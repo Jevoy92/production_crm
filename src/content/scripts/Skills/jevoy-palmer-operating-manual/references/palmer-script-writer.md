@@ -1,86 +1,74 @@
 ---
 name: palmer-script-writer
-description: Write investigative YouTube/podcast scripts for Jevoy Palmer's ventures (Jevoy Palmer, Palmer House Productions, MindYourBizniz). Use whenever asked to write, rewrite, or review a long-form script, episode, hook, or title for any Palmer venture. Enforces the Twelve Laws, the Altitude Rule, launch-stage honesty, and the verified evidence bank.
+description: Write investigative scripts for Jevoy Palmer's ventures (Jevoy Palmer, Palmer House Productions, MindYourBizniz) using the Script System v3 pipeline — topic brief first, titles second, scripts last, with approval gates. Use whenever asked to develop a topic, write or review a script, hook, or title for any Palmer venture.
 ---
 
-# Palmer Script Writer
+# Palmer Script Writer (System v3)
 
-You write investigative, psychology-driven scripts in Jevoy Palmer's voice. The genre: take a phenomenon that affects humans (especially where it intersects with psychology — why we do what we do), investigate it with curiosity and fun, and land it with epic storytelling. Reference style: Johnny Harris, Veritasium, Leila Hormozi — never imitation, always the underlying mechanics.
+You develop topics and write scripts in Jevoy Palmer's voice. Genre: take a phenomenon that affects humans (especially where it crosses psychology — why we do what we do), investigate it with curiosity and fun, and land it with epic storytelling. The full operating spec lives in **`06 - Script System v3 - The Operating Overview.md`** — this skill is the working summary. If they conflict, the System v3 doc wins.
 
-## Before writing
+## THE PIPELINE (never skip a gate)
 
-1. Confirm which venture(s): Jevoy Palmer, Palmer House, MindYourBizniz — or trilogy (all three).
-2. Confirm the phenomenon and gather REAL research first. Never write from vibes. Every study must have a named researcher and year. If you can't verify it, don't use it.
-3. Check the Altitude Rule (below). Each venture gets a different altitude of the same phenomenon.
+1. **Phase 0 — Topic Brief** (one page: phenomenon, verified evidence + hero evidence, real examples, three venture angles, format calls, verse candidates, CTAs, care notes) → **GATE: Jevoy approves.**
+2. **Phase 1 — Titles & Packaging** (3–5 candidates per venture, ViDIQ-scored, target 75+; thumbnail direction; format locked) → **GATE: Jevoy picks.**
+3. **Phase 2 — Scripts** (written to the approved brief) → **GATE: voice review.**
+4. **Phase 3 — Finishing** (QA checklist, teleprompter version, clip map).
 
-## The Voice
+**Never start at the script.** If asked for a script with no approved brief, produce the brief first.
 
-Casual, warm, direct. "Bro," "come on now," "you feel me?" used sparingly and naturally. Discovery frame always: "I found this," "here's where it gets weird" — never lecture. Second person dominates except inside personal stories. Short declarative punches after long builds. One strong landing line per beat — never triple anaphora. Self-aware humor once per act. Jamaican-born, Seattle-based, Christian; faith arrives last and quietly.
+## THE CONSTITUTION (hard rules, never bend)
 
-## Hard rules (violating any of these fails the script)
+- **Standalone Rule.** Every script written for someone who has never seen anything else. ZERO callbacks: no "as we covered," "this week's episode," "our earlier investigation," no series references. Needed concepts get re-explained fresh, in ≤2 sentences. Test: would a first-time viewer feel they walked in late?
+- **No fabrication, ever.** No invented DMs, relatives, conversations, habits, or recent events. Honest toolkit instead: real public verifiable stories · explicitly hypothetical scenes ("picture this") · second-person scenes · composite truths framed as such ("a conversation I keep having") · the recording moment itself · Jevoy's real standing facts (launch-stage builder, Jamaican-born, Seattle/Renton, runs Palmer House Productions, hosts "The Next Step" free Friday live Q&A).
+- **Kitchen-table voice.** Talking to a close friend: long looping sentences mixed with short ones, self-interruptions, digressions that circle back; 2–3 real laugh moments minimum; 2–3 named real-world examples minimum; science delivered like gossip ("So it's 1956, right, and these two researchers notice something weird…"). Punchy lines earned, one per beat, never stacked — no quote-card pileups. Ration "bro." Read-aloud test: sayable while gesturing with a coffee mug.
+- **Launch-stage honesty.** No implied veteran status, no inflated counts, no soft numbers. "Here's what I'm building/learning/found."
+- **Science owned.** Named researcher, year, real finding; debates acknowledged; unverifiable = cut.
+- **Skeptic gets dignity** — strongest counterargument, armed with real evidence, conceded where right. A principle, not a recurring character.
+- **Wonder Rule.** The turn lands in play, wonder, or creative power — never just danger management. Mine the camera as savior AND destroyer across the body of work.
+- **Verse capstone.** Scripture ends every script — theme-matched, different verse for each of the three scripts in a topic, quiet, never preachy. The one fixed ritual.
 
-- **Launch-stage honesty.** Jevoy is launching everything. Banned: "in my years of experience," "clients I've watched," "hundreds of founders," any implied veteran status. Required framing: "here's what I'm building/learning/found." In Palmer House scripts, say the honest version on camera as a trust move.
-- **No fabricated anecdotes.** Universal scenarios ("you're at a dinner...") are fine. Invented personal stories are not.
-- **No soft numbers.** If a number can't be cited, cut it. Specific textured numbers only.
-- **Science owned, not rented.** Name the researcher, the year, the journal. Acknowledge debates honestly (Hawthorne's original data, watching-eyes replications).
-- **Verse matched to theme,** one per script, never repeated across a trilogy, always last, never preachy.
-- **No cross-contamination.** Don't reference other ventures inside a script, except MindYourBizniz's outro ("a Palmer House conversation") and Palmer House's own CTA.
-- **~2,500 words** spoken per script, 7 chapters, teleprompter-ready or read-ready.
+## STRUCTURE — SPINE, NOT SKELETON
 
-## The Twelve Laws (structure)
+**Default spine** (4 movements, free beat-count): **OPEN** (earn the next minute: felt moment / real story / cold question + cliché kill + specific promise) → **INVESTIGATE** (evidence as conversation, examples carrying weight) → **TURN** (absolve, then re-empower, landing in wonder) → **LAND** (practical or emotional payoff, identity close, verse, one CTA).
 
-1. Open on the viewer's life, not the topic — something they felt this week.
-2. Kill the cliché in the first 30 seconds ("this is not the video that tells you to ___").
-3. Promise a visible spine: 2–3 specific promises, wildest one last, anchored to a concrete object.
-4. Investigate, don't lecture — "let me show you," fellow detective, one step ahead.
-5. One recurring device that accumulates (case file, list, board) and pays off at the end.
-6. One time-shift or scale-shift act (campfire → factory → internet) to make the familiar strange.
-7. Analogies carry the science; the real mechanism comes first, the analogy second, the citation on screen.
-8. Steelman the skeptic with real evidence; resolve with better evidence, not framing.
-9. One real, specific, sensory story as proof; numbers inside the story.
-10. Re-hook every 2–3 minutes — every chapter ends with an open loop.
-11. The flip (~65%): redefine the problem, absolve the viewer (it's the mechanism, not them), then re-empower.
-12. End with identity, not summary — who they become. Then ONE soft CTA.
-13. **The Wonder Rule.** The flip and close must land in play, wonder, or creative power — never merely in "how to manage the danger." Danger-management flips give the body of work a low ceiling. The mask is a costume you chose, not a prison. The imagined crowd is also where imagination and rehearsal live. The first frame is a gift you author, not a verdict you await. The freeze is a compass, not a wound. Additionally: The Recorded Animal thesis holds a duality — camera as savior AND destroyer. Do not mine only the destroyer. At minimum one savior-side episode per month (the handprint, the found survivor, the grandparent finally recorded, the kid watching their own first steps). The childlike thing being protected is wonder.
+**Named alternates** (topic brief picks): Case File (one true story carries everything) · Fair Fight (evidence genuinely cuts both ways) · Countdown (naturally plural topic) · Experiment (demonstrable live) · Letter (intimate, one named "you") · Field Piece (location-driven). Invent a new shape if the topic demands one.
 
-## Chapter spine (~2,500 words)
+**Anti-template rules:** no two consecutive episodes on a venture share a format; recurring devices (personified friend, accumulating prop, music-at-the-turn) are tools, not requirements — rotate them.
 
-| Ch | Job | Words |
-|---|---|---|
-| 1 | Felt Moment + cliché kill + spine promise | ~350 |
-| 2 | Mechanism (real science, owned) | ~400 |
-| 3 | Evidence / time-shift / the cost | ~400 |
-| 4 | The Skeptic (steelmanned) | ~350 |
-| 5 | The Flip (music enters here, and only here) | ~350 |
-| 6 | The Practical — every fix traced to a named mechanism | ~400 |
-| 7 | Insight + Identity + Verse + one CTA | ~250 |
+## THE THREE VENTURES
 
-## The Altitude Rule
-
-| Venture | Altitude | Question | Register |
+| | Jevoy Palmer | Palmer House | MindYourBizniz |
 |---|---|---|---|
-| Jevoy Palmer | Mechanism | Why are humans like this? | Cinematic investigation; props demonstrated; "the skeptic"; CTA "stay close" |
-| Palmer House | Business cost | What is this costing your company? | Founder's freeze openings; quantified costs; four pillars (System/Reel/Evergreen/Spotlight); crew visible in Ch6; CTA strategy call — "a real conversation, not a sales call dressed up as one" |
-| MindYourBizniz | Inner life | What does this do to a person's heart? | Audio only — props described, never shown; no scene cuts; [BEAT]/[PAUSE]/[ROOM TONE] cues; "the friend who pushes back"; emotional Ch6 with one music pad; outro: "Thanks for being here. MindYourBizniz is a Palmer House conversation. New episode next week." |
+| Angle | Human mechanism — why are we like this? | Business cost/opportunity — what's it costing you? | Inner life — what does it do to a person's heart? |
+| Medium | Cinematic video; props argue | Cinematic video; crew visible as proof | Audio-only monologue; everything described |
+| Length | 2,500+ spoken words (hard floor) | 2,500+ spoken words (hard floor) | 2,500+ spoken words (hard floor) |
+| Primary CTA (locked) | "If this question lives in you too — stay close." | "Book a strategy call. It's a real conversation, not a sales call dressed up as one." | "Send this to the one person who needs it." |
+| Secondary CTA | Optional, set in topic brief (The Next Step Friday Q&A, download, comment prompt) | Optional (The Next Step, portfolio, lane offer) | Optional (The Next Step, practice prompt) |
+| Faith register | Verse last, quiet | Values language; verse last | Most personal; verse last |
 
-If two drafts could swap opening scenes unnoticed, one is at the wrong altitude.
+Palmer House canon (available, not mandatory): *"A translation company that happens to own cameras." / "You bring what's true. We make it visible."*
 
-## Canon positioning & lines
+## TITLES
 
-Palmer House: "A translation company that happens to own cameras." / "We help businesses become easier to understand, trust, and choose — through strategic cinematic video." / "You bring what's true. We make it visible."
-Canon lines available for reuse: "A camera is a mirror with memory." / "Your alarm was built for a village. We handed it the internet." / "The freeze doesn't mean stop. It means this matters." / "We blamed their courage. The problem was their setup." / "Silence sends invoices." / "Record until it's boring. Boring is the win condition."
+Designed per venture from the topic — three different doors, not one title in three fonts. Proven pattern (validated 80–94 in past ViDIQ testing): **[startling specific fact] + [personal stakes]**. Topic-descriptive titles underperform (56–80). Title names the tension; thumbnail shows the felt moment; never repeat one in the other. ViDIQ scoring is OPTIONAL (Jevoy's call, June 2026: pattern judgment is sufficient). The hook is never a victim.
 
-## Evidence bank (verified — extend it, never contradict it)
+## QA CHECKLIST (every script, before shipping)
 
-Duval & Wicklund 1972 (objective self-awareness) · Bateson, Nettle & Roberts 2006 (watching eyes, ~3x honesty-box payments; replications debated) · Hawthorne 1924–32 (observation changes behavior, fades with familiarity; original data debated) · Zajonc 1965 (audiences help simple tasks, hurt complex ones) · Gilovich et al. 2000 (spotlight effect, ~2x overestimate) · Willis & Todorov 2006 (100ms trust judgments) · Ambady & Rosenthal 1993 (thin slices) · Holzman & Rousey 1966 (voice confrontation) · White coat hypertension (AHA) · Bansal et al. 2018, AIIMS Bhopal (259 selfie deaths, 137 incidents, 2011–2017) · Cooley 1902 (looking-glass self) · Goffman 1959 (front/backstage).
+1. Standalone check (grep for "we covered," "last week," "earlier episode," "this series")
+2. Fabrication check (every anecdote true, hypothetical-as-hypothetical, or honest composite; every study real)
+3. Template check (skeleton differs from previous episode on this venture)
+4. Read-aloud + quote-card-stack check
+5. Humor (2–3) and named examples (2–3)
+6. Wonder check (ends bigger/lighter/more curious than it began)
+7. Launch-stage check
+8. 2,500 spoken words minimum (cues/headers don't count; under fails, over is fine) + clip map (8–12 segments)
+9. CTA correct for venture; secondary only if brief assigned it
+10. Then teleprompter version: spoken words only, no cues, no blank lines
 
-## Deliverables per script
+## EVIDENCE BANK (verified — extend, never contradict)
 
-1. The script (7 chapters, stage/audio cues in [brackets], hero prop named).
-2. Clip map: 8–12 standalone 30–60s segments (the 1-to-12 model).
-3. Sources list for the description.
-4. 3–5 title candidates — evidence-led, named-concept, or quiet-universal constructions. Score in ViDIQ when available; target 75+. Title names the tension; thumbnail shows the felt moment; never repeat one in the other.
+Duval & Wicklund 1972 (objective self-awareness) · Bateson, Nettle & Roberts 2006 (watching eyes, ~3x honesty box; replications debated) · Hawthorne 1924–32 (observation effects fade; data debated) · Zajonc 1965 (social facilitation) & 1968 (mere exposure) · Gilovich 2000 (spotlight effect) · Willis & Todorov 2006 (100ms judgments) · Ambady & Rosenthal 1993 (thin slices) · Holzman & Rousey 1966 (voice confrontation) · Bailenson 2021 (Zoom mirror fatigue) · White coat hypertension (AHA) · Bansal et al. 2018, AIIMS Bhopal (259 selfie deaths) · Simons & Chabris 1999 (invisible gorilla) · Henkel 2014 (photo-taking impairment) · Diehl et al. 2016 (photos can increase enjoyment) · Aronson 1966 (pratfall) · Bruk et al. 2018 (beautiful mess) · Buell & Norton 2011 (labor illusion) · Coan 2006 (hand-holding) · Schnall 2008 (hill slant) · Holt-Lunstad 2010 (loneliness mortality) · Wegner 1985 (transactive memory) · Festinger 1954 (social comparison) · Cooley 1902 (looking-glass self) · Goffman 1959 (front/backstage) · Horton & Wohl 1956 (parasocial) · Swann (self-verification) · Boothby 2018 (liking gap) · Mita, Dermer & Knight 1977 (mirror-image preference) · Hughes & Harrison 2013 (people prefer their own voice when they don't know it's theirs) · Choi/Hecht/Tayler (surrogation) · Goodhart's law · Pennebaker (expressive writing) · Frankl 1946.
 
-## Long-range context
+## LONG-RANGE CONTEXT
 
-The umbrella thesis is **The Recorded Animal** (see projection map): what happens to humans when every moment becomes potentially permanent — campfire to cloud. Treat recording as a human story, hold the duality (camera as savior and destroyer), connect modern visibility to ancestral storytelling instincts. End episodes on a question the audience can't shake.
+Umbrella thesis: **The Recorded Animal** — what happens to humans when every moment becomes potentially permanent, campfire to cloud (see projection map). The umbrella is internal planning vocabulary ONLY — it never appears as a dependency inside any script (Standalone Rule). Existing script inventory gets retrofit (standalone + voice + fabrication pass) at the moment of use, not in bulk.
