@@ -115,6 +115,9 @@ export const Route = createFileRoute("/api/public/hooks/morning-digest")({
         // 1) Limitless transcripts from yesterday
         const lim = await fetchLimitless(yesterday);
 
+        // 1b) Important Gmail from the last 24h
+        const gmail = await fetchGmailYesterday();
+
         // 2) Yesterday's completed checklist items + open ones
         const yStart = `${yesterday}T00:00:00`;
         const yEnd = `${today}T00:00:00`;
@@ -170,6 +173,15 @@ export const Route = createFileRoute("/api/public/hooks/morning-digest")({
             sections.push(`Customs: ${JSON.stringify(ovYesterday.customs)}`);
         }
 
+        sections.push("\n## Important emails (last 24h)");
+        if (!gmail.messages.length) {
+          sections.push(`(none${gmail.error ? ` — ${gmail.error}` : ""})`);
+        } else {
+          for (const m of gmail.messages) {
+            sections.push(`- **${m.subject || "(no subject)"}** — ${m.from}\n  ${m.snippet}`);
+          }
+        }
+
         const gateway = createLovableAiGatewayProvider(LOVABLE_KEY);
         const sys = [
           "You are Pals — Jevoy & Shannen's production operating-system AI.",
@@ -204,6 +216,8 @@ export const Route = createFileRoute("/api/public/hooks/morning-digest")({
                 limitless_error: lim.error ?? null,
                 completed_count: completedYesterday?.length ?? 0,
                 open_count: openItems?.length ?? 0,
+                gmail_count: gmail.messages.length,
+                gmail_error: gmail.error ?? null,
                 generated_at: new Date().toISOString(),
               },
               updated_at: new Date().toISOString(),
