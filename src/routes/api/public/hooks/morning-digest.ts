@@ -12,6 +12,7 @@ import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
  *   • Yesterday's Limitless pendant transcripts
  *   • Yesterday's completed checklist items
  *   • Yesterday's overview log entries
+ *   • Yesterday's important Gmail (inbox, unread/important, last 24h)
  * Generates today's plan via Lovable AI, upserts into morning_digests.
  */
 
@@ -49,6 +50,41 @@ async function fetchLimitless(date: string) {
       markdown: l.markdown?.slice(0, 3000) ?? "",
     })),
   };
+}
+
+async function fetchGmailYesterday() {
+  const lovKey = process.env.LOVABLE_API_KEY;
+  const gmailKey = process.env.GOOGLE_MAIL_API_KEY;
+  if (!lovKey || !gmailKey) return { error: "no Gmail connector", messages: [] as Array<{ from: string; subject: string; snippet: string; date: string }> };
+  const base = "https://connector-gateway.lovable.dev/google_mail/gmail/v1";
+  const headers = {
+    Authorization: `Bearer ${lovKey}`,
+    "X-Connection-Api-Key": gmailKey,
+    Accept: "application/json",
+  };
+  // Important or primary-inbox messages from the last day
+  const q = encodeURIComponent("newer_than:1d (is:important OR is:starred OR category:primary) -category:promotions -category:social");
+  const listRes = await fetch(`${base}/users/me/messages?maxResults=15&q=${q}`, { headers });
+  if (!listRes.ok) return { error: `Gmail list ${listRes.status}`, messages: [] };
+  const list = (await listRes.json()) as { messages?: Array<{ id: string }> };
+  const ids = (list.messages ?? []).slice(0, 15).map((m) => m.id);
+  const messages: Array<{ from: string; subject: string; snippet: string; date: string }> = [];
+  for (const id of ids) {
+    const r = await fetch(`${base}/users/me/messages/${id}?format=metadata&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date`, { headers });
+    if (!r.ok) continue;
+    const m = (await r.json()) as {
+      snippet?: string;
+      payload?: { headers?: Array<{ name: string; value: string }> };
+    };
+    const h = (n: string) => m.payload?.headers?.find((x) => x.name.toLowerCase() === n.toLowerCase())?.value ?? "";
+    messages.push({
+      from: h("From"),
+      subject: h("Subject"),
+      date: h("Date"),
+      snippet: (m.snippet ?? "").slice(0, 400),
+    });
+  }
+  return { messages };
 }
 
 export const Route = createFileRoute("/api/public/hooks/morning-digest")({
