@@ -496,9 +496,11 @@ function TaskModal({
 }) {
   const team = useStore((s) => s.team);
   const projects = useStore((s) => s.projects);
+  const activeRole = useStore((s) => s.activeRole);
+  const meId = team.find((m) => m.role === activeRole)?.id ?? team[0]?.id ?? "";
   const isEdit = !!editing;
   const [title, setTitle] = useState(editing?.title ?? "");
-  const [assigneeId, setA] = useState(editing?.assigneeId ?? team[0]?.id ?? "");
+  const [assigneeId, setA] = useState(editing?.assigneeId ?? meId);
   const [projectId, setP] = useState(editing?.projectId ?? "");
   const [dueDate, setD] = useState(editing?.dueDate ? new Date(editing.dueDate).toISOString().slice(0, 10) : "");
   const [priority, setPrio] = useState<Task["priority"]>(editing?.priority ?? "Med");
@@ -513,10 +515,10 @@ function TaskModal({
       setPrio(editing.priority); setStatus(editing.status); setRecurring(editing.recurring ?? false);
       setStage(editing.stage ?? "");
     } else if (open && !isEdit) {
-      setTitle(""); setA(team[0]?.id ?? ""); setP(""); setD(""); setPrio("Med"); setStatus("todo"); setRecurring(false);
+      setTitle(""); setA(meId); setP(""); setD(""); setPrio("Med"); setStatus("todo"); setRecurring(false);
       setStage(initialStage ?? "");
     }
-  }, [editing, open, isEdit, team, initialStage]);
+  }, [editing, open, isEdit, team, initialStage, meId]);
 
   const submit = () => {
     if (!title.trim() || !assigneeId) return;
