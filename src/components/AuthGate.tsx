@@ -10,15 +10,28 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    let mounted = true;
+    const fallback = window.setTimeout(() => {
+      if (mounted) setReady(true);
+    }, 2500);
+
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
+      if (!mounted) return;
       setSession(s);
       setReady(true);
     });
     supabase.auth.getSession().then(({ data }) => {
+      if (!mounted) return;
       setSession(data.session);
       setReady(true);
+    }).catch(() => {
+      if (mounted) setReady(true);
     });
-    return () => sub.subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      window.clearTimeout(fallback);
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
