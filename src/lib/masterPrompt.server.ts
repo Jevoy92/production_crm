@@ -4,24 +4,44 @@ import crossVenture from "@/content/scripts/Strategy/Cross-Venture Master Brief.
 import yourBoyJevoy from "@/content/scripts/Strategy/YourBoyJevoy - Content Strategy Engine.md?raw";
 import palmerHouse from "@/content/scripts/Strategy/Palmer House - The Investigative Universe.md?raw";
 import operatingManual from "@/content/scripts/Skills/jevoy-palmer-operating-manual/SKILL.md?raw";
+import { getVentureProfile, type VentureId } from "@/lib/ventures/profiles";
 
-const BRAND_VOICE: Record<string, string> = {
-  jevoy:
-    "Voice: YourBoyJevoy / Jevoy Palmer. Direct, plainspoken, founder-on-camera. First-person. Sentences that land. Use the Content Strategy Engine pillars.",
-  "palmer-house":
-    "Voice: Palmer House Productions — the investigative universe. Cinematic, documentary, third-person observational. Set scenes before claims.",
-  mindyourbizniz:
-    "Voice: MindYourBizniz. Punchy, witty, business-pundit edge. Strong hooks. Short paragraphs.",
-  original:
-    "Voice: Neutral master version — clean, brand-agnostic, ready to be re-skinned per venture.",
+// Map the Studio/scripts brand keys to the richer 5-venture brain.
+const BRAND_TO_VENTURE: Record<string, VentureId | null> = {
+  jevoy: "jevoy-palmer",
+  "jevoy-palmer": "jevoy-palmer",
+  "yourboy-jevoy": "yourboy-jevoy",
+  "palmer-house": "palmer-house",
+  mindyourbizniz: "mind-your-bizniz",
+  "mind-your-bizniz": "mind-your-bizniz",
+  besettld: "besettld",
+  original: null,
 };
+
+/** Compact venture voice block sourced from the venture registry. */
+function ventureVoiceBlock(brand: string): string {
+  const ventureId = BRAND_TO_VENTURE[brand];
+  if (!ventureId) {
+    return "Voice: Neutral master version — clean, brand-agnostic, ready to be re-skinned per venture.";
+  }
+  const v = getVentureProfile(ventureId);
+  return [
+    `Venture: ${v.name} — ${v.description}`,
+    `Tone: ${v.tone}`,
+    `Audience: ${v.audience}`,
+    `Voice guidelines: ${v.brandVoiceGuidelines}`,
+    `Signature concepts (study, never copy verbatim): ${v.signatureConcepts.join("; ")}`,
+    `Faith integration: ${v.faithIntegration}`,
+    `Never do: ${v.neverDo.join("; ")}`,
+  ].join("\n");
+}
 
 export function buildSystemPrompt(opts: {
   brand: string;
   title: string;
   bodyMd: string;
 }) {
-  const voice = BRAND_VOICE[opts.brand] ?? BRAND_VOICE.jevoy;
+  const voice = ventureVoiceBlock(opts.brand);
   return `You are the in-house script writer for Palmer House Productions.
 
 You help draft, refine, and rewrite short-form video scripts. You ALWAYS follow the strategy and operating manual below.

@@ -5,6 +5,7 @@ import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
 import { GoogleCalendarPanel } from "@/components/calendar/GoogleCalendar";
 import { useStore, palColor } from "@/lib/store";
 import { useCCStore, platformColor, PLATFORMS, type Platform } from "@/lib/ccStore";
+import { getAllVentures, VENTURE_IDS } from "@/lib/ventures/profiles";
 import { ChevronLeft, ChevronRight, Plus, MapPin, X, BarChart3, Film } from "lucide-react";
 import type { Project } from "@/lib/types";
 import { fallback, zodValidator } from "@tanstack/zod-adapter";
@@ -39,7 +40,13 @@ function SchedulePage() {
   const [cursor, setCursor] = useState(new Date());
   const [openNew, setOpenNew] = useState(false);
   const [activeItemId, setActiveItemId] = useState<string | null>(null);
+  const [venture, setVenture] = useState<string>("all");
   const activeItem = library.find((l) => l.id === activeItemId);
+
+  const venLibrary = useMemo(
+    () => (venture === "all" ? library : library.filter((l) => (l.venture ?? "palmer-house") === venture)),
+    [library, venture],
+  );
 
   const monthStart = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
   const monthEnd = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 0);
@@ -68,18 +75,18 @@ function SchedulePage() {
 
   const publishByDay = useMemo(() => {
     const m = new Map<string, typeof library>();
-    library.forEach((it) => {
+    venLibrary.forEach((it) => {
       if (!it.publishDate) return;
       const arr = m.get(it.publishDate) ?? [];
       arr.push(it);
       m.set(it.publishDate, arr);
     });
     return m;
-  }, [library]);
+  }, [venLibrary]);
 
   const unscheduled = useMemo(
-    () => library.filter((l) => !l.publishDate && l.status !== "Archived"),
-    [library],
+    () => venLibrary.filter((l) => !l.publishDate && l.status !== "Archived"),
+    [venLibrary],
   );
 
   const showShoots = view === "shoots" || view === "all";
@@ -145,6 +152,33 @@ function SchedulePage() {
           ))}
         </div>
       </div>
+
+      {showPublishing && (
+        <div className="flex items-center gap-1.5 mb-3 flex-wrap">
+          <span className="text-[11px] uppercase tracking-wider text-muted-foreground mr-1">Venture</span>
+          {["all", ...VENTURE_IDS].map((vid) => {
+            const v = getAllVentures().find((x) => x.id === vid);
+            const active = venture === vid;
+            return (
+              <button
+                key={vid}
+                type="button"
+                onClick={() => setVenture(vid)}
+                className={`px-2.5 py-1 text-[11.5px] rounded-full transition-colors ${active ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                style={
+                  active
+                    ? v
+                      ? { background: `color-mix(in oklab, ${v.accent} 18%, transparent)`, boxShadow: `inset 0 0 0 1px ${v.accent}` }
+                      : { background: "var(--surface-2)", boxShadow: "inset 0 0 0 1px var(--border)" }
+                    : undefined
+                }
+              >
+                {vid === "all" ? "All" : v?.shortName ?? vid}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {showPublishing && (
         <PlatformLegend />

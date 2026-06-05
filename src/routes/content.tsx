@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { AppShell, SegmentedControl } from "@/components/app/AppShell";
 import { Modal, Field } from "@/components/ui-bits/Modal";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Motion";
@@ -14,15 +15,38 @@ import {
 import {
   Plus, Trash2, Search, Lightbulb, Zap, Film, CircleCheck, Loader, Rocket,
   LayoutGrid, List as ListIcon, Clapperboard, Globe, Layers, Camera, Image as ImageIcon,
-  FileText, GraduationCap, Settings, Megaphone, X, ArrowUpRight, ExternalLink,
+  FileText, GraduationCap, Settings, Megaphone, X, ArrowUpRight, ExternalLink, Sparkles, Mic,
 } from "lucide-react";
 import type { ContentItem, ContentType, Platform } from "@/lib/ccStore";
+import { MonthGenerator } from "@/components/content/MonthGenerator";
+import { getAllVentures, getVentureProfile, VENTURE_IDS, type VentureId } from "@/lib/ventures/profiles";
+import { generateFullScript } from "@/lib/contentEngine.functions";
+import { createScript, updateScript } from "@/lib/studio.functions";
+
+// Generated content type → generic deliverable type for the full-script generator.
+const TYPE_TO_GENERIC: Record<string, string> = {
+  Short: "short", Carousel: "carousel", Article: "article", "Blog/Newsletter": "article",
+  Podcast: "podcast", Video: "video", Website: "video", "Core 12": "video",
+};
+// Venture → existing Studio brand enum (original|jevoy|palmer-house|mindyourbizniz).
+const VENTURE_TO_STUDIO_BRAND: Record<VentureId, "original" | "jevoy" | "palmer-house" | "mindyourbizniz"> = {
+  "palmer-house": "palmer-house",
+  "jevoy-palmer": "jevoy",
+  "yourboy-jevoy": "jevoy",
+  "mind-your-bizniz": "mindyourbizniz",
+  besettld: "original",
+};
 
 const TYPE_ICON: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   "Core 12": Clapperboard, Website: Globe, Short: Zap, Carousel: Layers, BTS: Camera,
   "Photo-to-Video": ImageIcon, "Sales Support": Megaphone, Onboarding: GraduationCap,
   System: Settings, "Blog/Newsletter": FileText,
+  Video: Film, Article: FileText, Podcast: Mic, Photo: ImageIcon,
 };
+
+const VENTURE_LABELS: Record<string, string> = Object.fromEntries(
+  getAllVentures().map((v) => [v.id, v.shortName]),
+);
 const typeIconFor = (t: string) => TYPE_ICON[t] ?? FileText;
 
 export const Route = createFileRoute("/content")({
@@ -72,8 +96,10 @@ function ContentPage() {
   const [type, setType] = useState<string>("all");
   const [status, setStatus] = useState<string>("");
   const [lane, setLane] = useState<string>("all");
+  const [venture, setVenture] = useState<string>("all");
   const [view, setView] = useState<"grid" | "list">("grid");
   const [detailId, setDetailId] = useState<string | null>(null);
+  const [genOpen, setGenOpen] = useState(false);
   const detail = library.find((c) => c.id === detailId) ?? null;
 
   const filtered = useMemo(
@@ -83,9 +109,10 @@ function ContentPage() {
           (!q || c.title.toLowerCase().includes(q.toLowerCase())) &&
           (type === "all" || c.type === type) &&
           (!status || c.status === status) &&
-          (lane === "all" || c.palLane === lane),
+          (lane === "all" || c.palLane === lane) &&
+          (venture === "all" || (c.venture ?? "palmer-house") === venture),
       ),
-    [library, q, type, status, lane],
+    [library, q, type, status, lane, venture],
   );
 
   const stats = useMemo(() => {
@@ -114,6 +141,7 @@ function ContentPage() {
       actions={
         <>
           <Link to="/repurpose" className="ph-btn ph-btn-soft ph-btn-sm">Repurpose →</Link>
+          <button className="ph-btn ph-btn-soft ph-btn-sm" onClick={() => setGenOpen(true)}><Sparkles size={14} /> Generate month</button>
           <button className="ph-btn ph-btn-primary ph-btn-sm" onClick={addNew}><Plus size={14} /> New Idea</button>
         </>
       }
@@ -155,6 +183,13 @@ function ContentPage() {
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-lo" />
           <input className="ph-input" style={{ paddingLeft: 34 }} placeholder="Search content…" value={q} onChange={(e) => setQ(e.target.value)} />
         </div>
+        <FilterPills
+          label="Venture"
+          value={venture}
+          onChange={setVenture}
+          options={["all", ...VENTURE_IDS]}
+          labels={{ all: "All", ...VENTURE_LABELS }}
+        />
         <FilterPills
           label="Lane"
           value={lane}
@@ -227,6 +262,7 @@ function ContentPage() {
       )}
 
       <ContentDetailModal item={detail} onClose={() => setDetailId(null)} update={updateContentItem} remove={(id) => { removeContentItem(id); setDetailId(null); }} />
+      <MonthGenerator open={genOpen} onClose={() => setGenOpen(false)} />
     </AppShell>
   );
 }
@@ -239,6 +275,11 @@ function ContentDetailModal({
   update: (id: string, patch: Partial<ContentItem>) => void;
   remove: (id: string) => void;
 }) {
+  const navigate = useNavigate();
+  const genFull = useServerFn(generateFullScript);
+  const create = useServerFn(createScript);
+  const upd = useServerFn(updateScript);
+  const [expanding, setExpanding] = useState(false);
   if (!item) return null;
   const lc = LANE_COLOR[item.palLane];
   const sb = statusBucket(item.status);
@@ -247,6 +288,33 @@ function ContentDetailModal({
   const scriptParam = scriptNum != null ? String(scriptNum).padStart(2, "0") : null;
   // The "script" body for this content: caption is the closest to the written piece.
   const script = item.caption?.trim() || item.businessPurpose?.trim() || "";
+  const ventureId = (item.venture ?? "palmer-house") as VentureId;
+  const ventureProfile = getVentureProfile(ventureId);
+
+  const expandToStudio = async () => {
+    setExpanding(true);
+    try {
+      const { script: body } = await genFull({
+        data: {
+          ventureId,
+          title: item.title,
+          platform: item.platform,
+          contentType: TYPE_TO_GENERIC[item.type] ?? "video",
+          caption: item.caption || undefined,
+        },
+      });
+      const row = await create({ data: { title: item.title, brand: VENTURE_TO_STUDIO_BRAND[ventureId] } });
+      if (row?.id) {
+        await upd({ data: { id: row.id, body_md: body } });
+        update(item.id, { studioScriptId: row.id, status: "Script Ready" });
+        navigate({ to: "/studio/$id", params: { id: row.id } });
+      }
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Could not expand to Studio. Check LOVABLE_API_KEY.");
+    } finally {
+      setExpanding(false);
+    }
+  };
 
   return (
     <Modal open={!!item} onClose={onClose} title="" wide>
@@ -260,6 +328,8 @@ function ContentDetailModal({
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg uppercase" style={{ color: lc, background: `${lc}26`, border: `1px solid ${lc}40` }}>{item.palLane}</span>
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded-lg ${TONE_BADGE[sb.tone]}`}>{sb.label}</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg uppercase" style={{ color: ventureProfile.accent, background: `color-mix(in oklab, ${ventureProfile.accent} 16%, transparent)`, border: `1px solid color-mix(in oklab, ${ventureProfile.accent} 35%, transparent)` }}>{ventureProfile.shortName}</span>
+                {item.aiGenerated && <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg text-brand-300 bg-brand-600/20 border border-brand-500/30 inline-flex items-center gap-1"><Sparkles size={10} /> AI</span>}
               </div>
               <h2 className="font-display font-bold text-hi text-lg leading-tight">{item.title}</h2>
             </div>
@@ -312,7 +382,17 @@ function ContentDetailModal({
 
         <div className="flex items-center justify-between mt-5 pt-4 border-t border-line">
           <button onClick={() => { if (confirm("Delete this item?")) remove(item.id); }} className="ph-btn ph-btn-soft ph-btn-sm hover:text-rose flex items-center gap-1.5"><Trash2 size={13} /> Delete</button>
-          <button onClick={onClose} className="ph-btn ph-btn-primary ph-btn-sm">Done</button>
+          <div className="flex items-center gap-2">
+            {item.studioScriptId ? (
+              <Link to="/studio/$id" params={{ id: item.studioScriptId }} onClick={onClose} className="ph-btn ph-btn-soft ph-btn-sm flex items-center gap-1.5"><Clapperboard size={13} /> Open in Studio</Link>
+            ) : (
+              <button onClick={expandToStudio} disabled={expanding} className="ph-btn ph-btn-soft ph-btn-sm flex items-center gap-1.5">
+                {expanding ? <Loader size={13} className="animate-spin" /> : <Sparkles size={13} />}
+                {expanding ? "Writing…" : "Expand to Studio"}
+              </button>
+            )}
+            <button onClick={onClose} className="ph-btn ph-btn-primary ph-btn-sm">Done</button>
+          </div>
         </div>
       </div>
     </Modal>

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { VentureId } from "@/lib/ventures/profiles";
 
 export const CC_STATUSES = [
   "Idea","Outline Ready","Script Ready","Ready to Film","Filmed","Logged",
@@ -13,13 +14,15 @@ export type PalLane = (typeof PAL_LANES)[number];
 
 export const PLATFORMS = [
   "YouTube","YouTube Shorts","Instagram Reels","Instagram","LinkedIn","TikTok",
-  "Website","Newsletter","YourBoyJevoy",
+  "Website","Newsletter","YourBoyJevoy","Podcast",
 ] as const;
 export type Platform = (typeof PLATFORMS)[number];
 
 export const CONTENT_TYPES = [
   "Core 12","Website","Short","Carousel","BTS","Photo-to-Video","Sales Support",
   "Onboarding","System","Blog/Newsletter",
+  // Generic cross-venture types (content engine)
+  "Video","Article","Podcast","Photo",
 ] as const;
 export type ContentType = (typeof CONTENT_TYPES)[number];
 
@@ -44,6 +47,11 @@ export type ContentItem = {
   publishDate?: string; // YYYY-MM-DD — scheduled publish date for calendar
   publishStatus?: "Draft" | "Scheduled" | "Published";
   parentScriptNum?: number; // long-form script this short was generated from
+  // ── Content engine (multi-venture) ──
+  venture?: VentureId; // which venture this item belongs to (default palmer-house)
+  aiGenerated?: boolean; // produced by the monthly content engine
+  hook?: string; // opening line / scroll-stopper from generation
+  studioScriptId?: string; // linked full Studio script, once expanded
 };
 
 export type CCShootDay = {
@@ -287,5 +295,6 @@ export function platformColor(p: Platform | undefined): string {
   if (p === "Website") return "var(--platform-web)";
   if (p === "Newsletter") return "var(--platform-email)";
   if (p === "YourBoyJevoy") return "var(--platform-ybj)";
+  if (p === "Podcast") return "#1DB954";
   return "var(--muted-foreground)";
 }
