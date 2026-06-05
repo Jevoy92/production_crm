@@ -84,10 +84,38 @@ export const ventureProfiles: Record<VentureId, VentureProfile> = {
       "Launching — early traction filming real Pacific Northwest businesses (studios in Bellevue, WA and Portland, OR). No inflated client counts. Launch-stage honesty required.",
     primaryPlatforms: ["YouTube", "LinkedIn", "Instagram Reels", "Website"],
     contentPillars: [
-      { id: "spotlight", name: "Spotlight Pal", palLane: "Spotlight", color: "#A855F7", description: "Premium trust assets — brand films, founder presence, testimonials. Makes your brand look as good as it actually is. Pals: Kareem & Kiana." },
-      { id: "reel", name: "Reel Pal", palLane: "Reel", color: "#F97316", description: "Short-form output and momentum — hooks the scroll, gets content OUT, platform-native clips. Pals: Ryder & Raquel." },
-      { id: "evergreen", name: "Evergreen Pal", palLane: "Evergreen", color: "#22C55E", description: "Long-form authority that compounds — educational series, FAQ libraries, SEO assets. Pals: Cyrus & Clara." },
-      { id: "system", name: "System Pal", palLane: "System", color: "#14B8A6", description: "Internal clarity and repeatable infrastructure — training, SOPs, onboarding. Makes video operations, not a one-off expense. Pals: Silas & Samira." },
+      {
+        id: "spotlight",
+        name: "Spotlight Pal",
+        palLane: "Spotlight",
+        color: "#A855F7",
+        description:
+          "Premium trust assets — brand films, founder presence, testimonials. Makes your brand look as good as it actually is. Pals: Kareem & Kiana.",
+      },
+      {
+        id: "reel",
+        name: "Reel Pal",
+        palLane: "Reel",
+        color: "#F97316",
+        description:
+          "Short-form output and momentum — hooks the scroll, gets content OUT, platform-native clips. Pals: Ryder & Raquel.",
+      },
+      {
+        id: "evergreen",
+        name: "Evergreen Pal",
+        palLane: "Evergreen",
+        color: "#22C55E",
+        description:
+          "Long-form authority that compounds — educational series, FAQ libraries, SEO assets. Pals: Cyrus & Clara.",
+      },
+      {
+        id: "system",
+        name: "System Pal",
+        palLane: "System",
+        color: "#14B8A6",
+        description:
+          "Internal clarity and repeatable infrastructure — training, SOPs, onboarding. Makes video operations, not a one-off expense. Pals: Silas & Samira.",
+      },
     ],
     defaultCTA: {
       label: "Book a strategy call",
@@ -147,11 +175,32 @@ export const ventureProfiles: Record<VentureId, VentureProfile> = {
       "Launching from zero — no established authority. Hosts 'The Next Step' free Friday live Q&A. Jamaican-born, Seattle-based, married to Adrienne, father of three.",
     primaryPlatforms: ["YouTube", "LinkedIn", "Newsletter"],
     contentPillars: [
-      { id: "investigation", name: "Long-form Investigation", color: "#6366F1", description: "Cinematic 'why are we like this' investigations — named science, owned not rented, landing in wonder. (The Watched Brain trilogy, Topics 2–12.)" },
-      { id: "leadership", name: "Leadership & Strategy", color: "#0EA5E9", description: "Systems thinking and founder strategy — 'here's how I'm thinking about this system.' Feeds The Next Step." },
-      { id: "build-in-public", name: "Build in Public", color: "#22C55E", description: "Honest, launch-stage notes on building the ecosystem — what's working, what isn't, what he's learning." },
+      {
+        id: "investigation",
+        name: "Long-form Investigation",
+        color: "#6366F1",
+        description:
+          "Cinematic 'why are we like this' investigations — named science, owned not rented, landing in wonder. (The Watched Brain trilogy, Topics 2–12.)",
+      },
+      {
+        id: "leadership",
+        name: "Leadership & Strategy",
+        color: "#0EA5E9",
+        description:
+          "Systems thinking and founder strategy — 'here's how I'm thinking about this system.' Feeds The Next Step.",
+      },
+      {
+        id: "build-in-public",
+        name: "Build in Public",
+        color: "#22C55E",
+        description:
+          "Honest, launch-stage notes on building the ecosystem — what's working, what isn't, what he's learning.",
+      },
     ],
-    defaultCTA: { label: "Join The Next Step (free Friday live Q&A)", url: "https://www.jevoypalmer.com" },
+    defaultCTA: {
+      label: "Join The Next Step (free Friday live Q&A)",
+      url: "https://www.jevoypalmer.com",
+    },
     brandVoiceGuidelines: `Jevoy Palmer investigates the human mechanism. Discovery frame, never lecture — "I've been sitting with this question." Kitchen-table voice: if he couldn't say it gesturing with a coffee mug, rewrite it. Science is owned, not rented — name the researcher, the year, the real finding, and acknowledge the debate. Every piece stands alone for a stranger who saw nothing else (zero callbacks). Land in wonder, play, or creative power — never just danger management. Faith arrives last and quietly (image-bearing dignity, restoration), a different verse each time, never preachy.`,
     contentArchetypes: [
       "The Watched Brain (camera/visibility psychology)",
@@ -201,11 +250,32 @@ export const ventureProfiles: Record<VentureId, VentureProfile> = {
       "Launching as the shy creator's ramp-up — no expectation of instant comfort. Curiosity, not confidence, is the starting point.",
     primaryPlatforms: ["YouTube", "Instagram Reels", "TikTok"],
     contentPillars: [
-      { id: "something-on-my-mind", name: "Something On My Mind (Shorts)", color: "#F59E0B", description: "Stage 1: 60–90s observations on a single gap. One observation, one gap, one honest landing. 2–3/week." },
-      { id: "ive-been-thinking", name: "I've Been Thinking About This", color: "#EC4899", description: "Stage 2: 3–5 min medium-form, personal + cultural exploration. Once per week." },
-      { id: "long-form-investigation", name: "Long-form Investigation", color: "#8B5CF6", description: "Stage 3: 10–15 min full investigative treatment of a thesis topic. Every 2–3 weeks." },
+      {
+        id: "something-on-my-mind",
+        name: "Something On My Mind (Shorts)",
+        color: "#F59E0B",
+        description:
+          "Stage 1: 60–90s observations on a single gap. One observation, one gap, one honest landing. 2–3/week.",
+      },
+      {
+        id: "ive-been-thinking",
+        name: "I've Been Thinking About This",
+        color: "#EC4899",
+        description:
+          "Stage 2: 3–5 min medium-form, personal + cultural exploration. Once per week.",
+      },
+      {
+        id: "long-form-investigation",
+        name: "Long-form Investigation",
+        color: "#8B5CF6",
+        description:
+          "Stage 3: 10–15 min full investigative treatment of a thesis topic. Every 2–3 weeks.",
+      },
     ],
-    defaultCTA: { label: "Stay close — send it to the one who needs it", url: "https://www.yourboyjevoy.com" },
+    defaultCTA: {
+      label: "Stay close — send it to the one who needs it",
+      url: "https://www.yourboyjevoy.com",
+    },
     brandVoiceGuidelines: `YourBoyJevoy is the creative, faith-curious soul investigating gaps — between what people say and what they do. Raw and unpolished BY DESIGN: real environment, real lighting, real you. Honest observation over performance. You're investigating patterns, not confessing or exposing yourself. NOT a sermon channel — faith arrives as a reframe after the investigation, never as a credential or altar call, and never judging those who don't share it. Land on a question or an honest invitation, not a moral lecture.`,
     contentArchetypes: [
       "Something on my mind (single-gap observation)",
@@ -253,11 +323,30 @@ export const ventureProfiles: Record<VentureId, VentureProfile> = {
       "Pre-launch (mid-2026). Sister to Palmer House Productions — 'MindYourBizniz is a Palmer House conversation.'",
     primaryPlatforms: ["Spotify", "Apple Podcasts"],
     contentPillars: [
-      { id: "inner-life", name: "The Inner Life of Entrepreneurship", color: "#F43F5E", description: "The cost of visibility, the cost of invisibility, the tension of a business with your name on it." },
-      { id: "identity-vs-brand", name: "Identity vs. Brand", color: "#FB7185", description: "When your name IS the business — and the applause lands on the costume." },
-      { id: "being-seen-unfinished", name: "Being Seen Unfinished", color: "#E11D48", description: "The vulnerability of building in public; strategy as avoidance; the freeze." },
+      {
+        id: "inner-life",
+        name: "The Inner Life of Entrepreneurship",
+        color: "#F43F5E",
+        description:
+          "The cost of visibility, the cost of invisibility, the tension of a business with your name on it.",
+      },
+      {
+        id: "identity-vs-brand",
+        name: "Identity vs. Brand",
+        color: "#FB7185",
+        description: "When your name IS the business — and the applause lands on the costume.",
+      },
+      {
+        id: "being-seen-unfinished",
+        name: "Being Seen Unfinished",
+        color: "#E11D48",
+        description: "The vulnerability of building in public; strategy as avoidance; the freeze.",
+      },
     ],
-    defaultCTA: { label: "Stay close — send this to the one who needs it", url: "https://www.palmerhouseproductions.com" },
+    defaultCTA: {
+      label: "Stay close — send this to the one who needs it",
+      url: "https://www.palmerhouseproductions.com",
+    },
     brandVoiceGuidelines: `MindYourBizniz is a sit-with show, not an energy reel. Intimate and slow: open on room tone (no music at the top), direct address to "you" singular, pauses longer than feels comfortable. Name the emotional reality of visibility — don't fix it, sit with it. The "friend who pushes back" replaces the skeptic (warmer). Structure: Felt Moment → Mechanism → Friend Who Pushes Back → The Flip → The Emotional Part (most personal) → The Invitation. 14–16 min (2,400–2,600 spoken words), one sustained music bed under the most personal stretch. CTAs are relational, never salesy. Verse capstone read slowly, no music. Outro: "Thanks for being here. MindYourBizniz is a Palmer House conversation. New episode next week."`,
     contentArchetypes: [
       "The cost of visibility",
@@ -304,9 +393,27 @@ export const ventureProfiles: Record<VentureId, VentureProfile> = {
       "Launching (June 2026). Grew out of Brighter Day Movers (the legacy venture where Jevoy's systems mindset and love for serving the elderly began). Strongest faith DNA of the ecosystem.",
     primaryPlatforms: ["Instagram Reels", "YouTube", "Newsletter"],
     contentPillars: [
-      { id: "dignity", name: "Dignity & Care", color: "#0D9488", description: "Stories and principles of dignified service for the elderly and their families." },
-      { id: "peace-of-mind", name: "Peace of Mind", color: "#0891B2", description: "How concierge support removes friction and restores calm in everyday environments." },
-      { id: "origin", name: "Origin & Philosophy", color: "#7C3AED", description: "Why beSettld exists — from moving furniture to serving lives. Vision and values, no fabricated client stories." },
+      {
+        id: "dignity",
+        name: "Dignity & Care",
+        color: "#0D9488",
+        description:
+          "Stories and principles of dignified service for the elderly and their families.",
+      },
+      {
+        id: "peace-of-mind",
+        name: "Peace of Mind",
+        color: "#0891B2",
+        description:
+          "How concierge support removes friction and restores calm in everyday environments.",
+      },
+      {
+        id: "origin",
+        name: "Origin & Philosophy",
+        color: "#7C3AED",
+        description:
+          "Why beSettld exists — from moving furniture to serving lives. Vision and values, no fabricated client stories.",
+      },
     ],
     defaultCTA: { label: "Learn how beSettld can help", url: "https://www.besettld.com" },
     brandVoiceGuidelines: `beSettld speaks with calm, dignified warmth — service as stewardship. This is luxury in-home concierge for the elderly and their families, NOT real estate. Lead with dignity and peace of mind, never with hard sell. Faith is the quiet DNA (service, stewardship, honoring people in their later years), integrated naturally, never preachy. Launch-stage honesty: focus on origin, vision and philosophy — never fabricate customer stories or testimonials.`,

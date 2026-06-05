@@ -6,12 +6,7 @@
  * calls here; the server functions in ../contentEngine.functions.ts do the model calls.
  */
 
-import {
-  getVentureProfile,
-  type VentureId,
-  type VentureProfile,
-  CANON_LINES,
-} from "./profiles";
+import { getVentureProfile, type VentureId, type VentureProfile, CANON_LINES } from "./profiles";
 
 // ============================================================================
 // PLATFORM FORMAT RULES (injected into per-platform generation)
@@ -165,7 +160,9 @@ ${platformRule}
 ${SHARED_RULES}
 
 CANON LINES (the house voice — study the rhythm, do not copy):
-${CANON_LINES.slice(0, 8).map((l) => `- "${l}"`).join("\n")}
+${CANON_LINES.slice(0, 8)
+  .map((l) => `- "${l}"`)
+  .join("\n")}
 
 Write ORIGINAL content in ${v.name}'s voice about the specific topic given. No preamble like "Here's your script:" — return only the requested deliverable in clean markdown.`;
 }

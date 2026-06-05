@@ -16,10 +16,7 @@ import { z } from "zod";
 import { generateText, Output } from "ai";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 import { VENTURE_IDS, getVentureProfile } from "@/lib/ventures/profiles";
-import {
-  buildMonthPlanPrompt,
-  getVentureSystemPrompt,
-} from "@/lib/ventures/prompts";
+import { buildMonthPlanPrompt, getVentureSystemPrompt } from "@/lib/ventures/prompts";
 
 const MODEL = process.env.CONTENT_ENGINE_MODEL || "google/gemini-3-flash-preview";
 
@@ -83,16 +80,20 @@ export const generateMonthPlan = createServerFn({ method: "POST" })
     const v = getVentureProfile(data.ventureId as never);
     const validPillars = new Set(v.contentPillars.map((p) => p.id));
     // Defensive cleanup: clamp days, default pillar, trim overflow to requested count.
-    const posts = output.posts
-      .slice(0, data.postCount)
-      .map((p) => ({
-        ...p,
-        dayOfMonth: Math.min(28, Math.max(1, p.dayOfMonth)),
-        pillarId: validPillars.has(p.pillarId) ? p.pillarId : v.contentPillars[0]?.id ?? "",
-        ctaLabel: p.ctaLabel || v.defaultCTA.label,
-      }));
+    const posts = output.posts.slice(0, data.postCount).map((p) => ({
+      ...p,
+      dayOfMonth: Math.min(28, Math.max(1, p.dayOfMonth)),
+      pillarId: validPillars.has(p.pillarId) ? p.pillarId : (v.contentPillars[0]?.id ?? ""),
+      ctaLabel: p.ctaLabel || v.defaultCTA.label,
+    }));
 
-    return { ventureId: data.ventureId, monthName, year: data.year, postCount: posts.length, posts };
+    return {
+      ventureId: data.ventureId,
+      monthName,
+      year: data.year,
+      postCount: posts.length,
+      posts,
+    };
   });
 
 // ── Full-script expansion ───────────────────────────────────────────────────

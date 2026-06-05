@@ -28,13 +28,20 @@ export function toCRMPlatform(raw: string): Platform {
 /** Generated contentType → CRM ContentType. */
 export function toCRMContentType(raw: string): ContentType {
   switch (raw.toLowerCase()) {
-    case "short": return "Short";
-    case "carousel": return "Carousel";
-    case "article": return "Article";
-    case "podcast": return "Podcast";
-    case "photo": return "Photo";
-    case "video": return "Video";
-    default: return "Video";
+    case "short":
+      return "Short";
+    case "carousel":
+      return "Carousel";
+    case "article":
+      return "Article";
+    case "podcast":
+      return "Podcast";
+    case "photo":
+      return "Photo";
+    case "video":
+      return "Video";
+    default:
+      return "Video";
   }
 }
 
@@ -42,7 +49,11 @@ export function toCRMContentType(raw: string): ContentType {
  * Resolve a PAL lane for the item. Palmer House pillars carry an explicit palLane;
  * other ventures map by pillar/content shape, defaulting to Spotlight.
  */
-export function resolvePalLane(ventureId: VentureId, pillarId: string, contentType: string): PalLane {
+export function resolvePalLane(
+  ventureId: VentureId,
+  pillarId: string,
+  contentType: string,
+): PalLane {
   const v = getVentureProfile(ventureId);
   const pillar = v.contentPillars.find((p) => p.id === pillarId);
   if (pillar?.palLane) return pillar.palLane;
