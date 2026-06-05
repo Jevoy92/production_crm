@@ -26,18 +26,22 @@ export function MonthGenerator({
   open,
   onClose,
   defaultVenture = "palmer-house",
+  defaultMonth,
+  defaultYear,
 }: {
   open: boolean;
   onClose: () => void;
   defaultVenture?: VentureId;
+  defaultMonth?: number;
+  defaultYear?: number;
 }) {
   const generate = useServerFn(generateMonthPlan);
   const addContentItem = useCCStore((s) => s.addContentItem);
 
   const today = new Date();
   const [ventureId, setVentureId] = useState<VentureId>(defaultVenture);
-  const [month, setMonth] = useState(today.getMonth() + 1);
-  const [year, setYear] = useState(today.getFullYear());
+  const [month, setMonth] = useState(defaultMonth ?? today.getMonth() + 1);
+  const [year, setYear] = useState(defaultYear ?? today.getFullYear());
   const [postCount, setPostCount] = useState(12);
   const [focus, setFocus] = useState("");
   const [notes, setNotes] = useState("");

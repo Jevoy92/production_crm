@@ -6,8 +6,19 @@ import { GoogleCalendarPanel } from "@/components/calendar/GoogleCalendar";
 import { useStore, palColor } from "@/lib/store";
 import { useCCStore, platformColor, PLATFORMS, type Platform } from "@/lib/ccStore";
 import { getAllVentures, VENTURE_IDS } from "@/lib/ventures/profiles";
-import { ChevronLeft, ChevronRight, Plus, MapPin, X, BarChart3, Film } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Plus,
+  MapPin,
+  X,
+  BarChart3,
+  Film,
+  Sparkles,
+} from "lucide-react";
 import type { Project } from "@/lib/types";
+import { MonthGenerator } from "@/components/content/MonthGenerator";
+import type { VentureId } from "@/lib/ventures/profiles";
 import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 
@@ -41,10 +52,14 @@ function SchedulePage() {
   const [openNew, setOpenNew] = useState(false);
   const [activeItemId, setActiveItemId] = useState<string | null>(null);
   const [venture, setVenture] = useState<string>("all");
+  const [genOpen, setGenOpen] = useState(false);
   const activeItem = library.find((l) => l.id === activeItemId);
 
   const venLibrary = useMemo(
-    () => (venture === "all" ? library : library.filter((l) => (l.venture ?? "palmer-house") === venture)),
+    () =>
+      venture === "all"
+        ? library
+        : library.filter((l) => (l.venture ?? "palmer-house") === venture),
     [library, venture],
   );
 
@@ -107,13 +122,22 @@ function SchedulePage() {
       title="Schedule"
       subtitle={`${shoots.length} shoots · ${library.filter((l) => l.publishDate).length} scheduled posts`}
       actions={
-        <Btn
-          variant="primary"
-          onClick={() => setOpenNew(true)}
-          className="flex items-center gap-1.5"
-        >
-          <Plus className="size-3.5" /> Schedule shoot
-        </Btn>
+        <>
+          <Btn
+            variant="subtle"
+            onClick={() => setGenOpen(true)}
+            className="flex items-center gap-1.5"
+          >
+            <Sparkles className="size-3.5" /> Generate month
+          </Btn>
+          <Btn
+            variant="primary"
+            onClick={() => setOpenNew(true)}
+            className="flex items-center gap-1.5"
+          >
+            <Plus className="size-3.5" /> Schedule shoot
+          </Btn>
+        </>
       }
     >
       <div className="mb-6">
@@ -144,7 +168,9 @@ function SchedulePage() {
               type="button"
               onClick={() => setView(v)}
               className={`px-3 py-1 text-[12px] rounded-full capitalize transition-colors ${
-                view === v ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                view === v
+                  ? "bg-card text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {v === "all" ? "All" : v}
@@ -155,7 +181,9 @@ function SchedulePage() {
 
       {showPublishing && (
         <div className="flex items-center gap-1.5 mb-3 flex-wrap">
-          <span className="text-[11px] uppercase tracking-wider text-muted-foreground mr-1">Venture</span>
+          <span className="text-[11px] uppercase tracking-wider text-muted-foreground mr-1">
+            Venture
+          </span>
           {["all", ...VENTURE_IDS].map((vid) => {
             const v = getAllVentures().find((x) => x.id === vid);
             const active = venture === vid;
@@ -168,118 +196,124 @@ function SchedulePage() {
                 style={
                   active
                     ? v
-                      ? { background: `color-mix(in oklab, ${v.accent} 18%, transparent)`, boxShadow: `inset 0 0 0 1px ${v.accent}` }
-                      : { background: "var(--surface-2)", boxShadow: "inset 0 0 0 1px var(--border)" }
+                      ? {
+                          background: `color-mix(in oklab, ${v.accent} 18%, transparent)`,
+                          boxShadow: `inset 0 0 0 1px ${v.accent}`,
+                        }
+                      : {
+                          background: "var(--surface-2)",
+                          boxShadow: "inset 0 0 0 1px var(--border)",
+                        }
                     : undefined
                 }
               >
-                {vid === "all" ? "All" : v?.shortName ?? vid}
+                {vid === "all" ? "All" : (v?.shortName ?? vid)}
               </button>
             );
           })}
         </div>
       )}
 
-      {showPublishing && (
-        <PlatformLegend />
-      )}
+      {showPublishing && <PlatformLegend />}
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-4">
-      <div className="card-elevated rounded-2xl overflow-hidden">
-        <div className="grid grid-cols-7 border-b border-border bg-surface-2">
-          {WEEKDAYS.map((d) => (
-            <div
-              key={d}
-              className="px-3 py-2 text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground"
-            >
-              {d}
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-7">
-          {cells.map((d) => {
-            const k = d.toISOString().slice(0, 10);
-            const inMonth = d.getMonth() === cursor.getMonth();
-            const dayShoots = byDay.get(k) ?? [];
-            const dayPubs = publishByDay.get(k) ?? [];
-            return (
+        <div className="card-elevated rounded-2xl overflow-hidden">
+          <div className="grid grid-cols-7 border-b border-border bg-surface-2">
+            {WEEKDAYS.map((d) => (
               <div
-                key={k}
-                className={`min-h-[120px] p-2 border-r border-b border-border last:border-r-0 transition-colors ${inMonth ? "bg-card" : "bg-surface-2/40"}`}
-                onDragOver={(e) => {
-                  if (e.dataTransfer.types.includes("text/cc-item")) {
-                    e.preventDefault();
-                    e.currentTarget.classList.add("ring-2", "ring-primary/40");
-                  }
-                }}
-                onDragLeave={(e) => e.currentTarget.classList.remove("ring-2", "ring-primary/40")}
-                onDrop={(e) => {
-                  e.currentTarget.classList.remove("ring-2", "ring-primary/40");
-                  onDropDay(e, k);
-                }}
+                key={d}
+                className="px-3 py-2 text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground"
               >
-                <div
-                  className={`text-[11px] num ${k === todayKey ? "inline-flex size-5 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold" : "text-muted-foreground"}`}
-                >
-                  {d.getDate()}
-                </div>
-                <div className="mt-1.5 space-y-1">
-                  {showShoots && dayShoots.map((s) => {
-                    const proj = projects.find((p) => p.id === s.projectId);
-                    if (!proj) return null;
-                    return (
-                      <Link
-                        key={s.id}
-                        to="/projects/$id"
-                        params={{ id: proj.id }}
-                        className="block rounded-md px-1.5 py-1 text-[10.5px] truncate hover:opacity-90"
-                        style={{
-                          background: palColor(proj.palType) + "22",
-                          color: palColor(proj.palType),
-                          borderLeft: `2px solid ${palColor(proj.palType)}`,
-                        }}
-                        title={proj.title}
-                      >
-                        {s.arrival && <span className="num mr-1">{s.arrival}</span>}
-                        {proj.title}
-                      </Link>
-                    );
-                  })}
-                  {showPublishing && dayPubs.map((it) => {
-                    const color = platformColor(it.platform);
-                    return (
-                      <button
-                        key={it.id}
-                        type="button"
-                        draggable
-                        onDragStart={(e) => e.dataTransfer.setData("text/cc-item", it.id)}
-                        onClick={() => setActiveItemId(it.id)}
-                        className="block w-full text-left rounded-md px-1.5 py-1 text-[10.5px] truncate hover:opacity-90 cursor-grab active:cursor-grabbing"
-                        style={{
-                          background: `color-mix(in oklab, ${color} 15%, transparent)`,
-                          color,
-                          borderLeft: `2px solid ${color}`,
-                        }}
-                        title={`${it.platform} · ${it.title}`}
-                      >
-                        ▸ {it.title}
-                      </button>
-                    );
-                  })}
-                </div>
+                {d}
               </div>
-            );
-          })}
+            ))}
+          </div>
+          <div className="grid grid-cols-7">
+            {cells.map((d) => {
+              const k = d.toISOString().slice(0, 10);
+              const inMonth = d.getMonth() === cursor.getMonth();
+              const dayShoots = byDay.get(k) ?? [];
+              const dayPubs = publishByDay.get(k) ?? [];
+              return (
+                <div
+                  key={k}
+                  className={`min-h-[120px] p-2 border-r border-b border-border last:border-r-0 transition-colors ${inMonth ? "bg-card" : "bg-surface-2/40"}`}
+                  onDragOver={(e) => {
+                    if (e.dataTransfer.types.includes("text/cc-item")) {
+                      e.preventDefault();
+                      e.currentTarget.classList.add("ring-2", "ring-primary/40");
+                    }
+                  }}
+                  onDragLeave={(e) => e.currentTarget.classList.remove("ring-2", "ring-primary/40")}
+                  onDrop={(e) => {
+                    e.currentTarget.classList.remove("ring-2", "ring-primary/40");
+                    onDropDay(e, k);
+                  }}
+                >
+                  <div
+                    className={`text-[11px] num ${k === todayKey ? "inline-flex size-5 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold" : "text-muted-foreground"}`}
+                  >
+                    {d.getDate()}
+                  </div>
+                  <div className="mt-1.5 space-y-1">
+                    {showShoots &&
+                      dayShoots.map((s) => {
+                        const proj = projects.find((p) => p.id === s.projectId);
+                        if (!proj) return null;
+                        return (
+                          <Link
+                            key={s.id}
+                            to="/projects/$id"
+                            params={{ id: proj.id }}
+                            className="block rounded-md px-1.5 py-1 text-[10.5px] truncate hover:opacity-90"
+                            style={{
+                              background: palColor(proj.palType) + "22",
+                              color: palColor(proj.palType),
+                              borderLeft: `2px solid ${palColor(proj.palType)}`,
+                            }}
+                            title={proj.title}
+                          >
+                            {s.arrival && <span className="num mr-1">{s.arrival}</span>}
+                            {proj.title}
+                          </Link>
+                        );
+                      })}
+                    {showPublishing &&
+                      dayPubs.map((it) => {
+                        const color = platformColor(it.platform);
+                        return (
+                          <button
+                            key={it.id}
+                            type="button"
+                            draggable
+                            onDragStart={(e) => e.dataTransfer.setData("text/cc-item", it.id)}
+                            onClick={() => setActiveItemId(it.id)}
+                            className="block w-full text-left rounded-md px-1.5 py-1 text-[10.5px] truncate hover:opacity-90 cursor-grab active:cursor-grabbing"
+                            style={{
+                              background: `color-mix(in oklab, ${color} 15%, transparent)`,
+                              color,
+                              borderLeft: `2px solid ${color}`,
+                            }}
+                            title={`${it.platform} · ${it.title}`}
+                          >
+                            ▸ {it.title}
+                          </button>
+                        );
+                      })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      {showPublishing && (
-        <UnscheduledQueue
-          items={unscheduled}
-          onClearDrop={(id) => setPublishDate(id, undefined)}
-          onPick={(id) => setActiveItemId(id)}
-        />
-      )}
+        {showPublishing && (
+          <UnscheduledQueue
+            items={unscheduled}
+            onClearDrop={(id) => setPublishDate(id, undefined)}
+            onPick={(id) => setActiveItemId(id)}
+          />
+        )}
       </div>
 
       <ProductionTimeline cursor={cursor} projects={projects} />
@@ -288,85 +322,88 @@ function SchedulePage() {
         <div>
           <h2 className="mb-2 text-[15px] font-semibold tracking-tight">Upcoming shoots</h2>
           <div className="space-y-2">
-        {shoots
-          .filter((s) => new Date(s.date) >= new Date(new Date().toDateString()))
-          .sort((a, b) => +new Date(a.date) - +new Date(b.date))
-          .map((s) => {
-            const proj = projects.find((p) => p.id === s.projectId);
-            return (
-              <div key={s.id} className="card-elevated rounded-xl p-3 flex items-center gap-4">
-                <Link
-                  to="/shoots/$id"
-                  params={{ id: s.id }}
-                  className="text-center w-14 hover:opacity-80"
-                >
-                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
-                    {new Date(s.date).toLocaleString(undefined, { weekday: "short" })}
-                  </div>
-                  <div className="num text-[20px] font-semibold leading-none">
-                    {new Date(s.date).getDate()}
-                  </div>
-                </Link>
-                <Link
-                  to="/shoots/$id"
-                  params={{ id: s.id }}
-                  className="flex-1 min-w-0 hover:opacity-90"
-                >
-                  <div className="text-[13px] font-medium truncate">{proj?.title ?? "—"}</div>
-                  <div className="text-[11.5px] text-muted-foreground flex flex-wrap gap-x-3">
-                    <span className="flex items-center gap-1">
-                      <MapPin className="size-3" />
-                      {s.location}
-                    </span>
-                    {s.arrival && <span className="num">Call {s.arrival}</span>}
-                  </div>
-                </Link>
-                <div className="flex -space-x-1.5">
-                  {s.crewIds.map((cid) => {
-                    const m = team.find((x) => x.id === cid);
-                    if (!m) return null;
-                    return (
-                      <div
-                        key={cid}
-                        className="size-6 rounded-full grid place-items-center text-[9.5px] font-semibold text-primary-foreground ring-2 ring-card"
-                        style={{ background: m.color }}
-                      >
-                        {m.initials}
+            {shoots
+              .filter((s) => new Date(s.date) >= new Date(new Date().toDateString()))
+              .sort((a, b) => +new Date(a.date) - +new Date(b.date))
+              .map((s) => {
+                const proj = projects.find((p) => p.id === s.projectId);
+                return (
+                  <div key={s.id} className="card-elevated rounded-xl p-3 flex items-center gap-4">
+                    <Link
+                      to="/shoots/$id"
+                      params={{ id: s.id }}
+                      className="text-center w-14 hover:opacity-80"
+                    >
+                      <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                        {new Date(s.date).toLocaleString(undefined, { weekday: "short" })}
                       </div>
-                    );
-                  })}
-                </div>
-                {proj && (
-                  <Link to="/projects/$id" params={{ id: proj.id }}>
-                    <Btn variant="subtle">Project</Btn>
-                  </Link>
-                )}
-                <Link to="/shoots/$id" params={{ id: s.id }}>
-                  <Btn variant="subtle">Open</Btn>
-                </Link>
-                <Btn
-                  variant="ghost"
-                  onClick={() => {
-                    if (confirm("Remove shoot?")) removeShoot(s.id);
-                  }}
-                >
-                  Remove
-                </Btn>
-              </div>
-            );
-          })}
+                      <div className="num text-[20px] font-semibold leading-none">
+                        {new Date(s.date).getDate()}
+                      </div>
+                    </Link>
+                    <Link
+                      to="/shoots/$id"
+                      params={{ id: s.id }}
+                      className="flex-1 min-w-0 hover:opacity-90"
+                    >
+                      <div className="text-[13px] font-medium truncate">{proj?.title ?? "—"}</div>
+                      <div className="text-[11.5px] text-muted-foreground flex flex-wrap gap-x-3">
+                        <span className="flex items-center gap-1">
+                          <MapPin className="size-3" />
+                          {s.location}
+                        </span>
+                        {s.arrival && <span className="num">Call {s.arrival}</span>}
+                      </div>
+                    </Link>
+                    <div className="flex -space-x-1.5">
+                      {s.crewIds.map((cid) => {
+                        const m = team.find((x) => x.id === cid);
+                        if (!m) return null;
+                        return (
+                          <div
+                            key={cid}
+                            className="size-6 rounded-full grid place-items-center text-[9.5px] font-semibold text-primary-foreground ring-2 ring-card"
+                            style={{ background: m.color }}
+                          >
+                            {m.initials}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {proj && (
+                      <Link to="/projects/$id" params={{ id: proj.id }}>
+                        <Btn variant="subtle">Project</Btn>
+                      </Link>
+                    )}
+                    <Link to="/shoots/$id" params={{ id: s.id }}>
+                      <Btn variant="subtle">Open</Btn>
+                    </Link>
+                    <Btn
+                      variant="ghost"
+                      onClick={() => {
+                        if (confirm("Remove shoot?")) removeShoot(s.id);
+                      }}
+                    >
+                      Remove
+                    </Btn>
+                  </div>
+                );
+              })}
           </div>
         </div>
         <UpcomingDeliverables projects={projects} />
       </div>
 
       <NewShootModal open={openNew} onClose={() => setOpenNew(false)} />
-      {activeItem && (
-        <PublishDrawer
-          itemId={activeItem.id}
-          onClose={() => setActiveItemId(null)}
-        />
-      )}
+      <MonthGenerator
+        key={`${cursor.getFullYear()}-${cursor.getMonth()}-${venture}`}
+        open={genOpen}
+        onClose={() => setGenOpen(false)}
+        defaultVenture={venture === "all" ? "palmer-house" : (venture as VentureId)}
+        defaultMonth={cursor.getMonth() + 1}
+        defaultYear={cursor.getFullYear()}
+      />
+      {activeItem && <PublishDrawer itemId={activeItem.id} onClose={() => setActiveItemId(null)} />}
     </Shell>
   );
 }
@@ -386,13 +423,18 @@ function PlatformLegend() {
     <div className="flex flex-wrap items-center gap-2 mb-3 text-[11px] text-muted-foreground">
       <span className="uppercase tracking-wider">Platforms</span>
       {LEGEND.map((p) => (
-        <span key={p.label} className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 ring-inset-soft"
+        <span
+          key={p.label}
+          className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 ring-inset-soft"
           style={{
             background: `color-mix(in oklab, ${platformColor(p.platform)} 12%, transparent)`,
             color: platformColor(p.platform),
           }}
         >
-          <span className="size-1.5 rounded-full" style={{ background: platformColor(p.platform) }} />
+          <span
+            className="size-1.5 rounded-full"
+            style={{ background: platformColor(p.platform) }}
+          />
           {p.label}
         </span>
       ))}
@@ -401,7 +443,9 @@ function PlatformLegend() {
 }
 
 function UnscheduledQueue({
-  items, onClearDrop, onPick,
+  items,
+  onClearDrop,
+  onPick,
 }: {
   items: ReturnType<typeof useCCStore.getState>["library"];
   onClearDrop: (id: string) => void;
@@ -410,7 +454,9 @@ function UnscheduledQueue({
   return (
     <aside
       className="card-elevated rounded-2xl p-3 self-stretch min-h-0 overflow-y-auto"
-      onDragOver={(e) => { if (e.dataTransfer.types.includes("text/cc-item")) e.preventDefault(); }}
+      onDragOver={(e) => {
+        if (e.dataTransfer.types.includes("text/cc-item")) e.preventDefault();
+      }}
       onDrop={(e) => {
         const id = e.dataTransfer.getData("text/cc-item");
         if (id) onClearDrop(id);
@@ -438,7 +484,9 @@ function UnscheduledQueue({
               className="block w-full text-left rounded-lg p-2 ring-inset-soft hover:bg-surface-2 cursor-grab active:cursor-grabbing"
             >
               <div className="flex items-center justify-between gap-2 mb-1">
-                <span className="text-[10px] uppercase tracking-wider" style={{ color }}>{it.platform}</span>
+                <span className="text-[10px] uppercase tracking-wider" style={{ color }}>
+                  {it.platform}
+                </span>
                 <span className="text-[10px] text-muted-foreground">{it.type}</span>
               </div>
               <div className="text-[12px] font-medium leading-tight line-clamp-2">{it.title}</div>
@@ -466,30 +514,49 @@ function PublishDrawer({ itemId, onClose }: { itemId: string; onClose: () => voi
       >
         <div className="flex items-start justify-between mb-4">
           <div>
-            <span className="text-[10px] uppercase tracking-wider" style={{ color }}>{item.platform}</span>
+            <span className="text-[10px] uppercase tracking-wider" style={{ color }}>
+              {item.platform}
+            </span>
             <h2 className="text-[16px] font-semibold leading-tight mt-1">{item.title}</h2>
-            <div className="text-[11px] text-muted-foreground mt-1">{item.type} · {item.palLane} · {item.status}</div>
+            <div className="text-[11px] text-muted-foreground mt-1">
+              {item.type} · {item.palLane} · {item.status}
+            </div>
           </div>
-          <button onClick={onClose} className="text-muted-foreground hover:text-foreground"><X className="size-4" /></button>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
+            <X className="size-4" />
+          </button>
         </div>
 
         <Field label="Publish date">
           <input
-            type="date" className={inputCls}
+            type="date"
+            className={inputCls}
             value={item.publishDate ?? ""}
             onChange={(e) => setPublishDate(item.id, e.target.value || undefined)}
           />
         </Field>
         <Field label="Platform">
-          <select className={inputCls} value={item.platform} onChange={(e) => setPlatform(item.id, e.target.value as Platform)}>
-            {PLATFORMS.map((p) => <option key={p} value={p}>{p}</option>)}
+          <select
+            className={inputCls}
+            value={item.platform}
+            onChange={(e) => setPlatform(item.id, e.target.value as Platform)}
+          >
+            {PLATFORMS.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
           </select>
         </Field>
         <Field label="Publish status">
           <select
             className={inputCls}
             value={item.publishStatus ?? "Draft"}
-            onChange={(e) => update(item.id, { publishStatus: e.target.value as "Draft" | "Scheduled" | "Published" })}
+            onChange={(e) =>
+              update(item.id, {
+                publishStatus: e.target.value as "Draft" | "Scheduled" | "Published",
+              })
+            }
           >
             <option value="Draft">Draft</option>
             <option value="Scheduled">Scheduled</option>
@@ -497,11 +564,18 @@ function PublishDrawer({ itemId, onClose }: { itemId: string; onClose: () => voi
           </select>
         </Field>
         <Field label="Caption">
-          <textarea rows={4} className={inputCls} value={item.caption} onChange={(e) => update(item.id, { caption: e.target.value })} />
+          <textarea
+            rows={4}
+            className={inputCls}
+            value={item.caption}
+            onChange={(e) => update(item.id, { caption: e.target.value })}
+          />
         </Field>
 
         <div className="flex gap-2 mt-4">
-          <Btn variant="subtle" onClick={() => setPublishDate(item.id, undefined)}>Unschedule</Btn>
+          <Btn variant="subtle" onClick={() => setPublishDate(item.id, undefined)}>
+            Unschedule
+          </Btn>
           {item.relatedCore12 && (
             <Link to="/cc/core12/$num" params={{ num: String(item.relatedCore12) }}>
               <Btn variant="primary">Open Core 12</Btn>
@@ -651,7 +725,11 @@ function projectPhases(p: Project): { type: PhaseType; start: Date; end: Date }[
     out.push({ type: "shoot", start: shoot, end: shoot });
   }
   if (shoot && delivery && delivery.getTime() > shoot.getTime() + DAY_MS) {
-    out.push({ type: "post", start: new Date(shoot.getTime() + DAY_MS), end: new Date(delivery.getTime() - DAY_MS) });
+    out.push({
+      type: "post",
+      start: new Date(shoot.getTime() + DAY_MS),
+      end: new Date(delivery.getTime() - DAY_MS),
+    });
   }
   if (delivery) out.push({ type: "delivery", start: delivery, end: delivery });
   return out;
@@ -730,7 +808,10 @@ function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Proj
               </div>
               <div
                 className="flex-1 py-2 px-2"
-                style={{ display: "grid", gridTemplateColumns: `repeat(${daysInMonth}, minmax(0,1fr))` }}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: `repeat(${daysInMonth}, minmax(0,1fr))`,
+                }}
               >
                 {ticks.map((d) => (
                   <div
@@ -755,7 +836,10 @@ function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Proj
                   className="w-44 flex-shrink-0 px-4 py-3 min-w-0 hover:opacity-80"
                 >
                   <div className="text-[12px] font-semibold truncate flex items-center gap-1.5">
-                    <span className="size-2 rounded-full flex-shrink-0" style={{ background: palColor(p.palType) }} />
+                    <span
+                      className="size-2 rounded-full flex-shrink-0"
+                      style={{ background: palColor(p.palType) }}
+                    />
                     {p.title}
                   </div>
                   <div className="text-[10.5px] text-muted-foreground truncate">
@@ -764,7 +848,11 @@ function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Proj
                 </Link>
                 <div
                   className="flex-1 px-2 py-3 relative"
-                  style={{ display: "grid", gridTemplateColumns: `repeat(${daysInMonth}, minmax(0,1fr))`, gap: 0 }}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: `repeat(${daysInMonth}, minmax(0,1fr))`,
+                    gap: 0,
+                  }}
                 >
                   {todayCol && (
                     <div
@@ -776,7 +864,10 @@ function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Proj
                     <div
                       key={i}
                       className="h-6 rounded-md flex items-center px-2 overflow-hidden"
-                      style={{ gridColumn: `${b.colStart} / span ${b.span}`, background: PHASE_STYLES[b.type].color }}
+                      style={{
+                        gridColumn: `${b.colStart} / span ${b.span}`,
+                        background: PHASE_STYLES[b.type].color,
+                      }}
                       title={`${PHASE_STYLES[b.type].label} · ${p.title}`}
                     >
                       <span className="text-white text-[10.5px] font-medium truncate">
@@ -816,7 +907,9 @@ function UpcomingDeliverables({ projects }: { projects: Project[] }) {
       </div>
       <div className="p-3 space-y-1.5">
         {items.length === 0 && (
-          <div className="text-[12px] text-muted-foreground py-6 text-center">No deliveries on the calendar.</div>
+          <div className="text-[12px] text-muted-foreground py-6 text-center">
+            No deliveries on the calendar.
+          </div>
         )}
         {items.map(({ p, due }) => {
           const days = Math.ceil((due.getTime() - today.getTime()) / DAY_MS);
@@ -844,10 +937,13 @@ function UpcomingDeliverables({ projects }: { projects: Project[] }) {
               <div className="flex-1 min-w-0">
                 <p className="text-[12.5px] font-semibold truncate">{p.title}</p>
                 <p className="text-[11px] text-muted-foreground truncate">
-                  Due {due.toLocaleDateString(undefined, { month: "short", day: "numeric" })} · {p.palType}
+                  Due {due.toLocaleDateString(undefined, { month: "short", day: "numeric" })} ·{" "}
+                  {p.palType}
                 </p>
               </div>
-              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${pill}`}>
+              <span
+                className={`text-[11px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${pill}`}
+              >
                 {overdue ? `${Math.abs(days)}d late` : days === 0 ? "Today" : `${days}d`}
               </span>
             </Link>
