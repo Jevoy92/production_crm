@@ -47,6 +47,75 @@ export type Database = {
         }
         Relationships: []
       }
+      meetings: {
+        Row: {
+          attendees: string
+          created_at: string
+          decisions: string
+          id: string
+          meeting_date: string
+          next_steps: string
+          source: string
+          summary: string
+          tags: string[]
+          title: string
+          transcript: string
+          updated_at: string
+        }
+        Insert: {
+          attendees?: string
+          created_at?: string
+          decisions?: string
+          id?: string
+          meeting_date?: string
+          next_steps?: string
+          source?: string
+          summary?: string
+          tags?: string[]
+          title?: string
+          transcript?: string
+          updated_at?: string
+        }
+        Update: {
+          attendees?: string
+          created_at?: string
+          decisions?: string
+          id?: string
+          meeting_date?: string
+          next_steps?: string
+          source?: string
+          summary?: string
+          tags?: string[]
+          title?: string
+          transcript?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      morning_digests: {
+        Row: {
+          body_md: string
+          created_at: string
+          date: string
+          source: Json
+          updated_at: string
+        }
+        Insert: {
+          body_md?: string
+          created_at?: string
+          date: string
+          source?: Json
+          updated_at?: string
+        }
+        Update: {
+          body_md?: string
+          created_at?: string
+          date?: string
+          source?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       overview_logs: {
         Row: {
           customs: Json

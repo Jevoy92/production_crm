@@ -4,21 +4,36 @@ import type { Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { startCloudSync, useSyncStatus } from "@/lib/cloudSync";
 import { Field } from "@/components/ui-bits/Modal";
+import { Toaster } from "@/components/ui/sonner";
+import { useTaskNotifications } from "@/lib/useTaskNotifications";
 
 export function AuthGate({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    let mounted = true;
+    const fallback = window.setTimeout(() => {
+      if (mounted) setReady(true);
+    }, 2500);
+
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
+      if (!mounted) return;
       setSession(s);
       setReady(true);
     });
     supabase.auth.getSession().then(({ data }) => {
+      if (!mounted) return;
       setSession(data.session);
       setReady(true);
+    }).catch(() => {
+      if (mounted) setReady(true);
     });
-    return () => sub.subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      window.clearTimeout(fallback);
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
@@ -41,10 +56,17 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   if (!session && !devBypass) return <LoginScreen />;
   return (
     <>
+      <NotificationsHost />
       {children}
+      <Toaster position="top-right" richColors closeButton />
       <SyncIndicator />
     </>
   );
+}
+
+function NotificationsHost() {
+  useTaskNotifications();
+  return null;
 }
 
 function SyncIndicator() {

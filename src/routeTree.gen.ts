@@ -19,6 +19,7 @@ import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as RepurposeRouteImport } from './routes/repurpose'
 import { Route as ProductionsRouteImport } from './routes/productions'
 import { Route as PlaybookRouteImport } from './routes/playbook'
+import { Route as MeetingsRouteImport } from './routes/meetings'
 import { Route as GearRouteImport } from './routes/gear'
 import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as ContentRouteImport } from './routes/content'
@@ -44,6 +45,7 @@ import { Route as ClientsIdRouteImport } from './routes/clients.$id'
 import { Route as ApiStudioChatRouteImport } from './routes/api/studio-chat'
 import { Route as ApiPalsRouteImport } from './routes/api/pals'
 import { Route as AdminTemplatesRouteImport } from './routes/admin.templates'
+import { Route as ApiPublicHooksMorningDigestRouteImport } from './routes/api/public/hooks/morning-digest'
 
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
@@ -93,6 +95,11 @@ const ProductionsRoute = ProductionsRouteImport.update({
 const PlaybookRoute = PlaybookRouteImport.update({
   id: '/playbook',
   path: '/playbook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeetingsRoute = MeetingsRouteImport.update({
+  id: '/meetings',
+  path: '/meetings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GearRoute = GearRouteImport.update({
@@ -220,6 +227,12 @@ const AdminTemplatesRoute = AdminTemplatesRouteImport.update({
   path: '/admin/templates',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicHooksMorningDigestRoute =
+  ApiPublicHooksMorningDigestRouteImport.update({
+    id: '/api/public/hooks/morning-digest',
+    path: '/api/public/hooks/morning-digest',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -231,6 +244,7 @@ export interface FileRoutesByFullPath {
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
   '/gear': typeof GearRoute
+  '/meetings': typeof MeetingsRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
   '/repurpose': typeof RepurposeRoute
@@ -257,6 +271,7 @@ export interface FileRoutesByFullPath {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/api/public/hooks/morning-digest': typeof ApiPublicHooksMorningDigestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -268,6 +283,7 @@ export interface FileRoutesByTo {
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
   '/gear': typeof GearRoute
+  '/meetings': typeof MeetingsRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
   '/repurpose': typeof RepurposeRoute
@@ -294,6 +310,7 @@ export interface FileRoutesByTo {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/api/public/hooks/morning-digest': typeof ApiPublicHooksMorningDigestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -306,6 +323,7 @@ export interface FileRoutesById {
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
   '/gear': typeof GearRoute
+  '/meetings': typeof MeetingsRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
   '/repurpose': typeof RepurposeRoute
@@ -332,6 +350,7 @@ export interface FileRoutesById {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/api/public/hooks/morning-digest': typeof ApiPublicHooksMorningDigestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -345,6 +364,7 @@ export interface FileRouteTypes {
     | '/content'
     | '/finance'
     | '/gear'
+    | '/meetings'
     | '/playbook'
     | '/productions'
     | '/repurpose'
@@ -371,6 +391,7 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/api/public/hooks/morning-digest'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -382,6 +403,7 @@ export interface FileRouteTypes {
     | '/content'
     | '/finance'
     | '/gear'
+    | '/meetings'
     | '/playbook'
     | '/productions'
     | '/repurpose'
@@ -408,6 +430,7 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/api/public/hooks/morning-digest'
   id:
     | '__root__'
     | '/'
@@ -419,6 +442,7 @@ export interface FileRouteTypes {
     | '/content'
     | '/finance'
     | '/gear'
+    | '/meetings'
     | '/playbook'
     | '/productions'
     | '/repurpose'
@@ -445,6 +469,7 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/api/public/hooks/morning-digest'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -457,6 +482,7 @@ export interface RootRouteChildren {
   ContentRoute: typeof ContentRoute
   FinanceRoute: typeof FinanceRoute
   GearRoute: typeof GearRoute
+  MeetingsRoute: typeof MeetingsRoute
   PlaybookRoute: typeof PlaybookRouteWithChildren
   ProductionsRoute: typeof ProductionsRoute
   RepurposeRoute: typeof RepurposeRoute
@@ -475,6 +501,7 @@ export interface RootRouteChildren {
   KpisPaRoute: typeof KpisPaRoute
   ProjectsIdRoute: typeof ProjectsIdRoute
   ShootsIdRoute: typeof ShootsIdRoute
+  ApiPublicHooksMorningDigestRoute: typeof ApiPublicHooksMorningDigestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -547,6 +574,13 @@ declare module '@tanstack/react-router' {
       path: '/playbook'
       fullPath: '/playbook'
       preLoaderRoute: typeof PlaybookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meetings': {
+      id: '/meetings'
+      path: '/meetings'
+      fullPath: '/meetings'
+      preLoaderRoute: typeof MeetingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gear': {
@@ -724,6 +758,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/morning-digest': {
+      id: '/api/public/hooks/morning-digest'
+      path: '/api/public/hooks/morning-digest'
+      fullPath: '/api/public/hooks/morning-digest'
+      preLoaderRoute: typeof ApiPublicHooksMorningDigestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -790,6 +831,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContentRoute: ContentRoute,
   FinanceRoute: FinanceRoute,
   GearRoute: GearRoute,
+  MeetingsRoute: MeetingsRoute,
   PlaybookRoute: PlaybookRouteWithChildren,
   ProductionsRoute: ProductionsRoute,
   RepurposeRoute: RepurposeRoute,
@@ -808,6 +850,7 @@ const rootRouteChildren: RootRouteChildren = {
   KpisPaRoute: KpisPaRoute,
   ProjectsIdRoute: ProjectsIdRoute,
   ShootsIdRoute: ShootsIdRoute,
+  ApiPublicHooksMorningDigestRoute: ApiPublicHooksMorningDigestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

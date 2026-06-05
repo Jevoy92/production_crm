@@ -1,0 +1,1 @@
+CREATE POLICY "Messages update via server only" ON public.studio_messages FOR UPDATE TO authenticated USING (false) WITH CHECK (false);

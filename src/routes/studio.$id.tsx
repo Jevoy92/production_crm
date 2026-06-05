@@ -5,7 +5,7 @@ import {
   Clapperboard, ChevronDown, FileDown, Share2, Bell, Save, FileText, Lightbulb,
   ListOrdered, History, Bold, Italic, Heading, MessageSquare, Film, Search as SearchIcon,
   Plus, Bot, Crosshair, SlidersHorizontal, Paperclip, Mic, Send, Trash2, X,
-  CircleDot, ArrowUpRight, Copy, RotateCw, Building2,
+  CircleDot, ArrowUpRight, Copy, RotateCw, Building2, ArrowLeft, Home,
 } from "lucide-react";
 import {
   useStudioStore, STUDIO_BRANDS, wordCount, runtimeEstimate,
@@ -18,6 +18,13 @@ export const Route = createFileRoute("/studio/$id")({
 });
 
 type Tab = "script" | "ideas" | "outline" | "revisions";
+
+const EXPORT_OPTIONS = [
+  { k: "txt", label: "Plain Text (.txt)", sub: "Download the script now", iconClass: "bg-emerald/15 border-emerald/20 text-emerald", live: true },
+  { k: "pdf", label: "PDF — Final Script", sub: "Formatted screenplay layout", iconClass: "bg-rose/15 border-rose/20 text-rose" },
+  { k: "fdx", label: "Final Draft (.fdx)", sub: "Industry standard format", iconClass: "bg-brand-600/15 border-brand-500/20 text-brand-400" },
+  { k: "docx", label: "Word Document (.docx)", sub: "For client sharing", iconClass: "bg-cyan/15 border-cyan/20 text-cyan" },
+];
 
 function StudioEditor() {
   const { id } = Route.useParams();
@@ -79,11 +86,22 @@ function StudioEditor() {
       {/* Header */}
       <header className="bg-panel border-b border-line px-6 py-3 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="w-9 h-9 rounded-xl bg-brand-600/15 border border-brand-500/20 flex items-center justify-center flex-shrink-0">
-            <Clapperboard size={16} className="text-brand-400" />
-          </div>
-          <div className="min-w-0">
-            <h1 className="font-display font-bold text-lg text-hi tracking-tight leading-none">Studio</h1>
+          <Link
+            to="/"
+            title="Back to dashboard"
+            className="w-9 h-9 rounded-xl bg-sunken border border-line hover:border-brand-500/40 hover:bg-brand-600/10 flex items-center justify-center flex-shrink-0 transition-colors"
+          >
+            <Home size={15} className="text-mid" />
+          </Link>
+          <Link
+            to="/studio"
+            title="All scripts"
+            className="ph-btn ph-btn-soft ph-btn-sm flex items-center gap-1.5"
+          >
+            <ArrowLeft size={13} /> Studio
+          </Link>
+          <div className="min-w-0 hidden sm:block">
+            <h1 className="font-display font-bold text-lg text-hi tracking-tight leading-none">Editor</h1>
             <p className="text-lo text-xs mt-0.5">Script &amp; idea drafting workspace</p>
           </div>
         </div>
@@ -292,15 +310,10 @@ function StudioEditor() {
                 <button onClick={() => setExportOpen(false)} className="w-7 h-7 rounded-lg bg-sunken hover:bg-raised flex items-center justify-center text-mid"><X size={13} /></button>
               </div>
               <div className="space-y-3 mb-4">
-                {[
-                  { k: "txt", label: "Plain Text (.txt)", sub: "Download the script now", tone: "emerald", live: true },
-                  { k: "pdf", label: "PDF — Final Script", sub: "Formatted screenplay layout", tone: "rose" },
-                  { k: "fdx", label: "Final Draft (.fdx)", sub: "Industry standard format", tone: "brand" },
-                  { k: "docx", label: "Word Document (.docx)", sub: "For client sharing", tone: "cyan" },
-                ].map((o) => (
+                {EXPORT_OPTIONS.map((o) => (
                   <button key={o.k} onClick={o.live ? exportTxt : () => { alert("That format needs an export service — .txt works now."); }} className="w-full flex items-center gap-3 p-3.5 bg-sunken border border-line rounded-xl hover:border-brand-500/40 transition-all text-left">
-                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-${o.tone === "brand" ? "brand-600" : o.tone}/15 border border-${o.tone === "brand" ? "brand-500" : o.tone}/20`}>
-                      <FileText size={15} className={o.tone === "brand" ? "text-brand-400" : `text-${o.tone}`} />
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 border ${o.iconClass}`}>
+                      <FileText size={15} />
                     </div>
                     <div className="flex-1">
                       <div className="text-hi text-sm font-semibold">{o.label}{o.live && <span className="ml-2 text-[10px] text-emerald">ready</span>}</div>
