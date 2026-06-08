@@ -1,11 +1,11 @@
 import { useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { AppShell, Card } from "@/components/app/AppShell";
+import { AppShell, Card, EmptyState, Pill, SegmentedControl } from "@/components/app/AppShell";
 import { SCRIPTS } from "@/lib/scriptsIndex";
 import { useCCStore, type Platform, type PalLane } from "@/lib/ccStore";
 import { generateShorts } from "@/lib/repurpose.functions";
-import { Sparkles, FileText, Loader2, Check, ArrowRight, Library, Plus } from "lucide-react";
+import { Sparkles, Loader2, Check, ArrowRight, Plus, Search, Wand2, Library } from "lucide-react";
 import { shortsForCore12, colorForShortType, type CoreShort } from "@/lib/coreShortsLibrary";
 
 export const Route = createFileRoute("/repurpose")({
@@ -53,6 +53,8 @@ function RepurposePage() {
   const [shorts, setShorts] = useState<Short[] | null>(null);
   const [savedIds, setSavedIds] = useState<Set<number>>(new Set());
   const [libSaved, setLibSaved] = useState<Set<string>>(new Set());
+  const [query, setQuery] = useState("");
+  const [tab, setTab] = useState<"ai" | "library">("ai");
 
   const active = useMemo(() => SCRIPTS.find((s) => s.num === activeNum), [activeNum]);
   const body = useMemo(() => (active ? pickScriptBody(active.num) : ""), [active]);
@@ -60,6 +62,13 @@ function RepurposePage() {
     () => (active ? shortsForCore12(active.number) : []),
     [active],
   );
+  const filteredScripts = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return SCRIPTS;
+    return SCRIPTS.filter(
+      (s) => s.title.toLowerCase().includes(q) || s.num.includes(q),
+    );
+  }, [query]);
 
   // Detect shorts already saved (by exact caption match to avoid dupes within session)
   const savedTitleSet = useMemo(
@@ -153,6 +162,7 @@ function RepurposePage() {
       });
       setSavedIds(newSaved);
     } catch (e) {
+      console.error("[repurpose] generate failed", e);
       const msg = e instanceof Error ? e.message : String(e);
       setError(msg);
     } finally {
@@ -162,53 +172,94 @@ function RepurposePage() {
 
   return (
     <AppShell
+      eyebrow="Engine"
       title="Repurpose"
-      subtitle="Pick a long-form script. Get 3 supporting shorts that funnel viewers back."
+      subtitle="One long-form → three shorts that funnel viewers back."
       actions={
-        <Link to="/content" className="ph-btn ph-btn-soft ph-btn-sm">
-          Open Content <ArrowRight size={14} />
+        <Link
+          to="/content"
+          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-sunken border border-line text-mid hover:text-hi hover:bg-raised text-xs font-semibold transition-colors"
+        >
+          Open Content <ArrowRight size={13} />
         </Link>
       }
     >
-      <div style={{ display: "grid", gridTemplateColumns: "320px minmax(0,1fr)", gap: 18 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] gap-6">
         {/* Script picker */}
-        <Card title="Long-form scripts" soft>
-          <div style={{ display: "flex", flexDirection: "column", gap: 4, maxHeight: "70vh", overflowY: "auto" }}>
-            {SCRIPTS.map((s) => {
-              const isActive = s.num === activeNum;
-              return (
-                <button
-                  key={s.num}
-                  type="button"
-                  onClick={() => selectScript(s.num)}
-                  className={isActive ? "sidebar-link active" : "sidebar-link"}
-                  style={{ textAlign: "left", borderRadius: "var(--ph-radius-md)" }}
-                >
-                  <span style={{
-                    fontVariantNumeric: "tabular-nums",
-                    fontWeight: 700,
-                    width: 28,
-                    color: isActive ? "var(--ph-primary)" : "var(--ph-text-muted)",
-                  }}>
-                    #{s.num}
-                  </span>
-                  <span style={{ flex: 1, fontSize: 13, lineHeight: 1.3 }}>{s.title}</span>
-                </button>
-              );
-            })}
+        <aside className="lg:sticky lg:top-4 lg:self-start space-y-3">
+          <div className="relative">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-lo" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search scripts…"
+              className="w-full bg-panel border border-line rounded-xl pl-9 pr-3 py-2.5 text-sm text-hi placeholder-lo focus:outline-none focus:border-brand-500 transition-colors"
+            />
           </div>
-        </Card>
+          <div className="bg-panel border border-line rounded-2xl overflow-hidden">
+            <div className="px-4 py-3 border-b border-line flex items-center justify-between">
+              <h3 className="text-[10.5px] font-bold uppercase tracking-[0.14em] text-lo">Long-form</h3>
+              <span className="text-[10.5px] font-bold text-lo">{filteredScripts.length}</span>
+            </div>
+            <div className="max-h-[68vh] overflow-y-auto p-1.5">
+              {filteredScripts.map((s) => {
+                const isActive = s.num === activeNum;
+                return (
+                  <button
+                    key={s.num}
+                    type="button"
+                    onClick={() => selectScript(s.num)}
+                    className={`w-full text-left flex items-start gap-3 px-3 py-2.5 rounded-xl transition-colors ${
+                      isActive
+                        ? "bg-brand-600/10 text-hi"
+                        : "text-mid hover:text-hi hover:bg-sunken"
+                    }`}
+                  >
+                    <span
+                      className={`text-xs font-bold tabular-nums w-7 flex-shrink-0 mt-0.5 ${
+                        isActive ? "text-brand-400" : "text-lo"
+                      }`}
+                    >
+                      {s.num}
+                    </span>
+                    <span className="text-[13px] leading-snug">{s.title}</span>
+                  </button>
+                );
+              })}
+              {filteredScripts.length === 0 && (
+                <div className="text-center text-lo text-sm py-8">No matches.</div>
+              )}
+            </div>
+          </div>
+        </aside>
 
         {/* Editor + results */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 18, minWidth: 0 }}>
-          <Card
-            title={
-              active
-                ? `#${active.num} · ${active.title}`
-                : "Select a script"
-            }
-            action={
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <div className="min-w-0 space-y-6">
+          {/* Hero composer */}
+          <section className="bg-panel border border-line rounded-2xl overflow-hidden shadow-[var(--elev-card)]">
+            <div className="px-6 pt-6 pb-5 border-b border-line">
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div className="min-w-0">
+                  <div className="text-lo text-[10.5px] font-bold uppercase tracking-[0.14em] mb-1.5">
+                    Source · #{active?.num}
+                  </div>
+                  <h2 className="font-display font-bold text-hi text-xl tracking-tight leading-snug truncate">
+                    {active?.title ?? "Select a script"}
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  onClick={run}
+                  disabled={busy || !active || !body}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold text-sm transition-colors shadow-[var(--elev-card)] flex-shrink-0"
+                >
+                  {busy ? <Loader2 size={15} className="animate-spin" /> : <Wand2 size={15} />}
+                  {busy ? "Generating…" : "Generate 3 shorts"}
+                </button>
+              </div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10.5px] font-bold uppercase tracking-[0.14em] text-lo mr-1">Platforms</span>
                 {ALL_PLATFORMS.map((p) => {
                   const on = platforms.includes(p);
                   return (
@@ -216,198 +267,170 @@ function RepurposePage() {
                       key={p}
                       type="button"
                       onClick={() => togglePlatform(p)}
-                      className={on ? "ph-badge ph-badge-spotlight" : "ph-badge ph-badge-neutral"}
-                      style={{ cursor: "pointer", border: 0 }}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+                        on
+                          ? "bg-brand-600/15 border-brand-500/40 text-brand-400"
+                          : "bg-sunken border-line text-mid hover:text-hi"
+                      }`}
                     >
                       {on && <Check size={11} />}
                       {p}
                     </button>
                   );
                 })}
-                <button
-                  type="button"
-                  onClick={run}
-                  disabled={busy || !active || !body}
-                  className="ph-btn ph-btn-primary"
-                  style={{ opacity: busy || !active || !body ? 0.6 : 1 }}
-                >
-                  {busy ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
-                  {busy ? "Generating…" : "Generate 3 shorts"}
-                </button>
               </div>
-            }
-          >
-            {!active ? (
-              <div style={{ fontSize: 13, color: "var(--ph-text-secondary)" }}>
-                Pick a script from the list.
-              </div>
-            ) : !body ? (
-              <div style={{ fontSize: 13, color: "var(--ph-text-secondary)" }}>
-                This script has no body yet — write it under Scripts first.
+            </div>
+            {body ? (
+              <div className="px-6 py-4 max-h-48 overflow-y-auto text-[13px] leading-relaxed text-mid whitespace-pre-wrap bg-sunken/40">
+                {body.slice(0, 1400)}
+                {body.length > 1400 ? "…" : ""}
               </div>
             ) : (
-              <div
-                style={{
-                  maxHeight: 240,
-                  overflowY: "auto",
-                  background: "var(--ph-surface-soft)",
-                  borderRadius: "var(--ph-radius-md)",
-                  padding: 14,
-                  fontSize: 12.5,
-                  lineHeight: 1.55,
-                  color: "var(--ph-text-secondary)",
-                  whiteSpace: "pre-wrap",
-                }}
-              >
-                {body.slice(0, 1800)}
-                {body.length > 1800 ? "…" : ""}
+              <div className="px-6 py-6 text-sm text-mid">
+                This script has no body yet — write it under Scripts first.
               </div>
             )}
             {error && (
-              <div className="ph-badge ph-badge-danger" style={{ marginTop: 12 }}>
+              <div className="mx-6 mb-4 px-3 py-2 rounded-lg bg-rose/10 border border-rose/30 text-rose text-xs font-medium">
                 {error}
               </div>
             )}
-          </Card>
+          </section>
 
-          {shorts && (
-            <Card title="Generated shorts" action={
-              <span className="ph-badge ph-badge-success">
-                <Check size={11} /> Saved to Library
-              </span>
-            }>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: 14 }}>
+          {/* Source toggle */}
+          <div className="flex items-center justify-between gap-4">
+            <SegmentedControl
+              value={tab}
+              onChange={setTab}
+              options={[
+                { value: "ai", label: <span className="inline-flex items-center gap-1.5"><Sparkles size={12} /> AI generated{shorts ? ` (${shorts.length})` : ""}</span> },
+                { value: "library", label: <span className="inline-flex items-center gap-1.5"><Library size={12} /> Pre-written ({prewritten.length})</span> },
+              ]}
+            />
+            {tab === "library" && prewritten.length > 0 && (
+              <button
+                type="button"
+                onClick={saveAllFromLibrary}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-sunken border border-line text-mid hover:text-hi hover:bg-raised text-xs font-semibold transition-colors"
+              >
+                <Plus size={13} /> Save all
+              </button>
+            )}
+          </div>
+
+          {/* AI tab */}
+          {tab === "ai" && (
+            shorts ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {shorts.map((s, i) => (
-                  <div
+                  <article
                     key={i}
-                    style={{
-                      background: "var(--ph-surface-soft)",
-                      borderRadius: "var(--ph-radius-md)",
-                      padding: 16,
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 10,
-                    }}
+                    className="bg-panel border border-line rounded-2xl p-5 flex flex-col gap-3 hover:border-brand-500/40 transition-colors"
                   >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <span className="ph-badge ph-badge-spotlight">{s.platform}</span>
-                      <span style={{ fontSize: 11, color: "var(--ph-text-muted)", fontWeight: 700 }}>
-                        {s.durationSec}s
-                      </span>
+                    <div className="flex items-center justify-between">
+                      <Pill tone="brand">{s.platform}</Pill>
+                      <span className="text-xs font-bold text-lo tabular-nums">{s.durationSec}s</span>
                     </div>
                     <div>
-                      <div style={{ fontSize: 10, fontWeight: 700, color: "var(--ph-text-muted)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4 }}>Hook</div>
-                      <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ph-text-primary)", lineHeight: 1.35 }}>{s.hook}</div>
+                      <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-lo mb-1">Hook</div>
+                      <div className="text-[15px] font-semibold text-hi leading-snug">{s.hook}</div>
                     </div>
                     <div>
-                      <div style={{ fontSize: 10, fontWeight: 700, color: "var(--ph-text-muted)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4 }}>Body</div>
-                      <div style={{ fontSize: 12.5, color: "var(--ph-text-primary)", lineHeight: 1.55, whiteSpace: "pre-wrap" }}>{s.body}</div>
+                      <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-lo mb-1">Body</div>
+                      <div className="text-[13px] text-mid leading-relaxed whitespace-pre-wrap">{s.body}</div>
                     </div>
-                    <div>
-                      <div style={{ fontSize: 10, fontWeight: 700, color: "var(--ph-text-muted)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4 }}>CTA → long-form</div>
-                      <div style={{ fontSize: 12.5, color: "var(--ph-primary)", fontWeight: 600 }}>{s.cta}</div>
+                    <div className="mt-auto pt-2 border-t border-line">
+                      <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-lo mb-1">CTA → long-form</div>
+                      <div className="text-[13px] text-brand-400 font-semibold">{s.cta}</div>
                     </div>
                     {savedIds.has(i) && (
-                      <div style={{ fontSize: 11, color: "var(--ph-success)", display: "flex", alignItems: "center", gap: 4, fontWeight: 700 }}>
-                        <Check size={12} /> In Library
+                      <div className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald">
+                        <Check size={12} /> Saved to Library
                       </div>
                     )}
-                  </div>
+                  </article>
                 ))}
               </div>
-              <div style={{ marginTop: 14, fontSize: 12, color: "var(--ph-text-secondary)", display: "flex", alignItems: "center", gap: 6 }}>
-                <FileText size={13} /> Edit captions / status anytime in{" "}
-                <Link to="/content" style={{ color: "var(--ph-primary)", fontWeight: 700 }}>Content</Link>.
-              </div>
-            </Card>
+            ) : (
+              <Card>
+                <EmptyState
+                  icon={<Sparkles size={20} />}
+                  title={busy ? "Cooking 3 shorts…" : "No shorts generated yet"}
+                  description={
+                    busy
+                      ? "The model is teasing one idea per platform from the long-form."
+                      : "Pick your platforms above, then hit Generate 3 shorts."
+                  }
+                />
+              </Card>
+            )
           )}
 
-          {active && prewritten.length > 0 && (
-            <Card
-              title={`Pre-written shorts (${prewritten.length})`}
-              action={
-                <button
-                  type="button"
-                  onClick={saveAllFromLibrary}
-                  className="ph-btn ph-btn-soft"
-                >
-                  <Library size={14} /> Save all to Library
-                </button>
-              }
-            >
-              <div style={{ fontSize: 12.5, color: "var(--ph-text-secondary)", marginBottom: 12 }}>
-                5 hand-written supporting shorts for <strong>#{active.num} {active.title}</strong>.
-                Each is standalone and funnels viewers back to the long-form.
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: 14 }}>
+          {/* Library tab */}
+          {tab === "library" && (
+            prewritten.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {prewritten.map((s) => {
-                  const saved = libSaved.has(s.num) || savedTitleSet.has(`${s.num} ${s.hook}`.slice(0, 140));
+                  const saved =
+                    libSaved.has(s.num) ||
+                    savedTitleSet.has(`${s.num} ${s.hook}`.slice(0, 140));
+                  const color = colorForShortType(s.type);
                   return (
-                    <div
+                    <article
                       key={s.num}
-                      style={{
-                        background: "var(--ph-surface-soft)",
-                        borderRadius: "var(--ph-radius-md)",
-                        padding: 16,
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 10,
-                        borderLeft: `3px solid ${colorForShortType(s.type)}`,
-                      }}
+                      className="bg-panel border border-line rounded-2xl p-5 flex flex-col gap-3 hover:border-brand-500/40 transition-colors"
+                      style={{ borderLeft: `3px solid ${color}` }}
                     >
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                          <span style={{
-                            fontVariantNumeric: "tabular-nums",
-                            fontWeight: 700,
-                            fontSize: 11,
-                            color: "var(--ph-text-muted)",
-                          }}>{s.num}</span>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-[11px] font-bold tabular-nums text-lo">{s.num}</span>
                           <span
-                            className="ph-badge"
-                            style={{
-                              background: `${colorForShortType(s.type)}1a`,
-                              color: colorForShortType(s.type),
-                              border: 0,
-                            }}
+                            className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold"
+                            style={{ background: `${color}22`, color }}
                           >
                             {s.type}
                           </span>
-                          <span className="ph-badge ph-badge-neutral">{s.lane}</span>
                         </div>
-                        <span style={{ fontSize: 11, color: "var(--ph-text-muted)", fontWeight: 700 }}>
-                          {s.durationSec}s
-                        </span>
+                        <span className="text-xs font-bold text-lo tabular-nums">{s.durationSec}s</span>
                       </div>
-                      <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ph-text-primary)", lineHeight: 1.35 }}>
-                        {s.hook}
-                      </div>
-                      <div style={{ fontSize: 12, color: "var(--ph-text-secondary)", lineHeight: 1.5, whiteSpace: "pre-wrap", maxHeight: 140, overflow: "hidden", maskImage: "linear-gradient(to bottom, black 60%, transparent)" }}>
+                      <div className="text-[15px] font-semibold text-hi leading-snug">{s.hook}</div>
+                      <div
+                        className="text-[12.5px] text-mid leading-relaxed whitespace-pre-wrap overflow-hidden"
+                        style={{
+                          maxHeight: 120,
+                          maskImage: "linear-gradient(to bottom, black 55%, transparent)",
+                          WebkitMaskImage: "linear-gradient(to bottom, black 55%, transparent)",
+                        }}
+                      >
                         {s.body}
                       </div>
-                      <div style={{ fontSize: 11.5, color: "var(--ph-primary)", fontWeight: 600 }}>
-                        → {s.cta}
-                      </div>
-                      <div style={{ marginTop: "auto", display: "flex", justifyContent: "flex-end" }}>
+                      <div className="text-[12.5px] text-brand-400 font-semibold">→ {s.cta}</div>
+                      <div className="mt-auto pt-2 flex justify-end">
                         {saved ? (
-                          <span className="ph-badge ph-badge-success">
-                            <Check size={11} /> In Library
-                          </span>
+                          <Pill tone="emerald"><Check size={11} /> In Library</Pill>
                         ) : (
                           <button
                             type="button"
                             onClick={() => saveOneFromLibrary(s)}
-                            className="ph-btn ph-btn-primary"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold transition-colors"
                           >
-                            <Plus size={13} /> Save to Library
+                            <Plus size={12} /> Save
                           </button>
                         )}
                       </div>
-                    </div>
+                    </article>
                   );
                 })}
               </div>
-            </Card>
+            ) : (
+              <Card>
+                <EmptyState
+                  icon={<Library size={20} />}
+                  title="No pre-written shorts for this script"
+                  description="Use the AI tab to generate three custom shorts instead."
+                />
+              </Card>
+            )
           )}
         </div>
       </div>
