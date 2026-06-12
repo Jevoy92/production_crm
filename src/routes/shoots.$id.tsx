@@ -50,7 +50,6 @@ function ShootDay() {
       <div className="max-w-2xl mx-auto space-y-4">
         <div
           className="card-elevated rounded-2xl p-5"
-          style={{ borderLeft: `4px solid ${palColor(project.palType)}` }}
         >
           <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
             {project.palType}

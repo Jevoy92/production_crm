@@ -314,6 +314,47 @@
       0 12px 32px -16px color-mix(in oklab, var(--brand-500) 24%, transparent);
     border-color: color-mix(in oklab, var(--brand-500) 28%, var(--color-border));
   }
+  /* Focus timer — glow digits, ring halo, scanlines, blinking separator. */
+  .timer-glow {
+    text-shadow:
+      0 0 40px color-mix(in oklab, var(--brand-500) 30%, transparent),
+      0 0 80px color-mix(in oklab, var(--brand-500) 12%, transparent);
+  }
+  .timer-glow-active {
+    text-shadow:
+      0 0 40px color-mix(in oklab, var(--brand-500) 50%, transparent),
+      0 0 80px color-mix(in oklab, var(--brand-500) 22%, transparent),
+      0 0 120px color-mix(in oklab, var(--brand-500) 9%, transparent);
+  }
+  .timer-ring-idle {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--brand-500) 14%, transparent),
+      0 0 40px color-mix(in oklab, var(--brand-500) 7%, transparent),
+      inset 0 0 60px color-mix(in oklab, var(--brand-500) 4%, transparent);
+  }
+  .timer-ring-active {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--brand-500) 28%, transparent),
+      0 0 60px color-mix(in oklab, var(--brand-500) 14%, transparent),
+      inset 0 0 80px color-mix(in oklab, var(--brand-500) 6%, transparent);
+  }
+  .scanlines {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      color-mix(in oklab, var(--text-hi) 1.5%, transparent) 2px,
+      color-mix(in oklab, var(--text-hi) 1.5%, transparent) 4px
+    );
+    pointer-events: none;
+  }
+  @keyframes sep-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.15; }
+  }
+  .sep-blink { animation: sep-blink 1s step-end infinite; }
+  @media (prefers-reduced-motion: reduce) { .sep-blink { animation: none; } }
+
   /* Focus-mode play button pulse ring. */
   @keyframes focus-pulse {
     0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--brand-500) 30%, transparent); }

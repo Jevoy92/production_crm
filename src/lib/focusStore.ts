@@ -21,7 +21,12 @@ export type FocusSession = {
   /** Actual focused seconds (pauses excluded). */
   focusedSec: number;
   completedTask: boolean;
+  laps?: FocusLap[];
+  notes?: FocusNote[];
 };
+
+export type FocusLap = { id: string; label: string; atSec: number };
+export type FocusNote = { id: string; ts: number; text: string };
 
 type FocusState = {
   /** Completed session log (newest first, capped). */
@@ -38,6 +43,11 @@ type FocusState = {
   sessionStartedAt?: number;
   /** Queue of task ids to focus next. */
   queue: string[];
+  /** Lap markers + notes for the ACTIVE session. */
+  laps: FocusLap[];
+  notes: FocusNote[];
+  /** Daily focus goal in minutes (default 8h). */
+  dailyGoalMin: number;
 
   start: (taskId: string | undefined, taskTitle: string, plannedMin?: number) => void;
   pause: () => void;
@@ -49,6 +59,9 @@ type FocusState = {
   end: (completedTask: boolean) => number;
   enqueue: (taskId: string) => void;
   dequeue: (taskId: string) => void;
+  lap: (label?: string) => void;
+  addNote: (text: string) => void;
+  setDailyGoalMin: (m: number) => void;
 };
 
 const now = () => Date.now();
@@ -61,6 +74,9 @@ export const useFocusStore = create<FocusState>()(
       running: false,
       elapsedSec: 0,
       queue: [],
+      laps: [],
+      notes: [],
+      dailyGoalMin: 480,
 
       start: (taskId, taskTitle, plannedMin) =>
         set({
@@ -72,6 +88,8 @@ export const useFocusStore = create<FocusState>()(
           runStartedTs: now(),
           sessionStartedAt: now(),
           queue: get().queue.filter((q) => q !== taskId),
+          laps: [],
+          notes: [],
         }),
 
       pause: () => {
@@ -107,6 +125,8 @@ export const useFocusStore = create<FocusState>()(
             plannedMin: s.plannedMin,
             focusedSec,
             completedTask,
+            laps: s.laps,
+            notes: s.notes,
           };
           set({ sessions: [session, ...s.sessions].slice(0, 400) });
         }
@@ -117,6 +137,8 @@ export const useFocusStore = create<FocusState>()(
           elapsedSec: 0,
           runStartedTs: undefined,
           sessionStartedAt: undefined,
+          laps: [],
+          notes: [],
         });
         return focusedSec;
       },
@@ -124,12 +146,47 @@ export const useFocusStore = create<FocusState>()(
       enqueue: (taskId) =>
         set({ queue: get().queue.includes(taskId) ? get().queue : [...get().queue, taskId] }),
       dequeue: (taskId) => set({ queue: get().queue.filter((q) => q !== taskId) }),
+      lap: (label) => {
+        get().settle();
+        const s = get();
+        if (!s.sessionStartedAt) return;
+        set({
+          laps: [
+            ...s.laps,
+            {
+              id: `lap_${now()}_${Math.random().toString(36).slice(2, 5)}`,
+              label: label?.trim() || `Lap ${s.laps.length + 1}`,
+              atSec: s.elapsedSec,
+            },
+          ],
+        });
+      },
+      addNote: (text) => {
+        const t = text.trim();
+        if (!t) return;
+        set({
+          notes: [
+            ...get().notes,
+            { id: `fn_${now()}_${Math.random().toString(36).slice(2, 5)}`, ts: now(), text: t },
+          ],
+        });
+      },
+      setDailyGoalMin: (m) => set({ dailyGoalMin: Math.max(30, Math.min(16 * 60, m)) }),
     }),
     { name: "po-focus:v1" },
   ),
 );
 
 /* ── Analytics helpers ─────────────────────────────────────────────────── */
+
+/** hh:mm:ss mono clock string. */
+export function fmtClock(sec: number): string {
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  const s2 = Math.floor(sec % 60);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return h > 0 ? `${pad(h)}:${pad(m)}:${pad(s2)}` : `${pad(m)}:${pad(s2)}`;
+}
 
 export function fmtDuration(sec: number): string {
   const h = Math.floor(sec / 3600);

@@ -21,8 +21,9 @@ import {
 } from "@/lib/jevoyPlaybook";
 import {
   PieChart, Pie, Cell, ResponsiveContainer,
-  BarChart, Bar, XAxis, Tooltip,
+  BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, LabelList,
 } from "recharts";
+import { ChartTooltip } from "@/components/charts/Charts";
 
 export const Route = createFileRoute("/")({
   component: Today,
@@ -606,7 +607,6 @@ function ScriptIdeas() {
             key={c.title}
             className="min-w-[320px] max-w-[360px] flex-shrink-0 bg-panel border border-line rounded-xl p-5 snap-start hover:border-line-strong/60 transition-colors group relative overflow-hidden"
           >
-            <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${c.grad} opacity-60 group-hover:opacity-100 transition-opacity`} />
             <div className={`text-[10px] font-semibold uppercase tracking-wider mb-2 ${c.tagColor}`}>{c.tag}</div>
             <h4 className="text-base font-semibold text-hi mb-3 line-clamp-2">{c.title}</h4>
             <div className="space-y-3">
@@ -953,26 +953,25 @@ function WorkloadChart({
         ) : (
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data} barCategoryGap="30%">
-                <XAxis dataKey="name" stroke="#71717a" fontSize={11} axisLine={false} tickLine={false} />
-                <Tooltip
-                  cursor={{ fill: "rgba(99,102,241,0.06)" }}
-                  contentStyle={{
-                    background: "rgb(24,24,27)", border: "1px solid rgb(63,63,70)",
-                    borderRadius: 8, fontSize: 12,
-                  }}
-                />
-                <Bar dataKey="Low" stackId="a" fill="#52525b" radius={[0, 0, 4, 4]} />
-                <Bar dataKey="Med" stackId="a" fill="#3b82f6" />
-                <Bar dataKey="High" stackId="a" fill="#f43f5e" radius={[4, 4, 0, 0]} />
+              <BarChart data={data} barCategoryGap="30%" margin={{ top: 18, right: 4, left: -18, bottom: 0 }}>
+                <CartesianGrid stroke="var(--line)" strokeDasharray="3 3" vertical={false} />
+                <XAxis dataKey="name" stroke="var(--text-lo)" fontSize={11} axisLine={false} tickLine={false} dy={4} />
+                <YAxis allowDecimals={false} stroke="var(--text-lo)" fontSize={10.5} axisLine={false} tickLine={false} width={32} />
+                <Tooltip cursor={{ fill: "color-mix(in oklab, var(--brand-500) 6%, transparent)" }} content={<ChartTooltip />} />
+                <Bar dataKey="Low" stackId="a" fill="var(--line-2)" radius={[0, 0, 4, 4]} />
+                <Bar dataKey="Med" stackId="a" fill="var(--brand-500)" />
+                <Bar dataKey="High" stackId="a" fill="var(--accent-rose)" radius={[4, 4, 0, 0]}>
+                  <LabelList dataKey="total" position="top" fill="var(--text-hi)" fontSize={11.5} fontWeight={700} formatter={(v: number) => (v > 0 ? v : "")} />
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
         )}
         <div className="flex items-center gap-4 mt-2 justify-center text-[11px] text-lo">
-          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm bg-rose-500" />High</span>
-          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm bg-blue-500" />Med</span>
-          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm bg-zinc-600" />Low</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm bg-rose" />High · <span className="num text-hi font-semibold">{data.reduce((n, d) => n + d.High, 0)}</span></span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm" style={{ background: "var(--brand-500)" }} />Med · <span className="num text-hi font-semibold">{data.reduce((n, d) => n + d.Med, 0)}</span></span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm" style={{ background: "var(--line-2)" }} />Low · <span className="num text-hi font-semibold">{data.reduce((n, d) => n + d.Low, 0)}</span></span>
+          <span className="text-lo">· {data.reduce((n, d) => n + d.total, 0)} open total</span>
         </div>
       </section>
 
@@ -989,9 +988,18 @@ function WorkloadChart({
         <div className="h-44 relative">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
-              <Pie data={blockData} dataKey="value" innerRadius={42} outerRadius={68} paddingAngle={3} stroke="none">
+              <Pie
+                data={blockData} dataKey="value" innerRadius={42} outerRadius={68} paddingAngle={3} stroke="none"
+                label={({ percent, x, y }) => (
+                  <text x={x} y={y} fill="var(--text-mid)" fontSize={10} fontWeight={600} textAnchor="middle" dominantBaseline="central">
+                    {Math.round((percent ?? 0) * 100)}%
+                  </text>
+                )}
+                labelLine={{ stroke: "var(--line-2)", strokeWidth: 1 }}
+              >
                 {blockData.map((b, i) => <Cell key={i} fill={b.fill} />)}
               </Pie>
+              <Tooltip content={<ChartTooltip formatter={(v: number) => `${v} min`} />} />
             </PieChart>
           </ResponsiveContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
@@ -1006,7 +1014,7 @@ function WorkloadChart({
                 <span className="w-2 h-2 rounded-sm" style={{ background: b.fill }} />
                 {SHANNEN_BLOCKS[i].label}
               </span>
-              <span className="text-lo num">{b.value}m</span>
+              <span className="text-lo num">{b.value}m · {Math.round((b.value / blockData.reduce((n, x) => n + x.value, 0)) * 100)}%</span>
             </li>
           ))}
         </ul>

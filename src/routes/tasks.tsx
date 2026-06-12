@@ -288,7 +288,6 @@ function TasksPage() {
                             key={t.id}
                             onClick={() => setSelectedId(t.id)}
                             className={`group flex items-center gap-4 px-4 py-3.5 rounded-xl border bg-panel cursor-pointer transition-all ${active ? "border-brand-500/50 ring-1 ring-brand-500/30" : "border-line hover:border-brand-500/30"}`}
-                            style={{ borderLeft: `3px solid ${active ? "var(--brand-500)" : "transparent"}` }}
                           >
                             <button
                               onClick={(e) => { e.stopPropagation(); toggleDone(t, e); }}

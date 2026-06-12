@@ -269,7 +269,6 @@ function SchedulePage() {
                             style={{
                               background: palColor(proj.palType) + "22",
                               color: palColor(proj.palType),
-                              borderLeft: `2px solid ${palColor(proj.palType)}`,
                             }}
                             title={proj.title}
                           >
@@ -292,7 +291,6 @@ function SchedulePage() {
                             style={{
                               background: `color-mix(in oklab, ${color} 15%, transparent)`,
                               color,
-                              borderLeft: `2px solid ${color}`,
                             }}
                             title={`${it.platform} · ${it.title}`}
                           >
