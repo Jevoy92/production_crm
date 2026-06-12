@@ -11,6 +11,9 @@ import { useStore } from "@/lib/store";
 import { useCalendarEvents } from "@/components/calendar/GoogleCalendar";
 import { generateTaskAssist, type TaskAssistantResult } from "@/lib/taskAssistant.functions";
 import { toast } from "sonner";
+import {
+  SHANNEN_BLOCKS, SHANNEN_WEEK, ACCENT_CLASS, SHANNEN_OWNS, SHANNEN_NEVER,
+} from "@/lib/shannenPlaybook";
 
 export const Route = createFileRoute("/")({
   component: Today,
@@ -187,7 +190,7 @@ function Today() {
 
         {/* AI-assisted person task panels */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {shannen && <PersonTasks person={shannen} tasks={tasks.filter((t) => t.assigneeId === shannen.id && t.status !== "done")} />}
+          {shannen && <ShannenDay person={shannen} tasks={tasks.filter((t) => t.assigneeId === shannen.id && t.status !== "done")} />}
           {jevoy && <PersonTasks person={jevoy} tasks={tasks.filter((t) => t.assigneeId === jevoy.id && t.status !== "done")} />}
         </div>
 
