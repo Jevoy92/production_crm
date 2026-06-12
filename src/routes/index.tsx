@@ -183,29 +183,7 @@ function Today() {
             </Panel>
           </div>
 
-          <div className="bg-rose/5 border border-rose/20 rounded-2xl p-6 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-rose/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
-            <div className="flex items-center gap-3 mb-5 relative z-10">
-              <div className="w-8 h-8 rounded-lg bg-rose/20 flex items-center justify-center text-rose">
-                <TriangleAlert size={14} />
-              </div>
-              <h3 className="font-display font-bold text-hi text-base">Watch-outs</h3>
-            </div>
-            <div className="space-y-3 relative z-10">
-              <div className="bg-panel/60 border border-rose/30 p-4 rounded-lg">
-                <h4 className="text-sm font-semibold text-rose mb-1">Admin Lag</h4>
-                <p className="text-xs text-mid">
-                  Don't ignore the Middesk mail; registration issues can halt payments or contracts later.
-                </p>
-              </div>
-              <div className="bg-panel/60 border border-amber/30 p-4 rounded-lg">
-                <h4 className="text-sm font-semibold text-amber mb-1">Calendar Compression</h4>
-                <p className="text-xs text-mid">
-                  Back-to-back calls midday. <strong className="text-hi">Eat before 12:30</strong> or you'll fade.
-                </p>
-              </div>
-            </div>
-          </div>
+          <WatchOuts />
         </div>
 
         {/* AI-assisted person task panels */}
