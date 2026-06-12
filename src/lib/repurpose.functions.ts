@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { generateText, Output } from "ai";
+import { generateObject } from "ai";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 
 const PLATFORM_ENUM = z.enum(["Instagram Reels", "YouTube Shorts", "TikTok"]);
@@ -58,11 +58,11 @@ export const generateShorts = createServerFn({ method: "POST" })
       "Each CTA must reference the long-form: 'Full breakdown on YouTube — link in bio' or similar.",
     ].join("\n");
 
-    const { output: result } = await generateText({
+    const { object: result } = await generateObject({
       model: gateway("google/gemini-3-flash-preview"),
       system,
       prompt,
-      output: Output.object({ schema: OutputSchema }),
+      schema: OutputSchema,
     });
 
     // Ensure platform order matches request (model sometimes shuffles)
