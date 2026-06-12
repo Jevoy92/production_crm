@@ -1,3 +1,4 @@
+import { celebrate } from "@/lib/confetti";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
@@ -241,6 +242,7 @@ function ChecklistsPage() {
     const it = items.find((i) => i.id === id);
     if (!it) return;
     setItems((prev) => prev.map((p) => (p.id === id ? { ...p, done: !p.done } : p)));
+    if (!it.done) celebrate(null, 36);
     const { error } = await supabase.from("checklist_items").update({ done: !it.done }).eq("id", id);
     setSynced(!error);
   };

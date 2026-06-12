@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { toast } from "sonner";
 import { useStore } from "@/lib/store";
+import { useNotifications } from "@/lib/notifications";
 
 /**
  * Watches the shared tasks list and fires a toast when something changes
@@ -17,6 +18,7 @@ export function useTaskNotifications() {
   const team = useStore((s) => s.team);
   const activeRole = useStore((s) => s.activeRole);
   const me = team.find((m) => m.role === activeRole);
+  const push = useNotifications((s) => s.notify);
 
   const prevRef = useRef<Map<string, { assigneeId: string; status: string; dueDate?: string }> | null>(null);
   const seededRef = useRef(false);
@@ -47,6 +49,7 @@ export function useTaskNotifications() {
           toast(`New task assigned to you`, {
             description: t.title,
           });
+          push({ kind: "task", title: "New task assigned to you", description: t.title, to: "/tasks" });
         }
         continue;
       }
@@ -54,6 +57,7 @@ export function useTaskNotifications() {
       // Reassigned to me
       if (before.assigneeId !== t.assigneeId && isMine) {
         toast(`Task reassigned to you`, { description: t.title });
+        push({ kind: "task", title: "Task reassigned to you", description: t.title, to: "/tasks" });
         continue;
       }
 
@@ -62,6 +66,7 @@ export function useTaskNotifications() {
       // Status flipped to done by someone (could be you — that's OK, light toast)
       if (before.status !== "done" && t.status === "done") {
         toast.success(`Task completed`, { description: t.title });
+        push({ kind: "task", title: "Task completed", description: t.title, to: "/tasks" });
         continue;
       }
 
@@ -70,6 +75,7 @@ export function useTaskNotifications() {
         toast(`Due date updated`, {
           description: `${t.title}${t.dueDate ? ` → ${new Date(t.dueDate).toLocaleDateString()}` : " (cleared)"}`,
         });
+        push({ kind: "task", title: "Due date updated", description: t.title, to: "/tasks" });
       }
     }
   }, [tasks, me]);

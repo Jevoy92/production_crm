@@ -1,8 +1,9 @@
 import * as React from "react";
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { Search, Bell, Sun, Moon, Menu } from "lucide-react";
+import { Sun, Moon, Menu } from "lucide-react";
 import { AppSidebar } from "./AppSidebar";
+import { GlobalSearch, NotificationBell, TopbarQuickActions } from "./TopbarExtras";
 import { PalsLauncher } from "@/components/pals/PalsLauncher";
 import { AnimatedNumber } from "@/components/motion/Motion";
 import { routeVariants } from "@/lib/motion";
@@ -54,18 +55,9 @@ function Topbar({
       </div>
       <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         {actions}
-        <div className="relative hidden lg:block">
-          <input
-            type="text"
-            placeholder="Search…"
-            className="bg-sunken border border-line text-hi placeholder-lo text-sm rounded-xl pl-9 pr-4 py-2.5 w-56 focus:outline-none focus:border-brand-500 transition-colors"
-          />
-          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-lo" />
-        </div>
-        <button className="relative w-10 h-10 rounded-xl bg-sunken border border-line hidden sm:flex items-center justify-center text-mid hover:text-hi hover:bg-raised transition-colors">
-          <Bell size={16} />
-          <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 rounded-full bg-rose" />
-        </button>
+        <GlobalSearch />
+        <TopbarQuickActions />
+        <NotificationBell />
         <ThemeToggle />
       </div>
     </header>
@@ -318,6 +310,60 @@ export function StatTile({
       <div className="text-mid text-sm font-medium">{label}</div>
       {trailing && <div className="mt-3">{trailing}</div>}
     </div>
+  );
+}
+
+/**
+ * Collapsible — dense-info pattern: header always visible, body folds away.
+ * Animated height + rotating chevron. Defaults open.
+ */
+export function Collapsible({
+  title,
+  subtitle,
+  icon,
+  defaultOpen = true,
+  children,
+  action,
+}: {
+  title: ReactNode;
+  subtitle?: ReactNode;
+  icon?: ReactNode;
+  defaultOpen?: boolean;
+  children: ReactNode;
+  action?: ReactNode;
+}) {
+  const [open, setOpen] = React.useState(defaultOpen);
+  return (
+    <section className="bg-panel border border-line rounded-2xl overflow-hidden">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-sunken/50 transition-colors"
+        aria-expanded={open}
+      >
+        {icon && <span className="w-8 h-8 rounded-lg bg-sunken border border-line flex items-center justify-center text-mid flex-shrink-0">{icon}</span>}
+        <span className="flex-1 min-w-0">
+          <span className="block font-display font-bold text-hi text-base leading-tight truncate">{title}</span>
+          {subtitle && <span className="block text-lo text-xs mt-0.5 truncate">{subtitle}</span>}
+        </span>
+        {action && <span onClick={(e) => e.stopPropagation()}>{action}</span>}
+        <motion.span
+          animate={{ rotate: open ? 0 : -90 }}
+          transition={{ duration: 0.2 }}
+          className="text-lo flex-shrink-0"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </motion.span>
+      </button>
+      <motion.div
+        initial={false}
+        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
+        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        style={{ overflow: "hidden" }}
+      >
+        <div className="px-5 pb-5">{children}</div>
+      </motion.div>
+    </section>
   );
 }
 

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
 import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
+import { celebrate } from "@/lib/confetti";
 import { useStore } from "@/lib/store";
 import type { Task, Stage, Subtask, TaskAttachment, ChecklistStage } from "@/lib/types";
 import { CHECKLIST_STAGES } from "@/lib/types";
@@ -159,7 +160,11 @@ function TasksPage() {
   const completedCount = tasks.filter((t) => t.status === "done").length;
   const dueToday = tasks.filter((t) => fmtDue(t.dueDate) === "Today").length;
 
-  const toggleDone = (t: Task) => update(t.id, { status: t.status === "done" ? "todo" : "done" });
+  const toggleDone = (t: Task, e?: React.MouseEvent) => {
+    const completing = t.status !== "done";
+    update(t.id, { status: completing ? "done" : "todo" });
+    if (completing) celebrate(e ?? null);
+  };
 
   return (
     <Shell
@@ -285,12 +290,12 @@ function TasksPage() {
                             style={{ borderLeft: `3px solid ${active ? "var(--brand-500)" : "transparent"}` }}
                           >
                             <button
-                              onClick={(e) => { e.stopPropagation(); toggleDone(t); }}
+                              onClick={(e) => { e.stopPropagation(); toggleDone(t, e); }}
                               className="flex-shrink-0"
                               aria-label={done ? "Mark not done" : "Mark done"}
                             >
                               {done ? (
-                                <span className="w-5 h-5 rounded-full bg-gradient-to-br from-brand-500 to-emerald flex items-center justify-center"><Check size={11} className="text-white" /></span>
+                                <span className="check-pop w-5 h-5 rounded-full bg-gradient-to-br from-brand-500 to-emerald flex items-center justify-center"><Check size={11} className="text-white" /></span>
                               ) : doing ? (
                                 <span className="w-5 h-5 rounded-full border-2 border-brand-500 flex items-center justify-center"><span className="w-1.5 h-1.5 rounded-full bg-brand-500" /></span>
                               ) : (
