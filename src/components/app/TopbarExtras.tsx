@@ -61,7 +61,7 @@ export function NotificationBell() {
           setOpen((o) => !o);
           if (!open && unread) setTimeout(markAllRead, 1200);
         }}
-        className="relative w-10 h-10 rounded-xl bg-sunken border border-line flex items-center justify-center text-mid hover:text-hi hover:bg-raised transition-colors"
+        className="relative w-9 h-9 rounded-xl flex items-center justify-center text-mid hover:text-hi hover:bg-raised transition-colors"
       >
         <motion.span
           key={unread} // re-trigger ring shake when count changes
@@ -244,7 +244,7 @@ export function GlobalSearch() {
         onChange={(e) => setQ(e.target.value)}
         onFocus={() => setFocus(true)}
         placeholder="Search projects, tasks, content…"
-        className="bg-sunken border border-line text-hi placeholder-lo text-sm rounded-xl pl-9 pr-4 py-2.5 w-64 focus:outline-none focus:border-brand-500 focus:w-72 transition-all"
+        className="bg-transparent border border-transparent text-hi placeholder-lo text-sm rounded-xl pl-9 pr-3 py-2 w-56 focus:outline-none focus:bg-panel focus:border-brand-500 focus:w-72 transition-all"
       />
       <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-lo" />
       <AnimatePresence>
@@ -302,7 +302,7 @@ export function TopbarQuickActions() {
       <Link
         to="/schedule"
         aria-label="Open schedule"
-        className="hidden sm:flex w-10 h-10 rounded-xl bg-sunken border border-line items-center justify-center text-mid hover:text-hi hover:bg-raised transition-colors"
+        className="hidden sm:flex w-9 h-9 rounded-xl items-center justify-center text-mid hover:text-hi hover:bg-raised transition-colors"
       >
         <CalendarDays size={16} />
       </Link>
@@ -310,7 +310,7 @@ export function TopbarQuickActions() {
         type="button"
         aria-label="Ask Pals (help)"
         onClick={toggle}
-        className="hidden md:flex w-10 h-10 rounded-xl bg-sunken border border-line items-center justify-center text-mid hover:text-hi hover:bg-raised transition-colors"
+        className="hidden md:flex w-9 h-9 rounded-xl items-center justify-center text-mid hover:text-hi hover:bg-raised transition-colors"
       >
         <CircleHelp size={16} />
       </button>

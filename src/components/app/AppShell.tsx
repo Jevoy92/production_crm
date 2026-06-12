@@ -16,7 +16,7 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label="Toggle theme"
       title={theme === "dark" ? "Switch to light" : "Switch to dark"}
-      className="relative w-10 h-10 rounded-xl bg-sunken border border-line flex items-center justify-center text-mid hover:text-hi hover:bg-raised transition-colors"
+      className="relative w-9 h-9 rounded-xl flex items-center justify-center text-mid hover:text-hi hover:bg-raised transition-colors"
     >
       {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
     </button>
@@ -54,11 +54,14 @@ function Topbar({
         </div>
       </div>
       <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-        {actions}
-        <GlobalSearch />
-        <TopbarQuickActions />
-        <NotificationBell />
-        <ThemeToggle />
+        {actions && <div className="flex items-center gap-2">{actions}</div>}
+        {actions && <span className="hidden md:block w-px h-7 bg-line mx-0.5" aria-hidden />}
+        <div className="flex items-center gap-1.5 bg-sunken/60 border border-line rounded-2xl p-1">
+          <GlobalSearch />
+          <TopbarQuickActions />
+          <NotificationBell />
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );
