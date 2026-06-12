@@ -15,7 +15,7 @@ import {
   SHANNEN_BLOCKS, SHANNEN_WEEK, ACCENT_CLASS, SHANNEN_OWNS, SHANNEN_NEVER,
 } from "@/lib/shannenPlaybook";
 import {
-  PieChart, Pie, Cell, ResponsiveContainer, RadialBarChart, RadialBar,
+  PieChart, Pie, Cell, ResponsiveContainer,
   BarChart, Bar, XAxis, Tooltip,
 } from "recharts";
 
