@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
-import { MetricCard } from "@/components/app/AppShell";
+import { Collapsible, MetricCard } from "@/components/app/AppShell";
 import { Stagger, StaggerItem } from "@/components/motion/Motion";
 import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
 import { useStore } from "@/lib/store";
@@ -46,11 +46,13 @@ function TeamPage() {
   const avgLoad = loads.length ? Math.round(loads.reduce((a, b) => a + b, 0) / loads.length) : 0;
   const overloaded = loads.filter((l) => l > 85).length;
   const roleCount = new Set(team.map((m) => m.role)).size;
+  const nf = (n: number) => Math.round(n).toLocaleString();
+  const pctF = (n: number) => `${Math.round(n)}%`;
   const summary = [
-    { icon: <Users size={16} />, accent: "brand" as const, label: "Team Members", value: team.length },
-    { icon: <Gauge size={16} />, accent: "cyan" as const, label: "Avg Utilization", value: `${avgLoad}%` },
-    { icon: <Layers size={16} />, accent: "violet" as const, label: "Roles", value: roleCount },
-    { icon: <TriangleAlert size={16} />, accent: overloaded > 0 ? ("rose" as const) : ("emerald" as const), label: "Overloaded", value: overloaded },
+    { icon: <Users size={16} />, accent: "brand" as const, label: "Team Members", value: team.length, format: nf },
+    { icon: <Gauge size={16} />, accent: "cyan" as const, label: "Avg Utilization", value: avgLoad, format: pctF },
+    { icon: <Layers size={16} />, accent: "violet" as const, label: "Roles", value: roleCount, format: nf },
+    { icon: <TriangleAlert size={16} />, accent: overloaded > 0 ? ("rose" as const) : ("emerald" as const), label: "Overloaded", value: overloaded, format: nf },
   ];
 
   return (
@@ -66,7 +68,7 @@ function TeamPage() {
       <Stagger className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6" stagger={0.05}>
         {summary.map((s) => (
           <StaggerItem key={s.label} variant="scaleIn">
-            <MetricCard icon={s.icon} accent={s.accent} label={s.label} value={s.value} />
+            <MetricCard icon={s.icon} accent={s.accent} label={s.label} value={s.format(s.value)} animateTo={s.value} format={s.format} />
           </StaggerItem>
         ))}
       </Stagger>
@@ -140,18 +142,37 @@ function TeamPage() {
         })}
       </div>
 
-      {/* ── Master KPI View — all three dashboards always visible ── */}
-      <div className="mt-8 space-y-10">
+      {/* ── Master KPI View — collapsible role dashboards ── */}
+      <div className="mt-8 space-y-4">
         {team.find((m) => m.role === "owner") && (
-          <OwnerPanel member={team.find((m) => m.role === "owner")!} />
+          <Collapsible
+            title={`Owner Dashboard — ${team.find((m) => m.role === "owner")!.name}`}
+            subtitle="revenue, throughput, momentum"
+            icon={<Crown className="size-4" />}
+            defaultOpen
+          >
+            <OwnerPanel />
+          </Collapsible>
         )}
-        <div className="border-t border-border" />
         {team.find((m) => m.role === "cfo") && (
-          <CfoPanel member={team.find((m) => m.role === "cfo")!} />
+          <Collapsible
+            title={`CFO Dashboard — ${team.find((m) => m.role === "cfo")!.name}`}
+            subtitle="cash, margins, AR"
+            icon={<DollarSign className="size-4" />}
+            defaultOpen={false}
+          >
+            <CfoPanel />
+          </Collapsible>
         )}
-        <div className="border-t border-border" />
         {team.find((m) => m.role === "pa") && (
-          <PaPanel member={team.find((m) => m.role === "pa")!} />
+          <Collapsible
+            title={`PA Dashboard — ${team.find((m) => m.role === "pa")!.name}`}
+            subtitle="readiness, hygiene, throughput"
+            icon={<ClipboardCheck className="size-4" />}
+            defaultOpen={false}
+          >
+            <PaPanel />
+          </Collapsible>
         )}
       </div>
 
@@ -348,50 +369,10 @@ function EditMember({ member, onClose }: { member: TeamMember | null; onClose: (
   );
 }
 
-function RolePanelHeader({
-  member,
-  icon: Icon,
-  title,
-  sub,
-}: {
-  member: TeamMember;
-  icon: typeof Crown;
-  title: string;
-  sub: string;
-}) {
-  return (
-    <div className="flex items-center gap-3 mb-4">
-      <div
-        className="size-10 rounded-full grid place-items-center text-[13px] font-semibold text-primary-foreground"
-        style={{ background: member.color }}
-      >
-        {member.initials}
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2">
-          <Icon className="size-3.5 text-muted-foreground" />
-          <div className="text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
-            {title}
-          </div>
-        </div>
-        <div className="text-[15px] font-semibold tracking-tight">
-          {member.name} <span className="text-muted-foreground font-normal">· {sub}</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function OwnerPanel({ member }: { member: TeamMember }) {
+function OwnerPanel() {
   const k = ownerKpis();
   return (
     <div>
-      <RolePanelHeader
-        member={member}
-        icon={Crown}
-        title="Owner Dashboard"
-        sub="revenue, throughput, momentum"
-      />
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
         <KpiCard
           label="Active projects"
@@ -447,16 +428,10 @@ function OwnerPanel({ member }: { member: TeamMember }) {
   );
 }
 
-function CfoPanel({ member }: { member: TeamMember }) {
+function CfoPanel() {
   const k = cfoKpis();
   return (
     <div>
-      <RolePanelHeader
-        member={member}
-        icon={DollarSign}
-        title="CFO Dashboard"
-        sub="cash, margins, AR"
-      />
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
         <KpiCard
           label="Cash collected MTD"
@@ -497,16 +472,10 @@ function CfoPanel({ member }: { member: TeamMember }) {
   );
 }
 
-function PaPanel({ member }: { member: TeamMember }) {
+function PaPanel() {
   const k = paKpis();
   return (
     <div>
-      <RolePanelHeader
-        member={member}
-        icon={ClipboardCheck}
-        title="PA Dashboard"
-        sub="readiness, hygiene, throughput"
-      />
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
         <KpiCard
           label="Shoots this week"

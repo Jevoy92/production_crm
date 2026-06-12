@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Shell } from "@/components/dashboard/Shell";
+import { Collapsible } from "@/components/app/AppShell";
+import { AnimatedNumber } from "@/components/motion/Motion";
 import { Btn, Field, inputCls } from "@/components/ui-bits/Modal";
 import { useStore, palColor } from "@/lib/store";
-import { ArrowLeft, Trash2 } from "lucide-react";
+import { ArrowLeft, FolderKanban, Trash2 } from "lucide-react";
 
 export const Route = createFileRoute("/clients/$id")({
   component: ClientDetail,
@@ -57,14 +59,29 @@ function ClientDetail() {
     >
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
         <div className="xl:col-span-2 space-y-4">
-          <div className="card-elevated rounded-2xl p-5 grid grid-cols-3 gap-3">
-            <Stat label="Projects" value={projects.length} />
-            <Stat label="Lifetime value" value={`$${ltv.toLocaleString()}`} />
-            <Stat label="Avg rating" value={avgRating} />
+          <div className="card-elevated rounded-2xl p-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <Stat label="Projects" value={<AnimatedNumber value={projects.length} />} />
+            <Stat
+              label="Lifetime value"
+              value={
+                <AnimatedNumber
+                  value={ltv}
+                  format={(n) => `$${Math.round(n).toLocaleString()}`}
+                />
+              }
+            />
+            <Stat
+              label="Avg rating"
+              value={avgRating === "—" ? "—" : <>★ {avgRating}</>}
+            />
           </div>
 
-          <div className="card-elevated rounded-2xl p-5">
-            <h3 className="text-[15px] font-semibold mb-3">Project history</h3>
+          <Collapsible
+            title="Project history"
+            subtitle={`${projects.length} ${projects.length === 1 ? "project" : "projects"} · $${ltv.toLocaleString()} quoted`}
+            icon={<FolderKanban className="size-4" />}
+            defaultOpen
+          >
             <div className="space-y-2">
               {projects.length === 0 && (
                 <p className="text-[12px] text-muted-foreground">No projects yet.</p>
@@ -95,7 +112,7 @@ function ClientDetail() {
                 </Link>
               ))}
             </div>
-          </div>
+          </Collapsible>
         </div>
 
         <div className="space-y-4">

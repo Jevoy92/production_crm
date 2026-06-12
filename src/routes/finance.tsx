@@ -141,7 +141,15 @@ function HygieneRow({ label, value, bad }: { label: string; value: string | numb
   return (
     <div className="flex items-center justify-between py-2.5 border-b border-line last:border-0">
       <span className="text-sm text-mid">{label}</span>
-      <span className={`num text-sm font-semibold ${bad ? "text-rose" : "text-hi"}`}>{value}</span>
+      <span
+        className={`num font-semibold ${
+          bad
+            ? "text-xs text-rose bg-rose/10 border border-rose/25 px-2 py-0.5 rounded-full"
+            : "text-sm text-hi"
+        }`}
+      >
+        {value}
+      </span>
     </div>
   );
 }

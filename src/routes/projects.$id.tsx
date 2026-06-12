@@ -1,7 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
-import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
+import { Collapsible, Progress } from "@/components/app/AppShell";
+import { Btn, Field, inputCls } from "@/components/ui-bits/Modal";
 import { useStore, palColor, checklistProgress, readinessScore } from "@/lib/store";
 import { CHECKLIST_STAGES, STAGES, PAL_TYPES } from "@/lib/types";
 import type { ChecklistStage, Stage, PalType } from "@/lib/types";
@@ -196,15 +197,32 @@ function ProjectHub() {
           {/* Tabs */}
           <div className="card-elevated rounded-2xl">
             <div className="flex border-b border-border px-3">
-              {(["checklists", "shoots", "assets", "log", "details"] as const).map((t) => (
-                <button
-                  key={t}
-                  onClick={() => setTab(t)}
-                  className={`px-3 py-2.5 text-[12.5px] capitalize border-b-2 -mb-px ${tab === t ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}
-                >
-                  {t}
-                </button>
-              ))}
+              {(["checklists", "shoots", "assets", "log", "details"] as const).map((t) => {
+                const count =
+                  t === "checklists"
+                    ? prog.total
+                    : t === "shoots"
+                      ? shoots.length
+                      : t === "assets"
+                        ? assets.length
+                        : t === "log"
+                          ? project.log.length
+                          : 0;
+                return (
+                  <button
+                    key={t}
+                    onClick={() => setTab(t)}
+                    className={`flex items-center gap-1.5 px-3 py-2.5 text-[12.5px] capitalize border-b-2 -mb-px ${tab === t ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}
+                  >
+                    {t}
+                    {count > 0 && (
+                      <span className="num text-[10px] px-1.5 py-0.5 rounded-full bg-surface-2 ring-inset-soft text-muted-foreground">
+                        {count}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
 
             <div className="p-5">
@@ -228,6 +246,24 @@ function ProjectHub() {
                       );
                     })}
                   </div>
+                  {project.checklists[stageF].length > 0 && (
+                    <div className="flex items-center gap-2.5 mb-3">
+                      <div className="flex-1">
+                        <Progress
+                          value={
+                            (project.checklists[stageF].filter((i) => i.done).length /
+                              project.checklists[stageF].length) *
+                            100
+                          }
+                          color="var(--accent-emerald)"
+                        />
+                      </div>
+                      <span className="num text-[11px] text-muted-foreground">
+                        {project.checklists[stageF].filter((i) => i.done).length}/
+                        {project.checklists[stageF].length}
+                      </span>
+                    </div>
+                  )}
                   <ul className="space-y-1.5">
                     {project.checklists[stageF].map((i) => (
                       <li key={i.id} className="flex items-center gap-2.5 group">
@@ -369,22 +405,29 @@ function ProjectHub() {
                       Post
                     </Btn>
                   </form>
-                  <div className="space-y-2">
-                    {project.log.length === 0 && (
-                      <p className="text-[12.5px] text-muted-foreground">No log entries yet.</p>
-                    )}
-                    {project.log.map((e) => (
-                      <div key={e.id} className="rounded-xl bg-surface-2 ring-inset-soft p-3">
-                        <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                          <span>
-                            {e.who} · {e.type}
-                          </span>
-                          <span className="num">{new Date(e.ts).toLocaleString()}</span>
-                        </div>
-                        <div className="text-[13px] text-foreground mt-1">{e.text}</div>
+                  {project.log.length === 0 ? (
+                    <p className="text-[12.5px] text-muted-foreground">No log entries yet.</p>
+                  ) : (
+                    <Collapsible
+                      title="Activity history"
+                      subtitle={`${project.log.length} ${project.log.length === 1 ? "entry" : "entries"}`}
+                      defaultOpen={project.log.length <= 6}
+                    >
+                      <div className="space-y-2">
+                        {project.log.map((e) => (
+                          <div key={e.id} className="rounded-xl bg-surface-2 ring-inset-soft p-3">
+                            <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+                              <span>
+                                {e.who} · {e.type}
+                              </span>
+                              <span className="num">{new Date(e.ts).toLocaleString()}</span>
+                            </div>
+                            <div className="text-[13px] text-foreground mt-1">{e.text}</div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </Collapsible>
+                  )}
                 </>
               )}
 

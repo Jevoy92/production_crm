@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Shell } from "@/components/dashboard/Shell";
+import { Progress } from "@/components/app/AppShell";
 import { Btn } from "@/components/ui-bits/Modal";
 import { useStore, palColor, readinessScore } from "@/lib/store";
 import { ArrowLeft, MapPin, Clock, CheckCircle2, Circle } from "lucide-react";
@@ -70,6 +71,7 @@ function ShootDay() {
               label="Readiness"
               value={`${ready}%`}
               accent={ready >= 80 ? "var(--color-chart-3)" : "var(--color-destructive)"}
+              bar={ready}
             />
           </div>
           {shoot.goals && (
@@ -124,11 +126,13 @@ function Stat({
   label,
   value,
   accent,
+  bar,
 }: {
   icon?: React.ReactNode;
   label: string;
   value: string;
   accent?: string;
+  bar?: number;
 }) {
   return (
     <div className="rounded-lg bg-surface-2 p-2.5">
@@ -142,6 +146,11 @@ function Stat({
       >
         {value}
       </div>
+      {bar != null && (
+        <div className="mt-1.5">
+          <Progress value={bar} color={accent} />
+        </div>
+      )}
     </div>
   );
 }
@@ -156,13 +165,17 @@ function BigList({
   onToggle: (id: string) => void;
 }) {
   const doneCount = items.filter((i) => i.done).length;
+  const pct = items.length ? Math.round((doneCount / items.length) * 100) : 0;
   return (
     <div className="card-elevated rounded-2xl p-5">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-2">
         <h3 className="text-[15px] font-semibold">{title}</h3>
-        <span className="num text-[12px] text-muted-foreground">
+        <span className="num text-[11px] text-muted-foreground rounded-full bg-surface-2 px-2 py-0.5">
           {doneCount}/{items.length}
         </span>
+      </div>
+      <div className="mb-3">
+        <Progress value={pct} />
       </div>
       <ul className="space-y-1">
         {items.map((i) => (

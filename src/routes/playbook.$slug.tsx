@@ -3,9 +3,11 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Shell } from "@/components/dashboard/Shell";
+import { Collapsible, Progress } from "@/components/app/AppShell";
 import { Btn, Field, inputCls } from "@/components/ui-bits/Modal";
 import { useStore } from "@/lib/store";
 import {
+  AlertTriangle,
   ArrowLeft,
   CheckCircle2,
   CheckSquare,
@@ -286,61 +288,60 @@ function PlaybookPageDetail() {
         <div className="xl:col-span-2 space-y-6">
           {/* Metadata block — hidden for Pal hero (already showed purpose) */}
           {!isPal && (
-            <div className="card-elevated rounded-2xl p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-3">
-                  <MetaField
-                    label="Purpose"
-                    value={current.purpose}
-                    editing={editing}
-                    onChange={(v) =>
-                      setDraft((d) => (d ? { ...d, purpose: v } : d))
-                    }
-                    placeholder="No purpose defined."
-                  />
-                  <MetaField
-                    label="When to use"
-                    value={current.whenToUse}
-                    editing={editing}
-                    onChange={(v) =>
-                      setDraft((d) => (d ? { ...d, whenToUse: v } : d))
-                    }
-                    placeholder="Not specified."
-                    multiline
-                  />
-                </div>
-                <div className="space-y-3">
-                  <MetaField
-                    label="Trigger"
-                    value={current.trigger}
-                    editing={editing}
-                    onChange={(v) =>
-                      setDraft((d) => (d ? { ...d, trigger: v } : d))
-                    }
-                    placeholder="Not specified."
-                    multiline
-                  />
-                  <MetaField
-                    label="Inputs needed"
-                    value={current.inputsNeeded}
-                    editing={editing}
-                    onChange={(v) =>
-                      setDraft((d) => (d ? { ...d, inputsNeeded: v } : d))
-                    }
-                    placeholder="None."
-                    multiline
-                  />
-                </div>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <MetaField
+                label="Purpose"
+                value={current.purpose}
+                editing={editing}
+                onChange={(v) =>
+                  setDraft((d) => (d ? { ...d, purpose: v } : d))
+                }
+                placeholder="No purpose defined."
+              />
+              <MetaField
+                label="Trigger"
+                value={current.trigger}
+                editing={editing}
+                onChange={(v) =>
+                  setDraft((d) => (d ? { ...d, trigger: v } : d))
+                }
+                placeholder="Not specified."
+                multiline
+              />
+              <MetaField
+                label="When to use"
+                value={current.whenToUse}
+                editing={editing}
+                onChange={(v) =>
+                  setDraft((d) => (d ? { ...d, whenToUse: v } : d))
+                }
+                placeholder="Not specified."
+                multiline
+              />
+              <MetaField
+                label="Inputs needed"
+                value={current.inputsNeeded}
+                editing={editing}
+                onChange={(v) =>
+                  setDraft((d) => (d ? { ...d, inputsNeeded: v } : d))
+                }
+                placeholder="None."
+                multiline
+              />
             </div>
           )}
 
           {/* Process content (markdown) */}
-          <div className="card-elevated rounded-2xl p-6">
-            <h2 className="text-sm font-semibold tracking-tight mb-4 flex items-center gap-2">
-              <FileText className="size-4 text-primary" />
-              {isPal ? "Character Profile" : "Step-by-Step Process"}
-            </h2>
+          <Collapsible
+            title={isPal ? "Character Profile" : "Step-by-Step Process"}
+            subtitle={
+              current.content?.trim()
+                ? `${current.content.trim().split(/\s+/).length} words`
+                : "Empty"
+            }
+            icon={<FileText className="size-4 text-primary" />}
+            defaultOpen
+          >
             {editing ? (
               <textarea
                 value={current.content}
@@ -358,20 +359,32 @@ function PlaybookPageDetail() {
                 No process documented yet.
               </div>
             )}
-          </div>
+          </Collapsible>
 
           {/* Checklist (interactive) */}
           {(current.checklist.length > 0 || editing) && (
-            <div className="card-elevated rounded-2xl p-6">
-              <h2 className="text-sm font-semibold tracking-tight mb-4 flex items-center gap-2">
-                <CheckSquare className="size-4 text-primary" /> Execution Checklist
-                {!editing && current.checklist.length > 0 && (
-                  <span className="ml-auto text-[11px] font-medium text-muted-foreground font-mono">
-                    {current.checklist.filter((i) => i.done).length}/
-                    {current.checklist.length}
-                  </span>
-                )}
-              </h2>
+            <Collapsible
+              title="Execution Checklist"
+              subtitle={
+                current.checklist.length > 0
+                  ? `${current.checklist.filter((i) => i.done).length}/${current.checklist.length} done`
+                  : "No items yet"
+              }
+              icon={<CheckSquare className="size-4 text-primary" />}
+              defaultOpen
+            >
+              {!editing && current.checklist.length > 0 && (
+                <div className="mb-3">
+                  <Progress
+                    value={
+                      (current.checklist.filter((i) => i.done).length /
+                        current.checklist.length) *
+                      100
+                    }
+                    color="var(--accent-emerald)"
+                  />
+                </div>
+              )}
               {editing ? (
                 <div className="space-y-2">
                   {current.checklist.map((item, idx) => (
@@ -452,7 +465,7 @@ function PlaybookPageDetail() {
                   ))}
                 </div>
               )}
-            </div>
+            </Collapsible>
           )}
         </div>
 
@@ -478,35 +491,43 @@ function PlaybookPageDetail() {
             </div>
           )}
 
-          {/* Parameters card (non-Pal) */}
+          {/* Parameters (non-Pal) */}
           {!isPal && (
-            <div className="card-elevated rounded-2xl p-5 space-y-4">
-              <h3 className="text-xs font-semibold tracking-tight uppercase text-muted-foreground/80 flex items-center gap-1.5 mb-2">
-                <Settings2 className="size-3.5" /> Parameters
-              </h3>
-              <Field label="Owner role">
-                {editing ? (
-                  <select
-                    className={inputCls}
-                    value={current.ownerRole}
-                    onChange={(e) =>
-                      setDraft((d) =>
-                        d ? { ...d, ownerRole: e.target.value as any } : d,
-                      )
-                    }
-                  >
-                    <option value="company">Company</option>
-                    <option value="owner">Owner</option>
-                    <option value="cfo">CFO</option>
-                    <option value="pa">PA</option>
-                  </select>
-                ) : (
-                  <div className="text-[13px] capitalize font-medium">
-                    {current.ownerRole === "pa" ? "PA" : current.ownerRole}
-                  </div>
-                )}
-              </Field>
-              <Field label="Definition of done">
+            <>
+              <div className="card-elevated rounded-2xl p-5">
+                <h3 className="text-xs font-semibold tracking-tight uppercase text-muted-foreground/80 flex items-center gap-1.5 mb-3">
+                  <Settings2 className="size-3.5" /> Parameters
+                </h3>
+                <Field label="Owner role">
+                  {editing ? (
+                    <select
+                      className={inputCls}
+                      value={current.ownerRole}
+                      onChange={(e) =>
+                        setDraft((d) =>
+                          d ? { ...d, ownerRole: e.target.value as any } : d,
+                        )
+                      }
+                    >
+                      <option value="company">Company</option>
+                      <option value="owner">Owner</option>
+                      <option value="cfo">CFO</option>
+                      <option value="pa">PA</option>
+                    </select>
+                  ) : (
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-md text-[12px] font-medium capitalize bg-surface-2 ring-inset-soft">
+                      {current.ownerRole === "pa" ? "PA" : current.ownerRole}
+                    </span>
+                  )}
+                </Field>
+              </div>
+              <Collapsible
+                key={editing ? "dod-edit" : "dod-view"}
+                title="Definition of done"
+                subtitle={current.definitionOfDone ? undefined : "N/A"}
+                icon={<CheckCircle2 className="size-4 text-emerald-500" />}
+                defaultOpen={editing}
+              >
                 {editing ? (
                   <textarea
                     className={inputCls + " min-h-[60px]"}
@@ -526,8 +547,14 @@ function PlaybookPageDetail() {
                     N/A
                   </div>
                 )}
-              </Field>
-              <Field label="Common mistakes">
+              </Collapsible>
+              <Collapsible
+                key={editing ? "cm-edit" : "cm-view"}
+                title="Common mistakes"
+                subtitle={current.commonMistakes ? undefined : "N/A"}
+                icon={<AlertTriangle className="size-4 text-red-500" />}
+                defaultOpen={editing}
+              >
                 {editing ? (
                   <textarea
                     className={inputCls + " min-h-[60px]"}
@@ -547,8 +574,8 @@ function PlaybookPageDetail() {
                     N/A
                   </div>
                 )}
-              </Field>
-            </div>
+              </Collapsible>
+            </>
           )}
 
           {/* Media / Loom */}
@@ -618,8 +645,8 @@ function MetaField({
   multiline?: boolean;
 }) {
   return (
-    <div>
-      <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mb-1">
+    <div className="card-elevated rounded-xl p-3.5">
+      <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mb-1.5">
         {label}
       </div>
       {editing ? (

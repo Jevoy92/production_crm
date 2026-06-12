@@ -4,8 +4,19 @@ import { Shell } from "@/components/dashboard/Shell";
 import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
 import { FileDrop, humanBytes, type UploadedFile } from "@/components/ui-bits/FileDrop";
 import { useStore } from "@/lib/store";
+import { AnimatedNumber } from "@/components/motion/Motion";
 import type { Asset } from "@/lib/types";
-import { Plus, Pencil, Trash2, ExternalLink, Download, FileIcon } from "lucide-react";
+import {
+  Plus,
+  Pencil,
+  Trash2,
+  ExternalLink,
+  Download,
+  FileIcon,
+  HardDrive,
+  Eye,
+  CheckCircle2,
+} from "lucide-react";
 
 export const Route = createFileRoute("/assets")({
   component: AssetsPage,
@@ -34,6 +45,8 @@ function AssetsPage() {
   const [filterStatus, setFS] = useState<Asset["status"] | "All">("All");
 
   const totalGb = assets.reduce((a, b) => a + (b.sizeGb ?? 0), 0);
+  const inReview = assets.filter((a) => a.status === "Review").length;
+  const delivered = assets.filter((a) => a.status === "Delivered").length;
 
   const filtered = assets.filter(
     (a) =>
@@ -51,6 +64,54 @@ function AssetsPage() {
         </Btn>
       }
     >
+      {/* KPI strip */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+        {(
+          [
+            {
+              label: "Files",
+              n: assets.length,
+              icon: <FileIcon className="size-4" />,
+              tone: "bg-primary/12 text-primary",
+            },
+            {
+              label: "Storage",
+              n: totalGb,
+              format: (v: number) => `${v.toFixed(1)} GB`,
+              icon: <HardDrive className="size-4" />,
+              tone: "bg-surface-3 text-muted-foreground",
+            },
+            {
+              label: "In review",
+              n: inReview,
+              icon: <Eye className="size-4" />,
+              tone: "bg-warning/15 text-warning",
+            },
+            {
+              label: "Delivered",
+              n: delivered,
+              icon: <CheckCircle2 className="size-4" />,
+              tone: "bg-success/10 text-success",
+            },
+          ] as const
+        ).map((k) => (
+          <div
+            key={k.label}
+            className="card-elevated rounded-2xl p-4 flex items-center justify-between"
+          >
+            <div>
+              <div className="text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
+                {k.label}
+              </div>
+              <div className="num text-[26px] font-semibold mt-0.5 tracking-tight">
+                <AnimatedNumber value={k.n} format={"format" in k ? k.format : undefined} />
+              </div>
+            </div>
+            <div className={`size-9 rounded-xl grid place-items-center ${k.tone}`}>{k.icon}</div>
+          </div>
+        ))}
+      </div>
+
       <div className="flex flex-wrap gap-2 mb-4">
         <select
           className={inputCls + " w-40"}
@@ -148,7 +209,11 @@ function AssetsPage() {
                       "—"
                     )}
                   </td>
-                  <td>{a.type}</td>
+                  <td>
+                    <span className="inline-flex items-center rounded-full bg-surface-2 ring-inset-soft px-2 py-0.5 text-[11px] text-muted-foreground">
+                      {a.type}
+                    </span>
+                  </td>
                   <td>
                     <select
                       value={a.status}

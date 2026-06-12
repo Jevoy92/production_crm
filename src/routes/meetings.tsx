@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
+import { Collapsible } from "@/components/app/AppShell";
 import { Markdown } from "@/components/Markdown";
 import { supabase } from "@/integrations/supabase/client";
 import { NotebookPen, Plus, Trash2, Save, X, Calendar, Users, Eye, Pencil } from "lucide-react";
@@ -122,7 +123,14 @@ function MeetingsPage() {
   }
 
   return (
-    <Shell title="Meetings" subtitle="Shared meeting notes & transcripts">
+    <Shell
+      title="Meetings"
+      subtitle={
+        loading
+          ? "Shared notes & transcripts"
+          : `${meetings.length} note${meetings.length === 1 ? "" : "s"} · shared transcripts`
+      }
+    >
       <div className="flex h-[calc(100vh-64px)] gap-4 p-4">
         {/* List */}
         <aside className="w-80 flex-shrink-0 bg-panel border border-line rounded-2xl flex flex-col overflow-hidden">
@@ -256,6 +264,18 @@ function ViewMeeting({ meeting }: { meeting: Meeting }) {
   const has = (s: string) => s && s.trim().length > 0;
   return (
     <div className="max-w-3xl">
+      {meeting.tags?.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mb-5">
+          {meeting.tags.map((t) => (
+            <span
+              key={t}
+              className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-violet/10 text-violet border border-violet/20"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      )}
       {has(meeting.summary) && (
         <Section label="Summary">
           <Markdown source={meeting.summary} />
@@ -272,11 +292,17 @@ function ViewMeeting({ meeting }: { meeting: Meeting }) {
         </Section>
       )}
       {has(meeting.transcript) && (
-        <Section label="Transcript / notes">
-          <div className="text-sm text-foreground/90 whitespace-pre-wrap leading-relaxed bg-sunken border border-line rounded-xl p-4 max-h-[60vh] overflow-y-auto">
-            {meeting.transcript}
-          </div>
-        </Section>
+        <div className="mb-6">
+          <Collapsible
+            title="Transcript / notes"
+            subtitle={`${meeting.transcript.trim().split(/\s+/).length.toLocaleString()} words`}
+            defaultOpen={false}
+          >
+            <div className="text-sm text-foreground/90 whitespace-pre-wrap leading-relaxed bg-sunken border border-line rounded-xl p-4 max-h-[60vh] overflow-y-auto">
+              {meeting.transcript}
+            </div>
+          </Collapsible>
+        </div>
       )}
       {has(meeting.source) && (
         <Section label="Source">

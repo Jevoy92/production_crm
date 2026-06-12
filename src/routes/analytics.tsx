@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
+import { SegmentedControl } from "@/components/app/AppShell";
+import { AnimatedNumber } from "@/components/motion/Motion";
 import { useStore, checklistProgress, readinessScore } from "@/lib/store";
 import { PAL_TYPES } from "@/lib/types";
 import {
@@ -21,22 +22,24 @@ export const Route = createFileRoute("/analytics")({
   head: () => ({ meta: [{ title: "Analytics · Palmer House" }] }),
 });
 
+const usdFmt = (n: number) => `$${Math.round(n).toLocaleString()}`;
+
 function AnalyticsPage() {
   const role = useStore((s) => s.activeRole);
   const setRole = useStore((s) => s.setRole);
 
   return (
     <Shell title="Analytics" subtitle={`${role.toUpperCase()} dashboard`}>
-      <div className="flex items-center gap-1 rounded-lg bg-surface-2 ring-inset-soft p-0.5 w-fit mb-4">
-        {(["owner", "cfo", "pa"] as const).map((r) => (
-          <button
-            key={r}
-            onClick={() => setRole(r)}
-            className={`px-3 py-1.5 text-[12.5px] rounded-md capitalize ${role === r ? "bg-card text-foreground ring-inset-soft" : "text-muted-foreground"}`}
-          >
-            {r === "pa" ? "Production Assistant" : r === "cfo" ? "CFO (Adrienne)" : "Owner (Jevoy)"}
-          </button>
-        ))}
+      <div className="mb-4">
+        <SegmentedControl
+          value={role}
+          onChange={setRole}
+          options={[
+            { value: "owner", label: "Owner (Jevoy)" },
+            { value: "cfo", label: "CFO (Adrienne)" },
+            { value: "pa", label: "Production Assistant" },
+          ]}
+        />
       </div>
 
       {role === "owner" && <OwnerDash />}
@@ -68,7 +71,7 @@ function OwnerDash() {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
       <Kpi label="Active projects" value={active.length} />
-      <Kpi label="Quoted (active)" value={`$${quoted.toLocaleString()}`} />
+      <Kpi label="Quoted (active)" value={quoted} format={usdFmt} />
       <Kpi label="Shipped this month" value={shippedMonth} />
 
       <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
@@ -161,12 +164,9 @@ function CFODash() {
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-      <Kpi label="Cash collected (mo)" value={`$${finance.cashCollectedMonth.toLocaleString()}`} />
-      <Kpi label="Outstanding" value={`$${finance.outstanding.toLocaleString()}`} />
-      <Kpi
-        label="Tool + AI spend"
-        value={`$${(finance.toolSpend + finance.aiSpend).toLocaleString()}`}
-      />
+      <Kpi label="Cash collected (mo)" value={finance.cashCollectedMonth} format={usdFmt} />
+      <Kpi label="Outstanding" value={finance.outstanding} format={usdFmt} />
+      <Kpi label="Tool + AI spend" value={finance.toolSpend + finance.aiSpend} format={usdFmt} />
 
       <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
         <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
@@ -261,7 +261,7 @@ function PADash() {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
       <Kpi label="Upcoming shoots (7d)" value={upcoming.length} />
-      <Kpi label="Checklist completion" value={`${compPct}%`} />
+      <Kpi label="Checklist completion" value={compPct} format={(n) => `${Math.round(n)}%`} />
       <Kpi label="Prep at-risk" value={overdue.length} />
 
       <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
@@ -330,11 +330,21 @@ function PADash() {
   );
 }
 
-function Kpi({ label, value }: { label: string; value: string | number }) {
+function Kpi({
+  label,
+  value,
+  format,
+}: {
+  label: string;
+  value: string | number;
+  format?: (n: number) => string;
+}) {
   return (
     <div className="card-elevated rounded-2xl p-5">
       <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{label}</div>
-      <div className="num text-[30px] font-semibold mt-2">{value}</div>
+      <div className="num text-[30px] font-semibold mt-2">
+        {typeof value === "number" ? <AnimatedNumber value={value} format={format} /> : value}
+      </div>
     </div>
   );
 }

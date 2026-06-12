@@ -8,6 +8,7 @@ import { useStore } from "@/lib/store";
 import { Plus, ExternalLink, Building2, FolderKanban, DollarSign, TrendingUp } from "lucide-react";
 
 const usdK = (n: number) => (Math.abs(n) >= 1000 ? `$${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}K` : `$${Math.round(n)}`);
+const nf = (n: number) => Math.round(n).toLocaleString();
 
 function ClientsLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -44,15 +45,15 @@ function ClientsPage() {
         </Btn>
       }
     >
-      <Stagger className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6" stagger={0.05}>
+      <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6" stagger={0.05}>
         {[
-          { icon: <Building2 size={16} />, accent: "brand" as const, label: "Clients", value: clients.length },
-          { icon: <FolderKanban size={16} />, accent: "violet" as const, label: "Total Projects", value: rows.reduce((a, r) => a + r.count, 0) },
-          { icon: <DollarSign size={16} />, accent: "emerald" as const, label: "Total LTV", value: usdK(rows.reduce((a, r) => a + r.ltv, 0)) },
-          { icon: <TrendingUp size={16} />, accent: "cyan" as const, label: "Avg LTV", value: usdK(clients.length ? Math.round(rows.reduce((a, r) => a + r.ltv, 0) / clients.length) : 0) },
+          { icon: <Building2 size={16} />, accent: "brand" as const, label: "Clients", value: clients.length, format: nf },
+          { icon: <FolderKanban size={16} />, accent: "violet" as const, label: "Total Projects", value: rows.reduce((a, r) => a + r.count, 0), format: nf },
+          { icon: <DollarSign size={16} />, accent: "emerald" as const, label: "Total LTV", value: rows.reduce((a, r) => a + r.ltv, 0), format: usdK },
+          { icon: <TrendingUp size={16} />, accent: "cyan" as const, label: "Avg LTV", value: clients.length ? Math.round(rows.reduce((a, r) => a + r.ltv, 0) / clients.length) : 0, format: usdK },
         ].map((s) => (
           <StaggerItem key={s.label} variant="scaleIn">
-            <MetricCard icon={s.icon} accent={s.accent} label={s.label} value={s.value} />
+            <MetricCard icon={s.icon} accent={s.accent} label={s.label} value={s.format(s.value)} animateTo={s.value} format={s.format} />
           </StaggerItem>
         ))}
       </Stagger>

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
 import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
 import { celebrate } from "@/lib/confetti";
+import { fmtDuration } from "@/lib/focusStore";
 import { useStore } from "@/lib/store";
 import type { Task, Stage, Subtask, TaskAttachment, ChecklistStage } from "@/lib/types";
 import { CHECKLIST_STAGES } from "@/lib/types";

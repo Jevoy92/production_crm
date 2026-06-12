@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Shell } from "@/components/dashboard/Shell";
+import { Collapsible } from "@/components/app/AppShell";
+import { AnimatedNumber } from "@/components/motion/Motion";
 import { useStore } from "@/lib/store";
 import { palColor } from "@/lib/store";
 import { PAL_TYPES, CHECKLIST_STAGES } from "@/lib/types";
@@ -82,7 +84,7 @@ function SettingsPage() {
             <div>
               <h3 className="text-[15px] font-semibold tracking-tight">Internal brands</h3>
               <p className="text-[12px] text-muted-foreground mt-1">
-                Jevoy Palmer · Your Boy Jevoy · MindYourBizniz. Stored as both clients and internal projects so today's MindYourBizniz YouTube shoot — and the rest — can be scheduled with the lightweight in-office workflow.
+                Seeded as clients + internal projects for the in-office shoot workflow.
               </p>
             </div>
             <button
@@ -123,7 +125,7 @@ function SettingsPage() {
             <div>
               <h3 className="text-[15px] font-semibold tracking-tight">Acting as</h3>
               <p className="text-[12px] text-muted-foreground mt-1">
-                Switches which dashboard, KPIs, and task lists the app surfaces by default. Saved on this device — all three of you share the same login and data.
+                Sets the default dashboard, KPIs & task lists · saved per device.
               </p>
             </div>
             <span className="text-[11px] text-muted-foreground">Currently: {OPERATORS.find((o) => o.role === activeRole)?.name}</span>
@@ -169,9 +171,17 @@ function SettingsPage() {
         <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
           <div className="flex items-baseline justify-between flex-wrap gap-2">
             <div>
-              <h3 className="text-[15px] font-semibold tracking-tight">Connections</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-[15px] font-semibold tracking-tight">Connections</h3>
+                {status && (
+                  <span className="num text-[10.5px] font-semibold rounded-full bg-success/12 text-success ring-1 ring-success/25 px-2 py-0.5">
+                    {Object.values(status).filter((s) => s.connected).length}/
+                    {Object.keys(status).length} connected
+                  </span>
+                )}
+              </div>
               <p className="text-[12px] text-muted-foreground mt-1">
-                Sources powering the morning brief, Pals chat, and dashboard. Manage individual connectors from the project's backend.
+                Sources for the morning brief, Pals chat & dashboard.
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -215,17 +225,30 @@ function SettingsPage() {
               ))
             )}
           </div>
-          <p className="text-[11px] text-muted-foreground mt-3">
-            Morning digest runs automatically at 7:00 ET (11:00 UTC) and pulls yesterday's Limitless pendant transcripts, completed checklist items, overview log, Gmail highlights, and today's calendar.
-          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[10.5px] text-muted-foreground">
+            <span className="rounded-full bg-surface-2 ring-inset-soft px-2 py-0.5 font-medium">
+              Auto-run · 7:00 ET
+            </span>
+            {[
+              "Limitless transcripts",
+              "Checklist wins",
+              "Overview log",
+              "Gmail highlights",
+              "Today's calendar",
+            ].map((s) => (
+              <span key={s} className="rounded-full bg-surface-2 ring-inset-soft px-2 py-0.5">
+                {s}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <div className="card-elevated rounded-2xl p-5">
-          <h3 className="text-[15px] font-semibold tracking-tight">Pal types & colors</h3>
-          <p className="text-[12px] text-muted-foreground mt-1">
-            Color tokens drive the pipeline kanban and reports.
-          </p>
-          <div className="mt-4 grid grid-cols-2 gap-2">
+        <Collapsible
+          title="Pal types & colors"
+          subtitle={`${PAL_TYPES.length} tokens · drive kanban & reports`}
+          defaultOpen={false}
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {PAL_TYPES.map((p) => (
               <div
                 key={p}
@@ -237,15 +260,14 @@ function SettingsPage() {
               </div>
             ))}
           </div>
-        </div>
+        </Collapsible>
 
-        <div className="card-elevated rounded-2xl p-5">
-          <h3 className="text-[15px] font-semibold tracking-tight">Checklist templates</h3>
-          <p className="text-[12px] text-muted-foreground mt-1">
-            Every new project seeds with these universal stage checklists. Edit items per-project
-            from the project hub.
-          </p>
-          <div className="mt-4 grid grid-cols-2 gap-2">
+        <Collapsible
+          title="Checklist templates"
+          subtitle={`${CHECKLIST_STAGES.length} stages · seeded on every new project`}
+          defaultOpen={false}
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {CHECKLIST_STAGES.map((s) => (
               <div key={s} className="rounded-lg bg-surface-2 ring-inset-soft p-3">
                 <div className="text-[12.5px] font-medium">{s}</div>
@@ -253,14 +275,30 @@ function SettingsPage() {
               </div>
             ))}
           </div>
-        </div>
+        </Collapsible>
 
         <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
           <h3 className="text-[15px] font-semibold tracking-tight">Data</h3>
-          <p className="text-[12px] text-muted-foreground mt-1">
-            {projects.length} projects loaded. State persists locally in this browser.
-            Seed/sample data has been retired — every list starts empty until you add your own.
-          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-[11.5px]">
+            <span className="rounded-full bg-surface-2 ring-inset-soft px-2.5 py-1 font-medium">
+              <span className="num font-semibold">
+                <AnimatedNumber value={projects.length} />
+              </span>{" "}
+              projects
+            </span>
+            <span className="rounded-full bg-surface-2 ring-inset-soft px-2.5 py-1 font-medium">
+              <span className="num font-semibold">
+                <AnimatedNumber value={clients.length} />
+              </span>{" "}
+              clients
+            </span>
+            <span className="rounded-full bg-surface-2 ring-inset-soft px-2.5 py-1 text-muted-foreground">
+              Persists locally in this browser
+            </span>
+            <span className="rounded-full bg-surface-2 ring-inset-soft px-2.5 py-1 text-muted-foreground">
+              No sample data — lists start empty
+            </span>
+          </div>
         </div>
       </div>
     </Shell>

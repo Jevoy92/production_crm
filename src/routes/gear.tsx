@@ -4,6 +4,7 @@ import { Shell } from "@/components/dashboard/Shell";
 import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
 import { FileDrop } from "@/components/ui-bits/FileDrop";
 import { useStore } from "@/lib/store";
+import { AnimatedNumber } from "@/components/motion/Motion";
 import type { GearItem, GearKit } from "@/lib/types";
 import {
   Plus,
@@ -155,7 +156,9 @@ function GearPage() {
               <div className="text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
                 {c.s}
               </div>
-              <div className="num text-[26px] font-semibold mt-0.5 tracking-tight">{c.n}</div>
+              <div className="num text-[26px] font-semibold mt-0.5 tracking-tight">
+                <AnimatedNumber value={c.n} />
+              </div>
             </div>
             <div
               className={`size-9 rounded-xl grid place-items-center ${
@@ -182,7 +185,7 @@ function GearPage() {
               Utilization
             </div>
             <div className="num text-[26px] font-semibold mt-0.5 tracking-tight">
-              {utilization}%
+              <AnimatedNumber value={utilization} format={(n) => `${Math.round(n)}%`} />
             </div>
             <div className="mt-1.5 h-1.5 w-28 rounded-full bg-surface-3 overflow-hidden">
               <div
@@ -203,19 +206,23 @@ function GearPage() {
           <div className="flex items-center justify-between flex-wrap gap-3 mb-3">
             <h3 className="text-[15px] font-semibold tracking-tight">Inventory</h3>
             <div className="flex flex-wrap items-center gap-1">
-              {(["All", ...CATS] as const).map((c) => (
-                <button
-                  key={c}
-                  onClick={() => setCatF(c as Cat | "All")}
-                  className={`rounded-full px-2.5 py-1 text-[11px] transition-colors ${
-                    catF === c
-                      ? "bg-foreground text-background"
-                      : "bg-surface-2 text-muted-foreground hover:bg-surface-3"
-                  }`}
-                >
-                  {c}
-                </button>
-              ))}
+              {(["All", ...CATS] as const).map((c) => {
+                const n = c === "All" ? items.length : items.filter((i) => i.category === c).length;
+                return (
+                  <button
+                    key={c}
+                    onClick={() => setCatF(c as Cat | "All")}
+                    className={`rounded-full px-2.5 py-1 text-[11px] transition-colors ${
+                      catF === c
+                        ? "bg-foreground text-background"
+                        : "bg-surface-2 text-muted-foreground hover:bg-surface-3"
+                    }`}
+                  >
+                    {c}
+                    {n > 0 && <span className="num ml-1 opacity-60">{n}</span>}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
