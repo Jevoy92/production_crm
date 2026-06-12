@@ -14,6 +14,10 @@ import { toast } from "sonner";
 import {
   SHANNEN_BLOCKS, SHANNEN_WEEK, ACCENT_CLASS, SHANNEN_OWNS, SHANNEN_NEVER,
 } from "@/lib/shannenPlaybook";
+import type { Block, WeekDay } from "@/lib/shannenPlaybook";
+import {
+  JEVOY_BLOCKS, JEVOY_WEEK, JEVOY_OWNS, JEVOY_NEVER,
+} from "@/lib/jevoyPlaybook";
 import {
   PieChart, Pie, Cell, ResponsiveContainer,
   BarChart, Bar, XAxis, Tooltip,
@@ -202,8 +206,30 @@ function Today() {
 
         {/* AI-assisted person task panels */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {shannen && <ShannenDay person={shannen} tasks={tasks.filter((t) => t.assigneeId === shannen.id && t.status !== "done")} />}
-          {jevoy && <PersonTasks person={jevoy} tasks={tasks.filter((t) => t.assigneeId === jevoy.id && t.status !== "done")} />}
+          {shannen && (
+            <PersonDay
+              person={shannen}
+              titleSuffix="Day"
+              roleLabel="Operations & CX Coordinator"
+              blocks={SHANNEN_BLOCKS}
+              week={SHANNEN_WEEK}
+              owns={SHANNEN_OWNS}
+              never={SHANNEN_NEVER}
+              tasks={tasks.filter((t) => t.assigneeId === shannen.id && t.status !== "done")}
+            />
+          )}
+          {jevoy && (
+            <PersonDay
+              person={jevoy}
+              titleSuffix="Day"
+              roleLabel="Creative Founder & Business Architect"
+              blocks={JEVOY_BLOCKS}
+              week={JEVOY_WEEK}
+              owns={JEVOY_OWNS}
+              never={JEVOY_NEVER}
+              tasks={tasks.filter((t) => t.assigneeId === jevoy.id && t.status !== "done")}
+            />
+          )}
         </div>
 
         {/* Workload chart */}
@@ -437,11 +463,17 @@ function ScriptIdeas() {
   );
 }
 
-function ShannenDay({
-  person, tasks,
+function PersonDay({
+  person, tasks, titleSuffix, roleLabel, blocks, week, owns, never: neverList,
 }: {
   person: { id: string; name: string; role: string; initials: string; color: string };
   tasks: Array<{ id: string; title: string; priority: string; dueDate?: string; status: string; notes?: string }>;
+  titleSuffix: string;
+  roleLabel: string;
+  blocks: Block[];
+  week: Record<number, WeekDay>;
+  owns: string[];
+  never: string[];
 }) {
   const run = useServerFn(generateTaskAssist);
   const [result, setResult] = useState<TaskAssistantResult | null>(null);
@@ -449,22 +481,22 @@ function ShannenDay({
   const [checked, setChecked] = useState<Record<string, boolean>>({});
 
   const dow = new Date().getDay();
-  const today = SHANNEN_WEEK[dow];
+  const today = week[dow];
 
   async function runAssist() {
     setLoading(true);
     try {
-      const focus = `Today is ${["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][dow]} — phase: ${today.phase}. Battle-rhythm focus: ${today.title}. Standing 4-hour blocks: ${SHANNEN_BLOCKS.map((b) => b.label).join("; ")}.`;
+      const focus = `Today is ${["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][dow]} — phase: ${today.phase}. Battle-rhythm focus: ${today.title}. Standing blocks: ${blocks.map((b) => b.label).join("; ")}.`;
       const synthTasks = tasks.length
         ? tasks
-        : SHANNEN_BLOCKS.map((b) => ({
+        : blocks.map((b) => ({
             id: b.id, title: `${b.label} block`, priority: "Med",
             status: "todo", notes: b.objective, dueDate: undefined as string | undefined,
           }));
       const r = await run({
         data: {
           person: person.name,
-          role: "Operations & CX Coordinator — " + focus,
+          role: roleLabel + " — " + focus,
           tasks: synthTasks.map((t) => ({
             id: t.id, title: t.title, priority: t.priority,
             dueDate: "dueDate" in t ? t.dueDate : undefined,
@@ -495,8 +527,8 @@ function ShannenDay({
             {person.initials}
           </div>
           <div className="min-w-0">
-            <h3 className="font-display font-bold text-hi text-base truncate">Shannen's Day</h3>
-            <p className="text-xs text-lo">4-hour block · {person.role}</p>
+            <h3 className="font-display font-bold text-hi text-base truncate">{person.name.split(" ")[0]}'s {titleSuffix}</h3>
+            <p className="text-xs text-lo">Battle rhythm · {person.role}</p>
           </div>
         </div>
         <button
@@ -537,9 +569,9 @@ function ShannenDay({
         </div>
       )}
 
-      {/* 4-hour blocks */}
+      {/* Time blocks */}
       <div className="space-y-2.5 flex-1">
-        {SHANNEN_BLOCKS.map((b, idx) => {
+        {blocks.map((b, idx) => {
           const sug = result?.suggestions.find((s) => s.taskId === b.id);
           return (
             <details key={b.id} open={idx === 0} className="group bg-sunken/50 border border-line rounded-lg">
@@ -619,7 +651,7 @@ function ShannenDay({
         <div>
           <p className="text-[10px] font-bold uppercase tracking-wider text-emerald mb-1.5">Owns</p>
           <ul className="space-y-0.5">
-            {SHANNEN_OWNS.map((o) => (
+            {owns.map((o) => (
               <li key={o} className="text-[11px] text-mid">• {o}</li>
             ))}
           </ul>
@@ -627,7 +659,7 @@ function ShannenDay({
         <div>
           <p className="text-[10px] font-bold uppercase tracking-wider text-rose mb-1.5">Never</p>
           <ul className="space-y-0.5">
-            {SHANNEN_NEVER.map((o) => (
+            {neverList.map((o) => (
               <li key={o} className="text-[11px] text-mid">• {o}</li>
             ))}
           </ul>
