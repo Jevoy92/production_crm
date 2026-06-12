@@ -337,7 +337,7 @@ function ContentDetailModal({
         </div>
 
         {/* Meta editable */}
-        <div className="grid grid-cols-3 gap-3 mb-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
           <Field label="Status">
             <select className="ph-input" value={item.status} onChange={(e) => update(item.id, { status: e.target.value as CCStatus })}>
               {CC_STATUSES.map((s) => <option key={s}>{s}</option>)}

@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
-  Sparkles, RotateCw, History, CircleCheck, Info, Inbox,
+  Sparkles, History, CircleCheck, Info, Inbox,
   CalendarDays, TriangleAlert, Lightbulb, ChevronLeft, ChevronRight,
   Plus, ListChecks, Loader2, Wand2,
 } from "lucide-react";
@@ -113,9 +113,6 @@ function Today() {
               <h3 className="text-xs font-semibold text-brand-400 uppercase tracking-wider">
                 Morning Brief · Auto-Generated 7AM
               </h3>
-              <button className="text-xs text-lo hover:text-hi flex items-center gap-1 transition-colors">
-                <RotateCw size={12} /> Refresh
-              </button>
             </div>
             <p className="text-sm text-mid leading-relaxed">
               Today's plan is drafted from yesterday's pendant transcripts, important inbox, completed tasks,

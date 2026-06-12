@@ -237,7 +237,7 @@ function SchedulePage() {
               return (
                 <div
                   key={k}
-                  className={`min-h-[120px] p-2 border-r border-b border-border last:border-r-0 transition-colors ${inMonth ? "bg-card" : "bg-surface-2/40"}`}
+                  className={`min-h-[76px] sm:min-h-[120px] p-1 sm:p-2 border-r border-b border-border last:border-r-0 transition-colors ${inMonth ? "bg-card" : "bg-surface-2/40"}`}
                   onDragOver={(e) => {
                     if (e.dataTransfer.types.includes("text/cc-item")) {
                       e.preventDefault();
@@ -577,8 +577,8 @@ function PublishDrawer({ itemId, onClose }: { itemId: string; onClose: () => voi
             Unschedule
           </Btn>
           {item.relatedCore12 && (
-            <Link to="/cc/core12/$num" params={{ num: String(item.relatedCore12) }}>
-              <Btn variant="primary">Open Core 12</Btn>
+            <Link to="/scripts/$num" params={{ num: String(item.relatedCore12).padStart(2, "0") }}>
+              <Btn variant="primary">Open script</Btn>
             </Link>
           )}
         </div>

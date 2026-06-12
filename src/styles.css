@@ -890,6 +890,11 @@
   .app-main { padding: 20px 16px; }
   .metric-grid { grid-template-columns: 1fr; }
 }
+@media (max-width: 480px) {
+  .app-main { padding: 14px 12px; }
+  .page-header { gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .page-header .ph-btn { padding-inline: 10px; }
+}
 
 /* Pals AI assistant -------------------------------------------------- */
 .pals-launcher {

@@ -176,7 +176,7 @@ function Kanban({ projects }: { projects: Project[] }) {
           return (
             <div
               key={stage}
-              className="w-72 shrink-0 flex flex-col gap-3"
+              className="w-[min(288px,82vw)] sm:w-72 shrink-0 flex flex-col gap-3"
               onDragOver={(e) => e.preventDefault()}
               onDrop={() => { if (drag) { setStage(drag, stage); setDrag(null); } }}
             >

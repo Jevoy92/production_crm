@@ -80,6 +80,7 @@ function RepurposePage() {
     if (!active) return;
     const lane: PalLane = s.lane;
     addContentItem({
+      venture: "palmer-house",
       title: `${s.num} ${s.hook}`.slice(0, 140),
       type: "Short",
       platform: "Instagram Reels",
@@ -142,6 +143,7 @@ function RepurposePage() {
       const lane = PAL_FOR_NUM[active.number - 1] ?? "Spotlight";
       list.forEach((s, idx) => {
         addContentItem({
+          venture: "palmer-house",
           title: s.hook.split("\n")[0].slice(0, 140),
           type: "Short",
           platform: platformToLibrary(s.platform),
