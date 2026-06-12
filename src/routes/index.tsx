@@ -14,6 +14,10 @@ import { toast } from "sonner";
 import {
   SHANNEN_BLOCKS, SHANNEN_WEEK, ACCENT_CLASS, SHANNEN_OWNS, SHANNEN_NEVER,
 } from "@/lib/shannenPlaybook";
+import type { Block, WeekDay } from "@/lib/shannenPlaybook";
+import {
+  JEVOY_BLOCKS, JEVOY_WEEK, JEVOY_OWNS, JEVOY_NEVER,
+} from "@/lib/jevoyPlaybook";
 import {
   PieChart, Pie, Cell, ResponsiveContainer,
   BarChart, Bar, XAxis, Tooltip,
@@ -202,8 +206,30 @@ function Today() {
 
         {/* AI-assisted person task panels */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {shannen && <ShannenDay person={shannen} tasks={tasks.filter((t) => t.assigneeId === shannen.id && t.status !== "done")} />}
-          {jevoy && <PersonTasks person={jevoy} tasks={tasks.filter((t) => t.assigneeId === jevoy.id && t.status !== "done")} />}
+          {shannen && (
+            <PersonDay
+              person={shannen}
+              titleSuffix="Day"
+              roleLabel="Operations & CX Coordinator"
+              blocks={SHANNEN_BLOCKS}
+              week={SHANNEN_WEEK}
+              owns={SHANNEN_OWNS}
+              never={SHANNEN_NEVER}
+              tasks={tasks.filter((t) => t.assigneeId === shannen.id && t.status !== "done")}
+            />
+          )}
+          {jevoy && (
+            <PersonDay
+              person={jevoy}
+              titleSuffix="Day"
+              roleLabel="Creative Founder & Business Architect"
+              blocks={JEVOY_BLOCKS}
+              week={JEVOY_WEEK}
+              owns={JEVOY_OWNS}
+              never={JEVOY_NEVER}
+              tasks={tasks.filter((t) => t.assigneeId === jevoy.id && t.status !== "done")}
+            />
+          )}
         </div>
 
         {/* Workload chart */}
