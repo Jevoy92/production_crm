@@ -497,16 +497,17 @@ function FocusPage() {
                   <span>{mm}</span>
                   <span className="sep-blink text-brand-400/60">:</span>
                   <span style={{ color: "var(--brand-400)" }}>{ss}</span>
-                </div>
-                <div
-                  className="font-mono mt-1 z-[1] num"
-                  style={{
-                    fontSize: "1.05rem",
-                    color: "color-mix(in oklab, var(--brand-500) 45%, transparent)",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  .{ds}
+                  <span
+                    style={{
+                      fontSize: "0.34em",
+                      fontWeight: 500,
+                      color: "color-mix(in oklab, var(--brand-500) 45%, transparent)",
+                      letterSpacing: "0.05em",
+                      marginLeft: "0.12em",
+                    }}
+                  >
+                    .{ds}
+                  </span>
                 </div>
                 <div className="mt-2.5 z-[1]">
                   <span className="font-mono text-[10px] text-lo tracking-[0.12em] uppercase">
