@@ -153,23 +153,27 @@ function Today() {
               {todayEvents.length === 0 ? (
                 <p className="text-sm text-mid py-6 text-center">No calendar events today.</p>
               ) : (
-                <div className="relative pl-4 border-l border-line space-y-6">
+                <div className="relative pl-4 border-l border-line space-y-6 min-w-0">
                   {todayEvents.map((e, i) => (
-                    <div key={e.uid} className="relative">
+                    <div key={e.uid} className="relative min-w-0">
                       <div
                         className={`absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-panel ${
                           i === 0 ? "bg-brand-500 shadow-[0_0_8px_rgba(99,102,241,0.6)]" : "bg-line-strong"
                         }`}
                       />
-                      <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4">
-                        <span className={`text-sm font-medium w-14 shrink-0 ${i === 0 ? "text-brand-400 font-semibold" : "text-mid"}`}>
+                      <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 min-w-0">
+                        <span className={`text-sm font-medium w-14 shrink-0 num ${i === 0 ? "text-brand-400 font-semibold" : "text-mid"}`}>
                           {e.allDay
                             ? "All day"
                             : new Date(e.start).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
                         </span>
-                        <div className={i === 0 ? "bg-brand-600/5 border border-brand-500/20 rounded-lg p-3 w-full" : ""}>
+                        <div className={`min-w-0 flex-1 overflow-hidden ${i === 0 ? "bg-brand-600/5 border border-brand-500/20 rounded-lg p-3 w-full" : ""}`}>
                           <h4 className="text-sm font-semibold text-hi mb-1 truncate">{e.title}</h4>
-                          {e.location && <p className="text-xs text-mid truncate">{e.location}</p>}
+                          {e.location && (
+                            <p className="text-xs text-mid truncate" title={e.location}>
+                              {/^https?:\/\//.test(e.location) ? new URL(e.location).hostname : e.location}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -179,29 +183,7 @@ function Today() {
             </Panel>
           </div>
 
-          <div className="bg-rose/5 border border-rose/20 rounded-2xl p-6 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-rose/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
-            <div className="flex items-center gap-3 mb-5 relative z-10">
-              <div className="w-8 h-8 rounded-lg bg-rose/20 flex items-center justify-center text-rose">
-                <TriangleAlert size={14} />
-              </div>
-              <h3 className="font-display font-bold text-hi text-base">Watch-outs</h3>
-            </div>
-            <div className="space-y-3 relative z-10">
-              <div className="bg-panel/60 border border-rose/30 p-4 rounded-lg">
-                <h4 className="text-sm font-semibold text-rose mb-1">Admin Lag</h4>
-                <p className="text-xs text-mid">
-                  Don't ignore the Middesk mail; registration issues can halt payments or contracts later.
-                </p>
-              </div>
-              <div className="bg-panel/60 border border-amber/30 p-4 rounded-lg">
-                <h4 className="text-sm font-semibold text-amber mb-1">Calendar Compression</h4>
-                <p className="text-xs text-mid">
-                  Back-to-back calls midday. <strong className="text-hi">Eat before 12:30</strong> or you'll fade.
-                </p>
-              </div>
-            </div>
-          </div>
+          <WatchOuts />
         </div>
 
         {/* AI-assisted person task panels */}
@@ -248,6 +230,69 @@ function Recap({ ok, children }: { ok?: boolean; children: React.ReactNode }) {
       {ok ? <CircleCheck size={14} className="text-emerald mt-0.5 flex-shrink-0" /> : <Info size={14} className="text-brand-400 mt-0.5 flex-shrink-0" />}
       <span className="text-mid">{children}</span>
     </li>
+  );
+}
+
+/* ---------------- Watch-outs ---------------- */
+function WatchOuts() {
+  const items: Array<{ tone: "rose" | "amber" | "violet" | "brand"; title: string; body: React.ReactNode; tag: string }> = [
+    {
+      tone: "rose", tag: "Compliance",
+      title: "Admin Lag — Middesk Mail",
+      body: <>Open the WA registration packet today. Unprocessed filings can <strong className="text-hi">freeze payouts and stall contracts</strong> within 30 days.</>,
+    },
+    {
+      tone: "amber", tag: "Energy",
+      title: "Midday Crunch",
+      body: <>3 back-to-back calls from 12–2:30 PM with no buffer. <strong className="text-hi">Eat by 11:45</strong>, queue water, mute Slack between calls.</>,
+    },
+    {
+      tone: "violet", tag: "Creative Drift",
+      title: "No Filming Logged in 48h",
+      body: <>Core 12 cadence at risk. Carve a 90-min self-record block tomorrow or push the publish calendar.</>,
+    },
+    {
+      tone: "brand", tag: "Handover",
+      title: "Shannen Update Pending",
+      body: <>Yesterday's structured daily update from Shannen hasn't landed yet. Ping her before 10 AM so AM blocks aren't blind.</>,
+    },
+  ];
+  const tones: Record<string, string> = {
+    rose: "border-rose/30 text-rose",
+    amber: "border-amber/30 text-amber",
+    violet: "border-violet/30 text-violet",
+    brand: "border-brand-500/30 text-brand-400",
+  };
+  const dots: Record<string, string> = {
+    rose: "bg-rose", amber: "bg-amber", violet: "bg-violet", brand: "bg-brand-400",
+  };
+  return (
+    <div className="bg-rose/5 border border-rose/20 rounded-2xl p-5 relative overflow-hidden h-full">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-rose/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
+      <div className="flex items-center justify-between gap-3 mb-4 relative z-10">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-8 h-8 rounded-lg bg-rose/20 flex items-center justify-center text-rose shrink-0">
+            <TriangleAlert size={14} />
+          </div>
+          <h3 className="font-display font-bold text-hi text-base truncate">Watch-outs</h3>
+        </div>
+        <span className="text-[10px] font-semibold text-lo bg-sunken border border-line px-2 py-0.5 rounded-md shrink-0">
+          {items.length} signals
+        </span>
+      </div>
+      <div className="space-y-2.5 relative z-10">
+        {items.map((it) => (
+          <div key={it.title} className={`bg-panel/60 border ${tones[it.tone]} p-3 rounded-lg`}>
+            <div className="flex items-center gap-2 mb-1">
+              <span className={`w-1.5 h-1.5 rounded-full ${dots[it.tone]} shrink-0`} />
+              <h4 className={`text-[13px] font-semibold ${tones[it.tone].split(" ")[1]} truncate`}>{it.title}</h4>
+              <span className="text-[9px] uppercase tracking-wider text-lo ml-auto shrink-0">{it.tag}</span>
+            </div>
+            <p className="text-[11px] leading-snug text-mid">{it.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
