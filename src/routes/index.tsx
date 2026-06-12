@@ -64,6 +64,33 @@ function Today() {
   const jevoy = team.find((m) => m.id === "u_jevoy");
   const shannen = team.find((m) => m.id === "u_shannen");
 
+  // Today's high-level plan context (phase, theme, blocks)
+  const dow = new Date().getDay();
+  const todayPhase: WeekDay = JEVOY_WEEK[dow] ?? JEVOY_WEEK[1];
+  // Hour ranges for the 4 standing blocks (6am→8pm window)
+  const TL_START = 6;
+  const TL_END = 20;
+  const TL_SPAN = TL_END - TL_START;
+  const BLOCK_HOURS: { id: string; label: string; from: number; to: number; tone: string }[] = [
+    { id: "deep",    label: "Deep",    from: 8,    to: 10.5, tone: "bg-brand-500/35 border-brand-500/50" },
+    { id: "lead",    label: "Lead",    from: 10.5, to: 12.5, tone: "bg-amber-500/30 border-amber-500/50" },
+    { id: "produce", label: "Produce", from: 13.5, to: 16.5, tone: "bg-violet-500/30 border-violet-500/50" },
+    { id: "review",  label: "Review",  from: 16.5, to: 17.5, tone: "bg-emerald/30 border-emerald/50" },
+  ];
+  const nowHours = (() => {
+    const d = new Date();
+    return d.getHours() + d.getMinutes() / 60;
+  })();
+  const nowPct = Math.max(0, Math.min(100, ((nowHours - TL_START) / TL_SPAN) * 100));
+  const eventHours = todayEvents
+    .filter((e) => !e.allDay)
+    .map((e) => {
+      const d = new Date(e.start);
+      const h = d.getHours() + d.getMinutes() / 60;
+      return { uid: e.uid, title: e.title, h, pct: ((h - TL_START) / TL_SPAN) * 100 };
+    })
+    .filter((x) => x.pct >= 0 && x.pct <= 100);
+
   return (
     <AppShell
       eyebrow="Today"
@@ -150,8 +177,101 @@ function Today() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <Panel icon={<CalendarDays size={14} className="text-lo" />} iconBg="bg-zinc-800" title="Today's Plan">
+              {/* Day theme */}
+              <div className={`rounded-lg border p-3 mb-4 ${ACCENT_CLASS[todayPhase.accent]}`}>
+                <div className="flex items-center justify-between mb-1.5 gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider opacity-80">{todayPhase.phase} · Day Theme</span>
+                  {todayPhase.sync && <span className="text-[10px] text-mid truncate">⏰ {todayPhase.sync}</span>}
+                </div>
+                <h4 className="text-sm font-semibold text-hi mb-1.5">{todayPhase.title}</h4>
+                <ul className="space-y-1">
+                  {todayPhase.bullets.slice(0, 2).map((b, i) => (
+                    <li key={i} className="text-xs text-mid flex items-start gap-1.5">
+                      <span className="opacity-60">•</span><span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Quick stats */}
+              <div className="grid grid-cols-3 gap-2 mb-4">
+                {[
+                  { k: "Events", v: todayEvents.length, hint: "on calendar" },
+                  { k: "Threads", v: threadsToClose.length, hint: "to close" },
+                  { k: "Blocks", v: BLOCK_HOURS.length, hint: "structured" },
+                ].map((s) => (
+                  <div key={s.k} className="bg-sunken/60 border border-line rounded-lg px-3 py-2">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-lo">{s.k}</p>
+                    <p className="text-base font-bold text-hi num leading-tight">{s.v}</p>
+                    <p className="text-[10px] text-lo">{s.hint}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Timeline */}
+              <div className="mb-4">
+                <div className="flex items-center justify-between mb-1.5">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-lo">Day Timeline</p>
+                  <p className="text-[10px] text-lo num">6 AM → 8 PM</p>
+                </div>
+                <div className="relative h-12 rounded-md bg-sunken/60 border border-line overflow-hidden">
+                  {/* Hour gridlines every 2h */}
+                  {Array.from({ length: TL_SPAN / 2 + 1 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute top-0 bottom-0 w-px bg-line/60"
+                      style={{ left: `${(i * 2 * 100) / TL_SPAN}%` }}
+                    />
+                  ))}
+                  {/* Block bands */}
+                  {BLOCK_HOURS.map((b) => {
+                    const left = ((b.from - TL_START) / TL_SPAN) * 100;
+                    const width = ((b.to - b.from) / TL_SPAN) * 100;
+                    return (
+                      <div
+                        key={b.id}
+                        className={`absolute top-1.5 bottom-4 rounded border ${b.tone}`}
+                        style={{ left: `${left}%`, width: `${width}%` }}
+                        title={`${b.label} block`}
+                      >
+                        <span className="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-hi/90 truncate px-1">
+                          {b.label}
+                        </span>
+                      </div>
+                    );
+                  })}
+                  {/* Event markers */}
+                  {eventHours.map((e) => (
+                    <div
+                      key={e.uid}
+                      className="absolute top-0 bottom-4 w-0.5 bg-rose"
+                      style={{ left: `${e.pct}%` }}
+                      title={e.title}
+                    >
+                      <span className="absolute -top-0.5 -left-1 w-2.5 h-2.5 rounded-full bg-rose border-2 border-panel" />
+                    </div>
+                  ))}
+                  {/* Now indicator */}
+                  {nowHours >= TL_START && nowHours <= TL_END && (
+                    <div
+                      className="absolute top-0 bottom-4 w-px bg-brand-400 shadow-[0_0_6px_rgba(99,102,241,0.8)]"
+                      style={{ left: `${nowPct}%` }}
+                    >
+                      <span className="absolute -top-1 -left-[3px] w-1.5 h-1.5 rounded-full bg-brand-400" />
+                    </div>
+                  )}
+                  {/* Hour labels */}
+                  <div className="absolute bottom-0 inset-x-0 flex justify-between px-1 text-[9px] text-lo num">
+                    <span>6a</span><span>10a</span><span>2p</span><span>6p</span><span>8p</span>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-[10px] font-bold uppercase tracking-wider text-lo mb-2">Scheduled · {todayEvents.length}</p>
               {todayEvents.length === 0 ? (
-                <p className="text-sm text-mid py-6 text-center">No calendar events today.</p>
+                <p className="text-xs text-mid italic py-3 text-center bg-sunken/40 border border-line rounded-lg">
+                  No calendar events today — protect the deep work block.
+                </p>
               ) : (
                 <div className="relative pl-4 border-l border-line space-y-6 min-w-0">
                   {todayEvents.map((e, i) => (
