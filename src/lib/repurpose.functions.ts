@@ -176,5 +176,10 @@ export const generateShorts = createServerFn({ method: "POST" })
       prompt,
     });
 
-    return { shorts: normalizeShorts(extractJsonValue(text), targetPlatforms, data) };
+    try {
+      return { shorts: normalizeShorts(extractJsonValue(text), targetPlatforms, data) };
+    } catch (error) {
+      console.error("[repurpose] AI JSON normalization failed", error);
+      return { shorts: targetPlatforms.map((platform, index) => fallbackShort(data, platform, index)) };
+    }
   });
