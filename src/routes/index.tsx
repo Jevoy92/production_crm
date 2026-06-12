@@ -561,6 +561,15 @@ function PersonDay({
     setChecked((c) => ({ ...c, [k]: !c[k] }));
   }
 
+  const blockProgress = blocks.map((b) => {
+    const total = b.items.length;
+    const done = b.items.reduce((n, _it, i) => n + (checked[`${b.id}-${i}`] ? 1 : 0), 0);
+    return { id: b.id, done, total };
+  });
+  const totalItems = blockProgress.reduce((n, p) => n + p.total, 0);
+  const doneItems = blockProgress.reduce((n, p) => n + p.done, 0);
+  const overallPct = totalItems ? Math.round((doneItems / totalItems) * 100) : 0;
+
   return (
     <section className="bg-panel border border-line rounded-2xl p-6 h-full flex flex-col">
       <div className="flex items-center justify-between mb-4">
@@ -584,6 +593,24 @@ function PersonDay({
           {loading ? <Loader2 size={12} className="animate-spin" /> : <Wand2 size={12} />}
           {result ? "Re-run" : "AI assist"}
         </button>
+      </div>
+
+      {/* Overall day progress */}
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-1.5">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-lo">Day progress</span>
+          <span className="text-[11px] text-mid num">
+            <span className="text-hi font-semibold">{doneItems}</span>
+            <span className="opacity-60"> / {totalItems} completed</span>
+            <span className="ml-2 text-brand-400 font-semibold">{overallPct}%</span>
+          </span>
+        </div>
+        <div className="h-1.5 w-full rounded-full bg-sunken border border-line overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-brand-500 to-brand-400 transition-all duration-300"
+            style={{ width: `${overallPct}%` }}
+          />
+        </div>
       </div>
 
       {/* Today's battle-rhythm focus */}
@@ -618,18 +645,30 @@ function PersonDay({
       <div className="space-y-2.5 flex-1">
         {blocks.map((b, idx) => {
           const sug = result?.suggestions.find((s) => s.taskId === b.id);
+          const prog = blockProgress[idx];
+          const pct = prog.total ? (prog.done / prog.total) * 100 : 0;
+          const complete = prog.total > 0 && prog.done === prog.total;
           return (
             <details key={b.id} open={idx === 0} className="group bg-sunken/50 border border-line rounded-lg">
               <summary className="cursor-pointer list-none p-3 flex items-start gap-3">
-                <span className="w-6 h-6 rounded-md bg-brand-600/15 border border-brand-500/30 text-brand-400 text-[11px] font-bold flex items-center justify-center flex-shrink-0">
-                  {idx + 1}
+                <span className={`w-6 h-6 rounded-md border text-[11px] font-bold flex items-center justify-center flex-shrink-0 ${complete ? "bg-emerald/20 border-emerald/40 text-emerald" : "bg-brand-600/15 border-brand-500/30 text-brand-400"}`}>
+                  {complete ? <CircleCheck size={12} /> : idx + 1}
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <p className="text-sm font-semibold text-hi">{b.label}</p>
                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-800 text-lo border border-line">{b.duration}</span>
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded border num ml-auto ${complete ? "bg-emerald/15 text-emerald border-emerald/30" : "bg-zinc-800 text-mid border-line"}`}>
+                      {prog.done}/{prog.total}
+                    </span>
                   </div>
                   <p className="text-[11px] text-lo num">{b.time} <span className="opacity-50">· alt {b.altTime}</span></p>
+                  <div className="mt-1.5 h-1 w-full rounded-full bg-zinc-800/80 overflow-hidden">
+                    <div
+                      className={`h-full transition-all duration-300 ${complete ? "bg-emerald" : "bg-brand-500"}`}
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
                 </div>
                 <ChevronRight size={14} className="text-lo group-open:rotate-90 transition-transform mt-1 flex-shrink-0" />
               </summary>
