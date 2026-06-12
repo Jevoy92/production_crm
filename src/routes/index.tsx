@@ -153,23 +153,27 @@ function Today() {
               {todayEvents.length === 0 ? (
                 <p className="text-sm text-mid py-6 text-center">No calendar events today.</p>
               ) : (
-                <div className="relative pl-4 border-l border-line space-y-6">
+                <div className="relative pl-4 border-l border-line space-y-6 min-w-0">
                   {todayEvents.map((e, i) => (
-                    <div key={e.uid} className="relative">
+                    <div key={e.uid} className="relative min-w-0">
                       <div
                         className={`absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-panel ${
                           i === 0 ? "bg-brand-500 shadow-[0_0_8px_rgba(99,102,241,0.6)]" : "bg-line-strong"
                         }`}
                       />
-                      <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4">
-                        <span className={`text-sm font-medium w-14 shrink-0 ${i === 0 ? "text-brand-400 font-semibold" : "text-mid"}`}>
+                      <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 min-w-0">
+                        <span className={`text-sm font-medium w-14 shrink-0 num ${i === 0 ? "text-brand-400 font-semibold" : "text-mid"}`}>
                           {e.allDay
                             ? "All day"
                             : new Date(e.start).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
                         </span>
-                        <div className={i === 0 ? "bg-brand-600/5 border border-brand-500/20 rounded-lg p-3 w-full" : ""}>
+                        <div className={`min-w-0 flex-1 overflow-hidden ${i === 0 ? "bg-brand-600/5 border border-brand-500/20 rounded-lg p-3 w-full" : ""}`}>
                           <h4 className="text-sm font-semibold text-hi mb-1 truncate">{e.title}</h4>
-                          {e.location && <p className="text-xs text-mid truncate">{e.location}</p>}
+                          {e.location && (
+                            <p className="text-xs text-mid truncate" title={e.location}>
+                              {/^https?:\/\//.test(e.location) ? new URL(e.location).hostname : e.location}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
