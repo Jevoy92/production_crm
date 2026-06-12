@@ -233,6 +233,69 @@ function Recap({ ok, children }: { ok?: boolean; children: React.ReactNode }) {
   );
 }
 
+/* ---------------- Watch-outs ---------------- */
+function WatchOuts() {
+  const items: Array<{ tone: "rose" | "amber" | "violet" | "brand"; title: string; body: React.ReactNode; tag: string }> = [
+    {
+      tone: "rose", tag: "Compliance",
+      title: "Admin Lag — Middesk Mail",
+      body: <>Open the WA registration packet today. Unprocessed filings can <strong className="text-hi">freeze payouts and stall contracts</strong> within 30 days.</>,
+    },
+    {
+      tone: "amber", tag: "Energy",
+      title: "Midday Crunch",
+      body: <>3 back-to-back calls from 12–2:30 PM with no buffer. <strong className="text-hi">Eat by 11:45</strong>, queue water, mute Slack between calls.</>,
+    },
+    {
+      tone: "violet", tag: "Creative Drift",
+      title: "No Filming Logged in 48h",
+      body: <>Core 12 cadence at risk. Carve a 90-min self-record block tomorrow or push the publish calendar.</>,
+    },
+    {
+      tone: "brand", tag: "Handover",
+      title: "Shannen Update Pending",
+      body: <>Yesterday's structured daily update from Shannen hasn't landed yet. Ping her before 10 AM so AM blocks aren't blind.</>,
+    },
+  ];
+  const tones: Record<string, string> = {
+    rose: "border-rose/30 text-rose",
+    amber: "border-amber/30 text-amber",
+    violet: "border-violet/30 text-violet",
+    brand: "border-brand-500/30 text-brand-400",
+  };
+  const dots: Record<string, string> = {
+    rose: "bg-rose", amber: "bg-amber", violet: "bg-violet", brand: "bg-brand-400",
+  };
+  return (
+    <div className="bg-rose/5 border border-rose/20 rounded-2xl p-5 relative overflow-hidden h-full">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-rose/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
+      <div className="flex items-center justify-between gap-3 mb-4 relative z-10">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-8 h-8 rounded-lg bg-rose/20 flex items-center justify-center text-rose shrink-0">
+            <TriangleAlert size={14} />
+          </div>
+          <h3 className="font-display font-bold text-hi text-base truncate">Watch-outs</h3>
+        </div>
+        <span className="text-[10px] font-semibold text-lo bg-sunken border border-line px-2 py-0.5 rounded-md shrink-0">
+          {items.length} signals
+        </span>
+      </div>
+      <div className="space-y-2.5 relative z-10">
+        {items.map((it) => (
+          <div key={it.title} className={`bg-panel/60 border ${tones[it.tone]} p-3 rounded-lg`}>
+            <div className="flex items-center gap-2 mb-1">
+              <span className={`w-1.5 h-1.5 rounded-full ${dots[it.tone]} shrink-0`} />
+              <h4 className={`text-[13px] font-semibold ${tones[it.tone].split(" ")[1]} truncate`}>{it.title}</h4>
+              <span className="text-[9px] uppercase tracking-wider text-lo ml-auto shrink-0">{it.tag}</span>
+            </div>
+            <p className="text-[11px] leading-snug text-mid">{it.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Panel({
   icon, iconBg = "bg-zinc-800", title, badge, children,
 }: {
