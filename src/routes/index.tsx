@@ -14,6 +14,10 @@ import { toast } from "sonner";
 import {
   SHANNEN_BLOCKS, SHANNEN_WEEK, ACCENT_CLASS, SHANNEN_OWNS, SHANNEN_NEVER,
 } from "@/lib/shannenPlaybook";
+import {
+  PieChart, Pie, Cell, ResponsiveContainer, RadialBarChart, RadialBar,
+  BarChart, Bar, XAxis, Tooltip,
+} from "recharts";
 
 export const Route = createFileRoute("/")({
   component: Today,
@@ -88,6 +92,14 @@ function Today() {
             </p>
           </div>
         </div>
+
+        {/* KPI stat strip */}
+        <StatStrip
+          openCount={openTasks.length}
+          eventsCount={todayEvents.length}
+          threadsCount={threadsToClose.length}
+          highCount={openTasks.filter((t) => t.priority === "High").length}
+        />
 
         {/* Recap & Threads */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -193,6 +205,9 @@ function Today() {
           {shannen && <ShannenDay person={shannen} tasks={tasks.filter((t) => t.assigneeId === shannen.id && t.status !== "done")} />}
           {jevoy && <PersonTasks person={jevoy} tasks={tasks.filter((t) => t.assigneeId === jevoy.id && t.status !== "done")} />}
         </div>
+
+        {/* Workload chart */}
+        <WorkloadChart team={team} tasks={openTasks} />
 
         {/* Script ideas slider */}
         <ScriptIdeas />
