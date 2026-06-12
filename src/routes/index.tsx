@@ -467,7 +467,8 @@ function ShannenDay({
           role: "Operations & CX Coordinator — " + focus,
           tasks: synthTasks.map((t) => ({
             id: t.id, title: t.title, priority: t.priority,
-            dueDate: t.dueDate, status: t.status, notes: t.notes,
+            dueDate: "dueDate" in t ? t.dueDate : undefined,
+            status: t.status, notes: t.notes,
           })),
         },
       });
