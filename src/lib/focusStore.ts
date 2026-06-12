@@ -48,6 +48,8 @@ type FocusState = {
   notes: FocusNote[];
   /** Daily focus goal in minutes (default 8h). */
   dailyGoalMin: number;
+  /** "stopwatch" counts up (default — no racing the clock); "pomodoro" counts down. */
+  mode: "stopwatch" | "pomodoro";
 
   start: (taskId: string | undefined, taskTitle: string, plannedMin?: number) => void;
   pause: () => void;
@@ -62,6 +64,7 @@ type FocusState = {
   lap: (label?: string) => void;
   addNote: (text: string) => void;
   setDailyGoalMin: (m: number) => void;
+  setMode: (m: "stopwatch" | "pomodoro") => void;
 };
 
 const now = () => Date.now();
@@ -77,6 +80,7 @@ export const useFocusStore = create<FocusState>()(
       laps: [],
       notes: [],
       dailyGoalMin: 480,
+      mode: "stopwatch",
 
       start: (taskId, taskTitle, plannedMin) =>
         set({
@@ -172,6 +176,7 @@ export const useFocusStore = create<FocusState>()(
         });
       },
       setDailyGoalMin: (m) => set({ dailyGoalMin: Math.max(30, Math.min(16 * 60, m)) }),
+      setMode: (m) => set({ mode: m }),
     }),
     { name: "po-focus:v1" },
   ),

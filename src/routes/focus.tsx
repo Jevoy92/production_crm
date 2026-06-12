@@ -89,25 +89,37 @@ function FocusPage() {
 
   const activeTask = tasks.find((t) => t.id === fs.activeTaskId);
   const activeProject = projects.find((p) => p.id === activeTask?.projectId);
+  const pomodoro = fs.mode === "pomodoro";
   const plannedSec = fs.plannedMin * 60;
   const remaining = Math.max(0, plannedSec - fs.elapsedSec);
-  const hh = Math.floor(remaining / 3600);
-  const mm = String(Math.floor((remaining % 3600) / 60)).padStart(2, "0");
-  const ss = String(remaining % 60).padStart(2, "0");
-  const ds = fs.running ? String((9 - msRef.current + 10) % 10) : "0";
-  const progress = plannedSec > 0 ? Math.min(1, fs.elapsedSec / plannedSec) : 0;
+  // Stopwatch counts UP (no racing the clock); pomodoro counts down.
+  const displaySec = pomodoro ? remaining : fs.elapsedSec;
+  const hh = Math.floor(displaySec / 3600);
+  const mm = String(Math.floor((displaySec % 3600) / 60)).padStart(2, "0");
+  const ss = String(displaySec % 60).padStart(2, "0");
+  const ds = fs.running
+    ? pomodoro
+      ? String((9 - msRef.current + 10) % 10)
+      : String(msRef.current)
+    : "0";
+  // Ring: pomodoro fills toward the target; stopwatch sweeps once per hour.
+  const progress = pomodoro
+    ? plannedSec > 0
+      ? Math.min(1, fs.elapsedSec / plannedSec)
+      : 0
+    : (fs.elapsedSec % 3600) / 3600;
   const inSession = fs.sessionStartedAt != null;
 
   // Tab title countdown.
   React.useEffect(() => {
     document.title =
       inSession && fs.running
-        ? `${mm}:${ss} · Focus — Production OS`
+        ? `${hh > 0 ? `${String(hh).padStart(2, "0")}:` : ""}${mm}:${ss} · Focus — Production OS`
         : "Focus Mode · Production OS";
     return () => {
       document.title = "Production OS";
     };
-  }, [mm, ss, fs.running, inSession]);
+  }, [hh, mm, ss, fs.running, inSession]);
 
   /** Log time + notes to the synced task, optionally complete it. */
   const endSession = React.useCallback((completeTask: boolean, e?: React.MouseEvent) => {
@@ -385,16 +397,28 @@ function FocusPage() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-1.5">
-              {DURATIONS.map((m) => (
-                <button
-                  key={m}
-                  onClick={() => fs.setPlannedMin(m)}
-                  className={`px-2.5 py-1 rounded-full text-[11px] font-medium border transition-all ${fs.plannedMin === m ? "border-brand-500 text-brand-400 bg-brand-600/10" : "border-line text-lo hover:text-mid"}`}
-                >
-                  {m}m
-                </button>
-              ))}
+            <div className="flex items-center gap-2 flex-wrap">
+              <div className="inline-flex items-center gap-0.5 p-0.5 bg-sunken border border-line rounded-full">
+                {(["stopwatch", "pomodoro"] as const).map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => fs.setMode(m)}
+                    className={`px-2.5 py-1 rounded-full text-[11px] font-medium capitalize transition-all ${fs.mode === m ? "bg-brand-600 text-white" : "text-lo hover:text-mid"}`}
+                  >
+                    {m}
+                  </button>
+                ))}
+              </div>
+              {pomodoro &&
+                DURATIONS.map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => fs.setPlannedMin(m)}
+                    className={`px-2.5 py-1 rounded-full text-[11px] font-medium border transition-all ${fs.plannedMin === m ? "border-brand-500 text-brand-400 bg-brand-600/10" : "border-line text-lo hover:text-mid"}`}
+                  >
+                    {m}m
+                  </button>
+                ))}
             </div>
           </div>
 
@@ -486,7 +510,11 @@ function FocusPage() {
                 </div>
                 <div className="mt-2.5 z-[1]">
                   <span className="font-mono text-[10px] text-lo tracking-[0.12em] uppercase">
-                    {remaining === 0 && inSession ? "Time's up — break" : "Remaining"}
+                    {pomodoro
+                      ? remaining === 0 && inSession
+                        ? "Time's up — break"
+                        : "Remaining"
+                      : "Elapsed"}
                   </span>
                 </div>
               </div>
@@ -722,10 +750,10 @@ function FocusPage() {
                           </div>
                           <div>
                             <div className="font-mono num text-brand-400 font-bold text-base leading-none">
-                              {fs.plannedMin}m
+                              {pomodoro ? `${fs.plannedMin}m` : "∞"}
                             </div>
                             <div className="text-lo text-[9.5px] mt-1 tracking-[0.06em] uppercase">
-                              Planned
+                              {pomodoro ? "Planned" : "Open-ended"}
                             </div>
                           </div>
                           {rate ? (
