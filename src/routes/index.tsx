@@ -635,3 +635,147 @@ function ShannenDay({
     </section>
   );
 }
+
+/* ---------------- KPI Stat Strip ---------------- */
+function StatStrip({
+  openCount, eventsCount, threadsCount, highCount,
+}: { openCount: number; eventsCount: number; threadsCount: number; highCount: number }) {
+  const completionPct = openCount === 0 ? 100 : Math.max(0, Math.round(((openCount - highCount) / Math.max(openCount, 1)) * 100));
+  const stats = [
+    { label: "Open Tasks", value: openCount, hint: "across team", grad: "from-brand-500 to-indigo-500", spark: [3, 5, 4, 6, 5, 7, openCount || 1] },
+    { label: "Today's Calls", value: eventsCount, hint: "on calendar", grad: "from-blue-500 to-cyan-500", spark: [1, 2, 1, 3, 2, 4, eventsCount || 1] },
+    { label: "Threads to Close", value: threadsCount, hint: "urgent / today", grad: "from-amber-500 to-rose-500", spark: [2, 3, 2, 4, 3, 5, threadsCount || 1] },
+    { label: "High Priority", value: highCount, hint: `${completionPct}% on track`, grad: "from-rose-500 to-purple-500", spark: [1, 2, 3, 2, 3, 2, highCount || 1] },
+  ];
+  return (
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      {stats.map((s) => (
+        <div key={s.label} className="relative bg-panel border border-line rounded-xl p-4 overflow-hidden hover:border-line-strong/60 transition-colors">
+          <div className={`absolute -top-8 -right-8 w-24 h-24 rounded-full bg-gradient-to-br ${s.grad} opacity-10 blur-2xl`} />
+          <p className="text-[10px] font-bold uppercase tracking-wider text-lo">{s.label}</p>
+          <div className="flex items-end justify-between mt-1">
+            <p className="font-display text-3xl font-bold text-hi num">{s.value}</p>
+            <div className="w-16 h-8 -mb-1">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={s.spark.map((v, i) => ({ i, v }))}>
+                  <Bar dataKey="v" radius={[2, 2, 0, 0]}>
+                    {s.spark.map((_, i) => (
+                      <Cell key={i} fill={i === s.spark.length - 1 ? "rgb(129,140,248)" : "rgb(63,63,70)"} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+          <p className="text-[11px] text-mid mt-1">{s.hint}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ---------------- Workload Distribution Chart ---------------- */
+function WorkloadChart({
+  team, tasks,
+}: {
+  team: Array<{ id: string; name: string; color: string; initials: string }>;
+  tasks: Array<{ id: string; assigneeId?: string; priority: string }>;
+}) {
+  const data = team
+    .map((m) => {
+      const mine = tasks.filter((t) => t.assigneeId === m.id);
+      return {
+        name: m.name.split(" ")[0],
+        color: m.color,
+        High: mine.filter((t) => t.priority === "High").length,
+        Med: mine.filter((t) => t.priority === "Med").length,
+        Low: mine.filter((t) => t.priority === "Low").length,
+        total: mine.length,
+      };
+    })
+    .filter((d) => d.total > 0);
+
+  const blockData = SHANNEN_BLOCKS.map((b, i) => ({
+    name: b.label.split(" ")[0],
+    value: parseInt(b.duration),
+    fill: ["#818cf8", "#22d3ee", "#fb7185", "#34d399"][i],
+  }));
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <section className="lg:col-span-2 bg-panel border border-line rounded-2xl p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-brand-400">
+            <ListChecks size={14} />
+          </div>
+          <div>
+            <h3 className="font-display font-bold text-hi text-base">Team Workload</h3>
+            <p className="text-xs text-lo">Open tasks by priority · per person</p>
+          </div>
+        </div>
+        {data.length === 0 ? (
+          <p className="text-sm text-mid py-8 text-center">No open tasks assigned.</p>
+        ) : (
+          <div className="h-56">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={data} barCategoryGap="30%">
+                <XAxis dataKey="name" stroke="#71717a" fontSize={11} axisLine={false} tickLine={false} />
+                <Tooltip
+                  cursor={{ fill: "rgba(99,102,241,0.06)" }}
+                  contentStyle={{
+                    background: "rgb(24,24,27)", border: "1px solid rgb(63,63,70)",
+                    borderRadius: 8, fontSize: 12,
+                  }}
+                />
+                <Bar dataKey="Low" stackId="a" fill="#52525b" radius={[0, 0, 4, 4]} />
+                <Bar dataKey="Med" stackId="a" fill="#3b82f6" />
+                <Bar dataKey="High" stackId="a" fill="#f43f5e" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+        <div className="flex items-center gap-4 mt-2 justify-center text-[11px] text-lo">
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm bg-rose-500" />High</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm bg-blue-500" />Med</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm bg-zinc-600" />Low</span>
+        </div>
+      </section>
+
+      <section className="bg-panel border border-line rounded-2xl p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-brand-400">
+            <CalendarDays size={14} />
+          </div>
+          <div>
+            <h3 className="font-display font-bold text-hi text-base">Shannen's Day Mix</h3>
+            <p className="text-xs text-lo">4-hour block allocation</p>
+          </div>
+        </div>
+        <div className="h-44 relative">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie data={blockData} dataKey="value" innerRadius={42} outerRadius={68} paddingAngle={3} stroke="none">
+                {blockData.map((b, i) => <Cell key={i} fill={b.fill} />)}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+            <span className="font-display text-2xl font-bold text-hi num">4h</span>
+            <span className="text-[10px] text-lo uppercase tracking-wider">total</span>
+          </div>
+        </div>
+        <ul className="mt-2 space-y-1">
+          {blockData.map((b, i) => (
+            <li key={i} className="flex items-center justify-between text-[11px]">
+              <span className="flex items-center gap-1.5 text-mid">
+                <span className="w-2 h-2 rounded-sm" style={{ background: b.fill }} />
+                {SHANNEN_BLOCKS[i].label}
+              </span>
+              <span className="text-lo num">{b.value}m</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  );
+}
