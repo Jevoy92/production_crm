@@ -421,3 +421,202 @@ function ScriptIdeas() {
     </div>
   );
 }
+
+function ShannenDay({
+  person, tasks,
+}: {
+  person: { id: string; name: string; role: string; initials: string; color: string };
+  tasks: Array<{ id: string; title: string; priority: string; dueDate?: string; status: string; notes?: string }>;
+}) {
+  const run = useServerFn(generateTaskAssist);
+  const [result, setResult] = useState<TaskAssistantResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [checked, setChecked] = useState<Record<string, boolean>>({});
+
+  const dow = new Date().getDay();
+  const today = SHANNEN_WEEK[dow];
+
+  async function runAssist() {
+    setLoading(true);
+    try {
+      const focus = `Today is ${["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][dow]} — phase: ${today.phase}. Battle-rhythm focus: ${today.title}. Standing 4-hour blocks: ${SHANNEN_BLOCKS.map((b) => b.label).join("; ")}.`;
+      const synthTasks = tasks.length
+        ? tasks
+        : SHANNEN_BLOCKS.map((b) => ({
+            id: b.id, title: `${b.label} block`, priority: "Med",
+            status: "todo", notes: b.objective,
+          }));
+      const r = await run({
+        data: {
+          person: person.name,
+          role: "Operations & CX Coordinator — " + focus,
+          tasks: synthTasks.map((t) => ({
+            id: t.id, title: t.title, priority: t.priority,
+            dueDate: t.dueDate, status: t.status, notes: t.notes,
+          })),
+        },
+      });
+      setResult(r);
+    } catch (e) {
+      toast.error("AI assist failed", { description: String((e as Error).message ?? e) });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function toggle(k: string) {
+    setChecked((c) => ({ ...c, [k]: !c[k] }));
+  }
+
+  return (
+    <section className="bg-panel border border-line rounded-2xl p-6 h-full flex flex-col">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <div
+            className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+            style={{ background: person.color }}
+          >
+            {person.initials}
+          </div>
+          <div className="min-w-0">
+            <h3 className="font-display font-bold text-hi text-base truncate">Shannen's Day</h3>
+            <p className="text-xs text-lo">4-hour block · {person.role}</p>
+          </div>
+        </div>
+        <button
+          onClick={runAssist}
+          disabled={loading}
+          className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-brand-600/15 border border-brand-500/30 text-brand-400 hover:bg-brand-600/25 disabled:opacity-50 transition-colors"
+        >
+          {loading ? <Loader2 size={12} className="animate-spin" /> : <Wand2 size={12} />}
+          {result ? "Re-run" : "AI assist"}
+        </button>
+      </div>
+
+      {/* Today's battle-rhythm focus */}
+      <div className={`rounded-lg border p-3 mb-4 ${ACCENT_CLASS[today.accent]}`}>
+        <div className="flex items-center justify-between mb-1.5">
+          <span className="text-[10px] font-bold uppercase tracking-wider opacity-80">{today.phase}</span>
+          <span className="text-[10px] text-mid">Battle rhythm</span>
+        </div>
+        <h4 className="text-sm font-semibold text-hi mb-1.5">{today.title}</h4>
+        <ul className="space-y-1">
+          {today.bullets.map((b, i) => (
+            <li key={i} className="text-xs text-mid flex items-start gap-1.5">
+              <span className="opacity-60">•</span>
+              <span>{b}</span>
+            </li>
+          ))}
+        </ul>
+        {today.sync && (
+          <p className="text-[11px] font-semibold mt-2 opacity-90">⏰ {today.sync}</p>
+        )}
+      </div>
+
+      {/* AI summary */}
+      {result && (
+        <div className="mb-4 bg-brand-600/8 border border-brand-500/20 rounded-lg p-3 flex items-start gap-2.5">
+          <Sparkles size={13} className="text-brand-400 mt-0.5 flex-shrink-0" />
+          <p className="text-xs text-mid leading-relaxed">{result.summary}</p>
+        </div>
+      )}
+
+      {/* 4-hour blocks */}
+      <div className="space-y-2.5 flex-1">
+        {SHANNEN_BLOCKS.map((b, idx) => {
+          const sug = result?.suggestions.find((s) => s.taskId === b.id);
+          return (
+            <details key={b.id} open={idx === 0} className="group bg-sunken/50 border border-line rounded-lg">
+              <summary className="cursor-pointer list-none p-3 flex items-start gap-3">
+                <span className="w-6 h-6 rounded-md bg-brand-600/15 border border-brand-500/30 text-brand-400 text-[11px] font-bold flex items-center justify-center flex-shrink-0">
+                  {idx + 1}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="text-sm font-semibold text-hi">{b.label}</p>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-800 text-lo border border-line">{b.duration}</span>
+                  </div>
+                  <p className="text-[11px] text-lo num">{b.time} <span className="opacity-50">· alt {b.altTime}</span></p>
+                </div>
+                <ChevronRight size={14} className="text-lo group-open:rotate-90 transition-transform mt-1 flex-shrink-0" />
+              </summary>
+              <div className="px-3 pb-3 pl-12 space-y-2">
+                <p className="text-xs text-mid italic">{b.objective}</p>
+                <ul className="space-y-1.5">
+                  {b.items.map((it, i) => {
+                    const k = `${b.id}-${i}`;
+                    const on = !!checked[k];
+                    return (
+                      <li key={k}>
+                        <button
+                          onClick={() => toggle(k)}
+                          className="flex items-start gap-2 text-left w-full group/item"
+                        >
+                          <span className={`w-4 h-4 rounded border flex-shrink-0 mt-0.5 flex items-center justify-center ${on ? "bg-brand-600 border-brand-600" : "border-lo group-hover/item:border-mid"}`}>
+                            {on && <CircleCheck size={10} className="text-white" />}
+                          </span>
+                          <span className={`text-xs ${on ? "text-lo line-through" : "text-mid"}`}>{it}</span>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+                {sug?.nextSteps?.length ? (
+                  <div className="mt-2 pt-2 border-t border-line space-y-1">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-brand-400 flex items-center gap-1">
+                      <Sparkles size={9} /> AI suggested next steps
+                    </p>
+                    {sug.nextSteps.map((s, i) => (
+                      <p key={i} className="text-xs text-mid flex items-start gap-1.5">
+                        <ListChecks size={10} className="text-brand-400 mt-0.5 flex-shrink-0" />
+                        <span>{s}</span>
+                      </p>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            </details>
+          );
+        })}
+      </div>
+
+      {/* Open tasks assigned in app */}
+      {tasks.length > 0 && (
+        <div className="mt-4 pt-4 border-t border-line">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-lo mb-2">Assigned in app · {tasks.length}</p>
+          <ul className="space-y-1">
+            {tasks.slice(0, 4).map((t) => (
+              <li key={t.id} className="text-xs text-mid flex items-center gap-2 truncate">
+                <span className="w-1 h-1 rounded-full bg-brand-400" />
+                <span className="truncate">{t.title}</span>
+                {t.priority === "High" && (
+                  <span className="text-[10px] text-rose font-semibold ml-auto">High</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Ownership boundaries */}
+      <div className="mt-4 pt-4 border-t border-line grid grid-cols-2 gap-3">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-emerald mb-1.5">Owns</p>
+          <ul className="space-y-0.5">
+            {SHANNEN_OWNS.map((o) => (
+              <li key={o} className="text-[11px] text-mid">• {o}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-rose mb-1.5">Never</p>
+          <ul className="space-y-0.5">
+            {SHANNEN_NEVER.map((o) => (
+              <li key={o} className="text-[11px] text-mid">• {o}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
