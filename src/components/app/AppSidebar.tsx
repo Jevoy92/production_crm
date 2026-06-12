@@ -2,11 +2,12 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Sun, Command, Film, Calendar, CheckSquare, FileText, PenLine,
   Contact, Users, Target, Folder, Boxes, ClipboardList, Wallet,
-  BarChart3, Palette, SlidersHorizontal, Settings, Bot, Scissors, Clapperboard, NotebookPen,
+  BarChart3, Palette, SlidersHorizontal, Settings, Bot, Scissors, Clapperboard, NotebookPen, X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useStore } from "@/lib/store";
 import { usePalsUI } from "@/lib/palsUI";
+import { useEffect } from "react";
 
 type NavItem = { label: string; to: string; icon: LucideIcon; badge?: number; ai?: boolean };
 type NavGroup = { heading: string; items: NavItem[] };
@@ -58,7 +59,13 @@ function useNav(): NavGroup[] {
   ];
 }
 
-export function AppSidebar() {
+export function AppSidebar({
+  mobileOpen = false,
+  onClose,
+}: {
+  mobileOpen?: boolean;
+  onClose?: () => void;
+} = {}) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const nav = useNav();
   const team = useStore((s) => s.team);
@@ -68,8 +75,46 @@ export function AppSidebar() {
   const isActive = (to: string) =>
     to === "/" ? pathname === "/" : pathname === to || pathname.startsWith(to + "/");
 
+  // Close drawer on route change
+  useEffect(() => {
+    if (onClose) onClose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  // Lock body scroll when drawer is open
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, [mobileOpen]);
+
   return (
-    <aside className="w-64 min-w-[256px] flex-shrink-0 bg-panel border-r border-line flex flex-col z-40">
+    <>
+      {/* Mobile overlay */}
+      {mobileOpen && (
+        <button
+          type="button"
+          aria-label="Close menu"
+          onClick={onClose}
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+        />
+      )}
+      <aside
+        className={`bg-panel border-r border-line flex flex-col z-50
+          fixed inset-y-0 left-0 w-[280px] max-w-[85vw] transition-transform duration-300 ease-out
+          ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
+          lg:translate-x-0 lg:static lg:w-64 lg:min-w-[256px] lg:flex-shrink-0`}
+      >
+      {/* Mobile close */}
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close menu"
+        className="absolute top-4 right-3 lg:hidden w-9 h-9 rounded-lg flex items-center justify-center text-mid hover:text-hi hover:bg-hover transition-colors"
+      >
+        <X size={18} />
+      </button>
       {/* Logo */}
       <Link to="/" className="px-5 py-5 border-b border-line flex items-center gap-3">
         <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center flex-shrink-0 shadow-[0_8px_20px_-8px_rgba(79,70,229,0.6)]">
@@ -167,6 +212,7 @@ export function AppSidebar() {
           <Settings size={14} className="text-lo flex-shrink-0" />
         </Link>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }

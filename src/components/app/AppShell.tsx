@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { Search, Bell, Sun, Moon } from "lucide-react";
+import { Search, Bell, Sun, Moon, Menu } from "lucide-react";
 import { AppSidebar } from "./AppSidebar";
 import { PalsLauncher } from "@/components/pals/PalsLauncher";
 import { AnimatedNumber } from "@/components/motion/Motion";
@@ -27,20 +27,32 @@ function Topbar({
   subtitle,
   actions,
   eyebrow,
+  onMenu,
 }: {
   title?: ReactNode;
   subtitle?: ReactNode;
   actions?: ReactNode;
   eyebrow?: ReactNode;
+  onMenu?: () => void;
 }) {
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between gap-4 px-8 py-4 bg-panel/80 backdrop-blur-xl border-b border-line flex-shrink-0">
-      <div className="min-w-0">
-        {eyebrow && <div className="text-lo text-[10.5px] font-bold uppercase tracking-[0.14em] mb-1">{eyebrow}</div>}
-        {title && <h1 className="font-display font-bold text-2xl text-hi tracking-tight leading-none truncate">{title}</h1>}
-        {subtitle && <p className="text-mid text-sm mt-1 truncate">{subtitle}</p>}
+    <header className="sticky top-0 z-30 flex items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 bg-panel/80 backdrop-blur-xl border-b border-line flex-shrink-0">
+      <div className="flex items-center gap-2 min-w-0 flex-1">
+        <button
+          type="button"
+          onClick={onMenu}
+          aria-label="Open menu"
+          className="lg:hidden w-10 h-10 -ml-1 rounded-xl bg-sunken border border-line flex items-center justify-center text-mid hover:text-hi shrink-0"
+        >
+          <Menu size={16} />
+        </button>
+        <div className="min-w-0 flex-1">
+          {eyebrow && <div className="text-lo text-[10px] sm:text-[10.5px] font-bold uppercase tracking-[0.14em] mb-0.5 sm:mb-1 truncate">{eyebrow}</div>}
+          {title && <h1 className="font-display font-bold text-lg sm:text-2xl text-hi tracking-tight leading-tight truncate">{title}</h1>}
+          {subtitle && <p className="text-mid text-xs sm:text-sm mt-0.5 sm:mt-1 truncate">{subtitle}</p>}
+        </div>
       </div>
-      <div className="flex items-center gap-3 flex-shrink-0">
+      <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         {actions}
         <div className="relative hidden lg:block">
           <input
@@ -50,7 +62,7 @@ function Topbar({
           />
           <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-lo" />
         </div>
-        <button className="relative w-10 h-10 rounded-xl bg-sunken border border-line flex items-center justify-center text-mid hover:text-hi hover:bg-raised transition-colors">
+        <button className="relative w-10 h-10 rounded-xl bg-sunken border border-line hidden sm:flex items-center justify-center text-mid hover:text-hi hover:bg-raised transition-colors">
           <Bell size={16} />
           <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 rounded-full bg-rose" />
         </button>
@@ -76,8 +88,9 @@ export function AppShell({
   eyebrow?: ReactNode;
 }) {
   const reduce = useReducedMotion();
+  const [mobileNavOpen, setMobileNavOpen] = React.useState(false);
   const body = (
-    <div className="flex-1 overflow-y-auto px-8 py-6">
+    <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
       {reduce ? (
         rightPanel ? <TwoCol main={children} aside={rightPanel} /> : children
       ) : (
@@ -89,10 +102,16 @@ export function AppShell({
   );
 
   return (
-    <div className="flex h-screen w-full bg-app text-hi overflow-hidden">
-      <AppSidebar />
-      <main className="flex-1 flex flex-col overflow-hidden min-w-0">
-        <Topbar title={title} subtitle={subtitle} actions={actions} eyebrow={eyebrow} />
+    <div className="flex h-dvh w-full bg-app text-hi overflow-hidden">
+      <AppSidebar mobileOpen={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
+      <main className="flex-1 flex flex-col overflow-hidden min-w-0 w-full">
+        <Topbar
+          title={title}
+          subtitle={subtitle}
+          actions={actions}
+          eyebrow={eyebrow}
+          onMenu={() => setMobileNavOpen(true)}
+        />
         {body}
       </main>
       <PalsLauncher />
