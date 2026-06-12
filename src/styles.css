@@ -302,6 +302,42 @@
     background: var(--card);
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-card);
+    transition:
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.2s ease;
+  }
+  .card-elevated:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      var(--shadow-card),
+      0 12px 32px -16px color-mix(in oklab, var(--brand-500) 24%, transparent);
+    border-color: color-mix(in oklab, var(--brand-500) 28%, var(--color-border));
+  }
+  /* Ambient page glow — subtle brand depth at the top of every page canvas. */
+  .page-canvas {
+    background-image:
+      radial-gradient(
+        56% 320px at 50% 0%,
+        color-mix(in oklab, var(--brand-500) 6%, transparent),
+        transparent 75%
+      );
+    background-repeat: no-repeat;
+  }
+  /* Lift for metric/stat cards (AppShell primitives). */
+  .card-lift {
+    transition:
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.2s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px -18px color-mix(in oklab, var(--brand-500) 30%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-elevated, .card-lift { transition: none; }
+    .card-elevated:hover, .card-lift:hover { transform: none; }
   }
   .text-gradient-amber {
     color: var(--primary);

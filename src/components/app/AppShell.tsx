@@ -90,7 +90,7 @@ export function AppShell({
   const reduce = useReducedMotion();
   const [mobileNavOpen, setMobileNavOpen] = React.useState(false);
   const body = (
-    <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+    <div className="page-canvas flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
       {reduce ? (
         rightPanel ? <TwoCol main={children} aside={rightPanel} /> : children
       ) : (
@@ -225,8 +225,10 @@ export function MetricCard({
   accent?: AccentKey;
 }) {
   const a = ACCENTS[accent];
+  const animated = animateTo ?? (typeof value === "number" ? value : null);
   return (
-    <div className="relative bg-panel border border-line rounded-2xl p-5 overflow-hidden group hover:border-brand-500/40 transition-colors">
+    <div className="card-lift relative bg-panel border border-line rounded-2xl p-5 overflow-hidden group hover:border-brand-500/40 transition-colors">
+      <AccentGlow color={a.glow} />
       <div className="flex items-start justify-between mb-4">
         <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${a.chip}`}>{icon}</div>
         {delta && (
@@ -240,7 +242,7 @@ export function MetricCard({
         )}
       </div>
       <div className="text-3xl font-display font-bold text-hi mb-1 num">
-        {animateTo != null ? <AnimatedNumber value={animateTo} format={format} /> : value}
+        {animated != null ? <AnimatedNumber value={animated} format={format} /> : value}
       </div>
       <div className="text-mid text-sm font-medium">{label}</div>
     </div>
@@ -268,15 +270,26 @@ export function Progress({ value, color = "var(--brand-500)" }: { value: number;
 
 /* ===== Accent helpers ================================================= */
 export type AccentKey = "brand" | "violet" | "amber" | "emerald" | "cyan" | "rose" | "orange";
-export const ACCENTS: Record<AccentKey, { chip: string; text: string; soft: string }> = {
-  brand: { chip: "bg-brand-600/15 border border-brand-500/20 text-brand-400", text: "text-brand-400", soft: "bg-brand-600/10" },
-  violet: { chip: "bg-violet-600/15 border border-violet-500/20 text-violet", text: "text-violet", soft: "bg-violet/10" },
-  amber: { chip: "bg-amber-600/15 border border-amber-500/20 text-amber", text: "text-amber", soft: "bg-amber/10" },
-  emerald: { chip: "bg-emerald-600/15 border border-emerald-500/20 text-emerald", text: "text-emerald", soft: "bg-emerald/10" },
-  cyan: { chip: "bg-cyan-600/15 border border-cyan-500/20 text-cyan", text: "text-cyan", soft: "bg-cyan/10" },
-  rose: { chip: "bg-rose-600/15 border border-rose-500/20 text-rose", text: "text-rose", soft: "bg-rose/10" },
-  orange: { chip: "bg-orange-600/15 border border-orange-500/20 text-orange", text: "text-orange", soft: "bg-orange/10" },
+export const ACCENTS: Record<AccentKey, { chip: string; text: string; soft: string; glow: string }> = {
+  brand: { chip: "bg-brand-600/15 border border-brand-500/20 text-brand-400", text: "text-brand-400", soft: "bg-brand-600/10", glow: "var(--brand-500)" },
+  violet: { chip: "bg-violet-600/15 border border-violet-500/20 text-violet", text: "text-violet", soft: "bg-violet/10", glow: "var(--accent-violet)" },
+  amber: { chip: "bg-amber-600/15 border border-amber-500/20 text-amber", text: "text-amber", soft: "bg-amber/10", glow: "var(--accent-amber)" },
+  emerald: { chip: "bg-emerald-600/15 border border-emerald-500/20 text-emerald", text: "text-emerald", soft: "bg-emerald/10", glow: "var(--accent-emerald)" },
+  cyan: { chip: "bg-cyan-600/15 border border-cyan-500/20 text-cyan", text: "text-cyan", soft: "bg-cyan/10", glow: "var(--accent-cyan)" },
+  rose: { chip: "bg-rose-600/15 border border-rose-500/20 text-rose", text: "text-rose", soft: "bg-rose/10", glow: "var(--accent-rose)" },
+  orange: { chip: "bg-orange-600/15 border border-orange-500/20 text-orange", text: "text-orange", soft: "bg-orange/10", glow: "var(--accent-orange)" },
 };
+
+/** Soft corner glow used by metric cards — pure CSS, theme-aware. */
+function AccentGlow({ color }: { color: string }) {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute -top-10 -right-10 w-36 h-36 rounded-full opacity-[0.14] group-hover:opacity-30 transition-opacity duration-500 blur-2xl"
+      style={{ background: `radial-gradient(circle, ${color}, transparent 70%)` }}
+    />
+  );
+}
 
 /* ===== Shared primitives ============================================= */
 
@@ -287,8 +300,10 @@ export function StatTile({
   icon?: ReactNode; accent?: AccentKey; trailing?: ReactNode; animateTo?: number; format?: (n: number) => string;
 }) {
   const a = ACCENTS[accent];
+  const animated = animateTo ?? (typeof value === "number" ? value : null);
   return (
-    <div className="relative bg-panel border border-line rounded-2xl p-5 overflow-hidden group hover:border-brand-500/40 transition-colors">
+    <div className="card-lift relative bg-panel border border-line rounded-2xl p-5 overflow-hidden group hover:border-brand-500/40 transition-colors">
+      <AccentGlow color={a.glow} />
       <div className="flex items-start justify-between mb-4">
         {icon && <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${a.chip}`}>{icon}</div>}
         {delta && (
@@ -298,7 +313,7 @@ export function StatTile({
         )}
       </div>
       <div className="text-3xl font-display font-bold text-hi mb-1 num">
-        {animateTo != null ? <AnimatedNumber value={animateTo} format={format} /> : value}
+        {animated != null ? <AnimatedNumber value={animated} format={format} /> : value}
       </div>
       <div className="text-mid text-sm font-medium">{label}</div>
       {trailing && <div className="mt-3">{trailing}</div>}

@@ -3,7 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { AppShell, SegmentedControl } from "@/components/app/AppShell";
 import { Modal, Field } from "@/components/ui-bits/Modal";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion/Motion";
+import { Reveal, Stagger, StaggerItem, AnimatedNumber } from "@/components/motion/Motion";
 import {
   useCCStore,
   CC_STATUSES,
@@ -158,7 +158,7 @@ function ContentPage() {
                   <Icon size={13} />
                 </div>
                 <div>
-                  <div className="text-hi font-bold text-lg leading-none num">{s.value}</div>
+                  <div className="text-hi font-bold text-lg leading-none num"><AnimatedNumber value={s.value} /></div>
                   <div className="text-lo text-xs">{s.label}</div>
                 </div>
               </div>

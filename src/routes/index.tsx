@@ -1,3 +1,4 @@
+import { AnimatedNumber } from "@/components/motion/Motion";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
@@ -884,17 +885,17 @@ function StatStrip({
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
       {stats.map((s) => (
-        <div key={s.label} className="relative bg-panel border border-line rounded-xl p-4 overflow-hidden hover:border-line-strong/60 transition-colors">
+        <div key={s.label} className="card-lift relative bg-panel border border-line rounded-xl p-4 overflow-hidden hover:border-line-strong/60 transition-colors">
           <div className={`absolute -top-8 -right-8 w-24 h-24 rounded-full bg-gradient-to-br ${s.grad} opacity-10 blur-2xl`} />
           <p className="text-[10px] font-bold uppercase tracking-wider text-lo">{s.label}</p>
           <div className="flex items-end justify-between mt-1">
-            <p className="font-display text-3xl font-bold text-hi num">{s.value}</p>
+            <p className="font-display text-3xl font-bold text-hi num"><AnimatedNumber value={s.value} /></p>
             <div className="w-16 h-8 -mb-1">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={s.spark.map((v, i) => ({ i, v }))}>
                   <Bar dataKey="v" radius={[2, 2, 0, 0]}>
                     {s.spark.map((_, i) => (
-                      <Cell key={i} fill={i === s.spark.length - 1 ? "rgb(129,140,248)" : "rgb(63,63,70)"} />
+                      <Cell key={i} fill={i === s.spark.length - 1 ? "var(--brand-400)" : "var(--line-2)"} />
                     ))}
                   </Bar>
                 </BarChart>
