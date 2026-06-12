@@ -1001,3 +1001,19 @@
     width: calc(100vw - 16px);
   }
 }
+
+/* ============ Mobile safety net ============ */
+html, body { overflow-x: clip; }
+body { -webkit-text-size-adjust: 100%; }
+
+/* iOS form zoom-on-focus fix — keep inputs ≥16px on small screens */
+@media (max-width: 640px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* Long URLs / words shouldn't blow out cards */
+.break-anywhere { overflow-wrap: anywhere; word-break: break-word; }

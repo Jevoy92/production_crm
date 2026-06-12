@@ -95,7 +95,9 @@ function fmtDue(iso?: string) {
   return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
 }
 
-type TabKey = "my" | "team" | "deadlines";
+type TabKey = "my" | "team" | "deadlines" | "completed";
+type SortKey = "phase" | "due" | "priority" | "title";
+type FilterPriority = "all" | "High" | "Med" | "Low";
 
 function TasksPage() {
   const tasks = useStore((s) => s.tasks);
@@ -113,6 +115,11 @@ function TasksPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [collapsed, setCollapsed] = useState<Set<Phase>>(new Set());
   const [presetStage, setPresetStage] = useState<ChecklistStage | undefined>(undefined);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [sortOpen, setSortOpen] = useState(false);
+  const [filterPriority, setFilterPriority] = useState<FilterPriority>("all");
+  const [filterProject, setFilterProject] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<SortKey>("phase");
   const toggleCollapse = (p: Phase) => setCollapsed((prev) => { const n = new Set(prev); n.has(p) ? n.delete(p) : n.add(p); return n; });
   const openNew = (stage?: ChecklistStage) => { setPresetStage(stage); setOpen(true); };
 
@@ -120,10 +127,25 @@ function TasksPage() {
 
   const visible = useMemo(() => {
     let list = tasks;
-    if (tab === "my" && me) list = tasks.filter((t) => t.assigneeId === me.id);
-    if (tab === "deadlines") list = [...tasks].filter((t) => t.dueDate).sort((a, b) => (a.dueDate ?? "").localeCompare(b.dueDate ?? ""));
+    if (tab === "completed") {
+      list = tasks.filter((t) => t.status === "done");
+    } else {
+      list = tasks.filter((t) => t.status !== "done");
+      if (tab === "my" && me) list = list.filter((t) => t.assigneeId === me.id);
+      if (tab === "deadlines") list = list.filter((t) => t.dueDate);
+    }
+    if (filterPriority !== "all") list = list.filter((t) => t.priority === filterPriority);
+    if (filterProject !== "all") list = list.filter((t) => (t.projectId ?? "none") === filterProject);
+    const prioRank: Record<Task["priority"], number> = { High: 0, Med: 1, Low: 2 };
+    if (sortBy === "due" || tab === "deadlines") {
+      list = [...list].sort((a, b) => (a.dueDate ?? "9999").localeCompare(b.dueDate ?? "9999"));
+    } else if (sortBy === "priority") {
+      list = [...list].sort((a, b) => prioRank[a.priority] - prioRank[b.priority]);
+    } else if (sortBy === "title") {
+      list = [...list].sort((a, b) => a.title.localeCompare(b.title));
+    }
     return list;
-  }, [tasks, tab, me]);
+  }, [tasks, tab, me, filterPriority, filterProject, sortBy]);
 
   const groups = useMemo(() => {
     const map = new Map<Phase, Task[]>();
@@ -134,6 +156,7 @@ function TasksPage() {
 
   const selected = tasks.find((t) => t.id === selectedId) ?? null;
   const openCount = tasks.filter((t) => t.status !== "done").length;
+  const completedCount = tasks.filter((t) => t.status === "done").length;
   const dueToday = tasks.filter((t) => fmtDue(t.dueDate) === "Today").length;
 
   const toggleDone = (t: Task) => update(t.id, { status: t.status === "done" ? "todo" : "done" });
@@ -154,7 +177,7 @@ function TasksPage() {
           {/* Filter bar */}
           <div className="flex items-center justify-between gap-3 flex-wrap mb-5">
             <div className="inline-flex items-center gap-1 p-1 bg-sunken border border-line rounded-xl">
-              {([["my", "My Tasks"], ["team", "Team Overview"], ["deadlines", "Upcoming Deadlines"]] as [TabKey, string][]).map(([k, label]) => (
+              {([["my", "My Tasks"], ["team", "Team Overview"], ["deadlines", "Upcoming Deadlines"], ["completed", `Completed${completedCount ? ` (${completedCount})` : ""}`]] as [TabKey, string][]).map(([k, label]) => (
                 <button
                   key={k}
                   onClick={() => setTab(k)}
@@ -164,9 +187,60 @@ function TasksPage() {
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-2">
-              <span className="ph-btn ph-btn-soft ph-btn-sm"><Filter size={12} /> Filter</span>
-              <span className="ph-btn ph-btn-soft ph-btn-sm"><ArrowDownWideNarrow size={12} /> Sort</span>
+            <div className="flex items-center gap-2 relative">
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => { setFilterOpen((v) => !v); setSortOpen(false); }}
+                  className={`ph-btn ph-btn-soft ph-btn-sm ${filterPriority !== "all" || filterProject !== "all" ? "ring-1 ring-brand-500/40 text-brand-300" : ""}`}
+                >
+                  <Filter size={12} /> Filter
+                  {(filterPriority !== "all" || filterProject !== "all") && (
+                    <span className="ml-1 text-[10px] bg-brand-600 text-white rounded-full px-1.5">
+                      {(filterPriority !== "all" ? 1 : 0) + (filterProject !== "all" ? 1 : 0)}
+                    </span>
+                  )}
+                </button>
+                {filterOpen && (
+                  <div className="absolute right-0 mt-2 w-64 bg-panel border border-line rounded-xl shadow-lg p-3 z-20" onMouseLeave={() => setFilterOpen(false)}>
+                    <div className="text-[10px] uppercase tracking-wider text-lo font-bold mb-1.5">Priority</div>
+                    <div className="flex flex-wrap gap-1 mb-3">
+                      {(["all", "High", "Med", "Low"] as FilterPriority[]).map((p) => (
+                        <button key={p} onClick={() => setFilterPriority(p)} className={`text-xs px-2 py-1 rounded-md border ${filterPriority === p ? "bg-brand-600 text-white border-brand-500" : "bg-sunken text-mid border-line hover:text-hi"}`}>
+                          {p === "all" ? "All" : p}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="text-[10px] uppercase tracking-wider text-lo font-bold mb-1.5">Project</div>
+                    <select value={filterProject} onChange={(e) => setFilterProject(e.target.value)} className={inputCls}>
+                      <option value="all">All projects</option>
+                      <option value="none">No project</option>
+                      {projects.map((p) => <option key={p.id} value={p.id}>{p.title}</option>)}
+                    </select>
+                    {(filterPriority !== "all" || filterProject !== "all") && (
+                      <button onClick={() => { setFilterPriority("all"); setFilterProject("all"); }} className="mt-3 text-xs text-brand-400 hover:text-brand-300 font-semibold">Clear filters</button>
+                    )}
+                  </div>
+                )}
+              </div>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => { setSortOpen((v) => !v); setFilterOpen(false); }}
+                  className={`ph-btn ph-btn-soft ph-btn-sm ${sortBy !== "phase" ? "ring-1 ring-brand-500/40 text-brand-300" : ""}`}
+                >
+                  <ArrowDownWideNarrow size={12} /> Sort
+                </button>
+                {sortOpen && (
+                  <div className="absolute right-0 mt-2 w-44 bg-panel border border-line rounded-xl shadow-lg p-1.5 z-20" onMouseLeave={() => setSortOpen(false)}>
+                    {([["phase", "By phase"], ["due", "Due date"], ["priority", "Priority"], ["title", "Title (A–Z)"]] as [SortKey, string][]).map(([k, l]) => (
+                      <button key={k} onClick={() => { setSortBy(k); setSortOpen(false); }} className={`w-full text-left text-xs px-2.5 py-1.5 rounded-md ${sortBy === k ? "bg-brand-600/15 text-brand-300" : "text-mid hover:bg-hover hover:text-hi"}`}>
+                        {l}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
