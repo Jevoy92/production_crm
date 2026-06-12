@@ -314,6 +314,15 @@
       0 12px 32px -16px color-mix(in oklab, var(--brand-500) 24%, transparent);
     border-color: color-mix(in oklab, var(--brand-500) 28%, var(--color-border));
   }
+  /* Focus-mode play button pulse ring. */
+  @keyframes focus-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--brand-500) 30%, transparent); }
+    70% { box-shadow: 0 0 0 16px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+  .focus-pulse { animation: focus-pulse 2s ease-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .focus-pulse { animation: none; } }
+
   /* Check pop — bouncy scale-in when a task flips to done. */
   @keyframes check-pop {
     0% { transform: scale(0.4); }

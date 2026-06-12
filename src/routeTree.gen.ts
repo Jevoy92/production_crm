@@ -21,6 +21,7 @@ import { Route as ProductionsRouteImport } from './routes/productions'
 import { Route as PlaybookRouteImport } from './routes/playbook'
 import { Route as MeetingsRouteImport } from './routes/meetings'
 import { Route as GearRouteImport } from './routes/gear'
+import { Route as FocusRouteImport } from './routes/focus'
 import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as ContentRouteImport } from './routes/content'
 import { Route as ClientsRouteImport } from './routes/clients'
@@ -105,6 +106,11 @@ const MeetingsRoute = MeetingsRouteImport.update({
 const GearRoute = GearRouteImport.update({
   id: '/gear',
   path: '/gear',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FocusRoute = FocusRouteImport.update({
+  id: '/focus',
+  path: '/focus',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FinanceRoute = FinanceRouteImport.update({
@@ -243,6 +249,7 @@ export interface FileRoutesByFullPath {
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
+  '/focus': typeof FocusRoute
   '/gear': typeof GearRoute
   '/meetings': typeof MeetingsRoute
   '/playbook': typeof PlaybookRouteWithChildren
@@ -282,6 +289,7 @@ export interface FileRoutesByTo {
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
+  '/focus': typeof FocusRoute
   '/gear': typeof GearRoute
   '/meetings': typeof MeetingsRoute
   '/playbook': typeof PlaybookRouteWithChildren
@@ -322,6 +330,7 @@ export interface FileRoutesById {
   '/clients': typeof ClientsRouteWithChildren
   '/content': typeof ContentRoute
   '/finance': typeof FinanceRoute
+  '/focus': typeof FocusRoute
   '/gear': typeof GearRoute
   '/meetings': typeof MeetingsRoute
   '/playbook': typeof PlaybookRouteWithChildren
@@ -363,6 +372,7 @@ export interface FileRouteTypes {
     | '/clients'
     | '/content'
     | '/finance'
+    | '/focus'
     | '/gear'
     | '/meetings'
     | '/playbook'
@@ -402,6 +412,7 @@ export interface FileRouteTypes {
     | '/clients'
     | '/content'
     | '/finance'
+    | '/focus'
     | '/gear'
     | '/meetings'
     | '/playbook'
@@ -441,6 +452,7 @@ export interface FileRouteTypes {
     | '/clients'
     | '/content'
     | '/finance'
+    | '/focus'
     | '/gear'
     | '/meetings'
     | '/playbook'
@@ -481,6 +493,7 @@ export interface RootRouteChildren {
   ClientsRoute: typeof ClientsRouteWithChildren
   ContentRoute: typeof ContentRoute
   FinanceRoute: typeof FinanceRoute
+  FocusRoute: typeof FocusRoute
   GearRoute: typeof GearRoute
   MeetingsRoute: typeof MeetingsRoute
   PlaybookRoute: typeof PlaybookRouteWithChildren
@@ -588,6 +601,13 @@ declare module '@tanstack/react-router' {
       path: '/gear'
       fullPath: '/gear'
       preLoaderRoute: typeof GearRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/focus': {
+      id: '/focus'
+      path: '/focus'
+      fullPath: '/focus'
+      preLoaderRoute: typeof FocusRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/finance': {
@@ -830,6 +850,7 @@ const rootRouteChildren: RootRouteChildren = {
   ClientsRoute: ClientsRouteWithChildren,
   ContentRoute: ContentRoute,
   FinanceRoute: FinanceRoute,
+  FocusRoute: FocusRoute,
   GearRoute: GearRoute,
   MeetingsRoute: MeetingsRoute,
   PlaybookRoute: PlaybookRouteWithChildren,

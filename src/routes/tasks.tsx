@@ -9,7 +9,7 @@ import { CHECKLIST_STAGES } from "@/lib/types";
 import {
   Plus, Trash2, FolderOpen, Calendar, CircleAlert, ChevronRight, ChevronDown, Check,
   Filter, ArrowDownWideNarrow, CircleCheck, X, Repeat, Pencil,
-  FileText, FileType, FileImage, FileArchive, Upload, Sparkles, Pen, Paperclip,
+  FileText, FileType, FileImage, FileArchive, Upload, Sparkles, Pen, Paperclip, Timer, Play,
 } from "lucide-react";
 
 const uid = (p: string) => `${p}_${Math.random().toString(36).slice(2, 9)}`;
@@ -315,6 +315,23 @@ function TasksPage() {
                               </div>
                             </div>
                             <div className="flex items-center gap-2 flex-shrink-0">
+                              {(t.focusedSec ?? 0) > 0 && (
+                                <span className="text-[10px] font-semibold text-brand-400 bg-brand-600/10 border border-brand-500/25 px-2 py-0.5 rounded-full num flex items-center gap-1">
+                                  <Timer size={9} /> {fmtDuration(t.focusedSec!)}
+                                </span>
+                              )}
+                              {!done && (
+                                <Link
+                                  to="/focus"
+                                  search={{ task: t.id }}
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="opacity-0 group-hover:opacity-100 w-7 h-7 rounded-lg bg-sunken border border-line flex items-center justify-center text-mid hover:text-brand-400 hover:border-brand-500/40 transition-all"
+                                  title="Start focus session"
+                                  aria-label="Start focus session"
+                                >
+                                  <Play size={11} />
+                                </Link>
+                              )}
                               {t.subtasks && t.subtasks.length > 0 && (
                                 <span className="text-[10px] font-semibold text-mid bg-sunken border border-line px-2 py-0.5 rounded-full">
                                   {t.subtasks.filter((s) => s.done).length}/{t.subtasks.length} sub

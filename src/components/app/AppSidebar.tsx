@@ -3,6 +3,7 @@ import {
   Sun, Command, Film, Calendar, CheckSquare, FileText, PenLine,
   Contact, Users, Target, Folder, Boxes, ClipboardList, Wallet,
   BarChart3, Palette, SlidersHorizontal, Settings, Bot, Scissors, Clapperboard, NotebookPen, X,
+  CircleDot,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useStore } from "@/lib/store";
@@ -25,6 +26,7 @@ function useNav(): NavGroup[] {
         { label: "Productions", to: "/productions", icon: Film, badge: activeProjects || undefined },
         { label: "Schedule", to: "/schedule", icon: Calendar },
         { label: "Tasks", to: "/tasks", icon: CheckSquare },
+        { label: "Focus Mode", to: "/focus", icon: CircleDot },
         { label: "Meetings", to: "/meetings", icon: NotebookPen },
         { label: "Scripts", to: "/scripts", icon: FileText },
         { label: "Repurpose", to: "/repurpose", icon: Scissors },

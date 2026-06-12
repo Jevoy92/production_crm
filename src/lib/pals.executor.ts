@@ -93,6 +93,7 @@ export async function executePalsTool(
           status: t.status,
           priority: (t as any).priority,
           dueDate: (t as any).dueDate,
+          focusedMin: (t as any).focusedSec ? Math.round((t as any).focusedSec / 60) : undefined,
         })),
         total: tasks.length,
       };

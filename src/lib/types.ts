@@ -100,6 +100,7 @@ export type Task = {
   recurring?: boolean;
   createdAt: string;
   // Optional rich detail (rendered in the task inspector)
+  focusedSec?: number; // cumulative focus-timer seconds logged against this task
   subtasks?: Subtask[];
   notes?: string;
   attachments?: TaskAttachment[];
