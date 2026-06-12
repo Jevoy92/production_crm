@@ -459,7 +459,7 @@ function ShannenDay({
         ? tasks
         : SHANNEN_BLOCKS.map((b) => ({
             id: b.id, title: `${b.label} block`, priority: "Med",
-            status: "todo", notes: b.objective,
+            status: "todo", notes: b.objective, dueDate: undefined as string | undefined,
           }));
       const r = await run({
         data: {
