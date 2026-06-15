@@ -63,7 +63,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
         richColors
         closeButton
         offset={{ top: 72, right: 16 }}
-        mobileOffset={{ bottom: 88, left: 12, right: 12 }}
+        mobileOffset={{ top: 68, right: 12, left: 12 }}
       />
       <SyncIndicator />
     </>
