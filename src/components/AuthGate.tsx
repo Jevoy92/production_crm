@@ -58,7 +58,13 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
     <>
       <NotificationsHost />
       {children}
-      <Toaster position="top-right" richColors closeButton />
+      <Toaster
+        position="top-right"
+        richColors
+        closeButton
+        offset={{ top: 72, right: 16 }}
+        mobileOffset={{ top: 68, right: 12, left: 12 }}
+      />
       <SyncIndicator />
     </>
   );
