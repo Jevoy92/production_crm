@@ -9,7 +9,9 @@
 
 **JEVOY:**
 
-I want to talk about an advantage today. A real one. One that everybody in the room can see, that changes how much people trust you before you say one word — and the person who has it did absolutely nothing to get it. Didn't train for it. Didn't sacrifice for it. Can't even take credit for it with a straight face.
+Roughly seven hundred and eighty-nine dollars.
+
+Per inch. Per year. Every year of a working career. That's the going rate, in a peer-reviewed study, for an advantage you did absolutely *nothing* to earn. Didn't train for it. Didn't sacrifice for it. Can't even take credit for it with a straight face.
 
 Height.
 

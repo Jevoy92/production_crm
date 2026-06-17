@@ -10,9 +10,13 @@
 
 **JEVOY:**
 
-I want to start with a small question today. Smaller than usual. And then I want to follow it somewhere that surprised me.
+Open your camera roll. Right now if you can. Scroll back six months. And find me a photo you don't remember taking.
 
-What's a moment you have a photo of... but no memory of?
+[BEAT]
+
+Take your time. I'll wait. Because I promise you have one. Probably ten. Probably a whole afternoon you have full photographic evidence of and zero internal record of.
+
+That photo — the one you just landed on — is the entire episode.
 
 [BEAT]
 

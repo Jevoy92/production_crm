@@ -10,9 +10,13 @@
 
 **JEVOY:**
 
-I want to start with a question today, and I want you to answer it honestly, just to yourself, before I get anywhere near the research.
+Confession to open with: I have recorded the intro to this episode eleven times this week.
 
-When somebody asks how the business is going — how life is going — how long does it take you to pick the version?
+Same chair. Same mug. Same words, more or less. Eleven takes. Ten of them got cut. The one you're listening to is take eleven, and even take eleven I almost deleted because I cleared my throat at the wrong place.
+
+[BEAT]
+
+Tonight I want to talk about the ten. The cuts. The takes that didn't make it. Because I think the most interesting question in your business right now is not what you're posting — it's what you keep deleting. So let me ask you the version of that question that actually stings: when somebody asks how the business is going, how life is going — how long does it take you to pick the version?
 
 [BEAT]
 

@@ -9,7 +9,15 @@
 
 **JEVOY:**
 
-I want to talk about something today. Something that I've been sitting with for a while now, turning it over in my head. It's a quiet thing, but it's heavy. You feel me? It's the kind of thing that doesn't announce itself when it walks into the room, but it sits in the corner and dictates how you move, how you speak, and ultimately, how you build.
+I sent a voice note to a friend of mine last Tuesday. Brilliant guy. Runs a real business. Helps real people. I asked him one question:
+
+*"Send me the link to your latest video, bro. I want to share it."*
+
+It's Sunday. He hasn't answered me. He's read every other message I've sent him this week. He hasn't answered that one.
+
+[BEAT]
+
+And the wild thing is — I know exactly why. I've been him. You've been him. There's no latest video. There hasn't been one in eleven months. And the reason is not what he would say out loud. The reason is the thing I want to sit with tonight, because I think it's quietly running more businesses into the ground than recessions, bad markets, and burnout combined. It's the kind of thing that doesn't announce itself when it walks into the room, but it sits in the corner and dictates how you move, how you speak, and ultimately, how you build.
 
 [BEAT]
 

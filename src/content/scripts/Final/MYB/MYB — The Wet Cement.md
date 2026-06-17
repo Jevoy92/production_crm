@@ -7,11 +7,13 @@
 [COLD OPEN]
 [ROOM TONE — quiet, intimate space. The sound of a ceramic mug being set down on a wooden table.]
 
-I want to talk about something.
+There's a window — small one, maybe ninety minutes if you're lucky — where cement is wet enough to write in, and firm enough to hold the letter.
+
+Miss it on the early side, the cement is soup and your name dissolves. Miss it on the late side, the cement is rock and your finger just bleeds. But hit it right in the middle? You can carve a name into a sidewalk that lasts thirty years.
 
 [BEAT]
 
-Actually, I want to talk about the thing we all try *not* to talk about when we're building something. The quiet anxiety that sits in the back of your throat when you realize that people are looking at you, and you have absolutely no idea what they're seeing.
+Your reputation has the exact same window. There is a moment — right now, probably, for some of you — where the market is still wet about who you are. They don't have a story for you yet. Wait too long and the cement sets. Somebody else's story for you sets *with* it. And then you spend the next ten years trying to scratch a sentence into rock.
 
 I was sitting with a friend the other day. Brilliant guy. He's building a business that actually matters — not just another widget, not just another app that nobody needs, but something that solves a real, tangible problem for real people. And he was frustrated. He was exhausted by the game of it all. He looked at me across the table, shook his head, and said, "Jevoy, I just want the work to speak for itself. I don't want to play the game. I don't want to be a dancing monkey on the internet. I don't want to have to constantly explain myself. If the product is good, if the service is excellent, people will figure it out."
 

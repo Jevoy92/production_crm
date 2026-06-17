@@ -8,9 +8,13 @@
 
 **JEVOY:**
 
-I want to talk about something that I don't think gets talked about enough — and I want to take my time with it, because I think most of the conversations about this happen at the wrong altitude.
+There's a mirror in your phone.
 
-The conversation usually sounds like: *post more.* *Get over yourself.* *Get on camera.* *Build your personal brand.* *Be more authentic.* All those phrases that mean nothing because they've been said by everyone.
+It doesn't just show you back to yourself the way the bathroom mirror does — glance, fix the hair, move on. This one remembers. Every angle you've ever pulled. Every face you made and immediately deleted. Every take-two, take-three, take-eleven where you tried to say the same sentence as a person you almost are. It keeps a copy of all of them. In a folder. On a server. Forever.
+
+And the bathroom mirror, you walk away from. This one, you carry in your pocket.
+
+I want to talk tonight about what living next to that mirror does to a person — and specifically, what it does to a business owner who is trying to press record. Because the usual conversation about this sounds like: *post more. Get over yourself. Get on camera. Build your personal brand. Be more authentic.* All those phrases that mean nothing because they've been said by everyone.
 
 I don't want to have that conversation today.
 
