@@ -63,7 +63,7 @@ function ScriptsHub() {
   return (
     <Shell
       title="Scripts"
-      subtitle={`${SCRIPTS.length} themes · 3 brand voices · MindYourBizniz podcast`}
+      subtitle={`${SCRIPTS.length} themes · JP · PH · MYB`}
       actions={
         <a href="/hubs/scripts/index.html" target="_blank" rel="noopener noreferrer">
           <Btn variant="subtle" className="flex items-center gap-1.5 h-8">
