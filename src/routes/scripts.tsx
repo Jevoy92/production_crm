@@ -235,6 +235,16 @@ function ScriptRow({
     a.click();
     URL.revokeObjectURL(url);
   };
+  const downloadTeleprompter = () => {
+    if (!entry?.teleprompter) return;
+    const blob = new Blob([entry.teleprompter], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = entry.filename.replace(/\.md$/, " — TELEPROMPTER.txt");
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="border-b border-border">
@@ -315,6 +325,16 @@ function ScriptRow({
                 <Btn variant="subtle" onClick={downloadMd} className="flex items-center gap-1.5 h-7 text-[11px]">
                   <Download className="size-3" /> .md
                 </Btn>
+                {entry.teleprompter && (
+                  <Btn variant="subtle" onClick={downloadTeleprompter} className="flex items-center gap-1.5 h-7 text-[11px]">
+                    <Download className="size-3" /> Teleprompter
+                  </Btn>
+                )}
+                {entry.spokenWords ? (
+                  <span className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/70 ml-auto md:ml-0">
+                    {entry.spokenWords.toLocaleString()} words
+                  </span>
+                ) : null}
                 <a href={entry.originalPath} target="_blank" rel="noopener noreferrer">
                   <Btn variant="subtle" className="flex items-center gap-1.5 h-7 text-[11px]">
                     <ExternalLink className="size-3" /> Original
