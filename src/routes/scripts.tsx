@@ -31,11 +31,10 @@ function ScriptsLayout() {
   return isChild ? <Outlet /> : <ScriptsHub />;
 }
 
-type BrandFilter = "all" | "original" | "jevoy" | "palmer-house" | "mindyourbizniz";
+type BrandFilter = "all" | "jevoy" | "palmer-house" | "mindyourbizniz";
 
 const BRANDS: { value: BrandFilter; label: string }[] = [
   { value: "all", label: "All" },
-  { value: "original", label: "Original" },
   { value: "jevoy", label: "Jevoy" },
   { value: "palmer-house", label: "Palmer House" },
   { value: "mindyourbizniz", label: "MindYourBizniz" },
@@ -208,8 +207,7 @@ function ScriptRow({
   onToggle: () => void;
   preferredBrand?: BrandFilter;
 }) {
-  const versions: { key: "original" | "jevoy" | "palmer-house" | "mindyourbizniz"; label: string }[] = [
-    { key: "original", label: "Master" },
+  const versions: { key: "jevoy" | "palmer-house" | "mindyourbizniz"; label: string }[] = [
     { key: "jevoy", label: "Jevoy Palmer" },
     { key: "palmer-house", label: "Palmer House" },
     { key: "mindyourbizniz", label: "MindYourBizniz" },
@@ -217,7 +215,7 @@ function ScriptRow({
   const brandTags = BRAND_TAGS.filter((b) => script.versions[b.key]);
   const initial = (preferredBrand && preferredBrand !== "all" && script.versions[preferredBrand])
     ? preferredBrand
-    : (versions.find((v) => script.versions[v.key])?.key ?? "original");
+    : (versions.find((v) => script.versions[v.key])?.key ?? "jevoy");
   const [activeVersion, setActiveVersion] = useState<typeof versions[number]["key"]>(initial);
   const entry = script.versions[activeVersion];
   const source = entry?.body ?? "";
