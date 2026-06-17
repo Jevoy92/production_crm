@@ -33,7 +33,7 @@ const PAL_FOR_NUM: PalLane[] = ["Spotlight","Spotlight","Evergreen","Spotlight",
 function pickScriptBody(num: string): string {
   const s = SCRIPTS.find((x) => x.num === num);
   if (!s) return "";
-  return s.versions.original?.body ?? Object.values(s.versions)[0]?.body ?? "";
+  return Object.values(s.versions)[0]?.body ?? "";
 }
 
 function platformToLibrary(p: Short["platform"]): Platform {

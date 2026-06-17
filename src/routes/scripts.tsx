@@ -31,11 +31,10 @@ function ScriptsLayout() {
   return isChild ? <Outlet /> : <ScriptsHub />;
 }
 
-type BrandFilter = "all" | "original" | "jevoy" | "palmer-house" | "mindyourbizniz";
+type BrandFilter = "all" | "jevoy" | "palmer-house" | "mindyourbizniz";
 
 const BRANDS: { value: BrandFilter; label: string }[] = [
   { value: "all", label: "All" },
-  { value: "original", label: "Original" },
   { value: "jevoy", label: "Jevoy" },
   { value: "palmer-house", label: "Palmer House" },
   { value: "mindyourbizniz", label: "MindYourBizniz" },
@@ -64,7 +63,7 @@ function ScriptsHub() {
   return (
     <Shell
       title="Scripts"
-      subtitle={`${SCRIPTS.length} themes · 3 brand voices · MindYourBizniz podcast`}
+      subtitle={`${SCRIPTS.length} themes · JP · PH · MYB`}
       actions={
         <a href="/hubs/scripts/index.html" target="_blank" rel="noopener noreferrer">
           <Btn variant="subtle" className="flex items-center gap-1.5 h-8">
@@ -208,8 +207,7 @@ function ScriptRow({
   onToggle: () => void;
   preferredBrand?: BrandFilter;
 }) {
-  const versions: { key: "original" | "jevoy" | "palmer-house" | "mindyourbizniz"; label: string }[] = [
-    { key: "original", label: "Master" },
+  const versions: { key: "jevoy" | "palmer-house" | "mindyourbizniz"; label: string }[] = [
     { key: "jevoy", label: "Jevoy Palmer" },
     { key: "palmer-house", label: "Palmer House" },
     { key: "mindyourbizniz", label: "MindYourBizniz" },
@@ -217,7 +215,7 @@ function ScriptRow({
   const brandTags = BRAND_TAGS.filter((b) => script.versions[b.key]);
   const initial = (preferredBrand && preferredBrand !== "all" && script.versions[preferredBrand])
     ? preferredBrand
-    : (versions.find((v) => script.versions[v.key])?.key ?? "original");
+    : (versions.find((v) => script.versions[v.key])?.key ?? "jevoy");
   const [activeVersion, setActiveVersion] = useState<typeof versions[number]["key"]>(initial);
   const entry = script.versions[activeVersion];
   const source = entry?.body ?? "";
@@ -234,6 +232,16 @@ function ScriptRow({
     const a = document.createElement("a");
     a.href = url;
     a.download = entry.filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+  const downloadTeleprompter = () => {
+    if (!entry?.teleprompter) return;
+    const blob = new Blob([entry.teleprompter], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = entry.filename.replace(/\.md$/, " — TELEPROMPTER.txt");
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -256,6 +264,9 @@ function ScriptRow({
         >
           {script.title}
         </span>
+        <span className="hidden md:inline-flex items-center text-[9px] tracking-[0.18em] font-bold uppercase px-1.5 py-0.5 border border-border text-muted-foreground/80 shrink-0">
+          {script.pillar}
+        </span>
         <span className="hidden md:flex items-center gap-1.5 shrink-0">
           {brandTags.map((b) => (
             <span
@@ -275,7 +286,7 @@ function ScriptRow({
       {open && (
         <div className="pb-6 pl-14 pr-2 -mt-1 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 flex-1 min-w-0">
+            <div className="grid grid-cols-3 gap-2 flex-1 min-w-0">
               {versions.map((v) => {
                 const has = Boolean(script.versions[v.key]);
                 const active = activeVersion === v.key;
@@ -314,6 +325,16 @@ function ScriptRow({
                 <Btn variant="subtle" onClick={downloadMd} className="flex items-center gap-1.5 h-7 text-[11px]">
                   <Download className="size-3" /> .md
                 </Btn>
+                {entry.teleprompter && (
+                  <Btn variant="subtle" onClick={downloadTeleprompter} className="flex items-center gap-1.5 h-7 text-[11px]">
+                    <Download className="size-3" /> Teleprompter
+                  </Btn>
+                )}
+                {entry.spokenWords ? (
+                  <span className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/70 ml-auto md:ml-0">
+                    {entry.spokenWords.toLocaleString()} words
+                  </span>
+                ) : null}
                 <a href={entry.originalPath} target="_blank" rel="noopener noreferrer">
                   <Btn variant="subtle" className="flex items-center gap-1.5 h-7 text-[11px]">
                     <ExternalLink className="size-3" /> Original
