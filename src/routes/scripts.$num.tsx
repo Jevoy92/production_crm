@@ -8,9 +8,9 @@ import { z } from "zod";
 
 const searchSchema = z.object({
   v: z
-    .enum(["original", "jevoy", "palmer-house", "mindyourbizniz"])
+    .enum(["jevoy", "palmer-house", "mindyourbizniz"])
     .optional()
-    .default("original"),
+    .default("jevoy"),
 });
 
 export const Route = createFileRoute("/scripts/$num")({
@@ -38,9 +38,9 @@ function ScriptDetail() {
   }
 
   // Fall back to first available version if requested one is missing
-  const ALL: ScriptVersion[] = ["original", "jevoy", "palmer-house", "mindyourbizniz"];
+  const ALL: ScriptVersion[] = ["jevoy", "palmer-house", "mindyourbizniz"];
   const available: ScriptVersion[] = ALL.filter((k) => Boolean(script.versions[k]));
-  const current: ScriptVersion = script.versions[v] ? v : (available[0] ?? "original");
+  const current: ScriptVersion = script.versions[v] ? v : (available[0] ?? "jevoy");
   const entry = script.versions[current];
   const source = entry?.body ?? "";
   const loading = false;
@@ -89,7 +89,7 @@ function ScriptDetail() {
     >
       {/* Tabs */}
       <div className="card-elevated rounded-2xl p-1 mb-6 inline-flex flex-wrap gap-1">
-        {(["original", "jevoy", "palmer-house", "mindyourbizniz"] as ScriptVersion[]).map((b) => {
+        {(["jevoy", "palmer-house", "mindyourbizniz"] as ScriptVersion[]).map((b) => {
           const has = Boolean(script.versions[b]);
           const active = b === current;
           return (
