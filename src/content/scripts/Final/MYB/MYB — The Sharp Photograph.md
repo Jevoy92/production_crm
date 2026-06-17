@@ -7,7 +7,13 @@
 [COLD OPEN]
 [ROOM TONE — Quiet, intimate space. The sound of a ceramic mug being set down on a wooden table.]
 
-I want to talk about something that's been sitting with me all week. It's something I see everywhere, and honestly, it's something I've struggled with myself.
+Try this with me real quick. Find a blurry photo on your phone — not a *bad* one, just one slightly out of focus. Look at it for ten seconds.
+
+Now find a sharp one. Same kind of subject. Look at that one for ten seconds.
+
+Notice what your face just did. On the blurry one, you squinted. You leaned in. You worked. On the sharp one, your shoulders dropped half an inch and you exhaled. You didn't *decide* to trust it. Your body decided for you, in about a second and a half, before your brain even got a vote.
+
+Your message works exactly the same way. And most of us are still handing people the blurry one and wondering why nobody's leaning in.
 
 Have you ever tried to explain what you do, or what you're building, and you can just see the exact moment the other person's eyes glaze over? You're talking, you're using all the right words, you're passionate — bro, you are giving it everything you have. You're painting the picture, you're laying out the vision, you're explaining the nuances. But they aren't catching it. They're nodding, but it's that polite nod. The "I have no idea what you're talking about but I want to be supportive" nod.
 

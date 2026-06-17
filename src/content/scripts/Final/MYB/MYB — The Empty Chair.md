@@ -9,11 +9,13 @@
 [BEAT]
 [SOUND: A ceramic mug being set down on a wooden desk]
 
-I want to talk about something.
+Five people. Six chairs. The sixth one is empty.
 
 [PAUSE — 2 seconds]
 
-Actually, I want to talk about the space where nothing is happening. The quiet. The gap. The silence.
+And for the next forty-five minutes — I'm telling you, I watched this happen a few weeks ago — every person at that table is going to talk about the empty chair more than they talk about the actual budget on the screen. *Where is he? Did somebody text him? Is he okay? Did he forget? Did he do this on purpose?* The meeting was about money. The room was about the chair.
+
+That's the whole episode, by the way. I could end it here. But we're going to take the long way, because I want you to feel exactly how this is happening to your business right now — while you're sitting silent, thinking the silence is neutral. It isn't. Silence is the loudest thing you broadcast.
 
 You know that feeling when you send a text, and you see the three little dots bubbling up... and then they disappear? And then... nothing. No reply. Just the blank screen staring back at you.
 

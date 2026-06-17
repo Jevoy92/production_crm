@@ -7,9 +7,11 @@
 [COLD OPEN]
 [ROOM TONE — quiet, intimate space. The sound of a ceramic mug being set down on a wooden table.]
 
-I want to talk about something that I think a lot of us are wrestling with, but we don't really have the language for it yet. We just feel the friction. We feel the tension in our bodies every time we think about putting ourselves out there.
+Picture a room. Bright. Big windows. A couch in the middle, the kind you'd actually sit on. Books, a lamp, a plant somebody remembered to water. And then — count the doors. Three of them. All closed. All yours.
 
-You know that feeling when you know you need to show up more? You know your business needs it. You know your ideas deserve it. You know that the work you are doing is actually good, maybe even great, and it could help people. But every time you go to hit record, or post, or even just speak up in a room, there's this hesitation. It's not just fear of judgment. It's deeper than that. It's this quiet, nagging sense of... "If I do this, am I giving too much of myself away? Am I opening a door that I won't be able to close?"
+That's the room I want to sit in with you tonight. Because somewhere along the way we got told that being seen means tearing the walls down. Knocking the doors off the hinges. Inviting everybody into every room. And if we won't do that, we're hiding.
+
+But that's not visibility. That's a house with no privacy. And it is the single biggest reason capable people will not press record this week.
 
 We live in a culture that tells us visibility requires exposure. That to be seen, you have to bleed on the internet. You have to turn your morning coffee into content, your struggles into hooks, your life into a reality show. The algorithm demands a pound of flesh, and if you aren't willing to give it, you get pushed to the bottom of the feed. And if you're a private person, or just someone who values their peace, that feels like a terrible trade. It feels like a violation of the very boundaries that keep you sane.
 

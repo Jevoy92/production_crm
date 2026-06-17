@@ -9,9 +9,11 @@
 [SFX: A ceramic coffee mug is set down gently on a wooden desk]
 [PAUSE — 2 seconds]
 
-I want to talk about something.
+Pick up your phone. Don't unlock it. Just turn it over and look at the camera lens. Actually *look* at it.
 
-Something that I see quietly exhausting a lot of people right now. Especially if you are building something. Especially if you are a founder, a creator, or just someone trying to put your work out into the world and hoping that the right people actually notice it.
+There's a smudge on it. There's always a smudge on it. We carry these things in pockets, we wipe them on shirts, we hand them to friends with greasy fingers — and every single photo we take this week is going to pass through a thin film of yesterday's fingerprints. And we wonder why the picture comes out hazy.
+
+Your message has the exact same problem. And no amount of better lighting, fancier edits, or cleverer captions is going to fix it until you wipe the lens.
 
 I was sitting in my office the other day, just scrolling through my feed, looking at how different businesses and brands present themselves. And I noticed this pattern. It's a pattern I've fallen into myself, so I recognize the texture of it. I saw video after video, post after post, website after website, where you could feel the sheer amount of effort radiating off the screen. You could feel the sweat. The agonizing over the perfect transition. The obsession with the exact right color grade. The attempt to sound profound, poetic, and deeply innovative.
 

@@ -10,9 +10,15 @@
 [SOUND of mug being set down softly on a wooden surface]
 [PAUSE — 2 seconds]
 
-Alright.
+Nine seconds.
 
-I want to talk about something that's been... really sitting with me lately. It's this weird, almost unsettling realization about how we consume information now, how we interact with each other, especially online. You know, you scroll, you watch, you listen, and there's this undercurrent, this subtle shift that I think we all feel, even if we can't quite put our finger on it.
+Somewhere on the internet right now, there is a nine-second clip of somebody saying one sentence — out of a forty-five minute conversation — and two hundred thousand strangers have already decided who that person is. The sentence wasn't even the point. It was the *setup* to the point. The actual point came eleven seconds later. But those eleven seconds didn't make it into the cut.
+
+The cut traveled. The context didn't.
+
+[BEAT]
+
+And this is the thing I keep coming back to, because it's not just a content problem — it's a *being a person in 2026* problem. We were all raised on one piece of wisdom about communication, and that wisdom has quietly stopped working.
 
 [BEAT]
 

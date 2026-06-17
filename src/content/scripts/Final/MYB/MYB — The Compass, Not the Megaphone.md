@@ -8,11 +8,15 @@
 [BEAT]
 [MUG SET DOWN — The distinct, heavy clink of a ceramic mug hitting a wooden desk.]
 
-I want to talk about something.
+Imagine a man in an empty field. Nothing for miles. He has a megaphone. He has a folding chair, a thermos, and a year of free time. And every single day for that year, he stands up, lifts the megaphone, and *yells.*
+
+At what? Doesn't matter. He has no idea. He just heard somewhere that the trick is volume.
 
 [PAUSE — 2 seconds]
 
-I want to talk about that specific, heavy feeling that hits you right in the chest when you wake up, look at your phone, and realize you have to post something today. You know the exact feeling I'm talking about. It's that low-grade, constant hum of anxiety that lives in the back of your mind, right behind your eyes. The content treadmill. The beast that always needs to be fed.
+At the end of the year, nobody has found him. Nobody is looking for him. The field is still empty. And the man is hoarse, exhausted, and convinced the problem is that he needed a louder megaphone.
+
+That man is your content strategy. And I am saying that with love, because I have been that man.
 
 You're a business owner. You've got a handful of test clients. You are doing the actual work. You are in the trenches, trying to build something that matters, something that has real value. You are answering emails, you are refining your service, you are actually delivering the transformation you promised. But then there is this other job, this shadow job that you never really signed up for, which is being a full-time media company. And it feels like if you stop, even for a second, you just disappear. The algorithm forgets you. The market forgets you. You become a ghost.
 

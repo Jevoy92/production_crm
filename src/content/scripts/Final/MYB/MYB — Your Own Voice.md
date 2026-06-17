@@ -9,11 +9,13 @@
 
 **JEVOY:**
 
-I want to do something a little different today. I wrote a letter this week — for this episode, that's the assignment I gave myself — and instead of making my points the normal way, I'm just going to read it to you. It's addressed to one person. There's a decent chance that person is you.
+No monologue tonight. No setup. No "in this episode."
+
+I wrote a letter this week. It's addressed to one person. And there is a very decent chance — based on something tiny you did the last time you heard yourself on a recording — that the one person is you.
 
 [BEAT]
 
-Here it goes.
+I'm just going to read it.
 
 ---
 

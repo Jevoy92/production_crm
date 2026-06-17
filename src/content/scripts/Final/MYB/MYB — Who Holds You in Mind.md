@@ -10,9 +10,11 @@
 
 **JEVOY:**
 
-I want to ask you something today, and I want you to answer it slowly, because the fast answer and the true answer are usually different people.
-
 If something went badly wrong in your life this week — really wrong — how long would it take before somebody *noticed?*
+
+[BEAT]
+
+Answer that slow. Because the fast answer and the true answer almost never live in the same house.
 
 [BEAT]
 
