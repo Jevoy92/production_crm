@@ -1,0 +1,310 @@
+{
+  "themes": [
+    {
+      "theme_no": "01",
+      "theme": "Your Own Voice",
+      "pillar": "Evergreen",
+      "ventures": {
+        "JP": {
+          "script": "SCRIPTS — FINAL/Jevoy Palmer/JP — Your Own Voice.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/JP — Your Own Voice — TELEPROMPTER.txt",
+          "spoken_words": 2515
+        },
+        "PH": {
+          "script": "SCRIPTS — FINAL/Palmer House/PH — Your Own Voice.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/PH — Your Own Voice — TELEPROMPTER.txt",
+          "spoken_words": 2543
+        },
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — Your Own Voice.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — Your Own Voice — TELEPROMPTER.txt",
+          "spoken_words": 2504
+        }
+      }
+    },
+    {
+      "theme_no": "02",
+      "theme": "Judged Before You Speak",
+      "pillar": "Spotlight",
+      "ventures": {
+        "JP": {
+          "script": "SCRIPTS — FINAL/Jevoy Palmer/JP — Judged Before You Speak.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/JP — Judged Before You Speak — TELEPROMPTER.txt",
+          "spoken_words": 2545
+        },
+        "PH": {
+          "script": "SCRIPTS — FINAL/Palmer House/PH — Judged Before You Speak.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/PH — Judged Before You Speak — TELEPROMPTER.txt",
+          "spoken_words": 2574
+        },
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — Judged Before You Speak.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — Judged Before You Speak — TELEPROMPTER.txt",
+          "spoken_words": 2552
+        }
+      }
+    },
+    {
+      "theme_no": "03",
+      "theme": "The Height Tax",
+      "pillar": "Reel",
+      "ventures": {
+        "JP": {
+          "script": "SCRIPTS — FINAL/Jevoy Palmer/JP — The Height Tax.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/JP — The Height Tax — TELEPROMPTER.txt",
+          "spoken_words": 2501
+        },
+        "PH": {
+          "script": "SCRIPTS — FINAL/Palmer House/PH — The Height Tax.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/PH — The Height Tax — TELEPROMPTER.txt",
+          "spoken_words": 2508
+        },
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — The Height Tax.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — The Height Tax — TELEPROMPTER.txt",
+          "spoken_words": 2511
+        }
+      }
+    },
+    {
+      "theme_no": "04",
+      "theme": "The Miniature Lie",
+      "pillar": "Spotlight",
+      "ventures": {
+        "JP": {
+          "script": "SCRIPTS — FINAL/Jevoy Palmer/JP — The Miniature Lie.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/JP — The Miniature Lie — TELEPROMPTER.txt",
+          "spoken_words": 2574
+        },
+        "PH": {
+          "script": "SCRIPTS — FINAL/Palmer House/PH — The Miniature Lie.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/PH — The Miniature Lie — TELEPROMPTER.txt",
+          "spoken_words": 2512
+        },
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — The Miniature Lie.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — The Miniature Lie — TELEPROMPTER.txt",
+          "spoken_words": 2505
+        }
+      }
+    },
+    {
+      "theme_no": "05",
+      "theme": "The Watched Brain",
+      "pillar": "Evergreen",
+      "ventures": {
+        "JP": {
+          "script": "SCRIPTS — FINAL/Jevoy Palmer/JP — Why You Stop Being Yourself on Camera.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/JP — Why You Stop Being Yourself on Camera — TELEPROMPTER.txt",
+          "spoken_words": 2180
+        },
+        "PH": {
+          "script": "SCRIPTS — FINAL/Palmer House/PH — The Founder's Freeze.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/PH — The Founder's Freeze — TELEPROMPTER.txt",
+          "spoken_words": 1980
+        },
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — The Watched Brain.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — The Watched Brain — TELEPROMPTER.txt",
+          "spoken_words": 2723
+        }
+      }
+    },
+    {
+      "theme_no": "06",
+      "theme": "The Cut",
+      "pillar": "Spotlight",
+      "ventures": {
+        "JP": {
+          "script": "SCRIPTS — FINAL/Jevoy Palmer/JP — Why We Look Away at the Worst Part.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/JP — Why We Look Away at the Worst Part — TELEPROMPTER.txt",
+          "spoken_words": 2148
+        },
+        "PH": {
+          "script": "SCRIPTS — FINAL/Palmer House/PH — The Footage You Delete.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/PH — The Footage You Delete — TELEPROMPTER.txt",
+          "spoken_words": 1865
+        },
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — The Parts We Cut.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — The Parts We Cut — TELEPROMPTER.txt",
+          "spoken_words": 2143
+        }
+      }
+    },
+    {
+      "theme_no": "07",
+      "theme": "The Frame",
+      "pillar": "Reel",
+      "ventures": {
+        "JP": {
+          "script": "SCRIPTS — FINAL/Jevoy Palmer/JP — Why People Die Taking Selfies.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/JP — Why People Die Taking Selfies — TELEPROMPTER.txt",
+          "spoken_words": 2047
+        },
+        "PH": {
+          "script": "SCRIPTS — FINAL/Palmer House/PH — The Metric Is Not the Mission.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/PH — The Metric Is Not the Mission — TELEPROMPTER.txt",
+          "spoken_words": 1878
+        },
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — The Moment You Didn't Keep.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — The Moment You Didn't Keep — TELEPROMPTER.txt",
+          "spoken_words": 2045
+        }
+      }
+    },
+    {
+      "theme_no": "08",
+      "theme": "The Witness",
+      "pillar": "Spotlight",
+      "ventures": {
+        "JP": {
+          "script": "SCRIPTS — FINAL/Jevoy Palmer/JP — The Goodbye Tape.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/JP — The Goodbye Tape — TELEPROMPTER.txt",
+          "spoken_words": 2385
+        },
+        "PH": {
+          "script": "SCRIPTS — FINAL/Palmer House/PH — What Dies When They Leave.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/PH — What Dies When They Leave — TELEPROMPTER.txt",
+          "spoken_words": 2058
+        },
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — Who Holds You in Mind.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — Who Holds You in Mind — TELEPROMPTER.txt",
+          "spoken_words": 2292
+        }
+      }
+    },
+    {
+      "theme_no": "09",
+      "theme": "Seen but Not Known",
+      "pillar": "System",
+      "ventures": {
+        "JP": {
+          "script": "SCRIPTS — FINAL/Jevoy Palmer/JP — The Mask Is a Costume.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/JP — The Mask Is a Costume — TELEPROMPTER.txt",
+          "spoken_words": 2051
+        },
+        "PH": {
+          "script": "SCRIPTS — FINAL/Palmer House/PH — Recognized Isn't the Same as Trusted.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/PH — Recognized Isn't the Same as Trusted — TELEPROMPTER.txt",
+          "spoken_words": 1914
+        },
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — Known by Thousands, Seen by No One.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — Known by Thousands, Seen by No One — TELEPROMPTER.txt",
+          "spoken_words": 3086
+        }
+      }
+    },
+    {
+      "theme_no": "10",
+      "theme": "The Mirror With Memory",
+      "pillar": "System",
+      "ventures": {
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — The Mirror With Memory.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — The Mirror With Memory — TELEPROMPTER.txt",
+          "spoken_words": 2545
+        }
+      }
+    },
+    {
+      "theme_no": "11",
+      "theme": "Why We Hide",
+      "pillar": "Spotlight",
+      "ventures": {
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — Why We Hide.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — Why We Hide — TELEPROMPTER.txt",
+          "spoken_words": 2747
+        }
+      }
+    },
+    {
+      "theme_no": "12",
+      "theme": "Context Doesn't Travel",
+      "pillar": "System",
+      "ventures": {
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — Context Doesn't Travel.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — Context Doesn't Travel — TELEPROMPTER.txt",
+          "spoken_words": 4672
+        }
+      }
+    },
+    {
+      "theme_no": "13",
+      "theme": "The Wet Cement",
+      "pillar": "Reel",
+      "ventures": {
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — The Wet Cement.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — The Wet Cement — TELEPROMPTER.txt",
+          "spoken_words": 2598
+        }
+      }
+    },
+    {
+      "theme_no": "14",
+      "theme": "The Compass, Not the Megaphone",
+      "pillar": "System",
+      "ventures": {
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — The Compass, Not the Megaphone.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — The Compass, Not the Megaphone — TELEPROMPTER.txt",
+          "spoken_words": 2459
+        }
+      }
+    },
+    {
+      "theme_no": "15",
+      "theme": "A Well-Lit Room With Doors",
+      "pillar": "Evergreen",
+      "ventures": {
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — A Well-Lit Room With Doors.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — A Well-Lit Room With Doors — TELEPROMPTER.txt",
+          "spoken_words": 2966
+        }
+      }
+    },
+    {
+      "theme_no": "16",
+      "theme": "The Clean Lens",
+      "pillar": "System",
+      "ventures": {
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — The Clean Lens.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — The Clean Lens — TELEPROMPTER.txt",
+          "spoken_words": 2749
+        }
+      }
+    },
+    {
+      "theme_no": "17",
+      "theme": "The Empty Chair",
+      "pillar": "Reel",
+      "ventures": {
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — The Empty Chair.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — The Empty Chair — TELEPROMPTER.txt",
+          "spoken_words": 2272
+        }
+      }
+    },
+    {
+      "theme_no": "18",
+      "theme": "The Sharp Photograph",
+      "pillar": "Spotlight",
+      "ventures": {
+        "MYB": {
+          "script": "SCRIPTS — FINAL/MindYourBizniz/MYB — The Sharp Photograph.md",
+          "teleprompter": "SCRIPTS — FINAL/_Teleprompter/MYB — The Sharp Photograph — TELEPROMPTER.txt",
+          "spoken_words": 2824
+        }
+      }
+    }
+  ]
+}
