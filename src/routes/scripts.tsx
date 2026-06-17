@@ -254,6 +254,9 @@ function ScriptRow({
         >
           {script.title}
         </span>
+        <span className="hidden md:inline-flex items-center text-[9px] tracking-[0.18em] font-bold uppercase px-1.5 py-0.5 border border-border text-muted-foreground/80 shrink-0">
+          {script.pillar}
+        </span>
         <span className="hidden md:flex items-center gap-1.5 shrink-0">
           {brandTags.map((b) => (
             <span
@@ -273,7 +276,7 @@ function ScriptRow({
       {open && (
         <div className="pb-6 pl-14 pr-2 -mt-1 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 flex-1 min-w-0">
+            <div className="grid grid-cols-3 gap-2 flex-1 min-w-0">
               {versions.map((v) => {
                 const has = Boolean(script.versions[v.key]);
                 const active = activeVersion === v.key;
