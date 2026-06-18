@@ -216,7 +216,7 @@ function SchedulePage() {
 
       {showPublishing && <PlatformLegend />}
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-4 items-start">
         <div className="card-elevated rounded-2xl overflow-hidden">
           <div className="grid grid-cols-7 border-b border-border bg-surface-2">
             {WEEKDAYS.map((d) => (
@@ -451,7 +451,7 @@ function UnscheduledQueue({
 }) {
   return (
     <aside
-      className="card-elevated rounded-2xl p-3 self-stretch min-h-0 overflow-y-auto"
+      className="card-elevated rounded-2xl p-3 max-h-[640px] overflow-y-auto"
       onDragOver={(e) => {
         if (e.dataTransfer.types.includes("text/cc-item")) e.preventDefault();
       }}
