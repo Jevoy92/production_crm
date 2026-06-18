@@ -539,7 +539,7 @@ function Inspector({
         <div className="min-w-0">
           <div className="flex items-center gap-2 mb-1.5">
             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${m.soft} ${m.text} border ${m.border}`}>{phase}</span>
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${PRIORITY[task.priority].cls} bg-sunken border border-line`}>{PRIORITY[task.priority].label}</span>
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap ${PRIORITY[task.priority].cls} bg-sunken border border-line`}>{PRIORITY[task.priority].label}</span>
           </div>
           <h2 className="font-display font-bold text-hi text-base leading-snug">{task.title}</h2>
           {project && <p className="text-lo text-xs mt-1.5 flex items-center gap-1.5"><FolderOpen size={11} /> {project.title}</p>}
