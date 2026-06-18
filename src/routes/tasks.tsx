@@ -545,6 +545,15 @@ function Inspector({
           {project && <p className="text-lo text-xs mt-1.5 flex items-center gap-1.5"><FolderOpen size={11} /> {project.title}</p>}
         </div>
         <div className="flex items-center gap-1.5 flex-shrink-0">
+          <Link
+            to="/focus"
+            search={{ task: task.id }}
+            className="h-8 px-2.5 rounded-lg border border-brand-500/30 bg-brand-600/10 text-brand-400 hover:bg-brand-600/20 hover:border-brand-500/50 transition-colors text-[11px] font-semibold inline-flex items-center gap-1.5"
+            title="Start focus session on this task"
+            aria-label="Start focus session on this task"
+          >
+            <Play size={11} /> Focus
+          </Link>
           <button onClick={onEdit} className="w-8 h-8 rounded-lg border border-line flex items-center justify-center text-lo hover:text-hi hover:bg-hover transition-colors" aria-label="Edit"><Pencil size={13} /></button>
           <button onClick={onClose} className="w-8 h-8 rounded-lg border border-line flex items-center justify-center text-lo hover:text-hi hover:bg-hover transition-colors" aria-label="Close"><X size={14} /></button>
         </div>
