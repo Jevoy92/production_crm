@@ -216,6 +216,8 @@ function SchedulePage() {
 
       {showPublishing && <PlatformLegend />}
 
+      <ProductionTimeline cursor={cursor} projects={projects} />
+
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-4 items-start">
         <div className="card-elevated rounded-2xl overflow-hidden">
           <div className="grid grid-cols-7 border-b border-border bg-surface-2">
@@ -313,8 +315,6 @@ function SchedulePage() {
           />
         )}
       </div>
-
-      <ProductionTimeline cursor={cursor} projects={projects} />
 
       <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px] gap-6 mt-6 items-start">
         <div>
@@ -769,7 +769,9 @@ function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Proj
 
   const now = new Date();
   const todayCol = now.getFullYear() === year && now.getMonth() === month ? now.getDate() : null;
-  const ticks = Array.from({ length: Math.ceil(daysInMonth / 5) }, (_, i) => i * 5 + 1);
+  const ticks = Array.from({ length: Math.ceil(daysInMonth / 2) }, (_, i) => i * 2 + 1).filter(
+    (d) => d <= daysInMonth,
+  );
 
   return (
     <div className="card-elevated rounded-2xl overflow-hidden">
@@ -799,9 +801,9 @@ function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Proj
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <div style={{ minWidth: 720 }}>
+          <div style={{ minWidth: 960 }}>
             <div className="flex border-b border-border bg-surface-2">
-              <div className="w-44 flex-shrink-0 px-4 py-2 text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">
+              <div className="w-56 flex-shrink-0 px-4 py-2 text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">
                 Project
               </div>
               <div
@@ -814,10 +816,10 @@ function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Proj
                 {ticks.map((d) => (
                   <div
                     key={d}
-                    className="text-[10px] text-muted-foreground"
-                    style={{ gridColumn: `${d} / span 5` }}
+                    className="text-[10px] text-muted-foreground num"
+                    style={{ gridColumn: `${d} / span 2` }}
                   >
-                    {monthStart.toLocaleString(undefined, { month: "short" })} {d}
+                    {d}
                   </div>
                 ))}
               </div>
@@ -831,7 +833,7 @@ function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Proj
                 <Link
                   to="/projects/$id"
                   params={{ id: p.id }}
-                  className="w-44 flex-shrink-0 px-4 py-3 min-w-0 hover:opacity-80"
+                  className="w-56 flex-shrink-0 px-4 py-3 min-w-0 hover:opacity-80"
                 >
                   <div className="text-[12px] font-semibold truncate flex items-center gap-1.5">
                     <span
@@ -845,11 +847,12 @@ function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Proj
                   </div>
                 </Link>
                 <div
-                  className="flex-1 px-2 py-3 relative"
+                  className="flex-1 px-2 py-2 relative"
                   style={{
                     display: "grid",
                     gridTemplateColumns: `repeat(${daysInMonth}, minmax(0,1fr))`,
-                    gap: 0,
+                    gridAutoRows: "22px",
+                    rowGap: 4,
                   }}
                 >
                   {todayCol && (
@@ -861,16 +864,19 @@ function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Proj
                   {bars.map((b, i) => (
                     <div
                       key={i}
-                      className="h-6 rounded-md flex items-center px-2 overflow-hidden"
+                      className="rounded-md flex items-center px-1.5 overflow-hidden"
                       style={{
                         gridColumn: `${b.colStart} / span ${b.span}`,
+                        gridRow: i + 1,
                         background: PHASE_STYLES[b.type].color,
                       }}
                       title={`${PHASE_STYLES[b.type].label} · ${p.title}`}
                     >
-                      <span className="text-white text-[10.5px] font-medium truncate">
-                        {PHASE_STYLES[b.type].label}
-                      </span>
+                      {b.span >= 3 && (
+                        <span className="text-white text-[10.5px] font-medium truncate">
+                          {PHASE_STYLES[b.type].label}
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>
