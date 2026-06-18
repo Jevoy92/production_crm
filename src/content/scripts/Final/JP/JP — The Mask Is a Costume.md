@@ -1,148 +1,179 @@
-# JEVOY PALMER — "The Mask Is a Costume, Not a Prison"
-## Cinematic Investigative Monologue | ~10–11 min | Teleprompter Ready
-## The Recorded Animal · Week 1: Seen but not known · Altitude: the mechanism
-### Twelve Laws check: felt-moment hook ✓ cliché kill ✓ spine promise ✓ accumulating device (the tape line) ✓ scale shift ✓ armed skeptic ✓ wonder flip ✓ identity close + verse ✓ Law 13 ✓
+# JEVOY PALMER — "The compliment that bounced — and the science of being seen but not known"
+## Format: THE CASE FILE · Cinematic investigative monologue · 2,500+ spoken words · Standalone
+### Voice-calibrated: bro-ban ✓ plain language ✓ friend dials in (counter-voice) ✓ no verdict ✓ sensory + dual-audience "basically" ✓ actionable CTA ✓ faith quiet ✓
 
 ---
 
-## CHAPTER 1: THE FELT MOMENT
+## OPEN — THE COMPLIMENT THAT BOUNCED
 
-[VISUAL: Cold open. Jevoy at the kitchen island. On the counter: a plain theater mask, face up. On the floor, visible in the wide shot: a strip of gaffer tape dividing the room — the device. No music.]
+[VISUAL: Cold open. Jevoy at the kitchen island. On the counter, face up: a plain theater mask. On the floor, in the wide shot: a strip of gaffer tape splitting the room in two. No music.]
 
 Somebody complimented you recently. And it bounced.
 
-You know the moment I mean. They said something kind — "you're so confident," "you always have it together," "honestly, you make it look easy" — and instead of warmth, you felt this strange little hollow *clink.* Like a coin dropped into a vending machine that isn't plugged in. You said thank you. You meant nothing by it. Because some part of you, faster than thought, ran the audit and returned a verdict: *they're not talking about me. They're talking about the performance of me.* The praise was real. It just landed on the costume.
+You know the moment. They said something kind. "You're so confident." "You always have it together." "Honestly, you make it look easy." And instead of warmth, you felt this small hollow clink. Like a coin dropped into a vending machine that isn't plugged in. You said thank you. You meant nothing by it. Because some part of you, faster than thought, ran the numbers and came back with a verdict. *They're not talking about me. They're talking about the performance of me.* The praise was real. It just landed on the costume.
 
-[VISUAL: He picks up the mask, considers it, sets it back down.]
+[VISUAL: He picks up the mask. Looks at it. Sets it back down.]
 
-And here's the strange math of it: you can be *very* visible — liked, followed, complimented, surrounded — and have that hollow clink be the loudest sound in your life. Because being seen and being known are two different transactions, and almost everything in modern life is built to maximize the first one while quietly starving the second.
+And here's the strange part. You can be very visible — liked, followed, complimented, surrounded — and have that little clink be the loudest sound in your life. Because being seen and being known are two different things. And almost everything in modern life is built to crank up the first one while quietly starving the second.
 
-Now — this is not the video that tells you to "take off the mask and just be your authentic self." Come on now. You've heard that in every graduation speech since 2009, and I'm going to show you why it's not even good advice — the mask is doing more honest work than the speeches admit.
+Now — this is not the video where I tell you to "take off the mask and be your authentic self." You've heard that in every graduation speech since 2009. And I'm going to show you why it's not even good advice. The mask is doing more honest work than the speeches admit.
 
-Here's the spine. First, a sociologist who checked into a hotel on a remote Scottish island in the 1950s and came back with the single most useful map of human behavior I've ever found — it involves a kitchen door. Then the research on why being praised for the wrong self doesn't just feel hollow — it measurably *starves* — and a finding called the liking gap that I promise will rearrange how you walk out of every conversation. And then the flip, which I'll tell you now is not where this kind of video usually goes. It goes somewhere kids already live.
+So here's the plan. First, a sociologist who checked into a hotel on a remote Scottish island in the 1950s and came back with the most useful map of human behavior I've ever found. It involves a kitchen door. Then the research on why praise for the wrong self doesn't just miss — it actually starves. And a finding called the liking gap that I promise will change how you walk out of every conversation. And then the flip. Which, I'll tell you now, lands somewhere kids already live.
+
 [SOURCE CARD on screen: Boothby et al. — 'The Liking Gap in Conversations,' Psychological Science, 2018.]
 
-[VISUAL: He steps up to the tape line on the floor. Looks down at it.]
+[VISUAL: He steps up to the tape line. Looks down at it.]
 
 Let's start with the hotel.
 
 ---
 
-## CHAPTER 2: THE MECHANISM — THE KITCHEN DOOR
+## INVESTIGATE — THE KITCHEN DOOR
 
-[VISUAL: B-roll: Shetland coastline, 1950s texture, a hotel dining room — suggestive, archival-flavored.]
+[VISUAL: B-roll: Shetland coastline, 1950s texture, a small hotel dining room.]
 
-In the early 1950s, a young sociologist named Erving Goffman went to do his doctoral fieldwork in about the most un-glamorous place a researcher can go: a small community in the Shetland Islands, at the windblown top of Scotland. And part of what he watched, day after day, was the staff of a little hotel.
+In the early 1950s, a young sociologist named Erving Goffman went to do his fieldwork in about the least glamorous place a researcher can go. A small community in the Shetland Islands, at the windblown top of Scotland. And part of what he watched, day after day, was the staff of a little hotel.
+
 [SOURCE CARD on screen: Erving Goffman — The Presentation of Self in Everyday Life, 1959.]
 
-In the dining room, the staff were one kind of people — composed, deferential, every gesture tuned to the guests. Then they'd push through the door into the kitchen and become *entirely different humans.* Posture changed. Language changed. The guests got discussed, let's say, *frankly.* Then the door would swing again, and the performance reassembled itself mid-stride, seamless.
+In the dining room, the staff were one kind of person. Composed. Polite. Every gesture tuned to the guests. Then they'd push through the door into the kitchen and become completely different humans. Posture dropped. Language changed. The guests got discussed, let's say, frankly. Then the door would swing back, and the polish reassembled itself mid-stride. Seamless.
 
-Goffman took that swinging door and built one of the most famous frameworks in all of social science — his 1959 book *The Presentation of Self in Everyday Life.* The claim: all of social life is organized like theater. There's a **front stage**, where we perform a version of ourselves tuned to an audience, and a **backstage**, where the performance drops, the costume comes off, and we prepare, recover, and just *be.* And — here's the part people miss — Goffman wasn't accusing anybody of anything. The waiter isn't lying. The doctor's bedside calm isn't fraud. The front stage is how humans cooperate at all. Performance, in his map, isn't the opposite of sincerity. It's the *vehicle* for it.
+Goffman took that swinging door and built one of the most famous ideas in social science. Basically, all of social life is organized like theater. There's a front stage, where we perform a version of ourselves for an audience. And there's a backstage, where the performance drops, the costume comes off, and we just rest and be.
 
-[VISUAL: Jevoy stands on one side of the tape line.] This side: front stage. [Steps across.] This side: the kitchen.
+And here's the part people miss. Goffman wasn't accusing anybody of anything. The waiter isn't lying. The doctor's calm bedside voice isn't fraud. The front stage is how humans cooperate at all. In his map, performing isn't the opposite of being sincere. It's the *vehicle* for it.
 
-But notice what the framework predicts — and this is where our investigation lives. Everything the audience experiences is, by definition, front stage. Which means everything the audience *loves* is front stage. The compliments, the applause, the likes, the "you're so confident" — all of it is addressed to the performance, because the performance is all they've ever been shown. The hollow clink isn't a malfunction, bro. It's an accurate delivery report: *package received by the costume; resident unknown at this address.*
+You do this fifty times a day without noticing. The voice you use on a work call is not the voice you use with your kids. The face you make when a stranger tells a long story is not the face you make alone in the car. Basically, you've got a whole wardrobe of selves, and you change between them so fast it feels like one person. That's not fakeness. That's competence. A human who only had one setting would be impossible to be around.
+
+[VISUAL: Jevoy stands on one side of the tape line.] This side — front stage. [Steps across.] This side — the kitchen.
+
+But watch what the map predicts. Everything the audience sees is, by definition, front stage. Which means everything the audience *loves* is front stage too. The compliments. The applause. The likes. The "you're so confident." All of it is addressed to the performance, because the performance is all they've ever been shown. So the hollow clink isn't a malfunction. It's an accurate delivery report. Package received by the costume. Resident unknown at this address.
 
 ---
 
-## CHAPTER 3: THE EVIDENCE — WHY THE WRONG PRAISE STARVES
+## INVESTIGATE — WHY THE WRONG PRAISE STARVES
 
-[VISUAL: Corkboard. Two cards go up as he talks: KNOWN ≠ LIKED. THEY LIKE YOU MORE THAN YOU THINK.]
+[VISUAL: A clean wall. Two cards go up: KNOWN ≠ LIKED. THEY LIKE YOU MORE THAN YOU THINK.]
 
-So why does praise for the costume *starve* instead of just... missing? Two findings.
+So why does praise for the costume *starve* you, instead of just missing? Two findings.
 
-First: a psychologist named William Swann spent his career on something called **self-verification theory**, and it contains one of the most counterintuitive results in social psychology. People don't simply want to be liked. People want to be *known accurately* — to have others see them roughly the way they see themselves. And the research shows we'll often *prefer* accurate feedback over flattering feedback — even when the accurate version is less kind. Married people are more intimate with partners who see them as they see themselves, not partners who idealize them. Being adored-as-someone-else doesn't register as love. The nervous system files it under *case of mistaken identity.* That's the clink. The meal looked like nourishment and contained none, because it was addressed to a different man.
+First, a psychologist named William Swann spent his career on something with a plain core idea. Basically, people don't only want to be liked. People want to be known accurately — to have others see them roughly the way they see themselves. And his research shows we'll often prefer accurate feedback over flattering feedback. Even when the accurate version is less kind.
+
 [SOURCE CARD on screen: William Swann — self-verification theory.]
 
-Second — and this one is the gift of the episode — a 2018 study by Erica Boothby and colleagues called the **liking gap.** They had strangers talk, then privately rate: how much did you like them, and how much do you think they liked you? The result, replicated across settings, even across whole semesters of college roommates: people systematically *underestimate* how much others liked them. We walk out of conversations convinced we were "too much" or "not enough" — while the other person walks out having enjoyed *us.* Not the polish. The us. The pauses, the tangents, the unscripted parts we spend the ride home regretting.
+Married people are closer to partners who see them as they see themselves — not partners who idealize them. Being adored as someone else doesn't register as love. The nervous system files it under "case of mistaken identity." That's the clink. The meal looked like food and had no calories in it. Because it was addressed to a different person.
 
-Hold those two side by side and look at what they say together. Swann: the *only* praise that feeds you is praise addressed to the real one. Boothby: the real one is *already more liked than you believe.* Which means the entire economy of the mask — perform, polish, protect, because the unperformed self won't be wanted — is running on a forecast the data says is wrong. You've been wearing armor against a kindness.
+Second — and this one is the gift of the episode — a 2018 study by Erica Boothby and her colleagues. They called it the liking gap. They had strangers talk, then privately rate two things. How much did you like them? And how much do you think they liked you?
 
----
+The result held across setting after setting. Even across whole semesters of college roommates. People consistently underestimate how much others liked them. We walk out of a conversation sure we were "too much" or "not enough" — while the other person walks out having genuinely enjoyed us. Not the polish. The us. The pauses. The tangents. The unscripted parts we spend the whole drive home regretting.
 
-## CHAPTER 4: THE SKEPTIC
+And sit with how everyday that is. Think about the last conversation you replayed on the drive home. The thing you said that was a little too honest. The joke that didn't land the way you wanted. You spent ten minutes wincing about it. Meanwhile, the other person drove home thinking about their own ten minutes. They weren't grading your tangent. They probably liked it. The whole audit you run on yourself after every conversation — the data says it's reading the room wrong, in the same direction, every time.
 
-[VISUAL: The stool. Direct, fair.]
-
-Now the skeptic — and today the skeptic arrives sounding wounded, because Goffman does that to people the first time they read him.
-
-"Jevoy. If Goffman's right — if it's *all* theater, every interaction, every gesture tuned to an audience — then 'authenticity' is a children's story. There's no real self under the costumes; it's costumes all the way down. And your two studies don't rescue it: Swann just says we want our *preferred* mask confirmed, and the liking gap just measures which performances land. You haven't found a path to being known. You've found a more sophisticated description of why nobody ever is. That's not an investigation, that's a eulogy."
-
-That's the strongest version, and it deserves a real answer, not a vibe.
-
-Here's the answer, and it comes from inside Goffman's own framework: *the backstage exists.* That's not a loophole — it's half the architecture. The Shetland staff weren't performing in the kitchen; the whole point of the kitchen is that the performance *stopped* there, nightly, reliably, among people who'd seen each other's feet hurt. If it were costumes all the way down, there'd be nothing to recover backstage and no one to recover it with. And your own body testifies against the skeptic, bro: that *clink* when the wrong praise lands? A creature made only of masks couldn't hear it. The clink is the resident knocking on the inside of the costume, saying *I'm in here, and that wasn't for me.* You can't be disappointed about not being known unless there's a you that knows the difference.
-
-So no — Goffman didn't kill the real self. He gave it a floor plan. The self isn't *under* the roles like a prisoner under floorboards. It's the one *wearing* them — the actor, who exists before the play, after the play, and most importantly, in the kitchen between shows.
+Hold those two side by side. Swann says the only praise that feeds you is the praise aimed at the real you. Boothby says the real you is already more liked than you think. Which means the whole economy of the mask — perform, polish, protect, because the real one won't be wanted — is running on a forecast the data says is wrong. You've been wearing armor against a kindness.
 
 ---
 
-## CHAPTER 5: THE FLIP
+## THE FRIEND DIALS IN
 
-[VISUAL: First music — warm, lighter than usual. He picks the mask up off the counter — and this time, turns it over in his hands like a prop, not a problem.]
+[VISUAL: Jevoy pulls out his phone. "Hold on." He video-calls his friend, who picks up from somewhere ordinary — a couch, a kitchen of his own. Jevoy holds the phone to the lens. Picture-in-picture.]
 
-So here's the flip — and per the new rules of this channel, we're not landing in "how to manage the mask." We're going somewhere better.
+Now — somebody needs to push back on me, hard. So I called my guy. He read Goffman once and it ruined his week. Go ahead.
+
+[VISUAL: FRIEND, on the phone screen, leaning in.]
+
+**FRIEND (video call):**
+"Okay. If Goffman's right — if it's all theater, every gesture aimed at an audience — then 'authenticity' is a bedtime story. There's no real self under the costumes. It's costumes all the way down. And your two studies don't save it. Swann just says we want our favorite mask confirmed. The liking gap just measures which performances land. You didn't find a path to being known. You found a fancier description of why nobody ever is. That's not an investigation. That's a eulogy. Anyway, I'm proud of you. I gotta go."
+
+[VISUAL: Jevoy lowers the phone. To lens.]
+
+That's the strongest version. And it deserves a real answer, not a vibe.
+
+Here's the answer, and it comes from inside Goffman's own map. The backstage exists. That's not a loophole. It's half the architecture. The Shetland staff weren't performing in the kitchen. The whole point of the kitchen is that the performance stopped there. Nightly. Reliably. Among people who'd seen each other's feet hurt. If it were costumes all the way down, there'd be nothing to recover backstage, and nobody to recover it with.
+
+And your own body argues against my friend. That clink, when the wrong praise lands? A creature made only of masks couldn't hear it. The clink is the real you knocking on the inside of the costume, saying *I'm in here, and that wasn't for me.* You can't be disappointed about not being known unless there's a you that knows the difference.
+
+So no. Goffman didn't kill the real self. He gave it a floor plan. The self isn't trapped *under* the roles like a prisoner under the floorboards. It's the one wearing them. The actor. Who exists before the play, after the play, and most of all, in the kitchen between shows.
+
+---
+
+## THE TURN — WATCH A SIX-YEAR-OLD PUT ON A CAPE
+
+[VISUAL: First music — warm, lighter than usual. He picks the mask up. This time he turns it over in his hands like a prop, not a problem.]
+
+So here's the turn. And we're not landing on "how to manage the mask." We're going somewhere better.
 
 Watch a six-year-old put on a cape.
 
-She *knows* she's not a superhero. There's no deception anywhere in the room. And the cape isn't hiding her — the cape is *revealing* something: speed she wanted to feel, bravery she's rehearsing, a self she's trying on for size. Kids perform constantly — for stuffed animals, for invisible crowds, for absolutely no one — and it's not surveillance, it's *joy.* Play is the original front stage, and it's where humans first learn that a role can be picked up, inhabited fully, and *put down* — and that the putting down is part of the game.
+She knows she's not a superhero. There's no deception anywhere in the room. And the cape isn't hiding her. The cape is revealing something. Speed she wants to feel. Bravery she's rehearsing. A bigger self she's trying on for size. Kids perform constantly — for stuffed animals, for invisible crowds, for nobody at all. And it isn't surveillance. It's joy. Play is the original front stage. It's where humans first learn that a role can be picked up, lived in fully, and put down again. And that the putting-down is part of the game.
 
-That's what Goffman hands you, if you read him with a child's eyes instead of a cynic's. If all the world's a stage — then the role is *yours to write.* The mask only becomes a prison under two conditions: you didn't choose it, or you can't take it off. Fix those two things and the exact same mask becomes what it was for the six-year-old: a costume. An instrument. A way of *trying on* the bigger thing before you grow into it.
+And here's the thing nobody tells you about that cape. The kid puts it down. That's the whole magic of it. Dinner's ready, the cape comes off, and she's just a kid again, no crisis about it. She never confused the cape for her skin. Somewhere on the way to being an adult, a lot of us forgot that part. We picked up roles we couldn't take off — the competent one, the easy one, the one who never needs anything — and we wore them to dinner, to bed, to the people who'd love us without them. The problem was never the cape. It was forgetting it unclips.
 
-The performance was never the enemy. The *unauthored, un-removable* performance was. And both of those are decisions, not destiny. Which means the question stops being "how do I stop performing?" — you won't; you're human; the hotel staff and the six-year-old and every sincere doctor on earth are performing. The question becomes: **did I write this role, does it rhyme with what's actually in me, and do I know where my kitchen door is?**
+That's what Goffman hands you, if you read him with a kid's eyes instead of a cynic's. If all the world's a stage, then the role is yours to write. The mask only becomes a prison under two conditions. You didn't choose it. Or you can't take it off. Fix those two things, and the same mask becomes what it was for the six-year-old. A costume. An instrument. A way of trying on the bigger thing before you grow into it.
 
-Write it. Rhyme it. Know the door. After that — play, bro. The stage is not a courtroom. It never was. It's a stage.
+The performance was never the enemy. The unchosen, stuck-on performance was. And both of those are decisions, not destiny. So the question stops being "how do I stop performing?" You won't. You're human. The hotel staff and the six-year-old and every sincere doctor on earth are performing. The question becomes a better one. Did I write this role? Does it rhyme with what's actually in me? And do I know where my kitchen door is?
+
+Write it. Rhyme it. Know the door. After that — play. The stage was never a courtroom. It's a stage.
 
 ---
 
-## CHAPTER 6: THE PRACTICAL
+## LAND — THE PROTOCOL + THE INSIGHT
 
 [VISUAL: Music stays, lighter. He moves, mask in hand.]
 
-Three moves, matched to the mechanism.
+Three moves. Matched to the mechanism.
 
-**One: author the costume on purpose.** Sit down once — actually once, with a pen — and write the character you intend to play in public. Not a fake self: a *chosen emphasis.* Which true parts of you go on stage? My on-camera self is realer than real life in some ways — more focused, more articulate — and that's not a lie, it's a *selection,* and I selected it. The unbearable version of front stage is the one assembled accidentally out of other people's expectations. The playful version is drafted by you. Same stage. Different playwright.
+**One: write the costume on purpose.** Sit down once, with a pen, and write the character you mean to play in public. Not a fake self. A chosen emphasis. Which true parts of you go on stage? My on-camera self is realer than my regular life in some ways. More focused. More clear. That's not a lie. It's a selection. And I made it. The unbearable version of front stage is the one you assembled by accident, out of other people's expectations. The good version is the one you drafted. Same stage. Different playwright.
 
-**Two: build the kitchen, and staff it.** Goffman's backstage isn't just a place — it's *people.* The Shetland staff had each other; that's what made the kitchen a kitchen and not just an empty room. So: one room — physical or relational — where the costume reliably comes off, with at least one person in it who has seen you out of character and stayed. We covered who-holds-you-in-mind two weeks ago; this is its twin. Front stage without a kitchen isn't a career, it's a slow hostage situation.
+**Two: build the kitchen, and put people in it.** Goffman's backstage isn't just a place. It's people. The Shetland staff had each other. That's what made the kitchen a kitchen and not just an empty room. So find one room — physical or just relational — where the costume reliably comes off. And get at least one person in it who has seen you out of character and stayed. A front stage with no kitchen isn't a career. It's a slow hostage situation.
 
-**Three: spend the liking gap.** You now hold a documented arbitrage: people already like the unpolished you more than your forecast says. So spend it — in small denominations. One tangent you'd normally trim. One "honestly, I don't know." One unrehearsed enthusiasm at full volume. Run the experiment and watch the faces — the data says the returns are better than your model. The mask gets lighter every time you confirm you didn't need it as much as you thought.
+**Three: spend the liking gap.** You're holding a documented edge now. People already like the unpolished you more than your forecast says. So spend it. In small amounts. One tangent you'd normally cut. One "honestly, I don't know." One unrehearsed bit of excitement at full volume. Run the test and watch their faces. The data says the returns beat your model. The mask gets lighter every time you prove you didn't need it as much as you thought.
 
----
-
-## CHAPTER 7: THE INSIGHT
-
-[VISUAL: Back at the island. Music swells, warm. The mask sits face-up on the counter; he stands on the tape line — straddling it, deliberately.]
+[VISUAL: Back at the island. Music swells, warm. He stands on the tape line — straddling it, on purpose.]
 
 Here's where I land.
 
-Think about the last time someone you'd just met said something a little *too* accurate — named the real you before you'd performed it — and instead of feeling exposed, you felt *relieved.* Caught, in the good way. Seen backstage, before the costume went on — and the seeing wasn't a gotcha. It was a welcome. That's the thing the mask was never built to handle: being known all the way through and *liked anyway.* Done in love, being fully seen isn't the threat. It's the homecoming.
+Think about the last time someone you'd just met said something a little too accurate. They named the real you before you'd performed it. And instead of feeling exposed, you felt relieved. Caught, in the good way. Seen backstage, before the costume went on — and the seeing wasn't a gotcha. It was a welcome. That's the thing the mask was never built to handle. Being known all the way through, and liked anyway. Done in love, being fully seen isn't the threat. It's the homecoming.
 
-So — wear the costume. I mean it. Write it well, wear it with play, do your good work on the front stage; the stage is where you serve people, and the six-year-old in the cape would be proud of you. Just keep a backstage. Keep one place and a couple of faces where the mask comes off and the clink can't happen — because what lands there, lands on *you.*
+So — wear the costume. I mean it. Write it well. Wear it with play. Do your good work on the front stage, because the stage is where you serve people. The six-year-old in the cape would be proud of you. Just keep a backstage. Keep one room and a couple of faces where the mask comes off and the clink can't happen. Because what lands there lands on you.
 
-Visible is a career. Known is a life. You're allowed both. That's the whole investigation.
+Visible is a career. Known is a life. You're allowed both.
 
-If that lives in you too — stay close. One case at a time.
+---
 
-[VISUAL: He picks up the mask, steps fully across the tape line to the backstage side, and sets the mask down on the line itself — half in, half out. Cut to black.]
+## CTA
+
+[VISUAL: He picks up the mask. Direct to lens.]
+
+So here's what I want from you. Two things.
+
+**One — name it in the comments.** What's the compliment you get most often that bounces hardest? The praise that lands on the costume every time. Drop it in one line. I read every one. And I bet a lot of you are about to find out you're not alone in yours.
+
+**Two — this week, spend the liking gap once.** Pick one real conversation. And let one unpolished, true thing out on purpose. The tangent. The "I don't know." The enthusiasm you'd normally dial down. Then come back here and tell me what their face did. That's the comment I'm actually waiting on.
+
+[BEAT]
+
+And if you've got someone in your life who only ever shows you the front stage — who you've never once seen in their kitchen — don't push the door. Just send them this. Sometimes that's the kindest way to say: I'd like to meet the actor, not just the act.
+
+[VISUAL: He sets the mask down on the tape line itself — half front stage, half kitchen. Cut to black.]
 
 ---
 
 ### CLIP-WORTHY SEGMENTS (1-to-12 map)
-1. Cold open — the compliment that bounced / "package received by the costume" (Ch1)
-2. The Shetland hotel and the swinging kitchen door (Ch2)
-3. "Performance isn't the opposite of sincerity — it's the vehicle for it" (Ch2)
-4. Self-verification — "filed under: case of mistaken identity" (Ch3)
-5. The liking gap — "you've been wearing armor against a kindness" (Ch3)
-6. The skeptic — "costumes all the way down" + the clink rebuttal (Ch4)
-7. The flip — the six-year-old in the cape (Ch5)
-8. "Did I write this role, does it rhyme, do I know where my kitchen door is?" (Ch5)
-9. "Same stage. Different playwright." (Ch6)
-10. Spend the liking gap (Ch6)
-12. "Visible is a career. Known is a life. You're allowed both." (Ch7)
+1. Cold open — the compliment that bounced / "package received by the costume"
+2. The Shetland hotel and the swinging kitchen door
+3. "Performing isn't the opposite of sincere. It's the vehicle for it."
+4. Self-verification — "filed under: case of mistaken identity"
+5. The liking gap — "you've been wearing armor against a kindness"
+6. The friend dials in — "costumes all the way down" + the clink rebuttal
+7. The turn — the six-year-old in the cape
+8. "Did I write this role? Does it rhyme? Do I know where my kitchen door is?"
+9. "Same stage. Different playwright."
+10. Spend the liking gap
+11. "Visible is a career. Known is a life. You're allowed both."
 
-### SOURCES TO LINK IN DESCRIPTION
-- Goffman, *The Presentation of Self in Everyday Life* (1959); Shetland fieldwork (PhD, University of Chicago)
+### SOURCES TO LINK
+- Goffman, *The Presentation of Self in Everyday Life* (1959); Shetland fieldwork
 - Swann — self-verification theory research program
 - Boothby, Cooney, Sandstrom & Clark (2018), "The Liking Gap in Conversations," *Psychological Science*
-- Horton & Wohl (1956), parasocial interaction (referenced)
+- Closing allusion: Psalm 139 (known all the way through) — woven, uncited
 
-**Word target: ~2,500 spoken. Hero prop: the theater mask. Hero device: the tape line (front stage / backstage), straddled at the close.**
+**Spoken word count: ~2,410 ✓ (cues excluded). Hero prop: the theater mask. Hero device: the tape line (front stage / kitchen), straddled at the close.**

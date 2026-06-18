@@ -1,6 +1,7 @@
 # JEVOY PALMER — "People rated their own voice the most attractive — until they found out it was theirs"
 ## Format: THE EXPERIMENT · Cinematic video · 2,500+ spoken words · Standalone
-### System v3 QA: standalone ✓ no fabrication (all demos performed live; all examples public) ✓ kitchen-table voice ✓ humor ✓ named examples ✓ wonder turn ✓ close: secular (verse removed — re-add later) ✓ CTA: stay close + The Next Step ✓
+### System v3 QA: standalone ✓ no fabrication (all demos performed live; all examples public) ✓ kitchen-table voice ✓ plain language ✓ bro-ban ✓ humor ✓ named examples ✓ wonder turn ✓ faith quiet + woven (uncited) ✓ no verdict (thesis stays a question) ✓ CTA: comment + do-then-report + in-metaphor share ✓
+### Central concept (shared across all 3 versions): Your recorded voice IS your real voice — the only one everyone else has ever heard. The cringe isn't a verdict on your voice; it's the shock of a labeling mismatch. Shared core research: bone conduction · Hughes & Harrison 2013 (people rate their own voice higher when they don't know it's theirs) · Holzman & Rousey 1966 (voice confrontation).
 
 ---
 
@@ -141,13 +142,25 @@ So here's the protocol, three steps, and I'm doing this alongside you because �
 
 And here's where this lands for me, the part I keep turning over.
 
-Think about how old this insecurity actually is. Long before recordings, before microphones, before a single voicemail existed to ambush anyone, people have wished they sounded like somebody else — flinched at their own voice the way you flinched at the top of this video. It might be one of the most human things there is. And here's the quiet pattern: every time the story ends well, it ends the same way — the person stops waiting to be fixed and just goes and uses the voice they've got. Because the voice was never the obstacle. It only ever felt like one, and it only ever felt like one *from the inside.*
+Think about how old this insecurity actually is. It's older than every microphone. Long before a voicemail existed to ambush anyone, people wished they sounded like somebody else. They flinched at their own voice the way you flinched at the top of this video. It might be one of the most human things there is. And the quiet pattern is always the same. Every time the story ends well, it ends one way. The person stops waiting to be fixed. They just go and use the voice they've got. Because the voice was never the obstacle. It only ever felt like one — and only ever from the inside.
 
-So look — the cringe is physics plus a labeling error, the data says strangers like your voice more than you do, and you're the single least qualified person on earth to judge it. The recording isn't the wrong you. It's the you that's been out there doing the work this whole time. Go shake hands with them.
+There's an old story I keep circling. A man stands in front of something holy and gets handed the assignment of his life. And his first move is to argue his way out of it. *I'm not a good talker. I get the words wrong. Please send somebody else.* And the answer he gets back isn't a better voice. It's a question. *Who do you think made your mouth?* Then: go. Use the one you've got.
 
-If this kind of question lives in you too — why we're like this, and what's actually underneath it — stay close. And if you want to test the protocol somewhere safe, I host a free live Q&A every Friday called The Next Step — come say something out loud. Your voice will be fine. It always was.
+So look. The cringe is physics plus a labeling error. The data says strangers like your voice more than you do. And you're the single least qualified person on earth to judge it. The recording isn't the wrong you. It's the you that's been out there doing the work this whole time. Go shake hands with them.
 
-[VISUAL: He lifts the phone, hits record one more time: "Hey, it's Jevoy." Plays it back. This time — a small nod. Cut to black.]
+[VISUAL: He lifts the phone, hits record one more time: "Hey, it's Jevoy." Plays it back. This time — a small nod.]
+
+So here's what I actually want from you, and I'm doing it with you, not at you.
+
+First, in the comments: type the exact sentence you've always said about your own voice. The "ugh, I hate it" one. Get it down in writing, because that's the sentence we just spent ten minutes taking apart, and I want you to watch it stop being true.
+
+Second — the real one. Today, pull up a voice note from months ago, one you forgot existed, and play it all the way through like it belongs to a stranger. Then come back here and tell me the honest answer to one question: *if a coworker sounded like that, would you think anything was wrong?* That comment is the one I'm actually waiting on. I'm running the same test on myself this week, so I'll be down there reading them.
+
+And if somebody in your life apologizes every single time they send a voice note — don't argue with them. Just send them this. Tell them their voice was never the problem. The label was. That's the kindest correction you can hand a person.
+
+Your voice will be fine. It always was. Go meet it.
+
+[VISUAL: Cut to black.]
 
 ---
 
@@ -172,6 +185,6 @@ If this kind of question lives in you too — why we're like this, and what's ac
 - Mita, Dermer & Knight (1977) — mirror-image preference
 - Zajonc (1968) — mere exposure effect
 - Bone conduction — standard audiology references
-- Exodus 4:10–12
+- Closing allusion: Exodus 4:10–12 (Moses, "I am slow of speech") — uncited, woven
 
-**Spoken word count: 2,530 ✓ (verified, cues excluded)**
+**Spoken word count: ~2,650 ✓ (cues excluded)**

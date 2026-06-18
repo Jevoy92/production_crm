@@ -1,47 +1,51 @@
-# Script Index — Theme-First (matches the Lovable site layout)
-*The site groups by THEME with JP / PH / MYB tabs per row. This index mirrors that exact mental model. The folders on disk are venture-first (easy browsing per channel); this index + `_MANIFEST.csv` / `_MANIFEST.json` are the theme-first bridge your site reads against.*
+# Script Index — Theme-First (matches the Production OS Scripts page)
+*One central concept per theme. Three deliveries: Jevoy Palmer (investigative / persona or friend device), MindYourBizniz (intimate monologue), Palmer House (business translation + book-a-call). The site reads `_MANIFEST.json`; this index is the human-readable mirror.*
 
-**Pillars (lanes):** Reel · Spotlight · Evergreen · System — same four-lane system as the Pals. (Pillar assignments below are a sensible starting point; adjust freely — they're a column in the manifest.)
+**Pillars:** Reel · Spotlight · Evergreen · System
+
+**Standard:** JP & PH target ~2,500 spoken words. MYB flexible (2,000–3,000). Plain language, real research, actionable CTAs.
 
 ---
 
-## THEMES WITH ALL THREE VENTURES (9)
+## ALL 18 THEMES — FULL TRIO (JP · PH · MYB)
 
-| # | Theme | Pillar | Jevoy Palmer | Palmer House | MindYourBizniz |
+| # | Theme | Pillar | JP | PH | MYB |
 |---|---|---|---|---|---|
-| 01 | Your Own Voice | Evergreen | ✅ 2,500+ | ✅ 2,500+ | ✅ 2,500+ |
-| 02 | Judged Before You Speak | Spotlight | ✅ 2,500+ | ✅ 2,500+ | ✅ 2,500+ |
-| 03 | The Height Tax | Reel | ✅ 2,500+ | ✅ 2,500+ | ✅ 2,500+ |
-| 04 | The Miniature Lie | Spotlight | ✅ 2,500+ | ✅ 2,500+ | ✅ 2,500+ |
-| 05 | The Watched Brain | Evergreen | ✅ | ✅ | ✅ |
-| 06 | The Cut | Spotlight | ✅ | ✅ | ✅ |
-| 07 | The Frame | Reel | ✅ | ✅ | ✅ |
-| 08 | The Witness | Spotlight | ✅ | ✅ | ✅ |
-| 09 | Seen but Not Known | System | ✅ | ✅ | ✅ |
+| 01 | Your Own Voice | Evergreen | ✅ ~2,900 | ✅ ~2,950 | ✅ ~2,925 |
+| 02 | Judged Before You Speak | Spotlight | ✅ ~3,000 | ✅ ~2,890 | ✅ ~2,935 |
+| 03 | The Height Tax | Reel | ✅ ~2,690 | ✅ ~2,610 | ✅ ~2,590 |
+| 04 | The Miniature Lie | Spotlight | ✅ ~2,800 | ✅ ~2,740 | ✅ ~2,780 |
+| 05 | The Watched Brain | Evergreen | ✅ ~2,820 | ✅ ~2,810 | ✅ ~2,805 |
+| 06 | The Cut | Spotlight | ✅ ~2,745 | ✅ ~2,820 | ✅ ~2,390 |
+| 07 | The Moment You Didn't Keep | Spotlight | ✅ ~2,450 | ✅ ~2,330 | ✅ ~1,640 |
+| 08 | The Witness | Spotlight | ✅ ~2,660 | ✅ ~2,620 | ✅ ~2,550 |
+| 09 | Seen but Not Known | System | ✅ ~2,620 | ✅ ~2,625 | ✅ ~3,100 |
+| 10 | The Mirror With Memory | System | ✅ ~2,670 | ✅ ~2,645 | ✅ ~2,950 |
+| 11 | Why We Hide | Spotlight | ✅ ~2,690 | ✅ ~2,650 | ✅ ~3,100 |
+| 12 | Context Doesn't Travel | System | ✅ ~2,775 | ✅ ~2,610 | ✅ ~2,245 |
+| 13 | The Wet Cement | Reel | ✅ ~2,805 | ✅ ~2,640 | ✅ ~2,230 |
+| 14 | The Compass, Not the Megaphone | System | ✅ ~2,790 | ✅ ~2,660 | ✅ ~2,290 |
+| 15 | A Well-Lit Room With Doors | Evergreen | ✅ ~2,730 | ✅ ~2,650 | ✅ ~2,200 |
+| 16 | The Clean Lens | System | ✅ ~2,825 * | ✅ ~2,790 | ✅ ~2,315 |
+| 17 | The Empty Chair | Reel | ✅ ~2,830 | ✅ ~2,770 | ✅ ~2,375 |
+| 18 | The Sharp Photograph | Spotlight | ✅ ~2,770 | ✅ ~2,775 | ✅ ~2,325 |
 
-## MINDYOURBIZNIZ SOLO THEMES (9 — MYB only)
+*\* Theme 16 JP script title on disk: `JP — The Smudge.md` (same concept as PH/MYB "The Clean Lens").*
 
-| # | Theme | Pillar | MindYourBizniz |
-|---|---|---|---|
-| 10 | The Mirror With Memory | System | ✅ |
-| 11 | Why We Hide | Spotlight | ✅ |
-| 12 | Context Doesn't Travel | System | ✅ |
-| 13 | The Wet Cement | Reel | ✅ |
-| 14 | The Compass, Not the Megaphone | System | ✅ |
-| 15 | A Well-Lit Room With Doors | Evergreen | ✅ |
-| 16 | The Clean Lens | System | ✅ |
-| 17 | The Empty Chair | Reel | ✅ |
-| 18 | The Sharp Photograph | Spotlight | ✅ |
-
-*(Themes 01–04 are at the full 2,500-word standard; 05–18 are complete at their original length — see `_README + Status`.)*
+**JP filename notes (theme title ≠ file title where noted):**
+- 05 JP: `Why You Stop Being Yourself on Camera`
+- 06 JP: `Why We Look Away at the Worst Part` · PH: `The Footage You Delete` · MYB: `The Parts We Cut`
+- 07 JP: `The Camera on Trial` · PH/MYB: `The Moment You Didn't Keep`
+- 08 JP: `The Goodbye Tape` · PH: `What Dies When They Leave` · MYB: `Who Holds You in Mind`
+- 09 JP: `The Mask Is a Costume` · PH: `Recognized Isn't the Same as Trusted` · MYB: `Known by Thousands, Seen by No One`
+- 10 JP/PH: `The Mirror That Remembers` · MYB: `The Mirror With Memory`
+- 12 JP/PH: `The Sentence That Traveled` · MYB: `Context Doesn't Travel`
 
 ---
 
-## HOW THIS HELPS THE LOVABLE SITE
+## MANIFEST & TELEPROMPTERS
 
-Your site is **Supabase-backed** — the theme/venture/pillar grid is database rows, not files. So the clean way to keep it organized is a single source of truth the database loads from. That's what `_MANIFEST.csv` and `_MANIFEST.json` are: every script tagged with `theme_no`, `theme`, `pillar`, `venture`, `status`, `spoken_words`, and exact file paths. Import that and the site's categorization stays consistent and never drifts from the files.
+- **`Final/_manifest.json`** — source of truth for the Scripts page (theme → venture → file + spoken word count)
+- **`Final/Teleprompter/`** — 54 teleprompter `.txt` files (spoken lines only, auto-generated from scripts)
 
-Use whichever fits your workflow:
-- **`_MANIFEST.csv`** — drop into a Supabase table import, or open in Sheets.
-- **`_MANIFEST.json`** — for a code/API import (nested: themes → ventures).
-- **This `_INDEX`** — the human-readable version for you.
+Word counts in the manifest are computed from spoken body text (stage directions, headers, and clip lists excluded).

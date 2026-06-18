@@ -1,0 +1,188 @@
+# PALMER HOUSE PRODUCTIONS — "The Compass, Not the Megaphone"
+## Cinematic Brand Monologue | ~13–14 min | Plain-language build
+## The Recorded Animal (business cut) · Approach: the personal thesis, translated to business · Delivery: warm, direct, calm
+### Voice-calibrated: bro-ban ✓ plain language (≤15w) ✓ friend = the honest objection ✓ no preachy verdict ✓ real CTA (book a call) ✓ faith quiet ✓ dual-audience "basically" ✓ sensory beats ✓ soft-hedge texture (just/really/actually) ✓ · shares concept + research with JP/MYB
+
+> **The translation:** The personal version (JP/MYB) says you don't need a louder megaphone, you need a compass. The Palmer House version says the same thing about a business: more content doesn't fix being unheard. Direction does. Volume fills the feed. A compass fills the customer.
+
+---
+
+[COLD OPEN]
+[VISUAL: Tight on a thumb scrolling a business feed — post, post, post, a blur of one company's own work, too fast to read. It slows. Stops. Cut to Jevoy in the Palmer House studio.]
+
+**JEVOY:**
+
+Open your business feed. Go ahead, really do it. Scroll back six months. Feel your thumb just gliding. Post, post, post.
+
+Now stop. And tell me, in one sentence, what your business actually stands for.
+
+[BEAT]
+
+Take your time. But I think the scrolling already answered it.
+
+You've made a lot of content. You showed up. You stayed consistent. Everybody told you to. And it still feels like you're standing in an empty field, yelling into the wind, watching it all just evaporate.
+
+You know the feeling I mean. You spend a whole Sunday batching posts. You schedule the week. You hit publish. And the number barely moves. A few likes. A comment from your cousin. And that quiet voice goes, *maybe I just need to post more.* So you do.
+
+So you do the only thing the experts sold you. You try to get louder. More posts. More platforms. A bigger megaphone.
+
+Here's the question this whole video sits on. After a year of yelling into the feed — who was actually supposed to hear you? And why does posting more keep making the field feel emptier?
+
+[BEAT]
+
+Now — this is not the video where I tell you to post less and pray. I run a content company. Making things is literally the job. But I want to show you why most business content disappears the second it's seen. And why the fix was never a louder megaphone.
+
+It starts with a study about jam.
+
+---
+
+## CHAPTER 2: THE MECHANISM — THE TABLE
+
+In the year 2000, two researchers, Sheena Iyengar and Mark Lepper, ran a really simple experiment in a grocery store. They set up a tasting table. Some hours it had six jams on it. Other hours, twenty-four.
+[SOURCE CARD on screen: Iyengar & Lepper — 'When Choice Is Demotivating,' JPSP, 2000.]
+
+The big table won the crowd. About sixty percent of shoppers stopped to look. Twenty-four jars is exciting. The small table only pulled about forty percent.
+
+Then they checked who actually bought a jar.
+
+The big table — three percent. The small table — thirty percent.
+
+[BEAT]
+
+Ten times more sales. From less. Basically, the big display got attention, and the small display got the money. Too many choices pulled people in, then froze them. They tasted, they smiled, they left with nothing.
+
+Now read that as a business owner. Because you built the twenty-four-jam table. A new offer every week. A new angle every day. You think a fuller feed means more reach, so it must mean more business. But your customer feels exactly what those shoppers felt. *Too much.* And the more you pile on, the faster they walk.
+
+There was a flip side researchers found later, and it's the key to this whole video, so hold onto it. The small table didn't win by being quiet. It won by being *clear.* Few enough choices that a tired brain could actually decide. Clarity is the thing that sold the jam. Not volume.
+
+Now, I'll be fair, because somebody smart is already typing. That jam study didn't always replicate. In 2010, a researcher named Benjamin Scheibehenne gathered fifty of these choice studies. On average, the effect washed out.
+[SOURCE CARD on screen: Scheibehenne, Greifeneder & Todd — choice-overload meta-analysis, Journal of Consumer Research, 2010.]
+
+So this isn't a law of nature. Fair. But the later research pinned down exactly when it bites hardest. When the choice is *difficult.* When the options are confusing, and the person doesn't already know what they want. And that's a stranger meeting your business for the first time — the hardest choice there is. So the effect is strongest right where your customer actually lives.
+
+---
+
+## CHAPTER 3: THE SHELF IN YOUR CUSTOMER'S HEAD
+
+Here's why this happens, and stay with me, because this is the whole engine.
+
+There's a shelf in your customer's head, and it's tiny.
+[SOURCE CARD on screen: Sweller — Cognitive Load Theory, 1988.]
+
+In 1988, a psychologist named John Sweller studied the part of the brain that holds new information. And the headline is almost funny: it's small. It holds just a few things at once. Push past that, and the brain doesn't try harder. It dumps the whole tray.
+
+He called it cognitive load — basically, how much you're asking a brain to carry at one time. Overload it, and it lets go of everything you gave it.
+
+You know the feeling. Someone reads you a phone number and you can hold it just long enough to dial. Pile a name and an address on top, and the number vanishes. The brain didn't get lazy. It hit the ceiling and wiped the desk clean. Your customer's brain does the exact same thing to your feed, every single day.
+
+So picture your customer, scrolling past your business on a tired Tuesday night. Tiny shelf. And you're handing them a new, unrelated thing every day. A tip. A trend. A sale. A quote. None of it connects. The shelf fills, it tips, and it drops the whole week. Your business included.
+
+You weren't forgettable. You were *heavy.* You asked a tired mind to carry a hundred loose pieces that didn't fit together. So it set every one of them down. That's not your customer being rude. That's just how the shelf works.
+
+And here's the cruel little twist. Posting constantly in every direction doesn't make you memorable. It makes you a *familiar blur.* Your customer half-recognizes your logo and has no idea what you actually do. "Oh, them — they post a lot. About... something." You took up space in the feed and zero space in the mind. Present, and completely forgettable, at the same time. That's the worst trade in marketing — all the work of showing up, none of the reward of being remembered.
+
+---
+
+## CHAPTER 4: THE HONEST OBJECTION
+
+Now, there's a fair argument against everything I just said. And I'm going to make it properly, because if I skip it, you should stop trusting me.
+
+You could say: *"Jevoy, come on. The algorithm rewards volume. There's even research — the more people see you, the more they like you. Familiarity builds trust. So I have to post every single day or I disappear."*
+[SOURCE CARD on screen: Zajonc — 'Attitudinal Effects of Mere Exposure,' JPSP, 1968.]
+
+And honestly? That research is real. In 1968, a psychologist named Robert Zajonc showed people the same thing over and over — shapes, faces, made-up words. And every time, the more they saw it, the more they liked it. No reason. Just familiarity. He called it the mere exposure effect. So showing up does build trust. Going silent for a year really doesn't work.
+
+But here's the one word that argument skips. *Same.* Zajonc showed people the *same* thing, again and again. That's the whole engine. Repetition of one thing.
+
+And most business content isn't one thing. It's a different thing every day. A new direction every morning. So nothing ever repeats. Nothing stacks. You get all the exhaustion of posting daily, and none of the trust — because the effect needs a single clear thing to attach to, and a scattered feed never gives it one.
+
+One message, repeated a hundred ways, becomes trust. A hundred different messages becomes noise. Same effort. Opposite result. So post often, sure. But if every post points a different direction, you're really just paying to be forgotten faster.
+
+And think about the brands you actually remember right now, off the top of your head. The ones whose tagline you could say out loud. They didn't win by drowning you in posts. They made fewer things, pointed in one clear direction, and you kept them. That's not luck. That's a compass. Volume fills a feed. Direction fills a memory.
+
+---
+
+## CHAPTER 5: THE TWO INSTRUMENTS
+
+So here's the flip.
+
+You don't have a content problem. You have a direction problem. And we've been handing businesses the wrong instrument the whole time.
+
+A megaphone has one feature. It makes you louder. It throws whatever you're saying farther into the air. It cannot help you if you don't know what to say or where you stand. A bigger one just wastes your voice faster. That's most marketing advice — buy a bigger megaphone. Post daily. Be on every platform. Hire someone to make even more of the noise that wasn't working.
+
+But a compass makes no sound at all. It's silent. All it does is tell you which way you're facing. It's not louder. It's not flashier. It just answers the one question that actually matters before you make anything: *which way am I pointing?*
+
+And the moment a business knows which way it's facing, everything changes. You stop posting in every direction. You start pointing in one. The behind-the-scenes clip, the customer story, the quick tip — they all point the same way now. They stop being a hundred loose jars on a heavy table. They become one clear direction, repeated, until a stranger finally thinks: *oh — I know exactly what they do, and I know exactly when I'd call them.*
+
+That's mere exposure, finally aimed right. That's the six-jam table. That's a tiny shelf that can actually hold you. The feed holds your posts. Only direction holds your customer.
+
+And here's the part that should take some weight off your chest. Direction doesn't just sell better. It makes the work *lighter.* When your business faces everywhere, every post starts from a blank page and a small panic. When you know your one direction, you stop throwing spaghetti and start laying bricks. Each piece sits on the last. The trust compounds instead of evaporating. A year of yelling leaves you with a sore throat and an empty field. A year of pointing leaves you with something a customer can actually find their way to.
+
+[PAUSE]
+
+You were never too quiet. Your business was facing every direction at once. And a customer couldn't tell where you stood — so they couldn't stand with you.
+
+---
+
+## CHAPTER 6: WHAT PALMER HOUSE ACTUALLY DOES
+
+This is where Palmer House Productions comes in. And I'll be straight about where we are — young company, building in the open, out here in the Pacific Northwest. Which is honestly the whole point. We'd rather help you say one true thing well than help you yell ten things into an empty field.
+
+Palmer House is a translation company that happens to own cameras. We don't help you post more. We help you find your direction and point everything at it.
+
+Here's how it actually works, plainly. We don't start with *"what should we post this week."* That's the megaphone trap. We start with one quiet question: *what do you actually stand for, and who is it for?* That's the compass. We find your true north first — the real problem you solve, the real person you solve it for, the real reason you started. Then every piece of content points there.
+
+And once that direction is locked, something funny happens to the content calendar. It stops being a source of dread. You're not hunting for a new idea every morning anymore. You've got one direction, and a hundred ways to say it. The morning is no longer "what do I post." It's "which angle on my one thing do I show today." That's the difference between a job that drains you and a job that builds something.
+
+And we build it to do four jobs, in plain terms. One — find the one direction, your true north, so the work stops scattering. Two — make a moment clear enough that a tired brain can actually hold it. Three — repeat that one direction, on purpose, so the trust compounds instead of evaporating. And four — make it something a customer can keep and repeat to a friend, because the best marketing is one person describing you out loud in one clean sentence.
+
+Let me show you what that looks like, really fast. Say you're a plumber. The megaphone move is ten posts a week — pipes, coupons, a trending sound — all pointing different directions, all scrolled past. The compass move is one direction, said a hundred ways: *we're the ones who answer the phone at 2 a.m.* The emergency story. The tired couple with the newborn and the flooding basement. The same north, again and again, until a stranger eight months later has a flood of their own and your name is the only one on the tiny shelf in their head. Same business. One is noise. The other one gets the call.
+
+And it works in the most boring-sounding niches there are. There's a creator who only makes videos about mechanical keyboards. Keyboards. And nearly a million people watch, because every video does one thing — it makes you *feel* the sound of a single key being pressed. One direction, a thousand times. She didn't win with volume. She won with a compass nobody ever pried out of her hand. Your business has a "keyboard" in it. A single, specific thing. We find it, and we point everything at it.
+
+And I want to be honest about what we don't do, because it matters. We're not the team that hands you thirty trending sounds and a posting schedule. That's a bigger megaphone, and you've already proven that doesn't work. We'd rather make you four things that all point the same way than forty things that point nowhere.
+
+Here's our one rule, and it's the same line I'll say to your face on a call. If you don't know what you stand for, we don't start with a camera. We start with the compass. If you just want to fill a feed, there are way cheaper ways to be forgotten. We're for the business that actually wants to be *found.*
+
+---
+
+## CHAPTER 7: THE INVITATION · [CTA]
+
+So here's where I'll leave it.
+
+[VISUAL: back to the phone from the cold open — the thumb stops scrolling. The phone sets down, face up. The room goes quiet.]
+
+Somewhere in your feed is proof you've been working really hard — a whole grid of posts nobody remembers, in a field that still feels empty. That's not a failure. It just means the job was never to get louder. It was to find the one direction and point everything at it.
+
+There's an old line I keep close. *Where there is no vision, the people perish.* It has zero notes on your work ethic. It names the one thing that actually sinks a business out here: no picture of where it's all going. All that energy, evaporating — not from laziness, but from facing the wrong way. The fix was never a bigger budget or a louder voice. It was a direction worth pointing them all at.
+
+So let's find your direction. Here's the ask — three parts, and I read every one:
+
+**One:** drop a comment — the one thing you want customers to remember you for, in five words or less. Say it out loud right here. And if it's hard to get under five words... that's the real problem, and that's exactly what we fix.
+
+**Two:** book a call with Palmer House. Bring the post you're proudest of that nobody remembers. We'll find the direction hiding inside it — your true north — and build everything to point there. It's a real conversation, not a sales pitch wearing a conversation's clothes. Link's below.
+
+**Three:** if you know a business owner out there hoarse, exhausted, buying a bigger megaphone every month — send them this. Honestly, it's the kindest thing you can do for them today.
+
+The link's below. The lights are on over here.
+
+[VISUAL: Jevoy nods. Palmer House logo over room tone. End.]
+
+---
+
+### CLIP-WORTHY LINES
+1. "Tell me, in one sentence, what your business actually stands for."
+2. "The big table got attention. The small table got the money."
+3. "You weren't forgettable. You were heavy."
+4. "One message repeated becomes trust. A hundred messages becomes noise."
+5. "Volume fills the feed. A compass fills the customer."
+6. "You were never too quiet. Your business was facing every direction at once."
+7. "If you don't know what you stand for, we don't start with a camera. We start with the compass."
+
+### SOURCES (show notes)
+- Iyengar & Lepper (2000), "When Choice Is Demotivating," *JPSP* (the jam study; Scheibehenne et al. 2010 meta-analysis notes context-dependence)
+- Sweller (1988), Cognitive Load Theory
+- Zajonc (1968), "Attitudinal Effects of Mere Exposure," *JPSP*
+- Closing allusion: Proverbs 29:18 — uncited, woven.
+
+**Spoken word count: ~2,420 ✓ (cues excluded). Hero prop: the scrolling feed → phone set down. CTA: book a call + "bring the post nobody remembers."**

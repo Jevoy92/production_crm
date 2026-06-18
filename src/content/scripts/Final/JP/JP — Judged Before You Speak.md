@@ -1,6 +1,7 @@
 # JEVOY PALMER — "A one-second look at two faces predicted 70% of elections. Your face is voting too."
 ## Format: DEFAULT SPINE (with two live demos) · Cinematic video · 2,500+ spoken words · Standalone
-### System v3 QA: standalone ✓ no fabrication ✓ kitchen-table voice ✓ humor ✓ named examples ✓ wonder turn ✓ close: secular ✓ CTA: stay close ✓
+### System v3 QA: standalone ✓ no fabrication ✓ kitchen-table voice ✓ plain language ✓ bro-ban ✓ humor ✓ named examples ✓ wonder turn ✓ faith quiet + woven (uncited) ✓ no verdict (thesis stays a question) ✓ CTA: comment + do-then-report + in-metaphor share ✓
+### Central concept (shared across all 3 versions): You're judged in a tenth of a second, before you speak — that's real machinery. But the snap verdict is reliable without being valid (consistent, yet often wrong), and it is never final — it reverses for real evidence. Shared core research: Willis & Todorov 2006 (100ms) · Ambady & Rosenthal 1993 (thin slices) · Thorndike 1920 (halo effect) · Todorov et al. 2005 (faces predict ~70% of elections).
 ### ⭐ POLISH PASS (epic-storytelling layer + woven citations): on-screen [SOURCE CARD] cues appear at each stat — sources live as graphics so the spoken script stays pure story (the FortNine/Maxinomics method). Source cards do NOT change spoken word count or the teleprompter read.
 
 ---
@@ -115,13 +116,25 @@ And here's where I land.
 
 We've known about this bug in the species for a very long time — long, long before anyone put a stopwatch on it at Princeton. Every culture on earth has some version of the same warning: don't judge a book by its cover. Still waters run deep. The loudest one in the room isn't the smartest. We repeat these things constantly — they're stitched into proverbs in every language — and here's the tell: *you only write a proverb about something people actually do.* Nobody warns you against a thing nobody's tempted by. We've been reminding each other to override the snap judgment for as long as we've had language, precisely because it's so strong and so automatic that, left alone, it runs the show.
 
-And buried in every one of those warnings is the upgrade the whole thing is reaching for: there's a way of seeing that *waits.* That looks past the first frame. That finds the person everybody else walked right past because the slice didn't dazzle — the candidate nobody bothered to call in from the field.
+And buried in every one of those warnings is the upgrade the whole thing is reaching for. There's a way of seeing that *waits.* It looks past the first frame. It finds the person everybody else walked right past because the slice didn't dazzle.
 
-You'll be judged in a tenth of a second for the rest of your life — that's the machinery, and now you know how to set the table for it. But the deeper move, the one that actually changes your rooms? Be the one person in them who gives the second look. Everybody remembers who waited for them to finish.
+There's an old story I keep coming back to. Somebody's sent to find a king, and he's sure it's the tall, impressive son standing right in front of him. The obvious one. The good slice. And he gets corrected with one line: people look at the outside — but the thing that actually matters, you can't see in a tenth of a second. The one they were looking for was the kid out in the field. Nobody had even bothered to call him in.
 
-If this kind of question lives in you too — why we're built the way we're built, and what to do about it — stay close. There's a lot more where this came from.
+You'll be judged in a tenth of a second for the rest of your life. That's the machinery, and now you know how to set the table for it. But the deeper move — the one that actually changes your rooms — is to be the one person in them who gives the second look. Everybody remembers who waited for them to finish.
 
-[VISUAL: He glances at the two faces one last time — then deliberately looks past them, to the lens. Cut to black.]
+[VISUAL: He glances at the two faces one last time — then deliberately looks past them, to the lens.]
+
+So here's what I want from you, and I'm in this with you, not above it.
+
+First, in the comments: name the one first-frame moment coming up this week. The interview. The first video. The pitch. The date. Just name it out loud right here, because the second you name it, it stops being weather that happens to you and becomes a table you get to set.
+
+Second — the real one. This week, catch your own gavel once. The next time you feel a verdict slam shut on a stranger in the first two seconds, let them finish anyway. Then come back and tell me what you found on the other side of the second look. That's the comment I'm actually waiting on. I'll be down there reading them, because I'm trying to get better at this too.
+
+And if there's somebody in your life who got convicted by a room that ruled on them years ago — and they've believed the verdict ever since — send them this. Consider it a retrial.
+
+You'll be read fast for the rest of your life. Be the person who reads slow. That's the whole thing.
+
+[VISUAL: Cut to black.]
 
 ---
 
@@ -145,6 +158,6 @@ If this kind of question lives in you too — why we're built the way we're buil
 - Ambady & Rosenthal (1993) — thin slices, teacher evaluations
 - Thorndike (1920) — the halo effect
 - Susan Boyle, *Britain's Got Talent*, April 2009 (public footage)
-- 1 Samuel 16:7
+- Closing allusion: 1 Samuel 16:7 (Samuel & Eliab — "man looks at the outward appearance") — uncited, woven
 
-**Spoken word count: verified 2,500+ ✓ (cues excluded)**
+**Spoken word count: ~2,650 ✓ (cues excluded)**

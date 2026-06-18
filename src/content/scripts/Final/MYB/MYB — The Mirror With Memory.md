@@ -1,6 +1,7 @@
 # MINDYOURBIZNIZ — "The Camera Is a Mirror With Memory"
-## Solo Podcast Monologue | ~15 min | FIXED v2
-### Fix log: launch-stage lines corrected ("my own clients" → honest framing; "years of watching it happen" removed) · verse kept (Genesis 1:27 — this episode is its rightful home) · canon lines confirmed ("mirror with memory," "we blamed their courage") — these recur across the season deliberately as signature lines · companion episode to "The Watched Brain"; slot them at least a month apart.
+## Solo Podcast Monologue | ~15 min | Intimate / single-image | CALIBRATED v3
+### QA: bro-ban ✓ plain language (one idea/sentence) ✓ dual-audience "basically" ✓ sensory beats ✓ friend = counter-voice w/ real study, no verdict ✓ one returning image (mirror with memory) ✓ actionable CTA (no "stay close / next week") ✓ faith quiet ✓ · shares concept + core research with JP/PH ("The Mirror That Remembers")
+### Fix log (v3): added social-facilitation / Zajonc dominant-response to unify research with JP+PH · dead close replaced with actionable CTA · plain-language pass on mechanism beats · canon lines kept ("mirror with memory," "we blamed their courage").
 
 ---
 
@@ -53,6 +54,7 @@ That's the conversation I want to have.
 So here's what I learned, and it broke open a door for me.
 
 There's a thing in psychology called *objective self-awareness*. Two psychologists named Shelley Duval and Robert Wicklund wrote about it in 1972 — long before any of this content era we're living in. And the basic idea is so simple it sounds obvious until you really sit with it.
+[SOURCE CARD on screen: Duval & Wicklund — A Theory of Objective Self-Awareness, 1972.]
 
 Most of the time, you live inside yourself. You're the *subject*. You're the one having the experience. You don't watch yourself eat lunch. You just eat lunch.
 
@@ -95,26 +97,32 @@ And we keep yelling at it.
 
 ## CHAPTER 4 — THE FRIEND WHO PUSHES BACK
 
-OK. So I can already hear the friend in this conversation pushing back on me. Because I have this friend in my head, and I think you might too, and that friend is *not wrong* about everything. So I want to give them their say. Honestly.
+OK. So I can already hear the friend in this conversation pushing back on me. I have this friend in my head. I think you might too. And he's not wrong about everything. So let me give him his say. Honestly.
 
-The friend says — *Jevoy, you are overthinking this. The successful people on the internet did not sit down and study Duval and Wicklund. They sat down and pressed record. A thousand times. And they got better at it. Because that's how you get good at anything. Reps. Stop turning every awkward iPhone video into a TED talk about identity. Just post.*
-[SOURCE CARD on screen: Duval & Wicklund — A Theory of Objective Self-Awareness, 1972.]
+The friend says: *Jevoy, you've got this backwards. Being watched doesn't make people worse. It makes them better.*
 
-The friend is partly right.
+And he brings a study. Of course he does. 1898. A researcher named Triplett notices that cyclists ride faster next to other riders than they do alone. He tests it on kids winding a fishing reel. The kids wind faster in a group. Every time. They call it social facilitation.
+[SOURCE CARD on screen: Triplett (1898) → Zajonc (1965) — social facilitation / drive theory.]
 
-Reps matter. Practice helps. You absolutely do get less self-conscious the more you do something. Anyone who tells you otherwise is selling you something. So let's give that its full weight: practice softens the freeze. Real. True. Buy that one.
+So the friend says: *Nobody sets a record alone in an empty gym. They set it in a packed stadium. The eyes are the fuel. So stop overthinking it. Press record a thousand times. You'll get better, because that's how you get good at anything. Just post.*
 
-But here's what the friend is missing.
+And — quietly — the friend is partly right. That study is real and it's strong. Being watched genuinely lifts performance. And reps do matter. Anyone who tells you otherwise is selling something.
 
-The thing you build *through* the reps is not, actually, "courage." It's a *room*. It's a set of conditions. It's a way of sitting, a way of starting, a way of resetting, a kind of self-permission that you accumulate over enough takes that it stops feeling like a performance. The reps are not building a different *you*. The reps are building a different *context* for the same you. The you that's good in a room with one human is, mechanically, the same nervous system that's locked up in front of the lens — but after enough reps, you've built a room around the lens where that nervous system can finally relax.
+But here's the thing he's missing. And it's the whole episode.
 
-That's not a discipline story. That's an *architecture* story.
+In 1965, a psychologist named Robert Zajonc looked at the chokers and the champions together, and found the rule underneath both. Being watched doesn't make you better. It doesn't make you worse. It makes you *more of whatever you already are.* He called it your dominant response — basically, the move you'd make automatically, without thinking. An audience just turns up the volume on that one move.
 
-And the reason this matters is that a lot of people are telling themselves they don't have what it takes — when really what they don't have is *the room*. They don't have the right lighting, the right cadence, the right warm-up, the right partner, the right editor who tells them what to cut. They're sitting alone in a kitchen with a phone, trying to do something that was actually never meant to be done alone.
+So the sprinter has run that race ten thousand times. Fast is his automatic move. The crowd turns it up, and he flies. But the first time you sit in front of a lens to talk about your business? Stiff is the automatic move. You've never practiced anything else. So the watching turns *that* up. Same eyes. Opposite result.
+
+[BEAT]
+
+Which means the friend is right about reps — but wrong about what the reps are for. The reps aren't building a braver you. There is no braver you coming. The reps are building a *room.* A way of sitting. A way of starting. A setup where being natural becomes the automatic move again. The you that's good across a table is the same nervous system that locks up at the lens. After enough reps, you've just built a room where it can finally relax. Then the same camera that froze you starts to lift you — like the stadium.
+
+That's not a discipline story. That's an architecture story.
+
+And a lot of people are telling themselves they don't have what it takes. When really, what they don't have is the room. The right light. The right rhythm. A person to talk to instead of a black hole. They're alone in a kitchen with a phone, trying to do a thing that was never meant to be done alone.
 
 We blamed their courage. The problem was their setup.
-
-So the friend is right about reps. The friend is wrong about *what the reps are doing*. And that distinction is, in my view, the difference between business owners who quietly become great on camera over two years, and business owners who quietly give up after two months.
 
 ---
 
@@ -176,37 +184,36 @@ The problem isn't your discipline. The problem is, mostly, the architecture arou
 
 That architecture is buildable. Not overnight, and not alone, but buildable. And the work of building it is not glamorous. It's mostly small. Mostly boring. Mostly invisible. Move the desk. Change the light. Set a timer. Do one take a day for thirty days and don't watch any of them until the end of the month. The room gets built quietly, the same way your business got built quietly. One unglamorous decision at a time.
 
-On *MindYourBizniz* we're going to keep coming back to this — the emotional reality of being a business owner who is also a public figure now, whether you wanted that job or not. The cost of visibility. The cost of invisibility. The strange, often unspoken inner life of running something with your name on it.
-
-If that's the kind of conversation you've been needing — stay close. There's more.
+So here's where I'll leave you. There's a version of you that was there before the performance — before the careful one, the polished one, the one you keep waiting until you're "ready" to show. The real one. The room-winner. The thing that's already true. You don't have to manufacture it. You just have to practice letting it be the automatic one.
 
 [BEAT]
 
-[Read slowly, no music underneath.]
+So let me leave you with something to do, not just something to feel. Three small things, and I'm doing all three with you, because I'm in these reps right now too.
 
-So here's where I'll leave you. There's a version of you that was there before the performance — before the careful one, before the polished one, before the one you've been waiting until you're "ready" to show. The real one. The thing that was already there. The thing that's already true.
+First — tell me, in the comments, one word: **"frozen"** or **"flowing."** That's your honest read on yourself in front of a lens right now. No shame either way. I read every one.
 
-You don't have to manufacture it. You just have to stop hiding it.
+Second — this is the real one. This week, get one rep. Record one short video about something you actually know. Don't post it. Don't watch it twice. Just build one brick of the room. Then come back here and tell me one thing: did the freeze show up, and did it soften by the end? That comment is the one I'm waiting on — because that's the take where the room starts getting built, and I want to know it's working for you the way it's slowly working for me.
 
-[OUTRO MUSIC FADES IN — full cue, 8 seconds, then host outro.]
+Third — if you know someone who keeps deleting their drafts, who's decided they're "just not a camera person," don't lecture them. Send them this. Tell them it was never their courage. It was the room. Then maybe get the first rep in together.
 
-**JEVOY (host outro):**
-Thanks for being here. *MindYourBizniz* is a Palmer House conversation. New episode next week. If today's was useful, send it to the one business owner you know who needs to hear it before they delete another draft.
+The mirror remembers either way. So let's go practice giving it the real one.
 
-[END.]
+[OUTRO MUSIC FADES IN — full cue, 8 seconds. Out.]
 
 ---
 
 ### CLIP-WORTHY LINES
 1. "A camera is a mirror with memory."
 2. "We blamed their courage. The problem was their setup."
-3. "The body's last defense of a self that hasn't been decided yet."
-4. "The reps are not building a different you. They're building a different context for the same you."
-5. "You don't have to manufacture it. You just have to stop hiding it."
+3. "Being watched makes you more of whatever you already are."
+4. "There is no braver you coming. The reps are building a room."
+5. "Same eyes. Opposite result."
+6. "The body's last defense of a self that hasn't been decided yet."
 
 ### SOURCES (show notes)
 - Duval & Wicklund (1972), *A Theory of Objective Self-Awareness*
-- Hawthorne studies, Western Electric (1924–1932)
+- Hawthorne studies, Western Electric (1924–1932) — the Hawthorne effect
+- Triplett (1898) → Zajonc (1965) — social facilitation / drive theory (dominant response)
 
 ### GUEST EXPANSION OPTIONS
 - A founder who waited too long · a creator who broke through · a therapist who works with high-achievers around visibility. Tee a Part 2.

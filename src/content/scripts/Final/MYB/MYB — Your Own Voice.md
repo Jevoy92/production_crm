@@ -1,6 +1,7 @@
 # MINDYOURBIZNIZ — "The Stranger in the Recording"
 ## Format: THE LETTER · Audio monologue · 2,500+ spoken words · Standalone
-### System v3 QA: standalone ✓ no fabrication (second-person letter; public examples; Jevoy's standing facts only) ✓ kitchen-table voice ✓ humor ✓ named examples ✓ wonder turn ✓ close: secular (verse removed — re-add later) ✓ CTA: send to one person ✓
+### System v3 QA: standalone ✓ no fabrication (second-person letter; public examples; Jevoy's standing facts only) ✓ kitchen-table voice ✓ plain language ✓ bro-ban ✓ humor ✓ named examples ✓ wonder turn ✓ faith quiet + woven (uncited) ✓ no verdict ✓ CTA: do-then-report + comment + in-metaphor share ✓
+### Central concept (shared across all 3 versions): Your recorded voice IS your real voice — the only one everyone else has ever heard. The cringe isn't a verdict on your voice; it's the shock of a labeling mismatch. Inner-life cut: you are the only person alive who has never properly met your own voice. Shared core research: bone conduction · Hughes & Harrison 2013 · Holzman & Rousey 1966 (+ Mita/Dermer/Knight 1977, Zajonc 1968).
 
 ---
 
@@ -114,7 +115,9 @@ And third — this one's optional, and it's only for you, nobody ever has to hea
 
 [BEAT]
 
-I want to close this letter with the thing love actually says — because it's the opposite of what you've been telling yourself. Think about the people who light up when they hear from you. When they catch your voice on the phone, in a voice note, across a room — they don't think "I wish that sounded different." They think *more.* Play it again. Stay on the line. Tell me about your day. Nobody who loves you has ever, once, asked you for a better voice. They ask for more of the one you've got.
+I want to close this letter with the thing love actually says. Because it's the opposite of what you've been telling yourself. Think about the people who light up when they hear from you. When they catch your voice on the phone, in a voice note, across a room — they don't think "I wish that sounded different." They think *more.* Play it again. Stay on the line. Tell me about your day. Nobody who loves you has ever, once, asked you for a better voice. They ask for more of the one you've got.
+
+There's a line in one of the oldest love poems we have. One person says to the other, simply: *let me hear your voice — your voice is sweet.* Not "fix it." Not "lower it." Let me hear it. That's the review that's been on file your whole life. You just never read it, because you were too busy writing your own.
 
 [PAUSE]
 
@@ -134,9 +137,13 @@ Jevoy.
 
 [ROOM TONE returns.]
 
-That's the letter. If it landed anywhere near you, here's the only thing I'll ask: you know somebody who apologizes every time they send a voice note. You thought of them four minutes ago. Send them this episode — that's the whole assignment. Some letters need to be forwarded.
+That's the letter. And if it landed anywhere near you, here's what I'd ask — with you, not at you.
 
-Thanks for being here. MindYourBizniz is a Palmer House conversation. New episode next week.
+Do the small thing from the letter this week. Find one old voice note and listen all the way through, like it belongs to a friend. Then come to the comments and tell me one line: the honest answer to *would I think anything was wrong if a stranger sounded like this?* That's the comment I'm actually waiting on. I'm still making friends with my own voice too, so I'll be down there reading them — I need to know it's possible as much as you do.
+
+And the share. You already know somebody who apologizes every single time they send a voice note. You thought of them four minutes ago. Send them this letter. That's the whole assignment. Some letters only work once they're forwarded.
+
+You just hadn't met your voice yet. Go on. It's been waiting a long time.
 
 [ROOM TONE — the mug lifts. Out.]
 
@@ -167,6 +174,6 @@ Thanks for being here. MindYourBizniz is a Palmer House conversation. New episod
 - Mita, Dermer & Knight (1977) — mirror-image preference
 - Holzman & Rousey (1966) — voice confrontation
 - Bone conduction — standard audiology references
-- Song of Solomon 2:14
+- Closing allusion: Song of Solomon 2:14 ("let me hear your voice, for your voice is sweet") — uncited, woven
 
-**Spoken word count: 2,521 ✓ (verified, cues excluded)**
+**Spoken word count: ~2,620 ✓ (cues excluded)**

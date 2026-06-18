@@ -1,6 +1,7 @@
 # PALMER HOUSE PRODUCTIONS — "Clients judge your business before you say a word. We redesigned those 3 seconds on camera."
 ## Format: THE EXPERIMENT · Cinematic video · 2,500+ spoken words · Standalone
-### System v3 QA: standalone ✓ no fabrication (the "before" example is built by us and labeled as such; all science public) ✓ kitchen-table voice ✓ humor ✓ named examples ✓ wonder turn ✓ close: secular (verse removed — re-add later) ✓ CTA: strategy call + bring your first 10 seconds ✓
+### System v3 QA: standalone ✓ no fabrication (the "before" example is built by us and labeled as such; all science public) ✓ kitchen-table voice ✓ plain language ✓ bro-ban ✓ humor ✓ named examples ✓ wonder turn ✓ faith quiet + woven (uncited) ✓ no verdict ✓ CTA: comment + book-a-call ("bring your first 10 seconds") + share ✓
+### Central concept (shared across all 3 versions): You're judged in a tenth of a second, before you speak — that's real machinery. The snap verdict is reliable without being valid, and it's never final; it reverses for real evidence. Business translation: your business gets thin-sliced before your pitch loads, so the first three seconds are the cheapest, highest-leverage real estate you own. Shared core research: Willis & Todorov 2006 · Ambady & Rosenthal 1993 · Thorndike 1920 · Todorov et al. 2005.
 
 ---
 
@@ -60,7 +61,6 @@ Now we rebuild it. Five moves, live, in order of impact. Watch how cheap every o
 **Move two: light like you mean it.** [VISUAL: crew swaps the lighting live — flat fluorescent to warm key light, soft, slightly side-on.] Same person. Same chair. Look at the thin slice now. This is one light and twenty minutes, and the halo effect does the rest of the work for free: "warm" upgrades to "trustworthy," "trustworthy" upgrades to "competent," competent upgrades to "worth the call." One hundred years of psychology, rented for the price of a softbox.
 
 **Move three: first words about *their* problem.** Kill "welcome to our video." The new first sentence names the thing the viewer is actually carrying: "If you've recorded the same intro fifteen times and hated every take — this is for you." Specific beats polished, every single time, because specific is what flips the only switch that matters at second three: *this is for me.*
-[SOURCE CARD on screen: Adelbert Ames Jr. — the Ames Room, 1946.]
 
 **Move four: fix the sound before the picture.** [VISUAL: a lav mic gets clipped on, live. The same sentence, before/after audio, played back to back.] Same words, same face — but now the voice arrives close, warm, present, like the founder is across the table instead of across the room. Of our four moves, this one costs the least and gets skipped the most: a hundred-dollar microphone moves the trust needle further than a three-thousand-dollar lens, because the verdict machine hears "close and clear" as "honest and near," and hears echo as distance — in every sense.
 
@@ -96,17 +96,23 @@ What you just watched — the cold read, the rebuild — is genuinely how we wor
 
 Then we rebuild the slices: the light, the lead, the first sentence, the sound, the take-one energy — and *then* the rest of the video gets built behind a first impression that's finally telling the truth about you. One session, built right, feeds everything — the long video, the shorts, the proposal clips, the homepage loop — all inheriting the same corrected first frame. And because the slices live everywhere, not just on camera, we'll flag the rest of the inventory while we're at it — the voicemail greeting, the above-the-fold, the email signature. Small fixes. Verdict-sized returns.
 
-So here's the call to action, and it has homework attached. Book a strategy call — it's a real conversation, not a sales call dressed up as one. And when you book it: *bring the first ten seconds of your current homepage video, or your latest post.* Just the first ten. We'll read it cold together, like a stranger would — and I'll tell you honestly whether your three seconds are testifying for you or against you. Either answer is worth knowing.
-
 [VISUAL: Music holds. He steps closer, off the set, more personal.]
 
-Last thing — and it reframes the whole anxious feeling around "first impressions."
+Before the ask, let me reframe the whole anxious feeling around "first impressions," because this is the part that matters.
 
-We've been taught to dread the snap judgment, to see it as a threat to defend against. But flip the frame: that first contact is the one moment you have a guest's complete, undivided attention, before the noise of everything else gets in. The instinct shouldn't be "be impressive." It should be the older, warmer thing — *hospitality.* Warmth first. Care, made visible. The light you put on, the calm in the first sentence, the trouble you took — none of that is spin. It's setting the table before the guest walks in. And a stranger can feel a set table in a tenth of a second.
+We've been taught to dread the snap judgment. To see it as a threat to defend against. But flip the frame. That first contact is the one moment you have a guest's complete, undivided attention, before the noise of everything else gets in. The instinct shouldn't be "be impressive." It should be the older, warmer thing. Hospitality. Warmth first. Care, made visible. The light you put on, the calm in the first sentence, the trouble you took — none of that is spin. It's setting the table before the guest walks in. And a stranger can feel a set table in a tenth of a second.
 
-So here's the mindset shift to walk away with. Stop thinking of your first three seconds as a hurdle to clear and start thinking of them as the single highest-leverage real estate your business owns. Everything else — the testimonials, the case studies, the pricing page — gets seen *after* the verdict's already in. Only the first frame gets to *set* the verdict. So that's where the care goes first: the light, the sound, the opening line, the human in frame. It's the cheapest fix in your whole operation and the only one that colors everything downstream.
+There's an old line about this. Gracious speech, *seasoned with salt,* making the most of the short time you get with someone. That's it exactly. Your first three seconds aren't a hurdle to clear. They're the single highest-leverage real estate your business owns. Everything else — the testimonials, the case studies, the pricing page — gets seen *after* the verdict's already in. Only the first frame gets to *set* it. So that's where the care goes first.
 
-Your next client is going to judge your business in a tenth of a second. There's nothing you can do about that, and after today, I hope you wouldn't want to — because that tenth of a second was never the threat. It's the opportunity. The fastest, cheapest, most concentrated one your business owns. Most of your competitors will never even know it exists. You do now. Make the most of it.
+So here's the ask — three parts, and I read every one.
+
+**One:** drop a comment with the thing you'd want a stranger to feel in your first three seconds. Five words or less. And if it's hard to get it that short — that's the real problem, and it's exactly what we fix.
+
+**Two:** book a strategy call with Palmer House, and bring homework — *the first ten seconds of your current homepage video, or your latest post.* Just the first ten. We'll read it cold together, like a stranger would, and I'll tell you honestly whether your three seconds are testifying for you or against you. It's a real conversation, not a sales call wearing a conversation's clothes. Link's below.
+
+**Three:** if you know a business owner whose work is way better than their first frame — the one whose lighting is testifying against them — send them this. That's the kindest correction you can hand them today.
+
+Your next client is going to judge your business in a tenth of a second. There's nothing you can do about that — and after today, I hope you wouldn't want to. That tenth of a second was never the threat. It's the opportunity. Most of your competitors will never even know it exists. You do now. Make the most of it.
 
 [VISUAL: The before/after frames side by side one final time. The "after" gently fills the screen. Palmer House logo over room tone. End.]
 
@@ -132,6 +138,6 @@ Your next client is going to judge your business in a tenth of a second. There's
 - Ambady & Rosenthal (1993) — thin slices
 - Thorndike (1920) — halo effect
 - Todorov et al. (2005), *Science* — referenced
-- Colossians 4:5–6
+- Closing allusion: Colossians 4:5–6 ("gracious speech, seasoned with salt … make the most of the time") — uncited, woven
 
-**Spoken word count: verified 2,500+ ✓ (cues excluded)**
+**Spoken word count: ~2,620 ✓ (cues excluded)**

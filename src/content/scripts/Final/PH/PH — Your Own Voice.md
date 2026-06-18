@@ -1,6 +1,7 @@
 # PALMER HOUSE PRODUCTIONS — "The real reason you keep re-recording (it's not your voice)"
 ## Format: THE COUNTDOWN · Cinematic video · 2,500+ spoken words · Standalone
-### System v3 QA: standalone ✓ no fabrication (hypotheticals framed as such; public examples) ✓ kitchen-table voice ✓ humor ✓ named examples ✓ wonder turn ✓ close: secular (verse removed — re-add later) ✓ CTA: strategy call ✓
+### System v3 QA: standalone ✓ no fabrication (hypotheticals framed as such; public examples) ✓ kitchen-table voice ✓ plain language ✓ bro-ban ✓ humor ✓ named examples ✓ wonder turn ✓ faith quiet + woven (uncited) ✓ no verdict ✓ CTA: comment + book-a-call ("bring the drafts folder") + share ✓
+### Central concept (shared across all 3 versions): Your recorded voice IS your real voice — the only one everyone else has ever heard. The cringe isn't a verdict on your voice; it's the shock of a labeling mismatch. Business translation: the founder who won't press play on themselves quietly taxes the whole business. Shared core research: bone conduction · Hughes & Harrison 2013 · Holzman & Rousey 1966.
 
 ---
 
@@ -131,17 +132,23 @@ Because here's what changes when you record with a crew instead of alone at 8:40
 
 Then somebody else owns the playback — and this is the part founders tell us they didn't expect. We watch the takes *with* you. And a strange thing happens when a professional points at your take one and says "that's the keeper": you start to borrow their ears. You hear what they hear — a person, talking well — instead of what you've always heard, which is the gap. The label comes off in real time. And one session produces a dozen pieces of content — the long cut, the shorts pulled from its best minutes, the proposal clips, the page video — which means the take tax gets paid once, professionally, instead of every Tuesday night forever. The flinch is a per-recording tax. We change how many recordings your business needs you to survive: one good honest hour, translated twelve ways.
 
-If the countdown sounded like your last six months — book a strategy call. It's a real conversation, not a sales call dressed up as one. Bring the drafts folder. We've seen worse, and we've never once agreed with a founder about their take one.
-
 [VISUAL: Music holds. He sits on the apple box, closer.]
 
-Last thing.
+Before the ask, think about what actually changed over the course of this video. Not your voice. Your voice is exactly what it was when you hit play. Not your footage. Take one is still sitting in the trash. The only thing that moved is the *label.* "I sound terrible" got peeled off. "I sound like a person, and people are fine with that person" got stuck on instead. Same recording. New label. That's the whole game. The recording was never the problem. The label was. And the label is the one part you actually control.
 
-Think about what actually changed over the course of this video. Not your voice — your voice is exactly what it was when you hit play. Not your footage — take one is still sitting in the trash. The only thing that moved is the *label.* "I sound terrible" got peeled off and replaced with "I sound like a person, and people are fine with that person." Same recording. New label. And that's the whole game, because the recording was never the problem. The label was — and the label is the one part you actually control.
+So here's the one-sentence version to keep. The editor in your head who's been killing your takes is the only person in your whole market who hears your voice wrong. Every client, every prospect, every referral — they hear the clean one. The one the mic captures. The one strangers rate above average. You've been letting the single least-qualified critic on earth run final cut on your business. Fire him. Promote take one.
 
-So before we close, here's the one-sentence version to keep: the editor in your head who's been killing your takes is the only person in your entire market who hears your voice wrong. Every client, every prospect, every referral — they all hear the clean one, the one the mic captures, the one strangers rate above average. You've been letting the single least-qualified critic on earth run final cut on your content. Fire him. Promote take one.
+There's an old line I think about with this. A young man gets handed a job way bigger than he feels ready for, and his first words are basically *I can't, I'm too young, I'm no good with words.* And the answer he gets isn't a pep talk about confidence. It's simpler than that. *Don't say you can't. I already put the words in your mouth.* The voice was never the thing standing in the way. It was the only thing that was ever going to do the work.
 
-Take one was fine. It always was. It had your voice in it — the real one, the one your clients already trust, the one this whole episode just acquitted. Press send.
+So here's the ask — three parts, and I read every one.
+
+**One:** drop a comment with the exact thing you say right before you delete a take. "I sound terrible." "Nope." "One more." Whatever yours is. Get it in writing, because that's the sentence this whole video just acquitted.
+
+**Two:** book a strategy call with Palmer House. Bring the drafts folder — the finished videos you never posted, the takes you deleted, all of it. We'll watch take one together, and I'll tell you honestly what your clients actually hear, which is never what you hear. It's a real conversation, not a sales call wearing a conversation's clothes. We've seen worse, and we've never once agreed with a founder about their take one. Link's below.
+
+**Three:** if you know a founder losing a fistfight with a phone every Tuesday night — the one with forty deleted takes and nothing posted — send them this. Tell them their voice was never the problem. That's the kindest thing you can do for them today.
+
+Take one was fine. It always was. It had your voice in it — the real one, the one your clients already trust. Press send.
 
 [VISUAL: The take counter on screen one last time. It reads: TAKE 1. A checkmark. Palmer House logo over room tone. End.]
 
@@ -166,6 +173,6 @@ Take one was fine. It always was. It had your voice in it — the real one, the 
 - Hughes & Harrison (2013) — self-voice ratings, unlabeled
 - Holzman & Rousey (1966) — voice confrontation
 - Bone conduction — standard audiology references
-- Jeremiah 1:6–8
+- Closing allusion: Jeremiah 1:6–8 ("I am only a youth … I have put my words in your mouth") — uncited, woven
 
-**Spoken word count: 2,512 ✓ (verified, cues excluded)**
+**Spoken word count: ~2,620 ✓ (cues excluded)**

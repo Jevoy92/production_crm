@@ -1,154 +1,85 @@
-# Cross-Venture Script Master Brief
+# Cross-Venture Script Master Brief — v2 (refactored to System v3)
 
-## Voice & Rules (All Versions)
-- Jevoy Palmer voice: casual, warm, "bro," "come on now," "you feel me?" Discovery frame ("I found this"). One strong landing line, not triple anaphora.
-- NO fictional anecdotes or fabricated scenes. Ground everything in real psychology, real observation, real science.
-- NO inflated claims ("I've filmed hundreds of business owners"). Jevoy is launching, has had a handful of test clients.
-- Faith arrives last, quietly, as a reframe — never announced. Genesis 1:27 or equivalent verse.
-- Props that argue, not decorate. One hero prop per script minimum.
-- The skeptic gets dignity before they get dismantled.
-- Each script: 2,500+ words, chapter-structured, teleprompter-ready (or read-ready for podcast).
-- Body/location/props are part of the script (kitchen, garage, car, porch, walking, studio).
+> **Source of truth: `06 - Script System v3 - The Operating Overview`.** The pipeline, Constitution, Default Spine, and Three Ventures table now live there. This file survives as a supporting reference: the **Verified Evidence Bank**, **Canon Lines**, and **Theme Status** — the durable inventory v3 draws from. Where this file and System v3 conflict, **v3 wins.**
 
-## Version Registers
+*Last updated: 2026-06-04*
 
-### Jevoy Palmer Version
-- Format: Cinematic monologue, 9-11 min runtime
-- Opening: Personal observation or dinner-table moment
-- Tone: "I want to investigate this" — curiosity-driven
-- Props: Demonstrated on camera with visual cues in [brackets]
-- Counterargument device: "The skeptic" — intellectual framing
-- Practical section: Frameworks, principles, identity questions
-- CTA: Soft authority — "If that question lives inside you too, stay close"
-- Stage cues: Full cinematic direction (camera angles, lighting, B-roll)
-- Music: None until Chapter 5 flip, then score the insight
-- Chapters: 7 (Felt Moment, Mechanism, Object, Counterargument, Flip, Practical, Insight+CTA+Verse)
+---
 
-### Palmer House Productions Version
-- Format: Cinematic brand monologue, 9-10 min runtime
-- Opening: The "founder's freeze" — a business owner trying to record
-- Tone: "Here's what this costs your business" — strategic
-- Props: Same objects, framed as business tools
-- Counterargument device: "The strongest objection" — respectful but firm
-- Practical section: What Palmer House actually does, the four pillars (System, Reel, Evergreen, Spotlight)
-- CTA: Direct business — "Book a strategy call. It's a real conversation, not a sales call dressed up as one."
-- Stage cues: Cinematic + crew visible in practical chapter (proof of production quality)
-- Music: Same structure — none until the flip
-- Palmer House positioning: "We help businesses become easier to understand, trust, and choose — through strategic cinematic video."
-- Palmer House is a translation company that happens to own cameras.
-- Chapters: 7 (Founder's Freeze, Mechanism in Business Terms, Object, Counterargument, Flip, What Palmer House Does, Invitation+Verse)
+## 1. What moved to System v3
 
-### MindYourBizniz Version
-- Format: Solo podcast monologue, 14-16 min runtime
-- Opening: Room tone, mug set down, "I want to talk about something"
-- Tone: "Let me sit with this" — intimate, slow
-- Props: Described verbally only (no visual demonstration — audio format)
-- Counterargument device: "The friend who pushes back" — warmer, more personal
-- Practical section: Architecture, not discipline — "the room gets built quietly"
-- CTA: Relational — "If that's the kind of conversation you've been needing, stay close"
-- Production cues: [COLD OPEN], [BEAT], [PAUSE], [MUSIC FADES IN/OUT], [ROOM TONE]
-- Music: One sustained pad under the most emotional chapter only
-- Host outro: "Thanks for being here. MindYourBizniz is a Palmer House conversation. New episode next week."
-- Include: Clip-worthy lines section (3-4 lines), Guest expansion options
-- Chapters: 7 (Cold Open + Felt Moment, Mechanism, Object in Mind, The Friend Who Pushes Back, The Flip, The Emotional Part, Invitation+Verse)
+| Old §  | Content | Now lives in v3 § |
+|---|---|---|
+| §1 Voice & Rules | Voice, fabrication ban, soft-numbers ban, launch-stage honesty, verse capstone, props that argue, skeptic dignity | **Constitution** (§2) |
+| §2 Hook Assembly | Felt moment → cliché kill → spine promise | **Default Spine — OPEN movement** (§4) |
+| §3 Version Registers | Jevoy Palmer / Palmer House / MindYourBizniz format, CTA, music, props | **The Three Ventures table** (§5) |
+| §4 Altitude Rule | "One phenomenon, three altitudes" | **Phase 0 Topic Brief — Three Angles** (§3) — same idea, now an artifact you produce per topic |
+| §8 Packaging | Title rules, ViDIQ scoring | **Titles & Packaging** (§6) |
+| §9 1-to-12 Map | Clip map requirement | **QA Checklist item 8** (§7) |
 
-## The 11 Themes (Scripts 2-12)
+The pipeline itself (Topic Brief → Titles → Scripts → Finishing, with approval gates) is **new** in v3 and overrides any previous "start from the script" workflow this brief implied.
 
-### Theme 2: Why Some Business Owners Avoid Being Visible
-- Core idea: Avoidance is often a rational but incomplete cost calculation
-- Psychology: Loss aversion (Kahneman & Tversky), risk asymmetry, visible vs invisible costs
-- Props: Scale, invoice, hidden product under a cloth
-- Visual demo: Put "fear of judgment" on one side of scale, invisible costs on other — invisible side becomes heavier
-- Analogy: "Invisibility is like leaving your storefront lights off and blaming people for not walking in"
-- Counterargument: "Visibility does have risks. Bad content can confuse people. But silence has risk too — it just sends you the invoice later."
-- Palmer House CTA: "If your business has real value but people can't see it clearly, Palmer House helps turn that value into a video presence people can understand and trust."
+---
 
-### Theme 3: How One Clip Can Redefine You Forever
-- Core idea: One clip becomes an anchor if there's no larger body of work
-- Psychology: Anchoring bias (Tversky & Kahneman, 1974), thin-slice judgments (Ambady & Rosenthal, 1993), primacy effect
-- Props: Photo frame, single puzzle piece, evidence board
-- Visual demo: Hold up one photo — "If this is all you know about me, this becomes the story." Then surround with many photos — now it's just one data point.
-- Analogy: "One clip without context is like judging a whole movie by one screenshot"
-- Counterargument: "Yes, one clip can damage you. But the answer isn't hiding from cameras. The answer is building enough context that one clip can't become your whole identity."
-- Palmer House CTA: "That's why businesses need a body of video work, not just one polished brand film. One video introduces you. A system of videos defines you."
+## 2. THE VERIFIED EVIDENCE BANK (cite these; extend, never contradict)
 
-### Theme 4: Why Context Doesn't Matter Anymore
-- Core idea: Context no longer travels with content
-- Psychology: Context collapse (danah boyd, 2008), the attention economy, first-impression formation speed (Willis & Todorov, 2006 — 100ms judgments)
-- Props: Cropped photo, torn page from a book, picture frame
-- Visual demo: Show cropped image that looks suspicious, then reveal full image. Point: first impression already happened.
-- Analogy: "A clip online is a sentence ripped out of a paragraph and handed to strangers"
-- Key line: "Strategy is not built around what people should do. It's built around what people actually do."
-- Palmer House CTA: "Palmer House helps businesses create video context before the market creates assumptions."
+This is the durable inventory. Phase 0 Topic Briefs pull evidence from here (or add to it once verified).
 
-### Theme 5: How to Control Your Narrative Before Someone Else Does
-- Core idea: You can't control perception, but you can provide better material
-- Psychology: Narrative identity theory (McAdams, 1993), framing effects (Tversky & Kahneman, 1981), impression management (Goffman, 1959)
-- Props: Blank canvas, empty frame, whiteboard, file folder
-- Visual demo: Hold empty frame — "If you don't put anything in the frame, people will." Then place images/words intentionally.
-- Analogy: "Narrative is like wet cement. If you don't leave your own imprint early, something else will."
-- Counterargument: "Narrative control can become fake, manipulative, overproduced. But I'm not talking about spin. I'm talking about evidence."
-- Palmer House CTA: "We help businesses create the evidence — the videos, stories, and explanations that make their value easier to believe."
+| Finding | Source | Use |
+|---|---|---|
+| Objective self-awareness — observation splits you into actor + monitor | Duval & Wicklund, 1972 | The core mechanism for visibility/recording topics |
+| Watching-eyes effect — photo of eyes ≈ tripled honesty-box payments | Bateson, Nettle & Roberts, 2006, *Biology Letters* (replications debated — say so) | Hero evidence; hero prop |
+| Hawthorne Effect — being studied changes behavior; effect fades with familiarity | Western Electric, 1924–1932 (original data debated — say so) | History act + "record until boring" |
+| Social facilitation — audiences improve simple tasks, impair complex ones | Zajonc, 1965, *Science* | Arms the skeptic, then resolves |
+| Mere exposure | Zajonc, 1968 | Familiarity = liking |
+| Spotlight effect — we overestimate observers ~2x (Barry Manilow shirt) | Gilovich, Medvec & Savitsky, 2000 | Cuts the imagined crowd in half |
+| 100ms trust judgments; confidence rises with exposure, verdict doesn't change | Willis & Todorov, 2006 | Palmer House cost case |
+| Thin-slice judgments — 30s silent clips predict semester-end ratings | Ambady & Rosenthal, 1993 | Body-of-work defense |
+| Voice confrontation — bone conduction makes your recorded voice sound wrong only to you | Holzman & Rousey, 1966 | "Don't trust day-one playback" |
+| Zoom mirror fatigue | Bailenson, 2021, Stanford | Self-view as constant audit |
+| White coat hypertension — observation alone moves blood pressure | AHA clinical literature | Proof it's physical |
+| Selfie deaths — 259 deaths, 137 incidents, Oct 2011–Nov 2017, mean age ~23 | Bansal et al., 2018, *J Family Med Prim Care* (AIIMS Bhopal) | Recorded Animal, Series D |
+| Invisible gorilla — sustained inattentional blindness | Simons & Chabris, 1999 | Spotlight/attention |
+| Photo-taking impairment effect | Henkel, 2014 | Memory and recording |
+| Photos can increase enjoyment (counter-evidence) | Diehl et al., 2016 | Fair-Fight format material |
+| Pratfall effect | Aronson, 1966 | Imperfection as warmth |
+| Beautiful mess effect | Bruk et al., 2018 | Vulnerability paradox |
+| Labor illusion | Buell & Norton, 2011 | Visible craft as value |
+| Hand-holding reduces threat response | Coan, 2006 | Social buffering |
+| Slant of a hill perceived steeper alone | Schnall, 2008 | Embodied social support |
+| Loneliness mortality | Holt-Lunstad, 2010 | Stakes for connection |
+| Transactive memory | Wegner, 1985 | We outsource memory to others |
+| Social comparison | Festinger, 1954 | Foundation of self-evaluation |
+| Looking-glass self | Cooley, 1902 | Audience That Doesn't Exist Yet |
+| Front stage / backstage | Goffman, 1959 | Identity chapters |
+| Parasocial relationships | Horton & Wohl, 1956 | One-sided audience bonds |
+| Self-verification | Swann | We seek reflections that confirm us |
+| Liking gap | Boothby, 2018 | People like you more than you think |
+| Mirror-image preference | Mita, Dermer & Knight, 1977 | Why selfies look "off" |
+| Voice preference when identity hidden | Hughes & Harrison, 2013 | We like our voice when we don't know it's ours |
+| Surrogation | Choi/Hecht/Tayler | Metrics replacing the thing |
+| Goodhart's law | — | Measure becomes target, ceases to be measure |
+| Expressive writing | Pennebaker | Articulation as therapy |
+| Meaning vs. happiness | Frankl, 1946 | Purpose under suffering |
 
-### Theme 6: Why You Don't Need More Content — You Need Direction
-- Core idea: Volume without direction becomes noise
-- Psychology: Paradox of choice (Barry Schwartz, 2004), cognitive load theory (Sweller, 1988), signal-to-noise ratio
-- Props: Compass, map, megaphone, scattered sticky notes
-- Visual demo: Throw sticky notes on table — "content ideas." Then arrange around one central question — now it's a system.
-- Analogy: "Posting without direction is like driving faster with no destination. Congratulations, you are now lost at 60 miles per hour."
-- Counterargument: "Consistency matters. Yes. But consistency without direction just makes confusion more frequent."
-- Palmer House CTA: "If your business has been posting but not building momentum, Palmer House can help turn scattered content into a clear video direction."
+## 3. CANON LINES (use freely, never water down)
 
-### Theme 7: How to Be Seen Without Feeling Exposed
-- Core idea: Visibility is chosen; exposure is uncontrolled
-- Psychology: Boundary theory (Ashforth, Kreiner & Fugate, 2000), self-disclosure research (Jourard, 1971), vulnerability vs. exposure distinction (Brené Brown's framework)
-- Props: Window blinds, curtain, spotlight, camera frame
-- Visual demo: Open blinds slightly — "This is not hiding." Open fully — "This is not always wisdom either." Adjust intentionally — "This is visibility with boundaries."
-- Analogy: "Healthy visibility is not a glass house. It's a well-lit room with doors."
-- Counterargument: "Not everything needs to be shared. Oversharing can weaken trust. The point isn't to become more exposed. The point is to become more accurately understood."
-- Palmer House CTA: "We help business owners show up clearly without feeling like they have to turn their whole life into content."
+- "A camera is a mirror with memory."
+- "Your alarm was built for a village. We handed it the internet."
+- "The freeze doesn't mean stop. It means this matters."
+- "Nobody freezes doing something that means nothing to them. The freeze is a compass."
+- "We blamed their courage. The problem was their setup."
+- "You can be fully visible and completely unseen at the same time." / "The applause lands on the costume."
+- "Silence is not neutral. The freeze sends invoices — silently."
+- "You don't lose those judgments. You forfeit them."
+- "Record until it's boring. Boring is the win condition."
+- "A translation company that happens to own cameras."
+- "You bring what's true. We make it visible."
 
-### Theme 8: Why Clarity Is More Powerful Than Creativity
-- Core idea: Clever gets admired; clear gets acted on
-- Psychology: Processing fluency (Reber & Schwarz, 1999), curse of knowledge (Camerer, Loewenstein & Weber, 1989), cognitive ease
-- Props: Fogged glass, clean lens, tangled cord, instruction manual
-- Visual demo: Show foggy lens, wipe clean — "Creativity gets attention. Clarity gives people sight."
-- Analogy: "Creativity is seasoning. Clarity is the meal. Nobody wants a plate of paprika."
-- Counterargument: "Creativity matters. But creativity should serve understanding, not replace it."
-- Palmer House CTA: "At Palmer House, the goal isn't just beautiful video. It's video that makes your business easier to understand, remember, and trust."
+## 4. THEME STATUS
 
-### Theme 9: What People Assume About You When You Say Nothing
-- Core idea: Silence is not neutral — it's interpreted
-- Psychology: Attribution theory (Heider, 1958), ambiguity aversion (Ellsberg, 1961), the "silence = guilt" heuristic in social cognition
-- Props: Empty chair, blank name tag, unclaimed package
-- Visual demo: Show empty chair in a meeting — "Nobody thinks the chair has no meaning. They start explaining why you're not there."
-- Analogy: "Silence is an empty billboard. You may think it says nothing, but people still read into the blank space."
-- Counterargument: "Sometimes silence is wise. But silence is only strategic when there is already enough context to hold your place."
-- Palmer House CTA: "If people don't have enough information to trust your business, they won't wait — they'll fill the gap with assumptions. Palmer House helps you fill it with evidence."
+**Topic 1 — DONE (The Watched Brain trilogy, June 2026):** "Why You Stop Being Yourself on Camera" (JP) / "The Founder's Freeze" (PH) / "The Watched Brain: Why Being Seen Feels Like Danger" (MYB). Predates System v3 — flagged for retrofit pass (standalone check, fabrication sweep, voice pass) at the moment of use, not in bulk.
 
-### Theme 10: How to Make People Understand You Faster
-- Core idea: Specificity reduces misunderstanding
-- Psychology: Concreteness effect (Paivio, 1971), dual coding theory, the "ladder of abstraction" (Hayakawa, 1939)
-- Props: Blurry photo vs. focused photo, labeled box, map legend
-- Visual demo: Hold blurry image, then focused version — "This is what specificity does."
-- Analogy: "Vague messaging is like handing someone a map with no street names."
-- Counterargument: "Some things are complex. But complexity is not an excuse for confusion. If the idea is complex, the communication has to be even clearer."
-- Palmer House CTA: "We help businesses translate complex value into clear video messages people understand faster."
+**Topics 2–12 (existing script inventory):** mapped under themes like visibility avoidance, one clip redefining you, context collapse, narrative control, direction over volume, seen without exposed, clarity over creativity, silence assumptions, faster understanding, strategy as avoidance, authority without virality. All require a **Phase 0 Topic Brief** under v3 before any further writing. Long-range body of work lives in `The Recorded Animal — Projection Map v2`.
 
-### Theme 11: Why Strategy Feels Safer Than Posting
-- Core idea: Planning can become socially acceptable avoidance
-- Psychology: Productive procrastination (Ferrari, 1992), action bias vs. inaction bias, perfectionism as self-protection (Hewitt & Flett, 1991)
-- Props: Notebook, calendar, unpublished draft, launch button
-- Visual demo: Flip through pages of plans, then show zero published posts — "This is not a strategy problem anymore. This is a courage problem wearing a blazer."
-- Analogy: "Planning forever is like packing for a trip you never take."
-- Key line: "Strategy that never becomes evidence is just anxiety with bullet points."
-- Palmer House CTA: "If your business has been planning content but not publishing with confidence, Palmer House can help turn strategy into a video system you can actually execute."
-
-### Theme 12: How to Build Authority Without Going Viral
-- Core idea: Authority is trust from the right people, not attention from everyone
-- Psychology: Social proof vs. credibility (Cialdini, 2001), trust accumulation research, the "mere exposure effect" (Zajonc, 1968), parasocial relationships
-- Props: Trust jar, bank deposits/coins, tree rings, small room vs. stadium
-- Visual demo: Drop coins into jar one by one — "This is authority." Flash bright light once — "This is virality." The jar remains.
-- Analogy: "Virality is fireworks. Authority is a lighthouse."
-- Counterargument: "Virality can help. Reach is not useless. But reach without trust is just strangers passing through."
-- Palmer House CTA: "We help businesses build video systems that create trust over time — not just attention for a moment."
+**Process from here:** never reach for a theme and start a script. Run it through the v3 pipeline — brief, gate, titles, gate, scripts, gate, finish.
