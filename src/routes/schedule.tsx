@@ -216,6 +216,8 @@ function SchedulePage() {
 
       {showPublishing && <PlatformLegend />}
 
+      <ProductionTimeline cursor={cursor} projects={projects} />
+
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-4 items-start">
         <div className="card-elevated rounded-2xl overflow-hidden">
           <div className="grid grid-cols-7 border-b border-border bg-surface-2">
@@ -313,8 +315,6 @@ function SchedulePage() {
           />
         )}
       </div>
-
-      <ProductionTimeline cursor={cursor} projects={projects} />
 
       <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px] gap-6 mt-6 items-start">
         <div>
