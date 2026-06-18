@@ -4,7 +4,7 @@ import { generateText } from "ai";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 import palmerSkillMd from "@/content/scripts/Skills/jevoy-palmer-operating-manual/references/palmer-script-writer.md?raw";
 import blueprintMd from "@/content/scripts/Strategy/00 - Script Blueprint - Award-Winning Rules.md?raw";
-import monthPlanMd from "@/content/scripts/Strategy/Month Plan - Wonder-Keyed + Mirror With Memory Reels.md?raw";
+import monthPlanMd from "@/content/scripts/Strategy/21 — Month Plan — Wonder-Keyed + Mirror With Memory Reels.md?raw";
 
 /**
  * Daily 7am AM digest generator.
