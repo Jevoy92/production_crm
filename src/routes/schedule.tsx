@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
 import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
 import { GoogleCalendarPanel } from "@/components/calendar/GoogleCalendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useStore, palColor } from "@/lib/store";
 import { useCCStore, platformColor, PLATFORMS, type Platform } from "@/lib/ccStore";
 import { getAllVentures, VENTURE_IDS } from "@/lib/ventures/profiles";
@@ -742,7 +743,13 @@ function clampPhase(
   if (ph.end < monthStart || ph.start > monthEnd) return null;
   const startDay = ph.start < monthStart ? 1 : ph.start.getDate();
   const endDay = ph.end > monthEnd ? daysInMonth : ph.end.getDate();
-  return { type: ph.type, colStart: startDay, span: Math.max(1, endDay - startDay + 1) };
+  return {
+    type: ph.type,
+    colStart: startDay,
+    span: Math.max(1, endDay - startDay + 1),
+    start: ph.start,
+    end: ph.end,
+  };
 }
 
 function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Project[] }) {
@@ -862,22 +869,83 @@ function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Proj
                     />
                   )}
                   {bars.map((b, i) => (
-                    <div
-                      key={i}
-                      className="rounded-md flex items-center px-1.5 overflow-hidden"
-                      style={{
-                        gridColumn: `${b.colStart} / span ${b.span}`,
-                        gridRow: i + 1,
-                        background: PHASE_STYLES[b.type].color,
-                      }}
-                      title={`${PHASE_STYLES[b.type].label} · ${p.title}`}
-                    >
-                      {b.span >= 3 && (
-                        <span className="text-white text-[10.5px] font-medium truncate">
+                    <Popover key={i}>
+                      <PopoverTrigger asChild>
+                        <button
+                          type="button"
+                          className="rounded-md flex items-center px-1.5 overflow-hidden text-left cursor-pointer hover:ring-2 hover:ring-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 transition-shadow"
+                          style={{
+                            gridColumn: `${b.colStart} / span ${b.span}`,
+                            gridRow: i + 1,
+                            background: PHASE_STYLES[b.type].color,
+                          }}
+                          aria-label={`${PHASE_STYLES[b.type].label} · ${p.title}`}
+                        >
+                          {b.span >= 3 && (
+                            <span className="text-white text-[10.5px] font-medium truncate">
+                              {PHASE_STYLES[b.type].label}
+                            </span>
+                          )}
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-72 p-0 overflow-hidden" align="center">
+                        <div
+                          className="px-3 py-2 text-white text-[11px] font-semibold uppercase tracking-wide"
+                          style={{ background: PHASE_STYLES[b.type].color }}
+                        >
                           {PHASE_STYLES[b.type].label}
-                        </span>
-                      )}
-                    </div>
+                        </div>
+                        <div className="p-3 space-y-2">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span
+                              className="size-2 rounded-full flex-shrink-0"
+                              style={{ background: palColor(p.palType) }}
+                            />
+                            <div className="text-[13px] font-semibold truncate">{p.title}</div>
+                          </div>
+                          <div className="text-[11.5px] text-muted-foreground">
+                            {p.palType} · {p.stage}
+                          </div>
+                          <div className="text-[11.5px]">
+                            <span className="text-muted-foreground">Dates: </span>
+                            <span className="num">
+                              {b.start.toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                              {b.start.toDateString() !== b.end.toDateString() &&
+                                ` – ${b.end.toLocaleDateString(undefined, { month: "short", day: "numeric" })}`}
+                            </span>
+                          </div>
+                          {p.shootDate && (
+                            <div className="text-[11.5px]">
+                              <span className="text-muted-foreground">Shoot: </span>
+                              <span className="num">
+                                {new Date(p.shootDate).toLocaleDateString(undefined, {
+                                  month: "short",
+                                  day: "numeric",
+                                })}
+                              </span>
+                            </div>
+                          )}
+                          {p.deliveryDate && (
+                            <div className="text-[11.5px]">
+                              <span className="text-muted-foreground">Delivery: </span>
+                              <span className="num">
+                                {new Date(p.deliveryDate).toLocaleDateString(undefined, {
+                                  month: "short",
+                                  day: "numeric",
+                                })}
+                              </span>
+                            </div>
+                          )}
+                          <Link
+                            to="/projects/$id"
+                            params={{ id: p.id }}
+                            className="mt-1 inline-flex items-center justify-center w-full rounded-md bg-primary text-primary-foreground text-[11.5px] font-medium py-1.5 hover:opacity-90"
+                          >
+                            Open project →
+                          </Link>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
                   ))}
                 </div>
               </div>
