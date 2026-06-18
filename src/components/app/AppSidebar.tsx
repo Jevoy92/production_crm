@@ -316,7 +316,11 @@ function NavRow({
   return (
     <div>
       <div className={`${cls} pr-1`}>
-        <Link to={item.to} className="flex items-center gap-3 flex-1 min-w-0">
+        <Link
+          to={item.to}
+          onClick={() => setOpen(true)}
+          className="flex items-center gap-3 flex-1 min-w-0"
+        >
           {inner}
         </Link>
         <button
