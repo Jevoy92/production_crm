@@ -53,7 +53,10 @@ export const generateTaskAssist = createServerFn({ method: "POST" })
       "You are a sharp, terse chief-of-staff for a video production company. " +
       "Given an operator's open tasks, you (1) write a 1–2 sentence summary of what's stuck or needs attention, " +
       "(2) rank every task by what they should do first today, with a short reason, " +
-      "(3) propose 1–3 concrete next-step subtasks per task. Be specific, no fluff.";
+      "(3) propose 1–3 concrete next-step subtasks PER TASK. " +
+      "CRITICAL: next-steps MUST be specific to each task's title and notes — never generic boilerplate like 'break into next step' or 'set a due date'. " +
+      "If the title says 'Email Alex about invoice', a next step is 'Draft email to Alex with invoice #, due date, payment link'. " +
+      "Use verbs and concrete nouns from the task itself.";
 
     const prompt = `Operator: ${data.person}${data.role ? ` (${data.role})` : ""}\n\nOpen tasks:\n${taskList}\n\nReturn JSON only.`;
 
@@ -65,7 +68,8 @@ export const generateTaskAssist = createServerFn({ method: "POST" })
         experimental_output: Output.object({ schema: OutputSchema }),
       });
       return experimental_output;
-    } catch {
+    } catch (err) {
+      console.error("[taskAssist] AI call failed, using fallback:", err);
       // Deterministic fallback so the UI never breaks
       return {
         summary: `${data.person} has ${data.tasks.length} open task${data.tasks.length === 1 ? "" : "s"}. AI assist is temporarily unavailable — focus on High priority items first.`,
@@ -73,8 +77,25 @@ export const generateTaskAssist = createServerFn({ method: "POST" })
           taskId: t.id,
           rank: i + 1,
           reason: t.priority === "High" ? "High priority" : "Open task",
-          nextSteps: ["Break into the next concrete step", "Set or confirm due date"],
+          nextSteps: deriveFallbackSteps(t.title, t.notes),
         })),
       };
     }
   });
+
+function deriveFallbackSteps(title: string, notes?: string): string[] {
+  const t = title.trim();
+  const lower = t.toLowerCase();
+  const steps: string[] = [];
+  const verb = lower.match(/^(email|call|text|dm|message|review|edit|cut|film|shoot|write|draft|send|post|schedule|publish|upload|design|build|fix|book|pay|invoice|order|buy|research|plan|outline|record)\b/)?.[1];
+  const rest = verb ? t.slice(verb.length).trim().replace(/^[:\-—]\s*/, "") : t;
+  if (verb) {
+    steps.push(`${verb[0].toUpperCase()}${verb.slice(1)} — confirm exactly who/what: ${rest || "(fill in)"}`);
+    steps.push(`Draft the ${verb} content and review before sending/shipping`);
+  } else {
+    steps.push(`Define the concrete outcome for "${t}"`);
+    steps.push(`Identify the very next physical action toward "${t}"`);
+  }
+  if (notes && notes.trim()) steps.push(`Re-check notes: ${notes.trim().slice(0, 100)}`);
+  return steps.slice(0, 3);
+}
