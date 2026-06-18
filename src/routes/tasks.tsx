@@ -17,19 +17,117 @@ const uid = (p: string) => `${p}_${Math.random().toString(36).slice(2, 9)}`;
 
 /** Intelligently suggest sub-tasks from the task title + phase. */
 function suggestSubtasks(task: Task, phase: string): Subtask[] {
-  const t = task.title.toLowerCase();
-  let steps: string[];
-  if (/(script|review|draft|edit v|cut)/.test(t)) steps = ["Read through the full draft", "Mark sections needing revision", "Note budget / location implications", "Send feedback to the writer"];
-  else if (/(shoot|location|permit|call sheet|rooftop|studio)/.test(t)) steps = ["Confirm location & permits", "Finalize gear pull list", "Brief crew on call time", "Lock the shot list"];
-  else if (/(invoice|payment|overdue|contract|sign-off|finance)/.test(t)) steps = ["Pull the latest statement", "Email the client contact", "Log a follow-up date", "Update the finance tracker"];
-  else if (/(upload|footage|drive|ingest|file|backup)/.test(t)) steps = ["Verify all cards offloaded", "Rename & sort into folders", "Push to the shared drive", "Confirm backup integrity"];
-  else if (/(schedule|sync|review meeting|plan)/.test(t)) steps = ["Draft the agenda", "Confirm attendees", "Share prep doc", "Capture action items"];
-  else if (/(post|insta|profile|content|buffer|repurpose)/.test(t)) steps = ["Draft the copy", "Pull / design the visual", "Schedule the post", "Add to the tracker"];
-  else steps = [`Scope "${task.title.slice(0, 40)}"`, "Do the core work", "Review for quality", "Mark complete & hand off"];
+  const steps = buildSteps(task.title);
   // first one done if the task is already in progress/done
   const startDone = task.status === "done" ? steps.length : task.status === "doing" ? 1 : 0;
   return steps.map((text, i) => ({ id: uid("st"), text, done: i < startDone }));
 }
+
+/**
+ * Build context-aware sub-tasks from the task title itself.
+ * Uses keyword buckets first, then falls back to a verb+object parse so the
+ * steps always reference what the task is actually about — never generic
+ * "Do the core work" boilerplate.
+ */
+function buildSteps(rawTitle: string): string[] {
+  const title = rawTitle.trim();
+  const t = title.toLowerCase();
+
+  // Strong-signal buckets — title-aware copy.
+  if (/\b(podcast|interview|guest)\b/.test(t)) {
+    const who = extractProper(title) ?? "the guest";
+    return [`Listen to a recent ${rawTitle.includes("podcast") ? "episode" : "interview"} to gauge fit`, `Draft pitch / response to ${who}`, "Confirm date, format & talking points", "Add to content tracker & calendar"];
+  }
+  if (/\b(respond|reply|answer|email|dm|message|substack|comment)\b/.test(t)) {
+    const who = extractProper(title) ?? "them";
+    return [`Re-read ${who}'s original message in full`, `Draft a reply addressing each question`, "Proofread tone & length", `Send to ${who} and log the thread`];
+  }
+  if (/\b(check\s*out|watch|review|look at|explore)\b/.test(t)) {
+    const link = extractUrl(title);
+    const obj = extractProper(title) ?? "the source";
+    return [link ? `Open ${link}` : `Open / find ${obj}`, `Watch or skim end-to-end, take notes`, "Capture 2–3 takeaways worth stealing", "File notes + link in the swipe folder"];
+  }
+  if (/\b(cancel|unsubscribe|pause|downgrade)\b/.test(t)) {
+    const svc = extractProper(title) ?? wordAfter(t, "cancel") ?? "the service";
+    return [`Log into ${svc} account`, "Export anything worth keeping", `Cancel / downgrade ${svc}`, "Confirm cancellation email received"];
+  }
+  if (/\b(setup|set up|configure|install|profile|account)\b/.test(t)) {
+    const what = extractProper(title) ?? wordAfter(t, "setup") ?? wordAfter(t, "set up") ?? "the tool";
+    return [`Create / open ${what} account`, "Fill out profile, bio, links & avatar", "Connect required integrations", "Test it end-to-end with a dry run"];
+  }
+  if (/\b(script|draft|outline|write)\b/.test(t)) {
+    return [`Outline the beats for "${shortTitle(title)}"`, "Write the first full pass", "Read aloud and tighten", "Send to reviewer with a deadline"];
+  }
+  if (/\b(shoot|film|record|location|permit|call sheet|rooftop|studio)\b/.test(t)) {
+    return ["Confirm location, permits & call time", "Finalize gear pull list", "Brief crew on the shot list", "Pack and prep night-before checklist"];
+  }
+  if (/\b(invoice|payment|overdue|contract|sign-?off|finance)\b/.test(t)) {
+    const who = extractProper(title) ?? "the client";
+    return [`Pull latest statement / contract for ${who}`, `Email ${who} with amount & link`, "Log a follow-up date", "Update the finance tracker"];
+  }
+  if (/\b(upload|footage|drive|ingest|backup|export)\b/.test(t)) {
+    return ["Verify all cards / files offloaded", "Rename & sort into folders", "Push to the shared drive", "Confirm backup integrity"];
+  }
+  if (/\b(schedule|sync|meeting|plan|book)\b/.test(t)) {
+    const who = extractProper(title) ?? "attendees";
+    return [`Draft agenda for "${shortTitle(title)}"`, `Confirm ${who} availability`, "Share prep doc 24h before", "Capture action items after"];
+  }
+  if (/\b(post|insta|instagram|reel|tiktok|content|buffer|repurpose|publish)\b/.test(t)) {
+    return [`Draft the copy for "${shortTitle(title)}"`, "Pull / design the visual", "Schedule the post", "Add to the tracker"];
+  }
+  if (/\b(opportunity|pr|pitch|partnership|sponsor|deal|tv show)\b/.test(t)) {
+    const who = extractProper(title) ?? "the contact";
+    return [`Research ${who} — audience, fit, recent work`, "Decide yes/no/maybe with a reason", "Reply with next-step proposal", "Add to opportunities pipeline"];
+  }
+
+  // Generic but title-aware fallback — never the same for two different tasks.
+  const verbObj = parseVerbObject(title);
+  if (verbObj) {
+    const { verb, object } = verbObj;
+    return [
+      `Clarify the goal: what does "${verb} ${object}" actually finish?`,
+      `Gather what you need to ${verb} ${object}`,
+      `${cap(verb)} ${object}`,
+      `Confirm it's done and log the outcome`,
+    ];
+  }
+  const obj = extractProper(title) ?? shortTitle(title);
+  return [
+    `Clarify what "done" looks like for ${obj}`,
+    `Pull the info / context you need for ${obj}`,
+    `Take the next concrete action on ${obj}`,
+    `Wrap up ${obj} and log the outcome`,
+  ];
+}
+
+function shortTitle(s: string) { return s.length > 48 ? s.slice(0, 45) + "…" : s; }
+function cap(s: string) { return s ? s[0].toUpperCase() + s.slice(1) : s; }
+function extractUrl(s: string): string | null {
+  const m = s.match(/https?:\/\/\S+/i);
+  return m ? m[0] : null;
+}
+function extractProper(s: string): string | null {
+  // Strip URLs, then look for a Capitalized Word that isn't the first word.
+  const cleaned = s.replace(/https?:\/\/\S+/gi, "").replace(/[.,:;!?"']/g, " ");
+  const tokens = cleaned.split(/\s+/).filter(Boolean);
+  const props = tokens.filter((w, i) => i > 0 && /^[A-Z][a-zA-Z]{1,}$/.test(w) && !STOP.has(w));
+  return props.length ? props.slice(0, 2).join(" ") : null;
+}
+function wordAfter(lower: string, kw: string): string | null {
+  const idx = lower.indexOf(kw);
+  if (idx < 0) return null;
+  const rest = lower.slice(idx + kw.length).trim().split(/\s+/)[0];
+  return rest && rest.length > 1 ? rest : null;
+}
+function parseVerbObject(title: string): { verb: string; object: string } | null {
+  const tokens = title.replace(/[.,:;!?"']/g, " ").split(/\s+/).filter(Boolean);
+  if (!tokens.length) return null;
+  const verb = tokens[0].toLowerCase();
+  const object = tokens.slice(1, 6).join(" ").trim();
+  if (!object) return null;
+  return { verb, object };
+}
+const STOP = new Set(["The", "A", "An", "And", "Or", "For", "To", "Of", "In", "On", "With", "From"]);
 
 function suggestNote(task: Task, projectTitle?: string): string {
   const where = projectTitle ? ` for ${projectTitle}` : "";
