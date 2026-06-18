@@ -270,9 +270,18 @@ function TasksPage() {
       title="Tasks"
       subtitle={`${openCount} open · ${dueToday} due today`}
       actions={
-        <Btn variant="primary" onClick={() => openNew()} className="flex items-center gap-1.5">
-          <Plus className="size-3.5" /> New Task
-        </Btn>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/focus"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-500/30 bg-brand-600/10 text-brand-400 hover:bg-brand-600/20 hover:border-brand-500/50 transition-colors text-xs font-semibold"
+            title="Open focus mode"
+          >
+            <Play className="size-3.5" /> Focus Mode
+          </Link>
+          <Btn variant="primary" onClick={() => openNew()} className="flex items-center gap-1.5">
+            <Plus className="size-3.5" /> New Task
+          </Btn>
+        </div>
       }
     >
       <div className="flex gap-6 min-h-0">
