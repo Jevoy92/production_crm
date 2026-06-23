@@ -2,7 +2,7 @@
 ## Solo Podcast Monologue | ~15 min | Intimate / single-image | CALIBRATED v4
 ### QA: bro-ban ✓ plain language (one idea/sentence) ✓ dual-audience "basically" ✓ sensory beats ✓ friend = counter-voice w/ real study, no verdict ✓ one returning image (mirror with memory) ✓ actionable CTA (no "stay close / next week") ✓ faith quiet ✓ · shares concept + core research with JP/PH ("The Mirror That Remembers")
 ### Fix log (v3): added social-facilitation / Zajonc dominant-response to unify research with JP+PH · dead close replaced with actionable CTA · plain-language pass on mechanism beats · canon lines kept ("mirror with memory," "we blamed their courage").
-### Fix log (v4 — Jevoy voice-review pass): Ch2 rewritten around a vivid "child in a room" scene; research demoted to a closing aside · Ch3 trimmed of intro repetition, replaced with a deeper look at *why* the nervous system flips (unfair judgment, no chance to clarify, uneven stakes) · Ch4 opening reset; "friend" restaged as an actual phone call; Zajonc punchline clarified (what "that" is); honesty-as-superpower beat added; "you need a person to talk to" demoted from requirement to option · Ch5 overclaims removed; chapter ends on "the match" · Ch6 first-episode-friendly intro; "like me" added; freeze sentence tightened; s-heavy "last defense" line replaced with "last chance at a defense" *(still a candidate for one more polish pass)*; clumsy closer rewritten · Ch7 reframed — discipline AND architecture, no excuses, use what you have · CTA #3 rewritten: courage *and* the room · final line kept verbatim.
+### Fix log (v4 — Jevoy voice-review pass): Ch2 rewritten around a vivid "child in a room" scene; research demoted to a closing aside · Ch3 trimmed of intro repetition, replaced with a deeper look at *why* the nervous system flips (unfair judgment, no chance to clarify, uneven stakes) · Ch4 opening reset; "friend" restaged as an actual phone call; Zajonc punchline clarified (what "that" is); honesty-as-superpower beat added; "you need a person to talk to" demoted from requirement to option · Ch5 overclaims removed; chapter ends on "the match" · Ch6 first-episode-friendly intro; "like me" added; sibilant "last defense of a self that hasn't been decided yet" rewritten clean as "your body protecting a version of you that you haven't decided on yet"; "video can't be recorded" beat corrected head-on (the camera works — the body won't perform an answer you haven't given it) · Ch7 reframed — discipline AND architecture, no excuses, use what you have; stale "+ VERSE" dropped from title · CTA #3 rewritten: courage *and* the room · final line kept verbatim.
 
 ---
 
@@ -189,7 +189,7 @@ That's not a confidence problem. That's an identity problem.
 
 And the camera, by being unmoved and unblinking and uncomfortably patient, exposes it in a way that almost nothing else does. The camera says, *show me who you are right now*, and a lot of us realize we have been carefully keeping that answer ambiguous, even from ourselves, for a long time. Because the ambiguity feels safer than the commitment. Because once you've said out loud *this is who I am, this is what I do, this is what I stand for*, you can't un-say it. The video remembers. The lens remembers. The internet remembers.
 
-So the freeze in front of the camera is not always about the camera at all. Sometimes it's your body's last chance at a defense of a self that hasn't been decided yet. *(Note: still a candidate for one more polish pass — too many S's.)* And until you sit with that question — *who am I actually trying to be on the other side of this take* — the version that ends up on the recording will keep coming out as someone else.
+So the freeze in front of the camera is not always about the camera at all. Sometimes it's your body protecting a version of you that you haven't decided on yet. The camera works. The lens works. The mic works. The body will not perform an answer you haven't given it. Until you sit with the question — *who am I actually trying to be on the other side of this take* — the version that ends up on the recording will keep coming out as someone else.
 
 [MUSIC OUT.]
 
@@ -197,7 +197,7 @@ If that's where you are, the answer isn't more gear. The answer is sitting with 
 
 ---
 
-## CHAPTER 7 — THE INVITATION + VERSE
+## CHAPTER 7 — THE INVITATION
 
 [ROOM TONE RETURNS. NO MUSIC.]
 
