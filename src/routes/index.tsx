@@ -277,6 +277,303 @@ function Panel({
   );
 }
 
+/* ---------------- Pulse Metrics (3 cards w/ corner glow + sparkline) ---------------- */
+function PulseMetrics({
+  openCount, eventsCount, highCount,
+}: { openCount: number; eventsCount: number; highCount: number }) {
+  const completionPct = openCount === 0 ? 100 : Math.max(0, Math.round(((openCount - highCount) / Math.max(openCount, 1)) * 100));
+  const stats = [
+    { label: "Open Tasks", value: openCount, hint: "Across team",
+      accent: "brand", spark: [3, 5, 4, 6, 5, 7, openCount || 1], color: "var(--brand-400)" },
+    { label: "Today's Calls", value: eventsCount, hint: "On calendar",
+      accent: "emerald", spark: [1, 2, 1, 3, 2, 4, eventsCount || 1], color: "var(--emerald)" },
+    { label: "High Priority", value: highCount, hint: `${completionPct}% on track`,
+      accent: "rose", spark: [2, 3, 2, 4, 3, 5, highCount || 1], color: "var(--rose)" },
+  ];
+  const bubble: Record<string, string> = {
+    brand: "bg-brand-500/10 group-hover:bg-brand-500/20",
+    emerald: "bg-emerald/10 group-hover:bg-emerald/20",
+    rose: "bg-rose/10 group-hover:bg-rose/20",
+  };
+  const ring: Record<string, string> = {
+    brand: "hover:border-brand-500/40",
+    emerald: "hover:border-emerald/40",
+    rose: "hover:border-rose/40",
+  };
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {stats.map((s) => (
+        <div
+          key={s.label}
+          className={`group relative overflow-hidden bg-panel border border-line rounded-2xl p-5 transition-colors ${ring[s.accent]}`}
+        >
+          <div className={`absolute -top-10 -right-10 w-28 h-28 rounded-full transition-colors ${bubble[s.accent]}`} />
+          <p className="text-[10px] font-bold uppercase tracking-wider text-lo relative">{s.label}</p>
+          <div className="flex items-end justify-between mt-2 relative">
+            <div>
+              <p className="font-display text-3xl font-bold text-hi num leading-none">
+                <AnimatedNumber value={s.value} />
+              </p>
+              <p className="text-xs text-lo mt-1.5">{s.hint}</p>
+            </div>
+            <div className="w-16 h-10 -mb-1">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={s.spark.map((v, i) => ({ i, v }))}>
+                  <Bar dataKey="v" radius={[2, 2, 0, 0]}>
+                    {s.spark.map((_, i) => (
+                      <Cell
+                        key={i}
+                        fill={i === s.spark.length - 1 ? s.color : "var(--line-2)"}
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ---------------- Today's Path — vertical guided timeline ---------------- */
+function TodaysPath({
+  phase, blocks, nowHours, events,
+}: {
+  phase: WeekDay;
+  blocks: Block[];
+  nowHours: number;
+  events: ReturnType<typeof useCalendarEvents>["data"] extends infer T ? (T extends Array<infer U> ? U[] : never[]) : never[];
+}) {
+  // Hours for each standing block id (matches the 4 phases in JEVOY_BLOCKS)
+  const HOURS: Record<string, { from: number; to: number }> = {
+    deep:    { from: 8,    to: 10.5 },
+    lead:    { from: 10.5, to: 12.5 },
+    produce: { from: 13.5, to: 16.5 },
+    review:  { from: 16.5, to: 17.5 },
+  };
+  const [checks, setChecks] = useState<Record<string, boolean>>({});
+  const toggle = (k: string) => setChecks((c) => ({ ...c, [k]: !c[k] }));
+
+  const eventsInWindow = (events ?? []).filter((e: any) => !e.allDay).map((e: any) => {
+    const d = new Date(e.start);
+    return { uid: e.uid, title: e.title, h: d.getHours() + d.getMinutes() / 60, start: d };
+  });
+
+  function statusFor(id: string): "past" | "current" | "future" {
+    const h = HOURS[id];
+    if (!h) return "future";
+    if (nowHours > h.to) return "past";
+    if (nowHours >= h.from && nowHours <= h.to) return "current";
+    return "future";
+  }
+
+  function fmt(h: number) {
+    const hh = Math.floor(h);
+    const mm = Math.round((h - hh) * 60);
+    const ampm = hh >= 12 ? "PM" : "AM";
+    const display = ((hh + 11) % 12) + 1;
+    return `${display}:${String(mm).padStart(2, "0")} ${ampm}`;
+  }
+
+  return (
+    <section className="bg-panel border border-line rounded-3xl p-6">
+      <div className="flex items-start justify-between gap-3 mb-6">
+        <div className="min-w-0">
+          <h3 className="font-display font-bold text-hi text-lg flex items-center gap-2">
+            <RouteIcon size={16} className="text-brand-400" />
+            Today's Path
+          </h3>
+          <p className="text-sm text-mid mt-0.5 truncate">{phase.title}</p>
+        </div>
+        <span className="flex items-center gap-1.5 bg-sunken border border-line px-3 py-1.5 rounded-full shrink-0">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pulse" />
+          <span className="text-[11px] font-medium text-mid">In Progress</span>
+        </span>
+      </div>
+
+      <div className="relative pl-6 space-y-7 border-l-2 border-line">
+        {blocks.map((b) => {
+          const h = HOURS[b.id];
+          const state = statusFor(b.id);
+          const range = h ? `${fmt(h.from)} – ${fmt(h.to)}` : b.time;
+          const blockEvents = h
+            ? eventsInWindow.filter((e) => e.h >= h.from && e.h <= h.to)
+            : [];
+
+          const dotBase = "absolute top-1 rounded-full border-4 border-panel flex items-center justify-center";
+          const dot =
+            state === "past" ? (
+              <span className={`${dotBase} -left-[27px] w-4 h-4 bg-emerald`}>
+                <Check size={8} className="text-white" strokeWidth={3} />
+              </span>
+            ) : state === "current" ? (
+              <>
+                <span className={`${dotBase} -left-[29px] w-5 h-5 bg-brand-500 animate-pulse`} />
+                <span className="absolute -left-[29px] top-1 w-5 h-5 rounded-full ring-4 ring-brand-500/20 pointer-events-none" />
+              </>
+            ) : (
+              <span className={`${dotBase} -left-[25px] w-3 h-3 bg-line-strong`} />
+            );
+
+          if (state === "past") {
+            return (
+              <div key={b.id} className="relative opacity-60 hover:opacity-100 transition-opacity">
+                {dot}
+                <p className="text-[11px] font-semibold text-emerald mb-1.5 num">{range}</p>
+                <div className="bg-sunken/60 rounded-2xl p-4 border border-line">
+                  <div className="flex justify-between items-start gap-3">
+                    <h4 className="font-semibold text-mid text-sm">{b.label}</h4>
+                    <span className="text-[10px] bg-zinc-800 px-2 py-0.5 rounded text-lo border border-line shrink-0">{b.duration}</span>
+                  </div>
+                  <p className="text-xs text-lo line-through mt-1">{b.objective}</p>
+                </div>
+              </div>
+            );
+          }
+
+          if (state === "current") {
+            return (
+              <div key={b.id} className="relative">
+                {dot}
+                <p className="text-[11px] font-bold text-brand-400 mb-1.5 num">
+                  {range} <span className="ml-2 text-lo font-normal">Current Session</span>
+                </p>
+                <div className="bg-gradient-to-br from-panel to-sunken rounded-2xl p-5 border border-brand-500/30 shadow-lg shadow-brand-500/5">
+                  <div className="flex justify-between items-start gap-3 mb-2">
+                    <h4 className="text-base font-bold text-hi">{b.label}</h4>
+                    <span className="text-[11px] bg-brand-500/15 text-brand-400 px-2.5 py-1 rounded-full font-semibold shrink-0">{b.duration}</span>
+                  </div>
+                  <p className="text-xs text-mid italic mb-3">{b.objective}</p>
+                  <div className="space-y-2">
+                    {b.items.map((it, i) => {
+                      const k = `${b.id}-${i}`;
+                      const on = !!checks[k];
+                      return (
+                        <button
+                          key={k}
+                          onClick={() => toggle(k)}
+                          className="flex items-start gap-3 w-full text-left group"
+                        >
+                          <span className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 ${on ? "bg-brand-600 border-brand-600" : "border-line-strong group-hover:border-mid"}`}>
+                            {on && <Check size={10} className="text-white" strokeWidth={3} />}
+                          </span>
+                          <span className={`text-sm ${on ? "text-lo line-through" : "text-mid group-hover:text-hi"} transition-colors`}>
+                            {it}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {blockEvents.length > 0 && (
+                    <div className="mt-4 pt-3 border-t border-line/60 space-y-1.5">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-lo">In this window</p>
+                      {blockEvents.map((e) => (
+                        <p key={e.uid} className="text-xs text-mid flex items-center gap-2">
+                          <Clock size={11} className="text-brand-400 shrink-0" />
+                          <span className="num text-lo shrink-0">{fmt(e.h)}</span>
+                          <span className="truncate">{e.title}</span>
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                  <div className="mt-4 pt-3 border-t border-line/60 flex items-center justify-between gap-3">
+                    <span className="text-[11px] text-lo">{b.items.filter((_, i) => checks[`${b.id}-${i}`]).length}/{b.items.length} done</span>
+                    <div className="flex-1 max-w-[160px] h-1.5 rounded-full bg-zinc-800 overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-brand-500 to-brand-400 transition-all"
+                        style={{ width: `${(b.items.filter((_, i) => checks[`${b.id}-${i}`]).length / b.items.length) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div key={b.id} className="relative opacity-85">
+              {dot}
+              <p className="text-[11px] font-semibold text-lo mb-1.5 num">{range}</p>
+              <div className="bg-sunken/40 rounded-2xl p-4 border border-line hover:border-line-strong transition-colors">
+                <div className="flex justify-between items-start gap-3">
+                  <h4 className="font-semibold text-mid text-sm">{b.label}</h4>
+                  <span className="text-[10px] bg-zinc-800 px-2 py-0.5 rounded text-lo border border-line shrink-0">{b.duration}</span>
+                </div>
+                {blockEvents.length > 0 && (
+                  <p className="text-[11px] text-mid mt-2 flex items-center gap-1.5">
+                    <Clock size={10} className="text-brand-400" />
+                    {blockEvents.length} event{blockEvents.length > 1 ? "s" : ""} scheduled
+                  </p>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Yesterday Recap (right rail) ---------------- */
+function YesterdayRecap() {
+  return (
+    <div className="bg-panel border border-line rounded-3xl p-6">
+      <div className="flex items-center gap-2 mb-3">
+        <History size={14} className="text-lo" />
+        <h3 className="font-display font-bold text-hi text-sm">Yesterday Recap</h3>
+      </div>
+      <p className="text-sm text-mid mb-4 leading-relaxed">
+        Focused on technical setup and administrative foundation. A day of "gathering" before creative pushes.
+      </p>
+      <ul className="space-y-2">
+        <Recap ok>Troubleshot Limitless pendant charging states and app integration.</Recap>
+        <Recap ok>Washington state registration mail arrived via Middesk/Gusto.</Recap>
+        <Recap>No logged shoots or completed tasks recorded.</Recap>
+      </ul>
+    </div>
+  );
+}
+
+/* ---------------- Threads to Close (right rail) ---------------- */
+function ThreadsRail({ threads }: { threads: Array<{ id: string; title: string; notes?: string; priority: string }> }) {
+  const [done, setDone] = useState<Record<string, boolean>>({});
+  return (
+    <div className="bg-panel border border-line rounded-3xl p-6">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="font-display font-bold text-hi text-sm flex items-center gap-2">
+          <ListChecks size={14} className="text-brand-400" />
+          Threads to Close
+        </h3>
+        <span className="text-[11px] text-lo">{threads.length} {threads.length === 1 ? "item" : "items"}</span>
+      </div>
+      {threads.length === 0 ? (
+        <p className="text-sm text-mid italic py-2">Nothing urgent — clear runway.</p>
+      ) : (
+        <ul className="space-y-1 -mx-2">
+          {threads.map((t) => {
+            const on = !!done[t.id];
+            return (
+              <li key={t.id}>
+                <button
+                  onClick={() => setDone((d) => ({ ...d, [t.id]: !d[t.id] }))}
+                  className="w-full flex items-start gap-3 text-left p-2 rounded-lg hover:bg-sunken transition-colors group"
+                >
+                  <span className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 ${on ? "bg-brand-600 border-brand-600" : "border-line-strong group-hover:border-mid"}`}>
+                    {on && <Check size={10} className="text-white" strokeWidth={3} />}
+                  </span>
+                  <span className={`text-sm ${on ? "text-lo line-through" : "text-mid"} truncate`}>{t.title}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 function PersonTasks({
   person, tasks,
 }: {
