@@ -96,7 +96,7 @@ function Today() {
 
   return (
     <AppShell
-      eyebrow="Today"
+      eyebrow={`Today's Vibe · ${todayPhase.phase} Day`}
       title={`${greeting}, ${firstName}`}
       subtitle={`${todayLabel}`}
       actions={
@@ -105,7 +105,7 @@ function Today() {
         </Link>
       }
     >
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="max-w-7xl mx-auto space-y-6">
         {/* Morning brief banner */}
         <div className="bg-brand-600/10 border border-brand-500/20 rounded-xl p-4 flex items-start gap-4">
           <div className="mt-1 w-8 h-8 rounded-full bg-brand-600/20 flex items-center justify-center flex-shrink-0">
@@ -124,186 +124,27 @@ function Today() {
           </div>
         </div>
 
-        {/* KPI stat strip */}
-        <StatStrip
-          openCount={openTasks.length}
-          eventsCount={todayEvents.length}
-          threadsCount={threadsToClose.length}
-          highCount={openTasks.filter((t) => t.priority === "High").length}
-        />
-
-        {/* Recap & Threads */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Panel icon={<History size={14} className="text-lo" />} iconBg="bg-zinc-800" title="Yesterday Recap">
-            <p className="text-sm text-mid mb-4">
-              Focused on technical setup and administrative foundation. A day of "gathering" before creative pushes.
-            </p>
-            <ul className="space-y-3">
-              <Recap ok>Troubleshot Limitless pendant charging states and app integration.</Recap>
-              <Recap ok>Washington state registration mail arrived via Middesk/Gusto.</Recap>
-              <Recap>No logged shoots or completed tasks recorded.</Recap>
-            </ul>
-          </Panel>
-
-          <Panel
-            icon={<Inbox size={14} className="text-brand-400" />}
-            iconBg="bg-brand-600/15"
-            title="Threads to Close"
-            badge={`${threadsToClose.length} Items`}
-          >
-            <div className="space-y-2">
-              {threadsToClose.length === 0 && (
-                <p className="text-sm text-mid py-6 text-center">Nothing urgent — clear runway.</p>
-              )}
-              {threadsToClose.map((t) => (
-                <label
-                  key={t.id}
-                  className="flex items-start gap-3 p-3 rounded-lg hover:bg-hover border border-transparent hover:border-line cursor-pointer transition-all group"
-                >
-                  <div className="w-4 h-4 rounded border border-lo mt-0.5" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-hi group-hover:text-brand-400 transition-colors truncate">
-                      {t.title}
-                    </p>
-                    {t.notes && <p className="text-xs text-lo mt-1 line-clamp-2">{t.notes}</p>}
-                  </div>
-                </label>
-              ))}
-            </div>
-          </Panel>
-        </div>
-
-        {/* Schedule & Watch-outs */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <Panel icon={<CalendarDays size={14} className="text-lo" />} iconBg="bg-zinc-800" title="Today's Plan">
-              {/* Day theme */}
-              <div className={`rounded-lg border p-3 mb-4 ${ACCENT_CLASS[todayPhase.accent]}`}>
-                <div className="flex items-center justify-between mb-1.5 gap-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider opacity-80">{todayPhase.phase} · Day Theme</span>
-                  {todayPhase.sync && <span className="text-[10px] text-mid truncate">⏰ {todayPhase.sync}</span>}
-                </div>
-                <h4 className="text-sm font-semibold text-hi mb-1.5">{todayPhase.title}</h4>
-                <ul className="space-y-1">
-                  {todayPhase.bullets.slice(0, 2).map((b, i) => (
-                    <li key={i} className="text-xs text-mid flex items-start gap-1.5">
-                      <span className="opacity-60">•</span><span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Quick stats */}
-              <div className="grid grid-cols-3 gap-2 mb-4">
-                {[
-                  { k: "Events", v: todayEvents.length, hint: "on calendar" },
-                  { k: "Threads", v: threadsToClose.length, hint: "to close" },
-                  { k: "Blocks", v: BLOCK_HOURS.length, hint: "structured" },
-                ].map((s) => (
-                  <div key={s.k} className="bg-sunken/60 border border-line rounded-lg px-3 py-2">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-lo">{s.k}</p>
-                    <p className="text-base font-bold text-hi num leading-tight">{s.v}</p>
-                    <p className="text-[10px] text-lo">{s.hint}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Timeline */}
-              <div className="mb-4">
-                <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-lo">Day Timeline</p>
-                  <p className="text-[10px] text-lo num">6 AM → 8 PM</p>
-                </div>
-                <div className="relative h-12 rounded-md bg-sunken/60 border border-line overflow-hidden">
-                  {/* Hour gridlines every 2h */}
-                  {Array.from({ length: TL_SPAN / 2 + 1 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="absolute top-0 bottom-0 w-px bg-line/60"
-                      style={{ left: `${(i * 2 * 100) / TL_SPAN}%` }}
-                    />
-                  ))}
-                  {/* Block bands */}
-                  {BLOCK_HOURS.map((b) => {
-                    const left = ((b.from - TL_START) / TL_SPAN) * 100;
-                    const width = ((b.to - b.from) / TL_SPAN) * 100;
-                    return (
-                      <div
-                        key={b.id}
-                        className={`absolute top-1.5 bottom-4 rounded border ${b.tone}`}
-                        style={{ left: `${left}%`, width: `${width}%` }}
-                        title={`${b.label} block`}
-                      >
-                        <span className="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-hi/90 truncate px-1">
-                          {b.label}
-                        </span>
-                      </div>
-                    );
-                  })}
-                  {/* Event markers */}
-                  {eventHours.map((e) => (
-                    <div
-                      key={e.uid}
-                      className="absolute top-0 bottom-4 w-0.5 bg-rose"
-                      style={{ left: `${e.pct}%` }}
-                      title={e.title}
-                    >
-                      <span className="absolute -top-0.5 -left-1 w-2.5 h-2.5 rounded-full bg-rose border-2 border-panel" />
-                    </div>
-                  ))}
-                  {/* Now indicator */}
-                  {nowHours >= TL_START && nowHours <= TL_END && (
-                    <div
-                      className="absolute top-0 bottom-4 w-px bg-brand-400 shadow-[0_0_6px_rgba(99,102,241,0.8)]"
-                      style={{ left: `${nowPct}%` }}
-                    >
-                      <span className="absolute -top-1 -left-[3px] w-1.5 h-1.5 rounded-full bg-brand-400" />
-                    </div>
-                  )}
-                  {/* Hour labels */}
-                  <div className="absolute bottom-0 inset-x-0 flex justify-between px-1 text-[9px] text-lo num">
-                    <span>6a</span><span>10a</span><span>2p</span><span>6p</span><span>8p</span>
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-[10px] font-bold uppercase tracking-wider text-lo mb-2">Scheduled · {todayEvents.length}</p>
-              {todayEvents.length === 0 ? (
-                <p className="text-xs text-mid italic py-3 text-center bg-sunken/40 border border-line rounded-lg">
-                  No calendar events today — protect the deep work block.
-                </p>
-              ) : (
-                <div className="relative pl-4 border-l border-line space-y-6 min-w-0">
-                  {todayEvents.map((e, i) => (
-                    <div key={e.uid} className="relative min-w-0">
-                      <div
-                        className={`absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-panel ${
-                          i === 0 ? "bg-brand-500 shadow-[0_0_8px_rgba(99,102,241,0.6)]" : "bg-line-strong"
-                        }`}
-                      />
-                      <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 min-w-0">
-                        <span className={`text-sm font-medium w-14 shrink-0 num ${i === 0 ? "text-brand-400 font-semibold" : "text-mid"}`}>
-                          {e.allDay
-                            ? "All day"
-                            : new Date(e.start).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
-                        </span>
-                        <div className={`min-w-0 flex-1 overflow-hidden ${i === 0 ? "bg-brand-600/5 border border-brand-500/20 rounded-lg p-3 w-full" : ""}`}>
-                          <h4 className="text-sm font-semibold text-hi mb-1 truncate">{e.title}</h4>
-                          {e.location && (
-                            <p className="text-xs text-mid truncate" title={e.location}>
-                              {/^https?:\/\//.test(e.location) ? new URL(e.location).hostname : e.location}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </Panel>
+        {/* Lively day journey: pulse + path on the left, sticky context rail on the right */}
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="flex-1 min-w-0 space-y-6">
+            <PulseMetrics
+              openCount={openTasks.length}
+              eventsCount={todayEvents.length}
+              highCount={openTasks.filter((t) => t.priority === "High").length}
+            />
+            <TodaysPath
+              phase={todayPhase}
+              blocks={JEVOY_BLOCKS}
+              nowHours={nowHours}
+              events={todayEvents}
+            />
           </div>
 
-          <WatchOuts />
+          <aside className="w-full lg:w-80 lg:shrink-0 space-y-6 lg:sticky lg:top-6 lg:self-start">
+            <WatchOuts />
+            <YesterdayRecap />
+            <ThreadsRail threads={threadsToClose} />
+          </aside>
         </div>
 
         {/* AI-assisted person task panels */}
