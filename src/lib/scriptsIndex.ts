@@ -67,7 +67,6 @@ export type ScriptVersionEntry = {
   body: string;
   originalPath: string;
   filename: string;
-  teleprompter?: string;
   teleprompterPath?: string;
   spokenWords?: number;
 };
