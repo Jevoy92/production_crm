@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { SCRIPTS, STRATEGY_DOCS, RESEARCH_DOCS, YOURBOY_DOCS } from "@/lib/scriptsIndex";
 import { Markdown } from "@/components/Markdown";
+import { copyToClipboard } from "@/lib/clipboard";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/scripts")({
   component: ScriptsLayout,
@@ -223,7 +225,8 @@ function ScriptRow({
 
   const copyText = async () => {
     if (!source) return;
-    await navigator.clipboard.writeText(source);
+    const ok = await copyToClipboard(source);
+    toast[ok ? "success" : "error"](ok ? "Copied to clipboard" : "Copy failed");
   };
   const downloadMd = () => {
     if (!entry || !source) return;
