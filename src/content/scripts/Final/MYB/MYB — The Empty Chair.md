@@ -24,6 +24,10 @@ The meeting was about the work. The room was about the chair.
 
 Stay there with me. Hold that empty chair in your mind, because we're going to sit with it the whole way through. That one empty seat is the whole episode. Because right now, somewhere, you are leaving a chair empty in front of someone. And they cannot stop writing a story into it.
 
+[BEAT]
+
+And let me say the thing up front, so you're not waiting on it. The reason you keep going quiet on people — the unanswered text, the friend you'll call "when you have the energy to do it right," the post you keep saving for when it's perfect — it is not a discipline problem. It is not a manners problem. It is a *physics* problem. Silence is not neutral. Silence is loud. The chair fills itself the second you leave it, and almost never with the story you'd want them reading. Once you see the physics, the move you've been calling "waiting for the right moment" reveals itself as the very thing causing the damage. That's the whole episode.
+
 ---
 
 You already know this feeling. You send a text. The three little dots appear. They bubble up. And then... they vanish. No reply. Just the blank screen, glowing back at you.

@@ -1,6 +1,7 @@
 # MINDYOURBIZNIZ — "Everyone reads you before you speak. The verdict is kinder than you think."
 ## Episode title: "The Trial" · Format: THE FAIR FIGHT · Audio monologue · 2,500+ spoken words · Standalone
-### System v3 QA: standalone ✓ no fabrication (courtroom is an explicit framing device; all evidence public science; Jevoy's standing facts only) ✓ kitchen-table voice ✓ humor ✓ named examples ✓ wonder turn ✓ close: secular (verse removed — re-add later) ✓ CTA: send to one person ✓
+### System v3 QA: standalone ✓ no fabrication (courtroom is an explicit framing device; all evidence public science; Jevoy's standing facts only) ✓ kitchen-table voice ✓ plain language ✓ bro-ban ✓ humor ✓ named examples ✓ wonder turn ✓ faith quiet + woven (uncited) ✓ no verdict (thesis stays a question) ✓ CTA: do-then-report + comment + in-metaphor share ✓
+### Central concept (shared across all 3 versions): You're judged in a tenth of a second, before you speak — that's real machinery. The snap verdict is reliable without being valid, and it's never final. Inner-life cut: the harshest courtroom you appear in lives in your head, not in theirs — the real juries run kinder, and the fastest reads from people who love you are warmth at a sprint. Shared core research: Willis & Todorov 2006 · Ambady & Rosenthal 1993 · Thorndike 1920 · Todorov et al. 2005 (+ Boothby 2018 liking gap, Gilovich 2000 spotlight).
 
 ---
 
@@ -20,6 +21,10 @@ Here's the case. There's a fear — and I'd bet money you carry some version of 
 That fear runs people's whole lives. It picks their outfits, kills their ideas in drafts, rewrites their texts four times, keeps them quiet in meetings where they were the smartest one in the room. So today, the fear itself takes the stand. The case: is the courtroom of other people's snap judgment actually as fast — and as cruel — as the fear claims?
 
 And I'll warn you right now, this is a genuine fight. The prosecution has *real* science, some of it shocking — this is not going to be one of those episodes where the scary side is a strawman we knock over in minute four. The fear is right about more than you'd like. But the defense... the defense has been sitting on evidence most people have never heard. Court is in session. Let's go.
+
+[BEAT]
+
+And let me say the thing up front, so you're not waiting on it. The dread you feel before walking into a room — it is not a confidence problem. It is a *forecasting* problem. Your prediction of what that room is going to do to you is wrong, in a specific and measurable direction, every single time. And once you see which direction, you stop pre-settling cases the jury would have thrown out. That's the whole episode.
 
 ---
 
@@ -127,9 +132,13 @@ So here's the last exhibit, and maybe the deepest truth under all the studies: b
 
 [PAUSE]
 
-If this episode loosened something — you know exactly who needs it. The friend who rewrites every text four times. The one who over-prepares for every room. The one who's been pre-settling cases the jury would have thrown out. Send them this. That's the whole assignment. Court's adjourned.
+So here's what I'll leave you with — with you, not at you.
 
-Thanks for being here. MindYourBizniz is a Palmer House conversation. New episode next week.
+This week, serve the sentence this court handed down: walk into one room like someone *awaited* instead of someone *audited.* Just one. Then come to the comments and tell me what the real jury did with that — what actually happened, against what the fear forecast. That's the comment I'm waiting on. I'll be down there reading them, because the prosecutor in my head still files motions every morning, and I'm checking the record right alongside you.
+
+And the share. You know exactly who needs this. The friend who rewrites every text four times. The one who over-prepares for every room. The one who's been pre-settling cases the jury would have thrown out. Send them this. That's the kindest verdict you can hand them today.
+
+Court's adjourned. And somewhere, someone who loves you is already across the hall — seeing you from a long way off, before you've said a word, and moving toward you.
 
 [ROOM TONE — the mug lifts. Out.]
 
@@ -162,6 +171,6 @@ Thanks for being here. MindYourBizniz is a Palmer House conversation. New episod
 - Boothby, Cooney, Sandstrom & Clark (2018), *Psychological Science* — the liking gap
 - Gilovich, Medvec & Savitsky (2000) — the spotlight effect
 - Susan Boyle, *Britain's Got Talent*, April 2009 (public footage)
-- Luke 15:11–24
+- Closing allusion: Luke 15:11–24 (the father who "saw him while still far off, and ran") — uncited, woven
 
-**Spoken word count: verified 2,500+ ✓ (cues excluded)**
+**Spoken word count: ~2,600 ✓ (cues excluded)**
