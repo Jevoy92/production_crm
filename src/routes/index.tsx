@@ -318,6 +318,7 @@ function Today() {
               owns={SHANNEN_OWNS}
               never={SHANNEN_NEVER}
               tasks={tasks.filter((t) => t.assigneeId === shannen.id && t.status !== "done")}
+              showCheckout
             />
           )}
           {jevoy && (
@@ -628,7 +629,7 @@ function ScriptIdeas() {
 }
 
 function PersonDay({
-  person, tasks, titleSuffix, roleLabel, blocks, week, owns, never: neverList,
+  person, tasks, titleSuffix, roleLabel, blocks, week, owns, never: neverList, showCheckout,
 }: {
   person: { id: string; name: string; role: string; initials: string; color: string };
   tasks: Array<{ id: string; title: string; priority: string; dueDate?: string; status: string; notes?: string }>;
@@ -638,6 +639,7 @@ function PersonDay({
   week: Record<number, WeekDay>;
   owns: string[];
   never: string[];
+  showCheckout?: boolean;
 }) {
   const run = useServerFn(generateTaskAssist);
   const [result, setResult] = useState<TaskAssistantResult | null>(null);
