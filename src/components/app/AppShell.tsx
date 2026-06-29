@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { Sun, Moon, Menu } from "lucide-react";
 import { AppSidebar } from "./AppSidebar";
 import { GlobalSearch, NotificationBell, TopbarQuickActions } from "./TopbarExtras";
+import { EndOfDaySync } from "./EndOfDaySync";
 import { PalsLauncher } from "@/components/pals/PalsLauncher";
 import { AnimatedNumber } from "@/components/motion/Motion";
 import { routeVariants } from "@/lib/motion";
@@ -54,6 +55,7 @@ function Topbar({
         </div>
       </div>
       <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        <EndOfDaySync />
         {actions && <div className="flex items-center gap-2">{actions}</div>}
         {actions && <span className="hidden md:block w-px h-7 bg-line mx-0.5" aria-hidden />}
         <div className="flex items-center gap-1.5 bg-sunken/60 border border-line rounded-2xl p-1">
