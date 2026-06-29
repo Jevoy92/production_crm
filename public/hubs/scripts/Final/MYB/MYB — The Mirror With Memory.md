@@ -211,6 +211,12 @@ If you got something from this — if you've been the person sitting in front of
 
 *And* — let me say this part clean, because I don't want to send you the wrong message — this is also a discipline story. Both things are true. Your body is doing real work. *And* the only way out is reps you actually put in.
 
+[BEAT]
+
+There's a rule in theater I keep coming back to. For every one minute you spend on stage, you rehearse for two hours. That sounds insane until you sit with what it's actually saying — the way you rehearse is the way you perform. If you mumble through it in your head pacing the kitchen, you're going to mumble through it in front of the camera, pacing. If you sit in the chair, hit your light, and say the words out loud at the same energy you'd use if a real person were watching — *that* is the version that's going to come out on the take. The reps aren't the takes. The reps are the room you build for the take to land in.
+
+And you don't need a stage to start. The phone in your pocket is the stage. The chair in your kitchen is the green room. Build the door yourself — quietly, on a Tuesday, with nobody watching — long before anybody asks you to walk through it.
+
 I'm not going to tell you the problem is "the architecture" and let you off the hook. The architecture *is* part of the discipline. Moving the desk is discipline. Changing the light is discipline. Setting the timer, doing one take a day for thirty days, not watching them back until the end of the month — that's all discipline. It's just discipline that takes the shape of a room instead of the shape of a willpower quote.
 
 And please — no excuses on the gear. If you have a phone, you have a camera. If the light in your kitchen is bad, put a jacket on and go shoot outside. Use the phone mic until you can afford a twenty-dollar one off Amazon. Use the twenty until you can afford the seventy. Some people start with more, some people start with less. Both groups still have to do the reps. Don't make "I don't have the right setup yet" the story you tell yourself for another year. Complete the reps with what you've got.
