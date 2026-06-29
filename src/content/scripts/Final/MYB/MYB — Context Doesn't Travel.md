@@ -10,7 +10,7 @@
 
 **JEVOY:**
 
-I want to put you on a train platform.
+Picture a train platform.
 
 [BEAT]
 
@@ -22,7 +22,7 @@ The sentence is leaving. And you're still on the platform.
 
 Stay there with me. Don't leave that platform. Because the whole episode happens right here — in the space between the sentence that's leaving, and the rest of you, the part that explains it, the part that meant it — standing still, watching it go.
 
-That sentence is going to travel. Tonight, maybe. To people who weren't in the room. People who don't know your voice. People who never heard what you said right before it, or the gentle thing you said right after.
+That sentence is going to travel. Today, maybe. To people who weren't in the room. People who don't know your voice. People who never heard what you said right before it, or the gentle thing you said right after.
 
 The clip will travel. The context won't. It stays on the platform with you.
 

@@ -16,7 +16,7 @@ It doesn't just show you back to yourself the way the bathroom mirror does — g
 
 And the bathroom mirror, you walk away from. This one, you carry in your pocket.
 
-I want to talk tonight about what living next to that mirror does to a person — and specifically, what it does to a business owner who is trying to press record. Because the usual conversation about this sounds like: *post more. Get over yourself. Get on camera. Build your personal brand. Be more authentic.* All those phrases that mean nothing because they've been said by everyone.
+Let's sit with what living next to that mirror does to a person — and specifically, what it does to a business owner who is trying to press record. Because the usual conversation about this sounds like: *post more. Get over yourself. Get on camera. Build your personal brand. Be more authentic.* All those phrases that mean nothing because they've been said by everyone.
 
 I don't want to have that conversation today.
 

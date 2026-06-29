@@ -9,28 +9,28 @@
 
 **JEVOY:**
 
-I want to put you in a meeting. A video call. You've been on a thousand of these, so this won't be hard.
+Picture a video call. You've been on a thousand of these, so this won't be hard.
 
 [BEAT]
 
 There's a budget on the screen. Somebody's sharing slides. Important stuff, allegedly. And there's a little rectangle in the corner of that call... with your own face in it.
 
-And I want you to be honest with me, because nobody admits this out loud. How much of that meeting did you spend watching the budget? And how much did you spend watching you?
+And be honest with me, because nobody admits this out loud. How much of that meeting did you spend watching the budget? And how much did you spend watching you?
 
 [BEAT]
 
 Checking your angle. Fixing how you're sitting. Noticing that thing your face does. Doing light modeling work in a meeting about Q3 expenses. [small laugh] Come on. We've all done it.
 
-Stay in that rectangle with me. We're going to come back to it the whole way through, because everything I want to say lives right there — in that little glowing square with your face trapped in the corner of it.
+Stay in that rectangle with me. We're going to come back to it the whole way through, because everything I'm trying to say lives right there — in that little glowing square with your face trapped in the corner of it.
 
 Stanford researchers actually studied this. There's a whole body of work on why video calls drain us, and one of the biggest reasons is exactly that rectangle. It's a mirror. We have never, in the history of our species, had to watch ourselves talk all day. And it turns out that's expensive.
 [SOURCE CARD on screen: Bailenson — 'Nonverbal overload' (Zoom fatigue), Technology, Mind, and Behavior, 2021.]
 
-And that rectangle is just the newest version of a much older question. The one I actually want to sit with tonight.
+And that rectangle is just the newest version of a much older question. The one I actually want to sit with.
 
 Why does being seen feel like danger?
 
-Not attacked. Not criticized. Just seen. Because you've felt this everywhere, long before video calls. The voice that changes when the boss walks in. The text you typed and deleted. The prayer you'll say alone but not out loud in a room. There's a watched version of you and an unwatched version of you, and they're not the same person. Tonight I want to find out why. There's a study with a coffee tin and a piece of paper I haven't been able to put down.
+Not attacked. Not criticized. Just seen. Because you've felt this everywhere, long before video calls. The voice that changes when the boss walks in. The text you typed and deleted. The prayer you'll say alone but not out loud in a room. There's a watched version of you and an unwatched version of you, and they're not the same person. Let's find out why. There's a study with a coffee tin and a piece of paper I haven't been able to put down.
 
 This is not the confidence-tips episode. You know me better than that by now. This is about old machinery. Let's get into it.
 
@@ -139,7 +139,7 @@ And the people who seem free under all those eyes — the performers, the natura
 
 ## CHAPTER 6: THE PART NOBODY ITEMIZES
 
-And I want to sit here a minute, because this is where it stopped being research for me and started being personal.
+And let me sit here a minute, because this is where it stopped being research for me and started being personal.
 
 [BEAT]
 

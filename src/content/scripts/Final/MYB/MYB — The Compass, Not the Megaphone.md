@@ -10,7 +10,7 @@
 
 **JEVOY:**
 
-I want to put you in a field.
+Picture an empty field.
 
 [BEAT]
 
@@ -20,7 +20,7 @@ And in your hands, you're holding a megaphone.
 
 [BEAT]
 
-Stay there with me. Don't leave that field. We're going to spend this whole episode standing right there — because everything I want to say to you tonight happens in that field, with that megaphone in your hands.
+Stay there with me. Don't leave that field. We're going to spend this whole episode standing right there — because everything I want to say happens in that field, with that megaphone in your hands.
 
 You lift it to your mouth. And you yell.
 
@@ -30,7 +30,7 @@ So you do. You yell, and you yell, and you yell.
 
 You feel the strain in your throat. You feel the weight of the megaphone in your arms by noon. You go to bed sore, and you wake up and do it again, because stopping feels like dying. And every evening the field looks exactly the way it looked that morning. Empty. Quiet. Just the grass moving.
 
-And here's the question I want to leave out here with you. We'll come back for it at the end. After a year of yelling into an empty field... who exactly was supposed to hear you?
+And here's the question to leave out here with you. We'll come back for it at the end. After a year of yelling into an empty field... who exactly was supposed to hear you?
 
 ---
 
@@ -56,7 +56,7 @@ Basically, when you give a person too much at once, they don't choose more caref
 
 [BEAT]
 
-Now, I want to be fair, because that study has a wrinkle. Later, other researchers tried to repeat it, and sometimes the effect disappeared. So it isn't a law. But here's where it holds up hardest. When the choice is *difficult.* When a person doesn't already know what they want, and the options all blur together. That's a stranger meeting you for the first time. That's the hardest choice there is. So the freeze is realest in the exact moment you most need someone to stay.
+Now, to be fair — that study has a wrinkle. Later, other researchers tried to repeat it, and sometimes the effect disappeared. So it isn't a law. But here's where it holds up hardest. When the choice is *difficult.* When a person doesn't already know what they want, and the options all blur together. That's a stranger meeting you for the first time. That's the hardest choice there is. So the freeze is realest in the exact moment you most need someone to stay.
 
 ---
 

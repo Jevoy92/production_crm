@@ -24,7 +24,7 @@ Stay there with me. Hold that smudge in your mind, because we're going to come b
 
 ---
 
-I want to tell you about a quiet thing that happened to me this week. I was scrolling. Just looking at how businesses present themselves. Pages, reels, websites.
+Here's a quiet thing I keep noticing. I'll be scrolling — just looking at how businesses present themselves. Pages, reels, websites.
 
 And I kept feeling this same fog.
 

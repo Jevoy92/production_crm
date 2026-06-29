@@ -15,7 +15,7 @@ Same chair. Same mug. Same words, more or less. Eleven takes. Ten of them got cu
 
 [BEAT]
 
-Tonight I want to talk about the ten. The cuts. The takes that didn't make it. Because I think the most interesting thing about your life right now is not what you're showing people. It's what you keep deleting.
+Let's talk about the ten. The cuts. The takes that didn't make it. Because I think the most interesting thing about your life right now is not what you're showing people. It's what you keep deleting.
 
 So let me put the question the way it actually stings. When somebody asks how you're doing, how the business is going — how long does it take you to pick the version?
 
@@ -23,11 +23,11 @@ So let me put the question the way it actually stings. When somebody asks how yo
 
 Because there's always a version. There's the real footage — the week that actually happened, the number that actually came in, the night you actually had. And then there's the cut. The edit. "Busy, man. Busy but good." We answer like a movie trailer. All the strongest frames, none of the middle.
 
-Hold onto that — the trailer and the whole film. We're going to come back to it the whole way through, because that's the gap I want to live in tonight. The trailer you hand people. And the film almost nobody gets to see.
+Hold onto that — the trailer and the whole film. We're going to come back to it the whole way through, because that's the gap I want to live in. The trailer you hand people. And the film almost nobody gets to see.
 
-And I want to be clear what this episode is not. This is not the "be vulnerable, share your truth" episode. Come on now. That advice got flattened into a content strategy, and half the vulnerability online is just marketing with tears in it. You know it. I know it.
+And let me be clear what this episode is not. This is not the "be vulnerable, share your truth" episode. Come on now. That advice got flattened into a content strategy, and half the vulnerability online is just marketing with tears in it. You know it. I know it.
 
-What I want to do instead is investigate the cut itself. Why we do it. There's a study with the most beautiful name I've ever heard in psychology, and it proves, with data, that you are wrong about how people see your unedited self. Wrong in a specific, measurable direction. Let's sit with it.
+What I'd rather do is investigate the cut itself. Why we do it. There's a study with the most beautiful name I've ever heard in psychology, and it proves, with data, that you are wrong about how people see your unedited self. Wrong in a specific, measurable direction. Let's sit with it.
 
 [BEAT]
 

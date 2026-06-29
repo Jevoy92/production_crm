@@ -10,23 +10,21 @@
 
 **JEVOY:**
 
-I sent a voice note to a friend of mine last Tuesday. Brilliant guy. Runs a real business. Helps real people. I asked him one question:
+Think of someone you know who built something good. A real service. Real customers. Real proof it works. Now try to find them online.
 
-*"Send me the link to your latest video. I want to share it."*
-
-It's Sunday. He hasn't answered me. He's read every other message I've sent him this week. He hasn't answered that one.
+You can't. Not really. A half-finished page. A profile that hasn't moved in a year. No latest video, because there hasn't been a latest video in eleven months.
 
 [BEAT]
 
-And the wild thing is — I know exactly why. I've been him. You've been him. There's no latest video. There hasn't been one in eleven months. And the reason is not what he would say out loud. The reason is the thing I want to sit with tonight, because I think it's quietly running more businesses into the ground than recessions, bad markets, and burnout combined. It's the kind of thing that doesn't announce itself when it walks into the room, but it sits in the corner and dictates how you move, how you speak, and ultimately, how you build.
+And here's the wild part — you already know exactly why. Because you've been them. I've been them. The reason isn't what we'd say out loud. The reason is the thing I want to sit with, because I think it's quietly running more businesses into the ground than recessions, bad markets, and burnout combined. It's the kind of thing that doesn't announce itself when it walks into the room, but it sits in the corner and dictates how you move, how you speak, and ultimately, how you build.
 
 [BEAT]
 
-I've been talking to a few business owners lately. Good people, who built something real. A service that actually helps, a product that actually works. But when I ask them, "Where can I see this online? Where's the proof?"... they freeze.
+Think about the business owners you know. Good people, who built something real. A service that actually helps, a product that actually works. But ask any of them, "Where can I see this online? Where's the proof?" — and watch them freeze.
 
-They give me the list. You know the list. We've all recited it. "I don't have the right gear yet." "I need to lose ten pounds first." "I don't know what to say." "The algorithm's weird right now anyway." "I'm waiting on the rebrand."
+You know the list. We've all recited it. "I don't have the right gear yet." "I need to lose ten pounds first." "I don't know what to say." "The algorithm's weird right now anyway." "I'm waiting on the rebrand."
 
-But come on now. We both know that's not it. That's the surface stuff. That's the polite excuse we give so we don't have to say the real thing out loud. The real thing is that being visible feels dangerous. It feels like exposure. So we choose invisibility. We tell ourselves it's a strategic decision. We tell ourselves we're being careful. But I want to investigate this. Because I think we're doing the math wrong. The equation we use to weigh the risk is broken in three specific places. And tonight I want to show you all three.
+But come on now. We both know that's not it. That's the surface stuff. That's the polite excuse we give so we don't have to say the real thing out loud. The real thing is that being visible feels dangerous. It feels like exposure. So we choose invisibility. We tell ourselves it's a strategic decision. We tell ourselves we're being careful. But let me investigate this with you. Because I think we're doing the math wrong. The equation we use to weigh the risk is broken in three specific places. And I want to walk you through all three.
 
 [PAUSE — 3 seconds]
 
