@@ -164,6 +164,78 @@ export type Database = {
         }
         Relationships: []
       }
+      research_assets: {
+        Row: {
+          caption: string | null
+          card_id: string
+          created_at: string
+          created_by: string | null
+          id: string
+          kind: string
+          mime_type: string | null
+          og_image: string | null
+          og_title: string | null
+          source_url: string | null
+          storage_path: string | null
+          theme_no: string
+        }
+        Insert: {
+          caption?: string | null
+          card_id: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind: string
+          mime_type?: string | null
+          og_image?: string | null
+          og_title?: string | null
+          source_url?: string | null
+          storage_path?: string | null
+          theme_no: string
+        }
+        Update: {
+          caption?: string | null
+          card_id?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind?: string
+          mime_type?: string | null
+          og_image?: string | null
+          og_title?: string | null
+          source_url?: string | null
+          storage_path?: string | null
+          theme_no?: string
+        }
+        Relationships: []
+      }
+      research_checklist: {
+        Row: {
+          checked: boolean
+          id: string
+          item_key: string
+          theme_no: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          checked?: boolean
+          id?: string
+          item_key: string
+          theme_no: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          checked?: boolean
+          id?: string
+          item_key?: string
+          theme_no?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       studio_messages: {
         Row: {
           content: string

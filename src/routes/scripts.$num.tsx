@@ -1,9 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, Copy, Download, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { ArrowLeft, Copy, Download, ExternalLink, FileText, Images } from "lucide-react";
 import { Shell } from "@/components/dashboard/Shell";
 import { Btn } from "@/components/ui-bits/Modal";
 import { Markdown } from "@/components/Markdown";
 import { findScript, VERSION_LABEL, type ScriptVersion } from "@/lib/scriptsIndex";
+import { ResearchPack } from "@/components/research/ResearchPack";
 import { copyToClipboard } from "@/lib/clipboard";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -28,6 +30,7 @@ function ScriptDetail() {
   const { v } = Route.useSearch() as { v: ScriptVersion };
   const navigate = useNavigate();
   const script = findScript(num);
+  const [view, setView] = useState<"script" | "research">("script");
 
   if (!script) {
     return (
@@ -90,7 +93,35 @@ function ScriptDetail() {
         </>
       }
     >
-      {/* Tabs */}
+      {/* View tabs: script body vs. research pack */}
+      <div className="card-elevated rounded-2xl p-1 mb-4 inline-flex gap-1">
+        <button
+          onClick={() => setView("script")}
+          className={`h-8 px-3 rounded-lg text-[12px] font-medium flex items-center gap-1.5 transition-colors ${
+            view === "script"
+              ? "bg-primary text-primary-foreground"
+              : "text-muted-foreground hover:text-foreground hover:bg-surface-2"
+          }`}
+        >
+          <FileText className="size-3.5" /> Script
+        </button>
+        <button
+          onClick={() => setView("research")}
+          className={`h-8 px-3 rounded-lg text-[12px] font-medium flex items-center gap-1.5 transition-colors ${
+            view === "research"
+              ? "bg-primary text-primary-foreground"
+              : "text-muted-foreground hover:text-foreground hover:bg-surface-2"
+          }`}
+        >
+          <Images className="size-3.5" /> Research & B-roll
+        </button>
+      </div>
+
+      {view === "research" ? (
+        <ResearchPack themeNo={script.num} />
+      ) : (
+        <>
+      {/* Venture tabs */}
       <div className="card-elevated rounded-2xl p-1 mb-6 inline-flex flex-wrap gap-1">
         {(["jevoy", "palmer-house", "mindyourbizniz"] as ScriptVersion[]).map((b) => {
           const has = Boolean(script.versions[b]);
@@ -133,6 +164,8 @@ function ScriptDetail() {
           </div>
         )}
       </div>
+        </>
+      )}
     </Shell>
   );
 }
