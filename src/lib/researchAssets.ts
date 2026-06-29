@@ -42,8 +42,10 @@ export async function listAssets(themeNo: string): Promise<ResearchAsset[]> {
     const { data: signed } = await supabase.storage
       .from(BUCKET)
       .createSignedUrls(paths, 60 * 60);
-    const map = new Map(
-      (signed ?? []).map((s) => [s.path as string, s.signedUrl]),
+    const map = new Map<string, string>(
+      (signed ?? [])
+        .filter((s) => s.path && s.signedUrl)
+        .map((s) => [s.path as string, s.signedUrl as string]),
     );
     for (const r of rows) {
       if (r.storage_path) r.display_url = map.get(r.storage_path);
