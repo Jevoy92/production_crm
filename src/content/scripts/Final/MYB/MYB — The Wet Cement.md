@@ -10,7 +10,7 @@
 
 **JEVOY:**
 
-There's a handprint in a sidewalk down the block from where I grew up.
+There's a handprint pressed into a sidewalk somewhere in your city.
 
 [BEAT]
 
