@@ -36,6 +36,10 @@ This is not the confidence-tips episode. You know me better than that by now. Th
 
 [BEAT]
 
+And let me say the thing up front, so you're not waiting on it. The tightness you feel the second a lens turns on — it is not a confidence problem. It is a *physics* problem. There's a tripwire in your nervous system that's been there since the campfire, and it fires whether the eyes are real, imagined, or printed on a piece of paper above a coffee tin. Once you see the wiring, the freeze stops feeling like a verdict on who you are, and starts feeling like a thing you can actually work with. That's the whole episode.
+
+[BEAT]
+
 ---
 
 ## CHAPTER 2: TWO JOBS AT ONCE
