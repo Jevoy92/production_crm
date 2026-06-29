@@ -34,7 +34,7 @@ Now, I know what you might be thinking — because it's what I'd be thinking. "O
 
 So let me tell you about a study, because somebody actually tested your theory — and the result is my favorite plot twist in all of this. And barely anyone knows about it.
 
-Two researchers — Hughes and Harrison. They had people listen to a stack of voice recordings and rate them. Just rate the voices — how pleasant, how attractive does each one sound. And hidden inside everybody's stack, unlabeled, no warning... was their own voice.
+Researchers ran a blind test. They had people listen to a stack of voice recordings and rate them. Just rate the voices — how pleasant, how attractive does each one sound. And hidden inside everybody's stack, unlabeled, no warning... was their own voice.
 
 Now if your theory is right — if your voice is genuinely bad and you're just the brave one willing to admit it — then people should rate their own voice low even when they don't recognize it. The badness should show up with or without the label.
 
@@ -44,7 +44,7 @@ Do you understand what that means? You've been heckling a performer that you'd a
 
 And here's the quiet good news hiding inside that, the part almost nobody points out: surprise has a shelf life. The first time you hear the recording, it's a stranger. The fifth time, it's a little less of a stranger. The twentieth time, it's just... you, on a Tuesday. The thing you've been calling a permanent flaw is actually a countdown that's already running — you've just been hitting stop at second one, every single time, and calling that the verdict. It was never the verdict. It was the trailer.
 
-And in case you think this is only an ears thing — it's not. 1977, three researchers — Mita, Dermer, and Knight — ran the same trick on faces. They showed people two photos of themselves: the real one, and the mirror-flipped one. People preferred the flipped one — the bathroom-mirror version they'd seen every day of their lives. But their friends, shown the same two photos? The friends preferred the real one. The one they'd actually been looking at across the table all those years.
+And in case you think this is only an ears thing — it's not. Researchers ran the same trick on faces. They showed people two photos of themselves: the real one, and the mirror-flipped one. People preferred the flipped one — the bathroom-mirror version they'd seen every day of their lives. But their friends, shown the same two photos? The friends preferred the real one. The one they'd actually been looking at across the table all those years.
 
 Same pattern, both senses. Everybody loves the version they've been exposed to. You've been exposed to the remix. The world's been exposed to you. And the world, I need you to notice, has voted yes.
 
@@ -58,7 +58,7 @@ I know it too — and let me tell you why I get to talk about this. I'm Jamaican
 
 And here's a piece of the deeper thing nobody warns you about. One day — it happens to almost everybody, somewhere in your thirties usually — you hear a recording of yourself and you don't hear a stranger. You hear your parent. The exact intonation. The way they answer the phone. Their laugh, coming out of your chest. And it's disorienting and it's holy all at once, because you realize the voice you've been criticizing all these years isn't even entirely yours — it's an inheritance. It's your mother's patience and your father's emphasis and your grandmother's way of landing a story, passed down through ten thousand dinners, wearing your throat. You've been heckling a family heirloom.
 
-The deeper thing is this: that recording is the closest you ever come to meeting yourself the way other people meet you. From the outside. Researchers were writing about this back in 1966 — Holzman and Rousey, they called it "voice confrontation" — the jolt isn't only the missing bass. It's that for three seconds, you are a stranger at your own front door. And most of us, when we meet that stranger... we're rude to them. Instantly. We criticize this person before they finish a sentence. We say things about them — "ugh, I hate them" — that we would never let anyone say about a friend.
+The deeper thing is this: that recording is the closest you ever come to meeting yourself the way other people meet you. From the outside. Researchers had a name for this decades ago — "voice confrontation" — the jolt isn't only the missing bass. It's that for three seconds, you are a stranger at your own front door. And most of us, when we meet that stranger... we're rude to them. Instantly. We criticize this person before they finish a sentence. We say things about them — "ugh, I hate them" — that we would never let anyone say about a friend.
 
 And I want to ask you the question this whole thing has been walking toward:
 
@@ -89,3 +89,26 @@ Go meet it. It's been carrying your whole life out to the people you love, faith
 If this landed anywhere near you, here's the only thing I'll ask. You know somebody who apologizes every single time they send a voice note. You thought of them four minutes ago. Send them this — that's the whole assignment. Some things you just pass along.
 
 The voice you've got is the one they already love. Go give it to them.
+
+1. "The one who heard yourself on a recording and made the face"
+2. "A private edition of yourself — one copy ever pressed, audience of one"
+3. "That stranger is the only version of you anyone else has ever heard"
+4. "You are the only person on earth who has never heard your real voice"
+5. The 2013 blind test — "you've been heckling a performer you'd applaud if you didn't know them"
+6. "You don't hate your voice. You hate surprise."
+7. The mirror study — "the world has voted yes"
+8. The Witherspoon stumble, left in — "that's exactly the take you would have deleted"
+9. "For three seconds, you are a stranger at your own front door"
+10. The stranger's résumé — "representing you magnificently for decades"
+11. "Quit telling your friends they have bad taste in voices"
+12. "I just hadn't met my voice yet."
+
+- A voice coach or speech pathologist on what actually changes when people "find" their voice (spoiler: mostly the relationship, not the sound)
+- A podcaster/broadcaster on the cringe-expiration timeline, honestly told
+- A linguist on accents, code-switching, and the voices we inherit vs. the ones we choose
+
+- Hughes & Harrison (2013) — unlabeled self-voice ratings
+- Mita, Dermer & Knight (1977) — mirror-image preference
+- Holzman & Rousey (1966) — voice confrontation
+- Zajonc (1968) — mere exposure effect
+- Bone conduction — standard audiology references
