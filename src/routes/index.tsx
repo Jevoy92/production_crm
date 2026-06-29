@@ -834,6 +834,8 @@ function PersonDay({
       </div>
 
       {/* Open tasks assigned in app */}
+      {showCheckout && <DailyCheckout personName={person.name} />}
+
       {tasks.length > 0 && (
         <div className="mt-4 pt-4 border-t border-line">
           <p className="text-[10px] font-bold uppercase tracking-wider text-lo mb-2">Assigned in app · {tasks.length}</p>
