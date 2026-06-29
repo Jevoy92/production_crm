@@ -773,8 +773,8 @@ function PersonDay({
   const [loading, setLoading] = useState(false);
   // Checked subtasks reset daily. Persisted under a date-stamped key so reloads
   // within the same day keep state, but a new day starts fresh.
-  const today = new Date().toISOString().slice(0, 10);
-  const checkedKey = `dayChecked:${person.id}:${today}`;
+  const todayKey = new Date().toISOString().slice(0, 10);
+  const checkedKey = `dayChecked:${person.id}:${todayKey}`;
   const [checked, setChecked] = useState<Record<string, boolean>>(() => {
     if (typeof window === "undefined") return {};
     try { return JSON.parse(localStorage.getItem(checkedKey) ?? "{}"); } catch { return {}; }
