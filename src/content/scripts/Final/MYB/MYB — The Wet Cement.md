@@ -10,7 +10,7 @@
 
 **JEVOY:**
 
-Picture a handprint.
+There's a handprint in a sidewalk down the block from where I grew up.
 
 [BEAT]
 
