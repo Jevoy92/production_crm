@@ -771,7 +771,26 @@ function PersonDay({
   const run = useServerFn(generateTaskAssist);
   const [result, setResult] = useState<TaskAssistantResult | null>(null);
   const [loading, setLoading] = useState(false);
-  const [checked, setChecked] = useState<Record<string, boolean>>({});
+  // Checked subtasks reset daily. Persisted under a date-stamped key so reloads
+  // within the same day keep state, but a new day starts fresh.
+  const todayKey = new Date().toISOString().slice(0, 10);
+  const checkedKey = `dayChecked:${person.id}:${todayKey}`;
+  const [checked, setChecked] = useState<Record<string, boolean>>(() => {
+    if (typeof window === "undefined") return {};
+    try { return JSON.parse(localStorage.getItem(checkedKey) ?? "{}"); } catch { return {}; }
+  });
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try { localStorage.setItem(checkedKey, JSON.stringify(checked)); } catch {}
+    // Clean up any prior-day checked entries for this person.
+    try {
+      const prefix = `dayChecked:${person.id}:`;
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(prefix) && k !== checkedKey) localStorage.removeItem(k);
+      }
+    } catch {}
+  }, [checked, checkedKey, person.id]);
 
   // Per-person editable overrides of the playbook items, persisted to localStorage.
   // Map shape: { [blockId]: string[] }. Missing key = use the source b.items.
