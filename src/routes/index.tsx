@@ -856,8 +856,9 @@ function PersonDay({
   }
 
   const blockProgress = blocks.map((b) => {
-    const total = b.items.length;
-    const done = b.items.reduce((n, _it, i) => n + (checked[`${b.id}-${i}`] ? 1 : 0), 0);
+    const list = itemsFor(b);
+    const total = list.length;
+    const done = list.reduce((n, _it, i) => n + (checked[`${b.id}-${i}`] ? 1 : 0), 0);
     return { id: b.id, done, total };
   });
   const totalItems = blockProgress.reduce((n, p) => n + p.total, 0);
