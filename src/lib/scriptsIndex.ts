@@ -22,10 +22,9 @@ const mybRaw = import.meta.glob("/src/content/scripts/Final/MYB/*.md", {
   import: "default",
   eager: true,
 }) as EagerMap;
-const teleprompterRaw = import.meta.glob(
-  "/src/content/scripts/Final/Teleprompter/*.txt",
-  { query: "?raw", import: "default", eager: true },
-) as EagerMap;
+// Teleprompter files are served from /public/hubs/scripts/Final/Teleprompter/
+// directly — do NOT eager-bundle them, they bloat the SSR chunk to ~2MB and
+// crash the Nitro build with a V8 JSON parse abort.
 
 // Eager-load reference docs too — lazy chunks with spaces in filenames
 // were failing to resolve at runtime, leaving the reader blank.
@@ -68,7 +67,6 @@ export type ScriptVersionEntry = {
   body: string;
   originalPath: string;
   filename: string;
-  teleprompter?: string;
   teleprompterPath?: string;
   spokenWords?: number;
 };
@@ -126,14 +124,10 @@ export const SCRIPTS: ScriptEntry[] = manifest.themes.map((t) => {
     const body = lookupByBasename(map, file);
     if (!body) continue;
     const teleFile = v.teleprompter?.split("/").pop();
-    const teleBody = teleFile
-      ? lookupByBasename(teleprompterRaw, teleFile)
-      : undefined;
     versions[VENTURE_TO_BRAND[key]] = {
       body,
       filename: file,
       originalPath: `/hubs/scripts/Final/${VENTURE_FOLDER[key]}/${encodeURIComponent(file)}`,
-      teleprompter: teleBody,
       teleprompterPath: teleFile
         ? `/hubs/scripts/Final/Teleprompter/${encodeURIComponent(teleFile)}`
         : undefined,

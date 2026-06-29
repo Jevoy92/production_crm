@@ -244,14 +244,11 @@ function ScriptRow({
     URL.revokeObjectURL(url);
   };
   const downloadTeleprompter = () => {
-    if (!entry?.teleprompter) return;
-    const blob = new Blob([entry.teleprompter], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
+    if (!entry?.teleprompterPath) return;
     const a = document.createElement("a");
-    a.href = url;
+    a.href = entry.teleprompterPath;
     a.download = entry.filename.replace(/\.md$/, " — TELEPROMPTER.txt");
     a.click();
-    URL.revokeObjectURL(url);
   };
 
   return (
@@ -365,7 +362,7 @@ function ScriptRow({
                 <Btn variant="subtle" onClick={downloadMd} className="flex items-center gap-1.5 h-7 text-[11px]">
                   <Download className="size-3" /> .md
                 </Btn>
-                {entry.teleprompter && (
+                {entry.teleprompterPath && (
                   <Btn variant="subtle" onClick={downloadTeleprompter} className="flex items-center gap-1.5 h-7 text-[11px]">
                     <Download className="size-3" /> Teleprompter
                   </Btn>
