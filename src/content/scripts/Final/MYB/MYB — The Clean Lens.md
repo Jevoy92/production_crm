@@ -127,6 +127,10 @@ That's the grease on the lens. It's ego, wearing a nice coat, calling itself cra
 
 [BEAT]
 
+And here's the part that actually moved the needle for me, when I finally heard it said plain. When you're trying to sound impressive, every single thought in your head is *me, me, me.* What will they think of me. Did that land. Did I look smart. There is no room in that head for the person on the other side. The second you stop trying to be admired and start trying to be *understood,* the camera turns around. The attention goes out instead of in. And the weird thing is, that's also when the nerves drop — because you finally have a job to do that isn't about you.
+
+[BEAT]
+
 Real trust was never built by sounding smart. It's built by being understood. By one clear sentence somebody gets in a single breath, and repeats to a friend. Creativity gets you attention. Clarity gives people sight.
 
 Think about it like a good meal. I love when a chef knows how to use spices. But creativity is the seasoning. Clarity is the meal. And nobody — no matter how hungry — wants to sit down and be served a plate of pure paprika. You have to give them something to actually eat first. The plain, filling, true thing. Then the subtle notes can do their work. We keep serving people seasoning and wondering why they leave the table still hungry.

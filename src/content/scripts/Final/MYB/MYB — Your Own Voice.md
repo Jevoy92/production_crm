@@ -76,6 +76,12 @@ It didn't. People rated their own voices *higher* than the other voices in the s
 
 Do you understand what that means? You've been heckling a performer that you'd applaud if you didn't know them. The voice was never the problem. The *label* was the problem. The cringe isn't a verdict on the sound — it's the shock of the gap, the difference between the private bass edition you expected and the public edition that showed up. You don't hate your voice. You hate *surprise.*
 
+[BEAT]
+
+And while we're here, let me give you a sister-truth that runs on the exact same wiring. Mel Robbins says this and it stuck with me — nerves and excitement are the *same physical state.* Same racing heart. Same tight chest. Same sweaty palms. The body cannot tell the two apart. The only thing that decides which one you're having is the *label your brain slaps on it.* Same physiology, two completely different experiences, separated by one word.
+
+Hear what I'm saying. The thing you call "I hate my voice" and the thing you'd call "huh, that's interesting, that's what I actually sound like" — those are the same recording. Same frequencies. Same person. The only difference is which word you reach for in the half-second after you hear it. You have been reaching for the same word since middle school, automatically, and calling it taste. It isn't taste. It's a label. And labels can be swapped.
+
 And in case you think this is only an ears thing — it's not. 1977, three researchers — Mita, Dermer, and Knight — ran the same trick on faces. They showed people two photos of themselves: the real one, and the mirror-flipped one. People preferred the *flipped* one — the bathroom-mirror version they'd seen every day of their lives. But their friends, shown the same two photos? The friends preferred the *real* one. The one they'd actually been looking at across the table all those years.
 [SOURCE CARD on screen: Mita, Dermer & Knight — mirror-image preference, JPSP, 1977.]
 
