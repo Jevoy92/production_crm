@@ -5,7 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import {
   Sparkles, History, CircleCheck, Info, Inbox,
   CalendarDays, TriangleAlert, Lightbulb, ChevronLeft, ChevronRight,
-  Plus, ListChecks, Loader2, Wand2,
+  Plus, ListChecks, Loader2, Wand2, Route as RouteIcon, Check, Clock,
 } from "lucide-react";
 import { AppShell } from "@/components/app/AppShell";
 import { useStore } from "@/lib/store";
@@ -70,33 +70,14 @@ function Today() {
   // Today's high-level plan context (phase, theme, blocks)
   const dow = new Date().getDay();
   const todayPhase: WeekDay = JEVOY_WEEK[dow] ?? JEVOY_WEEK[1];
-  // Hour ranges for the 4 standing blocks (6am→8pm window)
-  const TL_START = 6;
-  const TL_END = 20;
-  const TL_SPAN = TL_END - TL_START;
-  const BLOCK_HOURS: { id: string; label: string; from: number; to: number; tone: string }[] = [
-    { id: "deep",    label: "Deep",    from: 8,    to: 10.5, tone: "bg-brand-500/35 border-brand-500/50" },
-    { id: "lead",    label: "Lead",    from: 10.5, to: 12.5, tone: "bg-amber-500/30 border-amber-500/50" },
-    { id: "produce", label: "Produce", from: 13.5, to: 16.5, tone: "bg-violet-500/30 border-violet-500/50" },
-    { id: "review",  label: "Review",  from: 16.5, to: 17.5, tone: "bg-emerald/30 border-emerald/50" },
-  ];
   const nowHours = (() => {
     const d = new Date();
     return d.getHours() + d.getMinutes() / 60;
   })();
-  const nowPct = Math.max(0, Math.min(100, ((nowHours - TL_START) / TL_SPAN) * 100));
-  const eventHours = todayEvents
-    .filter((e) => !e.allDay)
-    .map((e) => {
-      const d = new Date(e.start);
-      const h = d.getHours() + d.getMinutes() / 60;
-      return { uid: e.uid, title: e.title, h, pct: ((h - TL_START) / TL_SPAN) * 100 };
-    })
-    .filter((x) => x.pct >= 0 && x.pct <= 100);
 
   return (
     <AppShell
-      eyebrow="Today"
+      eyebrow={`Today's Vibe · ${todayPhase.phase} Day`}
       title={`${greeting}, ${firstName}`}
       subtitle={`${todayLabel}`}
       actions={
@@ -105,7 +86,7 @@ function Today() {
         </Link>
       }
     >
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="max-w-7xl mx-auto space-y-6">
         {/* Morning brief banner */}
         <div className="bg-brand-600/10 border border-brand-500/20 rounded-xl p-4 flex items-start gap-4">
           <div className="mt-1 w-8 h-8 rounded-full bg-brand-600/20 flex items-center justify-center flex-shrink-0">
@@ -124,186 +105,27 @@ function Today() {
           </div>
         </div>
 
-        {/* KPI stat strip */}
-        <StatStrip
-          openCount={openTasks.length}
-          eventsCount={todayEvents.length}
-          threadsCount={threadsToClose.length}
-          highCount={openTasks.filter((t) => t.priority === "High").length}
-        />
-
-        {/* Recap & Threads */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Panel icon={<History size={14} className="text-lo" />} iconBg="bg-zinc-800" title="Yesterday Recap">
-            <p className="text-sm text-mid mb-4">
-              Focused on technical setup and administrative foundation. A day of "gathering" before creative pushes.
-            </p>
-            <ul className="space-y-3">
-              <Recap ok>Troubleshot Limitless pendant charging states and app integration.</Recap>
-              <Recap ok>Washington state registration mail arrived via Middesk/Gusto.</Recap>
-              <Recap>No logged shoots or completed tasks recorded.</Recap>
-            </ul>
-          </Panel>
-
-          <Panel
-            icon={<Inbox size={14} className="text-brand-400" />}
-            iconBg="bg-brand-600/15"
-            title="Threads to Close"
-            badge={`${threadsToClose.length} Items`}
-          >
-            <div className="space-y-2">
-              {threadsToClose.length === 0 && (
-                <p className="text-sm text-mid py-6 text-center">Nothing urgent — clear runway.</p>
-              )}
-              {threadsToClose.map((t) => (
-                <label
-                  key={t.id}
-                  className="flex items-start gap-3 p-3 rounded-lg hover:bg-hover border border-transparent hover:border-line cursor-pointer transition-all group"
-                >
-                  <div className="w-4 h-4 rounded border border-lo mt-0.5" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-hi group-hover:text-brand-400 transition-colors truncate">
-                      {t.title}
-                    </p>
-                    {t.notes && <p className="text-xs text-lo mt-1 line-clamp-2">{t.notes}</p>}
-                  </div>
-                </label>
-              ))}
-            </div>
-          </Panel>
-        </div>
-
-        {/* Schedule & Watch-outs */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <Panel icon={<CalendarDays size={14} className="text-lo" />} iconBg="bg-zinc-800" title="Today's Plan">
-              {/* Day theme */}
-              <div className={`rounded-lg border p-3 mb-4 ${ACCENT_CLASS[todayPhase.accent]}`}>
-                <div className="flex items-center justify-between mb-1.5 gap-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider opacity-80">{todayPhase.phase} · Day Theme</span>
-                  {todayPhase.sync && <span className="text-[10px] text-mid truncate">⏰ {todayPhase.sync}</span>}
-                </div>
-                <h4 className="text-sm font-semibold text-hi mb-1.5">{todayPhase.title}</h4>
-                <ul className="space-y-1">
-                  {todayPhase.bullets.slice(0, 2).map((b, i) => (
-                    <li key={i} className="text-xs text-mid flex items-start gap-1.5">
-                      <span className="opacity-60">•</span><span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Quick stats */}
-              <div className="grid grid-cols-3 gap-2 mb-4">
-                {[
-                  { k: "Events", v: todayEvents.length, hint: "on calendar" },
-                  { k: "Threads", v: threadsToClose.length, hint: "to close" },
-                  { k: "Blocks", v: BLOCK_HOURS.length, hint: "structured" },
-                ].map((s) => (
-                  <div key={s.k} className="bg-sunken/60 border border-line rounded-lg px-3 py-2">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-lo">{s.k}</p>
-                    <p className="text-base font-bold text-hi num leading-tight">{s.v}</p>
-                    <p className="text-[10px] text-lo">{s.hint}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Timeline */}
-              <div className="mb-4">
-                <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-lo">Day Timeline</p>
-                  <p className="text-[10px] text-lo num">6 AM → 8 PM</p>
-                </div>
-                <div className="relative h-12 rounded-md bg-sunken/60 border border-line overflow-hidden">
-                  {/* Hour gridlines every 2h */}
-                  {Array.from({ length: TL_SPAN / 2 + 1 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="absolute top-0 bottom-0 w-px bg-line/60"
-                      style={{ left: `${(i * 2 * 100) / TL_SPAN}%` }}
-                    />
-                  ))}
-                  {/* Block bands */}
-                  {BLOCK_HOURS.map((b) => {
-                    const left = ((b.from - TL_START) / TL_SPAN) * 100;
-                    const width = ((b.to - b.from) / TL_SPAN) * 100;
-                    return (
-                      <div
-                        key={b.id}
-                        className={`absolute top-1.5 bottom-4 rounded border ${b.tone}`}
-                        style={{ left: `${left}%`, width: `${width}%` }}
-                        title={`${b.label} block`}
-                      >
-                        <span className="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-hi/90 truncate px-1">
-                          {b.label}
-                        </span>
-                      </div>
-                    );
-                  })}
-                  {/* Event markers */}
-                  {eventHours.map((e) => (
-                    <div
-                      key={e.uid}
-                      className="absolute top-0 bottom-4 w-0.5 bg-rose"
-                      style={{ left: `${e.pct}%` }}
-                      title={e.title}
-                    >
-                      <span className="absolute -top-0.5 -left-1 w-2.5 h-2.5 rounded-full bg-rose border-2 border-panel" />
-                    </div>
-                  ))}
-                  {/* Now indicator */}
-                  {nowHours >= TL_START && nowHours <= TL_END && (
-                    <div
-                      className="absolute top-0 bottom-4 w-px bg-brand-400 shadow-[0_0_6px_rgba(99,102,241,0.8)]"
-                      style={{ left: `${nowPct}%` }}
-                    >
-                      <span className="absolute -top-1 -left-[3px] w-1.5 h-1.5 rounded-full bg-brand-400" />
-                    </div>
-                  )}
-                  {/* Hour labels */}
-                  <div className="absolute bottom-0 inset-x-0 flex justify-between px-1 text-[9px] text-lo num">
-                    <span>6a</span><span>10a</span><span>2p</span><span>6p</span><span>8p</span>
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-[10px] font-bold uppercase tracking-wider text-lo mb-2">Scheduled · {todayEvents.length}</p>
-              {todayEvents.length === 0 ? (
-                <p className="text-xs text-mid italic py-3 text-center bg-sunken/40 border border-line rounded-lg">
-                  No calendar events today — protect the deep work block.
-                </p>
-              ) : (
-                <div className="relative pl-4 border-l border-line space-y-6 min-w-0">
-                  {todayEvents.map((e, i) => (
-                    <div key={e.uid} className="relative min-w-0">
-                      <div
-                        className={`absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-panel ${
-                          i === 0 ? "bg-brand-500 shadow-[0_0_8px_rgba(99,102,241,0.6)]" : "bg-line-strong"
-                        }`}
-                      />
-                      <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 min-w-0">
-                        <span className={`text-sm font-medium w-14 shrink-0 num ${i === 0 ? "text-brand-400 font-semibold" : "text-mid"}`}>
-                          {e.allDay
-                            ? "All day"
-                            : new Date(e.start).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
-                        </span>
-                        <div className={`min-w-0 flex-1 overflow-hidden ${i === 0 ? "bg-brand-600/5 border border-brand-500/20 rounded-lg p-3 w-full" : ""}`}>
-                          <h4 className="text-sm font-semibold text-hi mb-1 truncate">{e.title}</h4>
-                          {e.location && (
-                            <p className="text-xs text-mid truncate" title={e.location}>
-                              {/^https?:\/\//.test(e.location) ? new URL(e.location).hostname : e.location}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </Panel>
+        {/* Lively day journey: pulse + path on the left, sticky context rail on the right */}
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="flex-1 min-w-0 space-y-6">
+            <PulseMetrics
+              openCount={openTasks.length}
+              eventsCount={todayEvents.length}
+              highCount={openTasks.filter((t) => t.priority === "High").length}
+            />
+            <TodaysPath
+              phase={todayPhase}
+              blocks={JEVOY_BLOCKS}
+              nowHours={nowHours}
+              events={todayEvents}
+            />
           </div>
 
-          <WatchOuts />
+          <aside className="w-full lg:w-80 lg:shrink-0 space-y-6 lg:sticky lg:top-6 lg:self-start">
+            <WatchOuts />
+            <YesterdayRecap />
+            <ThreadsRail threads={threadsToClose} />
+          </aside>
         </div>
 
         {/* AI-assisted person task panels */}
@@ -388,7 +210,7 @@ function WatchOuts() {
     rose: "bg-rose", amber: "bg-amber", violet: "bg-violet", brand: "bg-brand-400",
   };
   return (
-    <div className="bg-rose/5 border border-rose/20 rounded-2xl p-5 relative overflow-hidden h-full">
+    <div className="bg-panel border border-rose/25 rounded-3xl p-6 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-rose/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
       <div className="flex items-center justify-between gap-3 mb-4 relative z-10">
         <div className="flex items-center gap-3 min-w-0">
@@ -433,6 +255,303 @@ function Panel({
       </div>
       {children}
     </section>
+  );
+}
+
+/* ---------------- Pulse Metrics (3 cards w/ corner glow + sparkline) ---------------- */
+function PulseMetrics({
+  openCount, eventsCount, highCount,
+}: { openCount: number; eventsCount: number; highCount: number }) {
+  const completionPct = openCount === 0 ? 100 : Math.max(0, Math.round(((openCount - highCount) / Math.max(openCount, 1)) * 100));
+  const stats = [
+    { label: "Open Tasks", value: openCount, hint: "Across team",
+      accent: "brand", spark: [3, 5, 4, 6, 5, 7, openCount || 1], color: "var(--brand-400)" },
+    { label: "Today's Calls", value: eventsCount, hint: "On calendar",
+      accent: "emerald", spark: [1, 2, 1, 3, 2, 4, eventsCount || 1], color: "var(--emerald)" },
+    { label: "High Priority", value: highCount, hint: `${completionPct}% on track`,
+      accent: "rose", spark: [2, 3, 2, 4, 3, 5, highCount || 1], color: "var(--rose)" },
+  ];
+  const bubble: Record<string, string> = {
+    brand: "bg-brand-500/10 group-hover:bg-brand-500/20",
+    emerald: "bg-emerald/10 group-hover:bg-emerald/20",
+    rose: "bg-rose/10 group-hover:bg-rose/20",
+  };
+  const ring: Record<string, string> = {
+    brand: "hover:border-brand-500/40",
+    emerald: "hover:border-emerald/40",
+    rose: "hover:border-rose/40",
+  };
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {stats.map((s) => (
+        <div
+          key={s.label}
+          className={`group relative overflow-hidden bg-panel border border-line rounded-2xl p-5 transition-colors ${ring[s.accent]}`}
+        >
+          <div className={`absolute -top-10 -right-10 w-28 h-28 rounded-full transition-colors ${bubble[s.accent]}`} />
+          <p className="text-[10px] font-bold uppercase tracking-wider text-lo relative">{s.label}</p>
+          <div className="flex items-end justify-between mt-2 relative">
+            <div>
+              <p className="font-display text-3xl font-bold text-hi num leading-none">
+                <AnimatedNumber value={s.value} />
+              </p>
+              <p className="text-xs text-lo mt-1.5">{s.hint}</p>
+            </div>
+            <div className="w-16 h-10 -mb-1">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={s.spark.map((v, i) => ({ i, v }))}>
+                  <Bar dataKey="v" radius={[2, 2, 0, 0]}>
+                    {s.spark.map((_, i) => (
+                      <Cell
+                        key={i}
+                        fill={i === s.spark.length - 1 ? s.color : "var(--line-2)"}
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ---------------- Today's Path — vertical guided timeline ---------------- */
+function TodaysPath({
+  phase, blocks, nowHours, events,
+}: {
+  phase: WeekDay;
+  blocks: Block[];
+  nowHours: number;
+  events: ReturnType<typeof useCalendarEvents>["data"] extends infer T ? (T extends Array<infer U> ? U[] : never[]) : never[];
+}) {
+  // Hours for each standing block id (matches the 4 phases in JEVOY_BLOCKS)
+  const HOURS: Record<string, { from: number; to: number }> = {
+    deep:    { from: 8,    to: 10.5 },
+    lead:    { from: 10.5, to: 12.5 },
+    produce: { from: 13.5, to: 16.5 },
+    review:  { from: 16.5, to: 17.5 },
+  };
+  const [checks, setChecks] = useState<Record<string, boolean>>({});
+  const toggle = (k: string) => setChecks((c) => ({ ...c, [k]: !c[k] }));
+
+  const eventsInWindow = (events ?? []).filter((e: any) => !e.allDay).map((e: any) => {
+    const d = new Date(e.start);
+    return { uid: e.uid, title: e.title, h: d.getHours() + d.getMinutes() / 60, start: d };
+  });
+
+  function statusFor(id: string): "past" | "current" | "future" {
+    const h = HOURS[id];
+    if (!h) return "future";
+    if (nowHours > h.to) return "past";
+    if (nowHours >= h.from && nowHours <= h.to) return "current";
+    return "future";
+  }
+
+  function fmt(h: number) {
+    const hh = Math.floor(h);
+    const mm = Math.round((h - hh) * 60);
+    const ampm = hh >= 12 ? "PM" : "AM";
+    const display = ((hh + 11) % 12) + 1;
+    return `${display}:${String(mm).padStart(2, "0")} ${ampm}`;
+  }
+
+  return (
+    <section className="bg-panel border border-line rounded-3xl p-6">
+      <div className="flex items-start justify-between gap-3 mb-6">
+        <div className="min-w-0">
+          <h3 className="font-display font-bold text-hi text-lg flex items-center gap-2">
+            <RouteIcon size={16} className="text-brand-400" />
+            Today's Path
+          </h3>
+          <p className="text-sm text-mid mt-0.5 truncate">{phase.title}</p>
+        </div>
+        <span className="flex items-center gap-1.5 bg-sunken border border-line px-3 py-1.5 rounded-full shrink-0">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pulse" />
+          <span className="text-[11px] font-medium text-mid">In Progress</span>
+        </span>
+      </div>
+
+      <div className="relative pl-6 space-y-7 border-l-2 border-line">
+        {blocks.map((b) => {
+          const h = HOURS[b.id];
+          const state = statusFor(b.id);
+          const range = h ? `${fmt(h.from)} – ${fmt(h.to)}` : b.time;
+          const blockEvents = h
+            ? eventsInWindow.filter((e) => e.h >= h.from && e.h <= h.to)
+            : [];
+
+          const dotBase = "absolute top-1 rounded-full border-4 border-panel flex items-center justify-center";
+          const dot =
+            state === "past" ? (
+              <span className={`${dotBase} -left-[27px] w-4 h-4 bg-emerald`}>
+                <Check size={8} className="text-white" strokeWidth={3} />
+              </span>
+            ) : state === "current" ? (
+              <>
+                <span className={`${dotBase} -left-[29px] w-5 h-5 bg-brand-500 animate-pulse`} />
+                <span className="absolute -left-[29px] top-1 w-5 h-5 rounded-full ring-4 ring-brand-500/20 pointer-events-none" />
+              </>
+            ) : (
+              <span className={`${dotBase} -left-[25px] w-3 h-3 bg-line-strong`} />
+            );
+
+          if (state === "past") {
+            return (
+              <div key={b.id} className="relative opacity-60 hover:opacity-100 transition-opacity">
+                {dot}
+                <p className="text-[11px] font-semibold text-emerald mb-1.5 num">{range}</p>
+                <div className="bg-sunken/60 rounded-2xl p-4 border border-line">
+                  <div className="flex justify-between items-start gap-3">
+                    <h4 className="font-semibold text-mid text-sm">{b.label}</h4>
+                    <span className="text-[10px] bg-zinc-800 px-2 py-0.5 rounded text-lo border border-line shrink-0">{b.duration}</span>
+                  </div>
+                  <p className="text-xs text-lo line-through mt-1">{b.objective}</p>
+                </div>
+              </div>
+            );
+          }
+
+          if (state === "current") {
+            return (
+              <div key={b.id} className="relative">
+                {dot}
+                <p className="text-[11px] font-bold text-brand-400 mb-1.5 num">
+                  {range} <span className="ml-2 text-lo font-normal">Current Session</span>
+                </p>
+                <div className="bg-gradient-to-br from-panel to-sunken rounded-2xl p-5 border border-brand-500/30 shadow-lg shadow-brand-500/5">
+                  <div className="flex justify-between items-start gap-3 mb-2">
+                    <h4 className="text-base font-bold text-hi">{b.label}</h4>
+                    <span className="text-[11px] bg-brand-500/15 text-brand-400 px-2.5 py-1 rounded-full font-semibold shrink-0">{b.duration}</span>
+                  </div>
+                  <p className="text-xs text-mid italic mb-3">{b.objective}</p>
+                  <div className="space-y-2">
+                    {b.items.map((it, i) => {
+                      const k = `${b.id}-${i}`;
+                      const on = !!checks[k];
+                      return (
+                        <button
+                          key={k}
+                          onClick={() => toggle(k)}
+                          className="flex items-start gap-3 w-full text-left group"
+                        >
+                          <span className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 ${on ? "bg-brand-600 border-brand-600" : "border-line-strong group-hover:border-mid"}`}>
+                            {on && <Check size={10} className="text-white" strokeWidth={3} />}
+                          </span>
+                          <span className={`text-sm ${on ? "text-lo line-through" : "text-mid group-hover:text-hi"} transition-colors`}>
+                            {it}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {blockEvents.length > 0 && (
+                    <div className="mt-4 pt-3 border-t border-line/60 space-y-1.5">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-lo">In this window</p>
+                      {blockEvents.map((e) => (
+                        <p key={e.uid} className="text-xs text-mid flex items-center gap-2">
+                          <Clock size={11} className="text-brand-400 shrink-0" />
+                          <span className="num text-lo shrink-0">{fmt(e.h)}</span>
+                          <span className="truncate">{e.title}</span>
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                  <div className="mt-4 pt-3 border-t border-line/60 flex items-center justify-between gap-3">
+                    <span className="text-[11px] text-lo">{b.items.filter((_, i) => checks[`${b.id}-${i}`]).length}/{b.items.length} done</span>
+                    <div className="flex-1 max-w-[160px] h-1.5 rounded-full bg-zinc-800 overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-brand-500 to-brand-400 transition-all"
+                        style={{ width: `${(b.items.filter((_, i) => checks[`${b.id}-${i}`]).length / b.items.length) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div key={b.id} className="relative opacity-85">
+              {dot}
+              <p className="text-[11px] font-semibold text-lo mb-1.5 num">{range}</p>
+              <div className="bg-sunken/40 rounded-2xl p-4 border border-line hover:border-line-strong transition-colors">
+                <div className="flex justify-between items-start gap-3">
+                  <h4 className="font-semibold text-mid text-sm">{b.label}</h4>
+                  <span className="text-[10px] bg-zinc-800 px-2 py-0.5 rounded text-lo border border-line shrink-0">{b.duration}</span>
+                </div>
+                {blockEvents.length > 0 && (
+                  <p className="text-[11px] text-mid mt-2 flex items-center gap-1.5">
+                    <Clock size={10} className="text-brand-400" />
+                    {blockEvents.length} event{blockEvents.length > 1 ? "s" : ""} scheduled
+                  </p>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Yesterday Recap (right rail) ---------------- */
+function YesterdayRecap() {
+  return (
+    <div className="bg-panel border border-line rounded-3xl p-6">
+      <div className="flex items-center gap-2 mb-3">
+        <History size={14} className="text-lo" />
+        <h3 className="font-display font-bold text-hi text-sm">Yesterday Recap</h3>
+      </div>
+      <p className="text-sm text-mid mb-4 leading-relaxed">
+        Focused on technical setup and administrative foundation. A day of "gathering" before creative pushes.
+      </p>
+      <ul className="space-y-2">
+        <Recap ok>Troubleshot Limitless pendant charging states and app integration.</Recap>
+        <Recap ok>Washington state registration mail arrived via Middesk/Gusto.</Recap>
+        <Recap>No logged shoots or completed tasks recorded.</Recap>
+      </ul>
+    </div>
+  );
+}
+
+/* ---------------- Threads to Close (right rail) ---------------- */
+function ThreadsRail({ threads }: { threads: Array<{ id: string; title: string; notes?: string; priority: string }> }) {
+  const [done, setDone] = useState<Record<string, boolean>>({});
+  return (
+    <div className="bg-panel border border-line rounded-3xl p-6">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="font-display font-bold text-hi text-sm flex items-center gap-2">
+          <ListChecks size={14} className="text-brand-400" />
+          Threads to Close
+        </h3>
+        <span className="text-[11px] text-lo">{threads.length} {threads.length === 1 ? "item" : "items"}</span>
+      </div>
+      {threads.length === 0 ? (
+        <p className="text-sm text-mid italic py-2">Nothing urgent — clear runway.</p>
+      ) : (
+        <ul className="space-y-1 -mx-2">
+          {threads.map((t) => {
+            const on = !!done[t.id];
+            return (
+              <li key={t.id}>
+                <button
+                  onClick={() => setDone((d) => ({ ...d, [t.id]: !d[t.id] }))}
+                  className="w-full flex items-start gap-3 text-left p-2 rounded-lg hover:bg-sunken transition-colors group"
+                >
+                  <span className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 ${on ? "bg-brand-600 border-brand-600" : "border-line-strong group-hover:border-mid"}`}>
+                    {on && <Check size={10} className="text-white" strokeWidth={3} />}
+                  </span>
+                  <span className={`text-sm ${on ? "text-lo line-through" : "text-mid"} truncate`}>{t.title}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
   );
 }
 
