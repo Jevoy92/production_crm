@@ -1,12 +1,13 @@
 import { AnimatedNumber } from "@/components/motion/Motion";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   Sparkles, History, CircleCheck, Info, Inbox,
   CalendarDays, TriangleAlert, Lightbulb, ChevronLeft, ChevronRight,
   Plus, ListChecks, Loader2, Wand2, Route as RouteIcon, Check, Clock,
 } from "lucide-react";
+import { Pencil, Trash2, X } from "lucide-react";
 import { AppShell } from "@/components/app/AppShell";
 import { useStore } from "@/lib/store";
 import { useCalendarEvents } from "@/components/calendar/GoogleCalendar";
@@ -772,6 +773,52 @@ function PersonDay({
   const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState<Record<string, boolean>>({});
 
+  // Per-person editable overrides of the playbook items, persisted to localStorage.
+  // Map shape: { [blockId]: string[] }. Missing key = use the source b.items.
+  const storageKey = `dayItems:${person.id}`;
+  const [overrides, setOverrides] = useState<Record<string, string[]>>(() => {
+    if (typeof window === "undefined") return {};
+    try { return JSON.parse(localStorage.getItem(storageKey) ?? "{}"); } catch { return {}; }
+  });
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try { localStorage.setItem(storageKey, JSON.stringify(overrides)); } catch {}
+  }, [overrides, storageKey]);
+
+  const itemsFor = (b: Block): string[] => overrides[b.id] ?? b.items;
+
+  const [editing, setEditing] = useState<string | null>(null); // `${blockId}-${index}` or `${blockId}-new`
+  const [draft, setDraft] = useState("");
+
+  function commitItems(blockId: string, next: string[]) {
+    setOverrides((o) => ({ ...o, [blockId]: next }));
+  }
+  function updateItem(b: Block, i: number, text: string) {
+    const next = itemsFor(b).slice();
+    next[i] = text;
+    commitItems(b.id, next);
+  }
+  function deleteItem(b: Block, i: number) {
+    const next = itemsFor(b).slice();
+    next.splice(i, 1);
+    commitItems(b.id, next);
+    // also clear any check state on that index by shifting
+    setChecked((c) => {
+      const out: Record<string, boolean> = {};
+      Object.entries(c).forEach(([k, v]) => {
+        if (!k.startsWith(`${b.id}-`)) { out[k] = v; return; }
+        const idx = Number(k.split("-").pop());
+        if (idx === i) return;
+        out[idx > i ? `${b.id}-${idx - 1}` : k] = v;
+      });
+      return out;
+    });
+  }
+  function addItem(b: Block, text: string) {
+    if (!text.trim()) return;
+    commitItems(b.id, [...itemsFor(b), text.trim()]);
+  }
+
   const dow = new Date().getDay();
   const today = week[dow];
 
@@ -809,8 +856,9 @@ function PersonDay({
   }
 
   const blockProgress = blocks.map((b) => {
-    const total = b.items.length;
-    const done = b.items.reduce((n, _it, i) => n + (checked[`${b.id}-${i}`] ? 1 : 0), 0);
+    const list = itemsFor(b);
+    const total = list.length;
+    const done = list.reduce((n, _it, i) => n + (checked[`${b.id}-${i}`] ? 1 : 0), 0);
     return { id: b.id, done, total };
   });
   const totalItems = blockProgress.reduce((n, p) => n + p.total, 0);
@@ -922,23 +970,89 @@ function PersonDay({
               <div className="px-3 pb-3 pl-12 space-y-2">
                 <p className="text-xs text-mid italic">{b.objective}</p>
                 <ul className="space-y-1.5">
-                  {b.items.map((it, i) => {
+                  {itemsFor(b).map((it, i) => {
                     const k = `${b.id}-${i}`;
                     const on = !!checked[k];
+                    const isEditing = editing === k;
                     return (
-                      <li key={k}>
+                      <li key={k} className="group/item flex items-start gap-2">
                         <button
                           onClick={() => toggle(k)}
-                          className="flex items-start gap-2 text-left w-full group/item"
+                          className={`w-4 h-4 rounded border flex-shrink-0 mt-0.5 flex items-center justify-center ${on ? "bg-brand-600 border-brand-600" : "border-lo hover:border-mid"}`}
+                          aria-label={on ? "Mark incomplete" : "Mark complete"}
                         >
-                          <span className={`w-4 h-4 rounded border flex-shrink-0 mt-0.5 flex items-center justify-center ${on ? "bg-brand-600 border-brand-600" : "border-lo group-hover/item:border-mid"}`}>
-                            {on && <CircleCheck size={10} className="text-white" />}
-                          </span>
-                          <span className={`text-xs ${on ? "text-lo line-through" : "text-mid"}`}>{it}</span>
+                          {on && <CircleCheck size={10} className="text-white" />}
                         </button>
+                        {isEditing ? (
+                          <input
+                            autoFocus
+                            value={draft}
+                            onChange={(e) => setDraft(e.target.value)}
+                            onBlur={() => { if (draft.trim()) updateItem(b, i, draft.trim()); setEditing(null); }}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") { if (draft.trim()) updateItem(b, i, draft.trim()); setEditing(null); }
+                              if (e.key === "Escape") setEditing(null);
+                            }}
+                            className="flex-1 bg-sunken border border-brand-500/40 rounded px-1.5 py-0.5 text-xs text-hi outline-none focus:border-brand-500"
+                          />
+                        ) : (
+                          <button
+                            onClick={() => toggle(k)}
+                            onDoubleClick={() => { setEditing(k); setDraft(it); }}
+                            className={`flex-1 text-left text-xs ${on ? "text-lo line-through" : "text-mid"}`}
+                            title="Double-click to edit"
+                          >
+                            {it}
+                          </button>
+                        )}
+                        {!isEditing && (
+                          <div className="flex items-center gap-1 opacity-0 group-hover/item:opacity-100 transition-opacity flex-shrink-0">
+                            <button
+                              onClick={(e) => { e.stopPropagation(); setEditing(k); setDraft(it); }}
+                              className="p-1 rounded hover:bg-hover text-lo hover:text-brand-400"
+                              aria-label="Edit"
+                            >
+                              <Pencil size={11} />
+                            </button>
+                            <button
+                              onClick={(e) => { e.stopPropagation(); deleteItem(b, i); }}
+                              className="p-1 rounded hover:bg-hover text-lo hover:text-rose"
+                              aria-label="Delete"
+                            >
+                              <Trash2 size={11} />
+                            </button>
+                          </div>
+                        )}
                       </li>
                     );
                   })}
+                  {/* Add new item */}
+                  <li className="flex items-start gap-2">
+                    <span className="w-4 h-4 rounded border border-dashed border-line flex-shrink-0 mt-0.5 flex items-center justify-center">
+                      <Plus size={9} className="text-lo" />
+                    </span>
+                    {editing === `${b.id}-new` ? (
+                      <input
+                        autoFocus
+                        value={draft}
+                        onChange={(e) => setDraft(e.target.value)}
+                        onBlur={() => { addItem(b, draft); setDraft(""); setEditing(null); }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") { addItem(b, draft); setDraft(""); setEditing(null); }
+                          if (e.key === "Escape") { setDraft(""); setEditing(null); }
+                        }}
+                        placeholder="Add a sub-task…"
+                        className="flex-1 bg-sunken border border-brand-500/40 rounded px-1.5 py-0.5 text-xs text-hi outline-none focus:border-brand-500"
+                      />
+                    ) : (
+                      <button
+                        onClick={() => { setEditing(`${b.id}-new`); setDraft(""); }}
+                        className="text-xs text-lo hover:text-brand-400 transition-colors"
+                      >
+                        Add item
+                      </button>
+                    )}
+                  </li>
                 </ul>
                 {sug?.nextSteps?.length ? (
                   <div className="mt-2 pt-2 border-t border-line space-y-1">
