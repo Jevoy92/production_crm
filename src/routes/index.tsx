@@ -7,6 +7,7 @@ import {
   CalendarDays, TriangleAlert, Lightbulb, ChevronLeft, ChevronRight,
   Plus, ListChecks, Loader2, Wand2, Route as RouteIcon, Check, Clock,
 } from "lucide-react";
+import { Pencil, Trash2, X } from "lucide-react";
 import { AppShell } from "@/components/app/AppShell";
 import { useStore } from "@/lib/store";
 import { useCalendarEvents } from "@/components/calendar/GoogleCalendar";
