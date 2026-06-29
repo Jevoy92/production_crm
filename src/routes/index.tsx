@@ -70,29 +70,10 @@ function Today() {
   // Today's high-level plan context (phase, theme, blocks)
   const dow = new Date().getDay();
   const todayPhase: WeekDay = JEVOY_WEEK[dow] ?? JEVOY_WEEK[1];
-  // Hour ranges for the 4 standing blocks (6am→8pm window)
-  const TL_START = 6;
-  const TL_END = 20;
-  const TL_SPAN = TL_END - TL_START;
-  const BLOCK_HOURS: { id: string; label: string; from: number; to: number; tone: string }[] = [
-    { id: "deep",    label: "Deep",    from: 8,    to: 10.5, tone: "bg-brand-500/35 border-brand-500/50" },
-    { id: "lead",    label: "Lead",    from: 10.5, to: 12.5, tone: "bg-amber-500/30 border-amber-500/50" },
-    { id: "produce", label: "Produce", from: 13.5, to: 16.5, tone: "bg-violet-500/30 border-violet-500/50" },
-    { id: "review",  label: "Review",  from: 16.5, to: 17.5, tone: "bg-emerald/30 border-emerald/50" },
-  ];
   const nowHours = (() => {
     const d = new Date();
     return d.getHours() + d.getMinutes() / 60;
   })();
-  const nowPct = Math.max(0, Math.min(100, ((nowHours - TL_START) / TL_SPAN) * 100));
-  const eventHours = todayEvents
-    .filter((e) => !e.allDay)
-    .map((e) => {
-      const d = new Date(e.start);
-      const h = d.getHours() + d.getMinutes() / 60;
-      return { uid: e.uid, title: e.title, h, pct: ((h - TL_START) / TL_SPAN) * 100 };
-    })
-    .filter((x) => x.pct >= 0 && x.pct <= 100);
 
   return (
     <AppShell
