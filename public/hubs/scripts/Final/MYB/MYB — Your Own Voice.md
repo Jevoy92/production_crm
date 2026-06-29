@@ -18,6 +18,10 @@ This one's for one person. And there's a very decent chance — based on somethi
 
 So let's just talk.
 
+[BEAT]
+
+And let me say the thing up front, because I don't want you waiting on it. You think you hate your voice. You don't. You hate *surprise.* There's a difference between those two things, and it's the difference between flinching at every recording for the rest of your life and actually being able to listen to yourself without making the face. By the end of this we'll have separated those two — and the sentence you walked in with isn't going to survive it.
+
 ---
 
 You.

@@ -24,6 +24,10 @@ I want to have the conversation under that one.
 
 [BEAT]
 
+Here's the part nobody's saying out loud. Everyone keeps telling you the freeze in front of the camera is a *confidence* problem. Push through. Be braver. Fake it. It is not a confidence problem. It is a physics problem — and once you see the physics, the freeze stops feeling like a verdict on who you are, and starts feeling like a thing you can actually work with. That's the whole episode.
+
+[BEAT]
+
 ---
 
 ## CHAPTER 1 — THE FELT MOMENT
