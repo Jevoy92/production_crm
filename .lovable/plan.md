@@ -1,76 +1,60 @@
 ## Goal
 
-Polish the 13 MindYourBizniz scripts so they sound like Jevoy, not a template. Two surgical passes only — no body restructuring, no new framework retrofit.
+Give every video script a companion **Research Pack** view: a structured collection of study cards, supporting links, visuals/screenshots, scraped reference media, and a shot-list checklist — so when it's time to film/edit you can scan everything supporting that video in one place.
 
-## Pass 1 — Kill the repetitive open
+Starting content: the full "Judged Before You Speak" pack you pasted, attached to that theme (visible under JP, PH, and MYB tabs).
 
-Every MYB cold open currently starts with some flavor of "I want to talk about…". Rewrite each opening line (and only the opening beat — first 2–6 lines of the COLD OPEN block) so:
+## What you'll see in the app
 
-- No script starts with "I want to…" / "I want to start with…" / "Tonight I want to…".
-- Each open is **distinct from the other 12** — pulls from the script's own anchor image (the smudge on the lens, the empty chair, the room with three doors, the platform/train, the trailer vs. the whole film, etc.) instead of a preamble.
-- Opens stay in Jevoy's hushed second-person voice — no billboard hooks, no "huge news," no manufactured urgency.
-- Time-of-day language ("tonight", "this evening", "late tonight", "stay up with me") is removed everywhere in the script, not just the open. Replace with neutral framing ("right now," "for a minute," or just delete).
+On each script page (`/scripts/$num`) a new **"Research & B-roll"** tab next to the existing script body. Inside:
 
-## Pass 2 — Remove fabricated proof
+1. **Header strip** — theme title, optional Drive folder link, "How to use" + "Delivery rule" callouts.
+2. **Study cards** (one per numbered study) — each card shows:
+  - SAY block (the spoken analogy, big quote style)
+  - CARD block (citation, on-screen text)
+  - LINK button → opens source
+  - VISUAL description + an **asset gallery** (thumbnails of screenshots/clips you've collected)
+  - "Add asset" button → upload image/video or paste a URL, with a caption
+3. **Non-study visuals** — emotional beats listed as smaller cards with the same asset gallery.
+4. **Shot-list checklist** — interactive checkboxes, progress bar, persists per script.
+5. **Quick capture bar** — drag-drop a file or paste a URL anywhere on the page; pick which card it belongs to.
 
-Audit every script for invented evidence that Jevoy would have to fake on camera, and either delete it or rewrite it as honest first-person ("I've felt this," "I've done this," generalized "you/we" recognition). Specifically hunt and remove:
+## How content is structured
 
-- Fabricated letters / DMs / "a viewer wrote me…"
-- Fabricated patients, buddies, "my friend who…" composites
-- Invented case studies, made-up stats, "a guy I know" anecdotes
-- "Imagine you got a letter that said…" devices
+A new content type lives alongside scripts:
 
-What stays:
-- Real cited research already in the scripts (Zajonc, Todorov, Boothby, Willis, Ambady, Gilovich, the documented ancient stories, etc.) — these are public and not fabrications.
-- Generalized second-person scenes ("you walk into the room, you set down the mug…") — these are recognition, not invented evidence.
-- Jevoy's own first-person experience where it already exists.
+```text
+src/content/research/
+  _manifest.json                 # theme_no → research pack file
+  judged-before-you-speak.md     # the pack you pasted, in a structured MD/MDX format
+  ...future packs
+```
 
-Where a fabricated anecdote was load-bearing for a beat, replace it with one of:
-1. A first-person Jevoy line ("I've sat in that chair. I know the feeling of…").
-2. A generalized second-person recognition scene.
-3. A clean cut — delete the beat if it isn't doing work.
+Parser turns each pack into typed sections (`StudyCard`, `VisualBeat`, `ShotListItem`) consumed by the new tab. The "Judged Before You Speak" pack ships seeded with all 8 studies + non-study visuals + checklist exactly as you wrote them.
 
-## Files in scope (13)
+## How assets are stored
 
-`src/content/scripts/Final/MYB/`:
-- A Well-Lit Room With Doors
-- Context Doesn't Travel
-- Judged Before You Speak
-- Known by Thousands, Seen by No One
-- The Clean Lens
-- The Compass, Not the Megaphone
-- The Empty Chair
-- The Height Tax
-- The Miniature Lie
-- The Mirror With Memory
-- The Moment You Didn't Keep
-- The Parts We Cut
-- The Sharp Photograph
-- The Watched Brain
-- The Wet Cement
-- Who Holds You in Mind
-- Why We Hide
-- Your Own Voice
+- **Uploaded files** (screenshots, short clips) → Lovable Cloud Storage bucket `script-research` (private, RLS: authenticated users on the workspace can read/write). Each asset row links to `theme_no` + `card_id` + optional caption + source URL.
+- **Pasted URLs** (YouTube, articles, Drive links) → stored as link-only asset rows with auto-fetched OG thumbnail/title via a small server function.
+- Checklist state stored per user per theme.
 
-(Manifest will be checked — final count is the 18 in `_manifest.json`; the 13 number is the set flagged with "I want to…" opens, but every MYB file gets the fabrication scrub.)
+Schema (new tables, all in `public` with proper GRANTs + RLS):
 
-## Mechanics
+- `research_assets` — id, theme_no, card_id, kind (`image`|`video`|`link`), storage_path, source_url, caption, og_title, og_image, created_by, created_at
+- `research_checklist` — id, theme_no, item_key, checked, user_id
 
-For each file:
-1. Read it in full.
-2. Rewrite the cold open's first beat only.
-3. Search the body for `tonight|this evening|late tonight|letter from|wrote me|got a DM|patient of mine|buddy of mine|friend of mine who|imagine you got` and rewrite each hit per the rules above.
-4. Update the source file under `src/content/scripts/Final/MYB/`.
-5. Mirror to `public/hubs/scripts/Final/MYB/`.
-6. Regenerate that script's teleprompter file (same location, `*-Teleprompter.txt`) and update its word count in `src/content/scripts/Final/MYB/_manifest.json`.
+## Build order
 
-## Out of scope
+1. Create `src/content/research/judged-before-you-speak.md` with the pack, plus a typed parser in `src/lib/researchPacks.ts`.
+2. New DB migration: `research_assets`, `research_checklist`, storage bucket, RLS + GRANTs.
+3. Server functions: `listResearchAssets`, `addResearchAsset` (file upload + URL ingest with OG fetch), `deleteResearchAsset`, `toggleChecklistItem`.
+4. New component `ResearchPack.tsx` (cards, galleries, checklist, quick capture).
+5. Wire into `src/routes/scripts.$num.tsx` as a tab; show a small badge ("Research" / asset count) on the script list row in `src/routes/scripts.tsx`.
+6. Verify on the "Judged Before You Speak" theme end-to-end (upload, link paste, checklist).
 
-- No Illusion-of-Novelty restructuring (you chose "opens + fabrications only").
-- No JP or PH script edits.
-- No UI / route changes.
-- No new framework section, no contrast/urgency/proof-ladder rewrite of bodies.
+## A few choices for you
 
-## Verification
-
-After the batch: grep MYB folder for `I want to`, `tonight`, `letter`, `patient`, `buddy of mine` — expect zero hits outside legitimate uses. Spot-check 2 scripts in the preview's Scripts page to confirm rendering and teleprompter download still work.
+1. **Scope of first build** — ship the full system (DB + uploads + URL ingest + checklist) for all scripts, with only "Judged Before You Speak" pre-populated? Or start read-only (cards + checklist only, no uploads yet) and add uploads in a second pass?- add all things including uploads
+  &nbsp;
+2. **Drive integration** — no drive integration I want it visually represented with beautiful layouts and fformatting and video playback and photo viewing and all the good stuff
+3. **Who can upload** — anyone
