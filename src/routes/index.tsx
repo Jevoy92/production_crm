@@ -24,6 +24,7 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, LabelList,
 } from "recharts";
 import { ChartTooltip } from "@/components/charts/Charts";
+import { DailyCheckout } from "@/components/dashboard/DailyCheckout";
 
 export const Route = createFileRoute("/")({
   component: Today,
