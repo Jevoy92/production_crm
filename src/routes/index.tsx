@@ -383,111 +383,118 @@ function TodaysPath({
             ? eventsInWindow.filter((e) => e.h >= h.from && e.h <= h.to)
             : [];
 
+          const doneCount = b.items.filter((_, i) => checks[`${b.id}-${i}`]).length;
+          const allDone = b.items.length > 0 && doneCount === b.items.length;
+
           const dotBase = "absolute top-1 rounded-full border-4 border-panel flex items-center justify-center";
-          const dot =
-            state === "past" ? (
-              <span className={`${dotBase} -left-[27px] w-4 h-4 bg-emerald`}>
-                <Check size={8} className="text-white" strokeWidth={3} />
-              </span>
-            ) : state === "current" ? (
-              <>
-                <span className={`${dotBase} -left-[29px] w-5 h-5 bg-brand-500 animate-pulse`} />
-                <span className="absolute -left-[29px] top-1 w-5 h-5 rounded-full ring-4 ring-brand-500/20 pointer-events-none" />
-              </>
+          const dot = allDone ? (
+            <span className={`${dotBase} -left-[27px] w-4 h-4 bg-emerald`}>
+              <Check size={8} className="text-white" strokeWidth={3} />
+            </span>
+          ) : state === "current" ? (
+            <>
+              <span className={`${dotBase} -left-[29px] w-5 h-5 bg-brand-500 animate-pulse`} />
+              <span className="absolute -left-[29px] top-1 w-5 h-5 rounded-full ring-4 ring-brand-500/20 pointer-events-none" />
+            </>
+          ) : state === "past" ? (
+            <span className={`${dotBase} -left-[25px] w-3 h-3 bg-amber-500/70`} />
+          ) : (
+            <span className={`${dotBase} -left-[25px] w-3 h-3 bg-line-strong`} />
+          );
+
+          const cardClass =
+            state === "current"
+              ? "bg-gradient-to-br from-panel to-sunken rounded-2xl p-5 border border-brand-500/30 shadow-lg shadow-brand-500/5"
+              : "bg-sunken/50 rounded-2xl p-5 border border-line hover:border-line-strong/70 transition-colors";
+
+          const rangeColor =
+            state === "current" ? "text-brand-400" : state === "past" ? "text-amber-500/80" : "text-lo";
+
+          const tag =
+            state === "current" ? (
+              <span className="ml-2 text-lo font-normal">· Current Session</span>
+            ) : state === "past" ? (
+              <span className="ml-2 text-lo font-normal">· Earlier today</span>
             ) : (
-              <span className={`${dotBase} -left-[25px] w-3 h-3 bg-line-strong`} />
+              <span className="ml-2 text-lo font-normal">· Upcoming</span>
             );
-
-          if (state === "past") {
-            return (
-              <div key={b.id} className="relative opacity-60 hover:opacity-100 transition-opacity">
-                {dot}
-                <p className="text-[11px] font-semibold text-emerald mb-1.5 num">{range}</p>
-                <div className="bg-sunken/60 rounded-2xl p-4 border border-line">
-                  <div className="flex justify-between items-start gap-3">
-                    <h4 className="font-semibold text-mid text-sm">{b.label}</h4>
-                    <span className="text-[10px] bg-zinc-800 px-2 py-0.5 rounded text-lo border border-line shrink-0">{b.duration}</span>
-                  </div>
-                  <p className="text-xs text-lo line-through mt-1">{b.objective}</p>
-                </div>
-              </div>
-            );
-          }
-
-          if (state === "current") {
-            return (
-              <div key={b.id} className="relative">
-                {dot}
-                <p className="text-[11px] font-bold text-brand-400 mb-1.5 num">
-                  {range} <span className="ml-2 text-lo font-normal">Current Session</span>
-                </p>
-                <div className="bg-gradient-to-br from-panel to-sunken rounded-2xl p-5 border border-brand-500/30 shadow-lg shadow-brand-500/5">
-                  <div className="flex justify-between items-start gap-3 mb-2">
-                    <h4 className="text-base font-bold text-hi">{b.label}</h4>
-                    <span className="text-[11px] bg-brand-500/15 text-brand-400 px-2.5 py-1 rounded-full font-semibold shrink-0">{b.duration}</span>
-                  </div>
-                  <p className="text-xs text-mid italic mb-3">{b.objective}</p>
-                  <div className="space-y-2">
-                    {b.items.map((it, i) => {
-                      const k = `${b.id}-${i}`;
-                      const on = !!checks[k];
-                      return (
-                        <button
-                          key={k}
-                          onClick={() => toggle(k)}
-                          className="flex items-start gap-3 w-full text-left group"
-                        >
-                          <span className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 ${on ? "bg-brand-600 border-brand-600" : "border-line-strong group-hover:border-mid"}`}>
-                            {on && <Check size={10} className="text-white" strokeWidth={3} />}
-                          </span>
-                          <span className={`text-sm ${on ? "text-lo line-through" : "text-mid group-hover:text-hi"} transition-colors`}>
-                            {it}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {blockEvents.length > 0 && (
-                    <div className="mt-4 pt-3 border-t border-line/60 space-y-1.5">
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-lo">In this window</p>
-                      {blockEvents.map((e) => (
-                        <p key={e.uid} className="text-xs text-mid flex items-center gap-2">
-                          <Clock size={11} className="text-brand-400 shrink-0" />
-                          <span className="num text-lo shrink-0">{fmt(e.h)}</span>
-                          <span className="truncate">{e.title}</span>
-                        </p>
-                      ))}
-                    </div>
-                  )}
-                  <div className="mt-4 pt-3 border-t border-line/60 flex items-center justify-between gap-3">
-                    <span className="text-[11px] text-lo">{b.items.filter((_, i) => checks[`${b.id}-${i}`]).length}/{b.items.length} done</span>
-                    <div className="flex-1 max-w-[160px] h-1.5 rounded-full bg-zinc-800 overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-brand-500 to-brand-400 transition-all"
-                        style={{ width: `${(b.items.filter((_, i) => checks[`${b.id}-${i}`]).length / b.items.length) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          }
 
           return (
-            <div key={b.id} className="relative opacity-85">
+            <div key={b.id} className="relative">
               {dot}
-              <p className="text-[11px] font-semibold text-lo mb-1.5 num">{range}</p>
-              <div className="bg-sunken/40 rounded-2xl p-4 border border-line hover:border-line-strong transition-colors">
-                <div className="flex justify-between items-start gap-3">
-                  <h4 className="font-semibold text-mid text-sm">{b.label}</h4>
-                  <span className="text-[10px] bg-zinc-800 px-2 py-0.5 rounded text-lo border border-line shrink-0">{b.duration}</span>
+              <p className={`text-[11px] font-bold mb-1.5 num ${rangeColor}`}>
+                {range}
+                {tag}
+              </p>
+              <div className={cardClass}>
+                <div className="flex justify-between items-start gap-3 mb-2">
+                  <h4 className={`text-base font-bold ${state === "current" ? "text-hi" : "text-mid"}`}>{b.label}</h4>
+                  <span
+                    className={`text-[11px] px-2.5 py-1 rounded-full font-semibold shrink-0 ${
+                      state === "current"
+                        ? "bg-brand-500/15 text-brand-400"
+                        : "bg-zinc-800 text-lo border border-line"
+                    }`}
+                  >
+                    {b.duration}
+                  </span>
+                </div>
+                <p className="text-xs text-mid italic mb-3">{b.objective}</p>
+                <div className="space-y-2">
+                  {b.items.map((it, i) => {
+                    const k = `${b.id}-${i}`;
+                    const on = !!checks[k];
+                    return (
+                      <button
+                        key={k}
+                        onClick={() => toggle(k)}
+                        className="flex items-start gap-3 w-full text-left group"
+                      >
+                        <span
+                          className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
+                            on ? "bg-brand-600 border-brand-600" : "border-line-strong group-hover:border-mid"
+                          }`}
+                        >
+                          {on && <Check size={10} className="text-white" strokeWidth={3} />}
+                        </span>
+                        <span
+                          className={`text-sm ${
+                            on ? "text-lo line-through" : "text-mid group-hover:text-hi"
+                          } transition-colors`}
+                        >
+                          {it}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
                 {blockEvents.length > 0 && (
-                  <p className="text-[11px] text-mid mt-2 flex items-center gap-1.5">
-                    <Clock size={10} className="text-brand-400" />
-                    {blockEvents.length} event{blockEvents.length > 1 ? "s" : ""} scheduled
-                  </p>
+                  <div className="mt-4 pt-3 border-t border-line/60 space-y-1.5">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-lo">In this window</p>
+                    {blockEvents.map((e) => (
+                      <p key={e.uid} className="text-xs text-mid flex items-center gap-2">
+                        <Clock size={11} className="text-brand-400 shrink-0" />
+                        <span className="num text-lo shrink-0">{fmt(e.h)}</span>
+                        <span className="truncate">{e.title}</span>
+                      </p>
+                    ))}
+                  </div>
                 )}
+                <div className="mt-4 pt-3 border-t border-line/60 flex items-center justify-between gap-3">
+                  <span className="text-[11px] text-lo">
+                    {doneCount}/{b.items.length} done
+                  </span>
+                  <div className="flex-1 max-w-[160px] h-1.5 rounded-full bg-zinc-800 overflow-hidden">
+                    <div
+                      className={`h-full transition-all ${
+                        allDone
+                          ? "bg-gradient-to-r from-emerald to-emerald/70"
+                          : "bg-gradient-to-r from-brand-500 to-brand-400"
+                      }`}
+                      style={{ width: `${b.items.length ? (doneCount / b.items.length) * 100 : 0}%` }}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           );
