@@ -229,7 +229,7 @@ function WatchOuts() {
     rose: "bg-rose", amber: "bg-amber", violet: "bg-violet", brand: "bg-brand-400",
   };
   return (
-    <div className="bg-rose/5 border border-rose/20 rounded-2xl p-5 relative overflow-hidden h-full">
+    <div className="bg-panel border border-rose/25 rounded-3xl p-6 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-rose/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
       <div className="flex items-center justify-between gap-3 mb-4 relative z-10">
         <div className="flex items-center gap-3 min-w-0">
