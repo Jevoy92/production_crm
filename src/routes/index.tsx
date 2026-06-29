@@ -24,6 +24,7 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, LabelList,
 } from "recharts";
 import { ChartTooltip } from "@/components/charts/Charts";
+import { DailyCheckout } from "@/components/dashboard/DailyCheckout";
 
 export const Route = createFileRoute("/")({
   component: Today,
@@ -317,6 +318,7 @@ function Today() {
               owns={SHANNEN_OWNS}
               never={SHANNEN_NEVER}
               tasks={tasks.filter((t) => t.assigneeId === shannen.id && t.status !== "done")}
+              showCheckout
             />
           )}
           {jevoy && (
@@ -627,7 +629,7 @@ function ScriptIdeas() {
 }
 
 function PersonDay({
-  person, tasks, titleSuffix, roleLabel, blocks, week, owns, never: neverList,
+  person, tasks, titleSuffix, roleLabel, blocks, week, owns, never: neverList, showCheckout,
 }: {
   person: { id: string; name: string; role: string; initials: string; color: string };
   tasks: Array<{ id: string; title: string; priority: string; dueDate?: string; status: string; notes?: string }>;
@@ -637,6 +639,7 @@ function PersonDay({
   week: Record<number, WeekDay>;
   owns: string[];
   never: string[];
+  showCheckout?: boolean;
 }) {
   const run = useServerFn(generateTaskAssist);
   const [result, setResult] = useState<TaskAssistantResult | null>(null);
@@ -831,6 +834,8 @@ function PersonDay({
       </div>
 
       {/* Open tasks assigned in app */}
+      {showCheckout && <DailyCheckout personName={person.name} />}
+
       {tasks.length > 0 && (
         <div className="mt-4 pt-4 border-t border-line">
           <p className="text-[10px] font-bold uppercase tracking-wider text-lo mb-2">Assigned in app · {tasks.length}</p>
