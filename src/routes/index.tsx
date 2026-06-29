@@ -5,7 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import {
   Sparkles, History, CircleCheck, Info, Inbox,
   CalendarDays, TriangleAlert, Lightbulb, ChevronLeft, ChevronRight,
-  Plus, ListChecks, Loader2, Wand2,
+  Plus, ListChecks, Loader2, Wand2, Route as RouteIcon, Check, Clock,
 } from "lucide-react";
 import { AppShell } from "@/components/app/AppShell";
 import { useStore } from "@/lib/store";
