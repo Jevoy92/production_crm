@@ -10,7 +10,7 @@
 
 **JEVOY:**
 
-Picture a handprint.
+There's a handprint pressed into a sidewalk somewhere in your city.
 
 [BEAT]
 

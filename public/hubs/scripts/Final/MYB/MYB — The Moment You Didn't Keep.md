@@ -10,7 +10,7 @@
 
 **JEVOY:**
 
-Picture a room.
+Picture a school auditorium.
 
 [BEAT]
 
