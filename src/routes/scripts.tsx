@@ -13,6 +13,7 @@ import {
   Download,
 } from "lucide-react";
 import { SCRIPTS, STRATEGY_DOCS, RESEARCH_DOCS, YOURBOY_DOCS } from "@/lib/scriptsIndex";
+import { hasResearchPack } from "@/lib/researchPacks";
 import { Markdown } from "@/components/Markdown";
 import { copyToClipboard } from "@/lib/clipboard";
 import { toast } from "sonner";
@@ -270,6 +271,14 @@ function ScriptRow({
         <span className="hidden md:inline-flex items-center text-[9px] tracking-[0.18em] font-bold uppercase px-1.5 py-0.5 border border-border text-muted-foreground/80 shrink-0">
           {script.pillar}
         </span>
+        {hasResearchPack(script.num) && (
+          <span
+            className="hidden md:inline-flex items-center text-[9px] tracking-[0.18em] font-bold uppercase px-1.5 py-0.5 border border-emerald-500/40 text-emerald-500 shrink-0"
+            title="Research & B-roll pack available"
+          >
+            B-roll
+          </span>
+        )}
         <span className="hidden md:flex items-center gap-1.5 shrink-0">
           {brandTags.map((b) => (
             <span
