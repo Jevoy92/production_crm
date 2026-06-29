@@ -1,67 +1,76 @@
-# Apply MYB "Mirror With Memory" voice-review edits
+## Goal
 
-Target file (mirrored in two places — both updated identically):
+Polish the 13 MindYourBizniz scripts so they sound like Jevoy, not a template. Two surgical passes only — no body restructuring, no new framework retrofit.
 
-- `src/content/scripts/Final/MYB/MYB — The Mirror With Memory.md`
-- `public/hubs/scripts/Final/MYB/MYB — The Mirror With Memory.md`
+## Pass 1 — Kill the repetitive open
 
-Keep header (title, calibration line, QA, Fix log) and Cold Open + Chapter 1 untouched. Add a new fix-log line noting "v4: applied Jevoy voice-review edits."
+Every MYB cold open currently starts with some flavor of "I want to talk about…". Rewrite each opening line (and only the opening beat — first 2–6 lines of the COLD OPEN block) so:
 
-## Chapter 2 — THE MECHANISM → rewrite, drop the heavy research framing
+- No script starts with "I want to…" / "I want to start with…" / "Tonight I want to…".
+- Each open is **distinct from the other 12** — pulls from the script's own anchor image (the smudge on the lens, the empty chair, the room with three doors, the platform/train, the trailer vs. the whole film, etc.) instead of a preamble.
+- Opens stay in Jevoy's hushed second-person voice — no billboard hooks, no "huge news," no manufactured urgency.
+- Time-of-day language ("tonight", "this evening", "late tonight", "stay up with me") is removed everywhere in the script, not just the open. Replace with neutral framing ("right now," "for a minute," or just delete).
 
-- Replace the Duval & Wicklund + Hawthorne dump with a vivid imagined scene that does the same work: a child alone in a room singing and dancing happily; mom (familiar, no judgment) walks in and the child keeps going, maybe even more so; then a friend walks in — suddenly the same act becomes a performance being graded; then a strict parent walks in and the piano practice becomes "perform so you don't get punished."
-- Use that to land the same idea in plain language: the act didn't change, the watcher did — and the watcher rewrites what the act feels like from the inside.
-- Tighten the "subject mode / object mode" terminology — the two words are too similar and start to blur. Either name them once and then describe them in plain words ("the doing version" vs "the watching version"), or drop the labels entirely and just describe the flip.
-- Keep the Duval & Wicklund + Hawthorne references as a single short "for the nerds" aside / source card at the end of the chapter, not as the spine. MYB doesn't need the research to be the load-bearing beam.
+## Pass 2 — Remove fabricated proof
 
-## Chapter 3 — THE OBJECT YOU CAN SEE IN YOUR MIND → cut repetition, go deeper
+Audit every script for invented evidence that Jevoy would have to fake on camera, and either delete it or rewrite it as honest first-person ("I've felt this," "I've done this," generalized "you/we" recognition). Specifically hunt and remove:
 
-- The "mirror vs camera / mirror with memory / evidence locker / nervous system knows" beats repeat what was already said in the Cold Open and Chapter 1. Trim hard — keep one crisp restatement of the "mirror with memory" image, drop the rest.
-- Use the reclaimed space to go deeper into *why* the nervous system flips: it isn't just "people will watch this." It's that we know, deep down, people's judgments are usually unfair, that even the best-faith interpretation can land sideways, and that the recorded version of us will be read out of context by someone we'll never get to clarify it with.
-- Acknowledge stakes aren't equal: a video of you walking down the street barely registers; an intimate video of you practicing guitar wearing your uderwear in your living room is a different category of exposure. Same lens, very different angst. That's the nervous system being *accurate*, not broken.
+- Fabricated letters / DMs / "a viewer wrote me…"
+- Fabricated patients, buddies, "my friend who…" composites
+- Invented case studies, made-up stats, "a guy I know" anecdotes
+- "Imagine you got a letter that said…" devices
 
-## Chapter 4 — THE FRIEND WHO PUSHES BACK → restage as an actual phone call + smooth Zajonc
+What stays:
+- Real cited research already in the scripts (Zajonc, Todorov, Boothby, Willis, Ambady, Gilovich, the documented ancient stories, etc.) — these are public and not fabrications.
+- Generalized second-person scenes ("you walk into the room, you set down the mug…") — these are recognition, not invented evidence.
+- Jevoy's own first-person experience where it already exists.
 
-- Opening fix: drop "I can already hear the friend in this conversation pushing back" — this is the first episode the listener has heard, there's no "already." Start with: "I have this friend in my head. I think you might too. And he's not wrong about everything. So let me give him his say."
-- Restage the device as a literal phone call rather than disembodied "friend says" cut-ins. Jevoy says something like: "Okay — you've heard my argument. Let me call the friend who always has something else to say." Calls. Alt-voice picks up and delivers a ~15–30s push-back in character — Triplett's cyclists, kids on the fishing reel, "nobody sets a record alone in an empty gym, they set it in a packed stadium, the eyes are the fuel, stop overthinking it, press record a thousand times, just post." Hangs up. Cut back to Jevoy.
-- Jevoy's response opens: "Okay — thanks for the note. And quietly, he's partly right. That study is real and it's strong. Being watched genuinely lifts performance, and reps do matter. Anyone who tells you otherwise is selling something. But here's the thing he's missing — and it's the whole episode."
-- Then Zajonc 1965 / dominant response. Tighten the punchline so "the watching turns that up" is unambiguous — name what "that" is: the *automatic move you'd make without thinking*. For the sprinter, fast is automatic; the crowd turns fast up. For a business owner sitting in front of a lens for the first time, stiff is automatic — because nothing else has been practiced — so the watching turns *stiff* up. Same eyes. Opposite result.
-- Add the user's "if you've been talking about your business the same way for ten years, the camera amplifies that — it lifts you." Then the flip side: if pricing is still moving, terms of service are still being rewritten, SOPs aren't done, those uncertainties are what the lens turns up. Land it with the honesty reframe — turn that into the superpower: "Join me on my journey. I don't know everything. I'm figuring this out. If I stumble, point me in the right direction." Don't compare yourself to the top 1% — look at the people next to you. You're capable and ready, so do it.
-- Important: remove the framing that says "you need a person to talk to instead of a black hole" as a *requirement*. The user disagrees — most people have done this alone in a room, and you can't put a conversation partner on payroll. Keep it as one option among many, not the answer.
+Where a fabricated anecdote was load-bearing for a beat, replace it with one of:
+1. A first-person Jevoy line ("I've sat in that chair. I know the feeling of…").
+2. A generalized second-person recognition scene.
+3. A clean cut — delete the beat if it isn't doing work.
 
-## Chapter 5 — THE FLIP → cut the overclaims
+## Files in scope (13)
 
-- Delete: "this reframe changed how I talk about this with every business owner in my life" — unsupported claim.
-- Delete: "and how I talk to myself about it, honestly, because I'm in these reps right now too" — filler.
-- Keep the core: camera isn't *capturing*, camera is *adding an audience*. Keep the warm-version vs sharp-version material and the "match between the version and the setup" line.
-- End the section at: **"The match between the version and the setup is the problem."** Delete the follow-on "and almost nobody is paying attention to the match" — Jevoy has no data for that claim.
+`src/content/scripts/Final/MYB/`:
+- A Well-Lit Room With Doors
+- Context Doesn't Travel
+- Judged Before You Speak
+- Known by Thousands, Seen by No One
+- The Clean Lens
+- The Compass, Not the Megaphone
+- The Empty Chair
+- The Height Tax
+- The Miniature Lie
+- The Mirror With Memory
+- The Moment You Didn't Keep
+- The Parts We Cut
+- The Sharp Photograph
+- The Watched Brain
+- The Wet Cement
+- Who Holds You in Mind
+- Why We Hide
+- Your Own Voice
 
-## Chapter 6 — THE EMOTIONAL PART → trim, add "like me," fix the funky sentence
+(Manifest will be checked — final count is the 18 in `_manifest.json`; the 13 number is the set flagged with "I want to…" opens, but every MYB file gets the fabrication scrub.)
 
-- Drop: "I want to take this somewhere I don't usually take it on this show, and then I want to come back." — first-episode listener has no reference for "usually."
-- In "afraid of being witnessed in the middle of becoming the person they're trying to become," append "**like me.**"
-- Tighten the freeze line. Replace "So the freeze in front of the camera — and the more I sit with this, the more sure I am — is not always about the camera at all" with the plain version: **"So the freeze in front of the camera is not always about the camera at all."**
-- Rework the s-heavy sentence "the body's last defense of a self that hasn't been decided yet." Use Jevoy's draft phrasing: "Sometimes it's your body's last chance at a defense of a self that hasn't been decided yet." Flag it inline (small Fix-log note) that this line is still a candidate for one more polish pass — the user signaled it's not finished.
-- Cut: "The video can't be recorded because the question underneath the video hasn't been answered" — factually clumsy (the video *can* be recorded). Replace with something like: "And until you sit with that question, the take you're trying to record will keep coming out as someone else."
+## Mechanics
 
-## Chapter 7 — THE INVITATION → reconcile discipline with architecture
-
-- This is the biggest reframe. The current draft says: *"The problem isn't your discipline. The problem is, mostly, the architecture around you."* The user strongly disagrees and does **not** want to send that message.
-- Rewrite to say: it *is* a discipline story. Building the room — moving the desk, changing the light, setting the timer, doing one take a day for thirty days — that **is** the discipline. The architecture is the form the discipline takes, not a substitute for it.
-- Add Jevoy's "no excuses" beat: use natural light if you have to, throw a jacket on and go outside, use the phone mic until you can afford a $20 mic, use the $20 until you can afford the $70. Don't play victim. Some people have it better than others. Complete the reps.
-- Keep the "you are not behind / you are not less brave" passage — but reframe the closing thesis as "your nervous system is doing its job; *and* the work of giving it a better room is on you. Both are true." Not "the problem isn't your discipline."
-- CTA #3 rewrite: change "Tell them it was never their courage. It was the room" to Jevoy's exact correction: **"Tell them it's their courage *and* the room — and the time it takes to build it. That's what makes the reps, the patience, the familiarity. There's no way around it."**
-- Keep the final line untouched — user explicitly loved it: **"The mirror remembers either way. So let's go practice giving it the real one."**
-
-## Clip-worthy lines + sources
-
-- Keep "A camera is a mirror with memory" and "Same eyes. Opposite result."
-- Replace "We blamed their courage. The problem was their setup." with the corrected version: **"It's their courage *and* the room."**
-- Add: **"The watching turns up the move you already had."**
-- Keep all three sources (Duval & Wicklund, Hawthorne, Triplett → Zajonc) in show notes even though Chapter 2 demotes them in the body.
+For each file:
+1. Read it in full.
+2. Rewrite the cold open's first beat only.
+3. Search the body for `tonight|this evening|late tonight|letter from|wrote me|got a DM|patient of mine|buddy of mine|friend of mine who|imagine you got` and rewrite each hit per the rules above.
+4. Update the source file under `src/content/scripts/Final/MYB/`.
+5. Mirror to `public/hubs/scripts/Final/MYB/`.
+6. Regenerate that script's teleprompter file (same location, `*-Teleprompter.txt`) and update its word count in `src/content/scripts/Final/MYB/_manifest.json`.
 
 ## Out of scope
 
-- No code changes. No route changes. Only the two mirrored markdown files.
-- Not retitling the script.
-- Not regenerating teleprompter files in this pass (can be a follow-up).
+- No Illusion-of-Novelty restructuring (you chose "opens + fabrications only").
+- No JP or PH script edits.
+- No UI / route changes.
+- No new framework section, no contrast/urgency/proof-ladder rewrite of bodies.
+
+## Verification
+
+After the batch: grep MYB folder for `I want to`, `tonight`, `letter`, `patient`, `buddy of mine` — expect zero hits outside legitimate uses. Spot-check 2 scripts in the preview's Scripts page to confirm rendering and teleprompter download still work.
