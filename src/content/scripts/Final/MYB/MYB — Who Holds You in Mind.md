@@ -10,7 +10,7 @@
 
 **JEVOY:**
 
-I want to ask you something, and I want you to answer it slow.
+Answer this slow.
 
 [BEAT]
 
@@ -26,7 +26,7 @@ And for some of you, the question opened a small trapdoor. Especially if you're 
 
 [BEAT]
 
-So stay with me. I'm going to put you in a canyon. We're going to spend this whole episode in that canyon, because everything I want to say to you happens there.
+So stay with me. Picture a canyon. We're going to spend this whole episode in that canyon, because everything I'm trying to say happens there.
 
 ---
 
@@ -40,7 +40,7 @@ He had a camcorder in his bag. And with his free hand, he started recording. Mes
 
 And here's the part I keep pulling on. He said later those recordings were some of the most peaceful moments of the whole ordeal. Talking to people who weren't there, through a lens, somehow steadied him.
 
-So that's the question for tonight. Why would that help? Why does speaking to people who love you — people who aren't even in the room — change what a body can endure?
+So that's the question here. Why would that help? Why does speaking to people who love you — people who aren't even in the room — change what a body can endure?
 
 ---
 
@@ -70,7 +70,7 @@ And the stakes aren't poetic. In 2010, a researcher named Julianne Holt-Lunstad 
 
 ---
 
-Now hold the picture. This is the image I want to leave you with, so stay in it.
+Now hold the picture. This is the image to leave with you, so stay in it.
 
 Two climbers go into two canyons.
 
@@ -90,7 +90,7 @@ Climber one and climber two aren't two kinds of people. They're two decisions. A
 
 ---
 
-And here's my friend, right on time. Tonight my friend sounds like every founder I've ever had coffee with.
+And here's the counter-voice in my head, right on time. Today it sounds like every founder I've ever sat across from.
 
 "I hear you. But be real about this life. The isolation isn't a bug. It's the price of the seat. I can't process my fears with my employees — that's not honesty, that's instability, and they need me steady. I can't fully unload on my spouse — she's already carrying her half, and most of this would just scare her. My old friends don't get the stakes. My new friends might be networking. And honestly? I recharge alone. Introverts are real. So this 'who holds you' thing is sweet. But the seat I'm in doesn't come with it. That's why they call it lonely at the top. It's a description, not a complaint."
 

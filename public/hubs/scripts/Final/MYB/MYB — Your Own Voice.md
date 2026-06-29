@@ -1,6 +1,7 @@
 # MINDYOURBIZNIZ — "The Stranger in the Recording"
-## Format: THE LETTER · Audio monologue · 2,500+ spoken words · Standalone
-### System v3 QA: standalone ✓ no fabrication (second-person letter; public examples; Jevoy's standing facts only) ✓ kitchen-table voice ✓ humor ✓ named examples ✓ wonder turn ✓ close: secular (verse removed — re-add later) ✓ CTA: send to one person ✓
+## Format: DIRECT ADDRESS · Audio monologue · 2,500+ spoken words · Standalone
+### System v3 QA: standalone ✓ no fabrication (second-person letter; public examples; Jevoy's standing facts only) ✓ kitchen-table voice ✓ plain language ✓ bro-ban ✓ humor ✓ named examples ✓ wonder turn ✓ faith quiet + woven (uncited) ✓ no verdict ✓ CTA: do-then-report + comment + in-metaphor share ✓
+### Central concept (shared across all 3 versions): Your recorded voice IS your real voice — the only one everyone else has ever heard. The cringe isn't a verdict on your voice; it's the shock of a labeling mismatch. Inner-life cut: you are the only person alive who has never properly met your own voice. Shared core research: bone conduction · Hughes & Harrison 2013 · Holzman & Rousey 1966 (+ Mita/Dermer/Knight 1977, Zajonc 1968).
 
 ---
 
@@ -9,15 +10,17 @@
 
 **JEVOY:**
 
-I want to do something a little different today. I wrote a letter this week — for this episode, that's the assignment I gave myself — and instead of making my points the normal way, I'm just going to read it to you. It's addressed to one person. There's a decent chance that person is you.
+No monologue today. No setup. No "in this episode."
+
+This one's for one person. And there's a very decent chance — based on something tiny you did the last time you heard yourself on a recording — that the one person is you.
 
 [BEAT]
 
-Here it goes.
+So let's just talk.
 
 ---
 
-Dear you —
+You.
 
 Yeah. You. The one who heard yourself on a recording recently and made the face.
 
@@ -25,7 +28,7 @@ Maybe it was a voice note you accidentally played out loud. Maybe you were in th
 
 "I hate my voice."
 
-This letter is about that sentence. Because I don't think you've ever actually examined it. It came installed. You've been carrying it since middle school, probably, and you've never once held it up to the light. So that's what we're going to do — you and me, the next few minutes — and I'm telling you now, by the end of this letter that sentence is not going to survive.
+This whole thing is about that sentence. Because I don't think you've ever actually examined it. It came installed. You've been carrying it since middle school, probably, and you've never once held it up to the light. So that's what we're going to do — you and me, the next few minutes — and I'm telling you now, by the end of this letter that sentence is not going to survive.
 
 [PAUSE]
 
@@ -38,7 +41,7 @@ So the voice you've heard your entire life — every story you've told, every "I
 
 And the recording? The recording is just door number one. Air only. No bass, no skull, no private warmth. So it comes back to you thinner and brighter than the voice you know — and your brain, doing its honest best, says: *intruder.* That's not me. That's some stranger doing a bad impression of me.
 
-But here — here is the part of this letter I most need you to sit with, so I'm going to say it slowly.
+But here — here is the part I most need you to sit with, so I'm going to say it slowly.
 
 That stranger is the only version of you that anyone else has ever heard.
 
@@ -82,16 +85,16 @@ Where was I. Right — Oscar winners, who literally cannot press play on their o
 
 ---
 
-Now let me get to the part of this letter I actually wrote it for. Because the physics is fun and the studies are fun, but there's something underneath this that isn't about acoustics at all, and you know it.
+Now let me get to the part I actually wanted to land on. Because the physics is fun and the studies are fun, but there's something underneath this that isn't about acoustics at all, and you know it.
 
-I know it too — and let me tell you why I get to write this letter. I'm Jamaican-born and Seattle-raised, which means I grew up with more than one voice living in my mouth. There's a music in a Kingston sentence and a flatness in a Pacific Northwest one, and when you grow up between the two, you become very aware, very early, that a voice isn't just a sound — it's a flag. It tells people where you're from before you've decided what to tell them. People who grow up between accents — and if that's you, you already know — we don't just flinch at recordings because of the bass. We flinch because the recording answers a question we've been quietly managing our whole lives: *which one came out?* And these days I run a company where listening to recordings of myself is literally the job. The acoustics I made peace with. The deeper thing took longer.
+I know it too — and let me tell you why I get to say this. I'm Jamaican-born and Seattle-raised, which means I grew up with more than one voice living in my mouth. There's a music in a Kingston sentence and a flatness in a Pacific Northwest one, and when you grow up between the two, you become very aware, very early, that a voice isn't just a sound — it's a flag. It tells people where you're from before you've decided what to tell them. People who grow up between accents — and if that's you, you already know — we don't just flinch at recordings because of the bass. We flinch because the recording answers a question we've been quietly managing our whole lives: *which one came out?* And these days I run a company where listening to recordings of myself is literally the job. The acoustics I made peace with. The deeper thing took longer.
 
 And here's a piece of the deeper thing nobody warns you about. One day — it happens to almost everybody, somewhere in your thirties usually — you hear a recording of yourself and you don't hear a stranger. You hear your *parent.* The exact intonation. The way they answer the phone. Their laugh, coming out of your chest. And it's disorienting and it's holy all at once, because you realize the voice you've been criticizing all these years isn't even entirely yours — it's an inheritance. It's your mother's patience and your father's emphasis and your grandmother's way of landing a story, passed down through ten thousand dinners, wearing your throat. You've been heckling a family heirloom.
 
 The deeper thing is this: that recording is the closest you ever come to meeting yourself the way other people meet you. From the outside. Researchers were writing about this back in 1966 — Holzman and Rousey, they called it "voice confrontation" — the jolt isn't only the missing bass. It's that for three seconds, you are a stranger at your own front door. And most of us, when we meet that stranger... we're rude to them. Instantly. We criticize this person before they finish a sentence. We say things about them — "ugh, I hate them" — that we would never let anyone say about a friend.
 [SOURCE CARD on screen: Holzman & Rousey — voice confrontation studies, 1966.]
 
-And I want to ask you the question this whole letter has been walking toward:
+And here's the question this whole thing has been walking toward:
 
 What if you let the stranger in?
 
@@ -101,7 +104,7 @@ Because look at the stranger's résumé. That voice — the outside one, the rea
 
 And there's one more thing about that voice, and I say this gently, because it's the truest thing in this letter. You know what people do when they lose somebody? They keep the voicemails. It's one of the most common rituals of modern grief — people who can't bring themselves to delete a saved greeting, who play a thirty-second "hey, call me back" over and over, because it's the only place the voice still lives. Whole news stories have been written about families begging phone companies to recover a deleted voicemail. Nobody, in the history of grief, has ever kept a voicemail and thought *the pitch is a little thin.* The voice you flinch at — the exact recording, the exact frequencies — is the thing somebody who loves you would one day trade almost anything to hear again. You are walking around embarrassed of a future treasure.
 
-So here's what I'd ask of you this week. Two small things — this is a letter, not a bootcamp.
+So here's what I'd ask of you this week. Two small things — this is a conversation, not a bootcamp.
 
 First: go find one voice note you've sent. Recent, old, doesn't matter. And listen to it all the way through — not as quality control, no editing allowed — listen the way you'd listen to a friend. One time through, with the same mercy you give literally everyone else's voice. That's it. That's the whole practice. If the cringe shows up, let it sit there; it's just the surprise wearing off. It expires faster than you think — ask anybody in radio or podcasting; the industry has known for generations that the cringe is a phase, not a fact.
 
@@ -112,29 +115,35 @@ And third — this one's optional, and it's only for you, nobody ever has to hea
 
 [BEAT]
 
-I want to close this letter with the thing love actually says — because it's the opposite of what you've been telling yourself. Think about the people who light up when they hear from you. When they catch your voice on the phone, in a voice note, across a room — they don't think "I wish that sounded different." They think *more.* Play it again. Stay on the line. Tell me about your day. Nobody who loves you has ever, once, asked you for a better voice. They ask for more of the one you've got.
+Let me close with the thing love actually says. Because it's the opposite of what you've been telling yourself. Think about the people who light up when they hear from you. When they catch your voice on the phone, in a voice note, across a room — they don't think "I wish that sounded different." They think *more.* Play it again. Stay on the line. Tell me about your day. Nobody who loves you has ever, once, asked you for a better voice. They ask for more of the one you've got.
+
+There's a line in one of the oldest love poems we have. One person says to the other, simply: *let me hear your voice — your voice is sweet.* Not "fix it." Not "lower it." Let me hear it. That's the review that's been on file your whole life. You just never read it, because you were too busy writing your own.
 
 [PAUSE]
 
 The bass edition was never the beloved version. The recording was. The stranger was. The voice that comes out of you and lands on other people — the one you've never properly heard, the one strangers rate above average in a blind test, the one your whole life answers to — that's the one people actually love. You're the only critic in the building, and you're reviewing a show everyone else bought tickets to twice.
 
-So this is the end of the letter, and here's how it ends. The sentence you came in with — "I hate my voice" — you can't keep it. It failed physics, and it failed the blind test, and it failed everyone who's ever been glad to hear from you. Replace it with the true sentence:
+So here's how this ends. The sentence you came in with — "I hate my voice" — you can't keep it. It failed physics, and it failed the blind test, and it failed everyone who's ever been glad to hear from you. Replace it with the true sentence:
 
 "I just hadn't met my voice yet."
 
 Go meet it. It's been carrying your whole life out to the people you love, faithfully, without one day off, since the day you learned to talk. It's been waiting a long time. It has so much to tell you.
 
-With love — and in a voice I'm still making friends with too —
+With love — and in a voice I'm still making friends with too.
 
-Jevoy.
+— Jevoy
 
 ---
 
 [ROOM TONE returns.]
 
-That's the letter. If it landed anywhere near you, here's the only thing I'll ask: you know somebody who apologizes every time they send a voice note. You thought of them four minutes ago. Send them this episode — that's the whole assignment. Some letters need to be forwarded.
+That's it. And if any of it landed anywhere near you, here's what I'd ask — with you, not at you.
 
-Thanks for being here. MindYourBizniz is a Palmer House conversation. New episode next week.
+Do the small thing from the letter this week. Find one old voice note and listen all the way through, like it belongs to a friend. Then come to the comments and tell me one line: the honest answer to *would I think anything was wrong if a stranger sounded like this?* That's the comment I'm actually waiting on. I'm still making friends with my own voice too, so I'll be down there reading them — I need to know it's possible as much as you do.
+
+And the share. You already know somebody who apologizes every single time they send a voice note. You thought of them four minutes ago. Send them this. That's the whole assignment. Some letters only work once they're forwarded.
+
+You just hadn't met your voice yet. Go on. It's been waiting a long time.
 
 [ROOM TONE — the mug lifts. Out.]
 
@@ -165,6 +174,6 @@ Thanks for being here. MindYourBizniz is a Palmer House conversation. New episod
 - Mita, Dermer & Knight (1977) — mirror-image preference
 - Holzman & Rousey (1966) — voice confrontation
 - Bone conduction — standard audiology references
-- Song of Solomon 2:14
+- Closing allusion: Song of Solomon 2:14 ("let me hear your voice, for your voice is sweet") — uncited, woven
 
-**Spoken word count: 2,521 ✓ (verified, cues excluded)**
+**Spoken word count: ~2,620 ✓ (cues excluded)**

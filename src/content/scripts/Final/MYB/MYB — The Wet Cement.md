@@ -10,7 +10,7 @@
 
 **JEVOY:**
 
-I want to show you a handprint.
+Picture a handprint.
 
 [BEAT]
 
@@ -22,7 +22,7 @@ Stay there with me. Don't leave that sidewalk. Because the whole episode lives i
 
 There was a window, see. Ninety minutes, maybe. The cement was soft enough to take the hand, and firm enough to keep it. Press too early, it closes up. Press too late, it won't take. But right in the middle — it holds forever.
 
-You had a window like that. When you were young and still soft. And the things that got pressed into you then — the photos, the videos, the first impressions, the little stories told about you at dinner — they set. And here's the quiet, heavy thing I want to sit in with you tonight. You've been living inside that handprint ever since. And most of it, you didn't press yourself.
+You had a window like that. When you were young and still soft. And the things that got pressed into you then — the photos, the videos, the first impressions, the little stories told about you at dinner — they set. And here's the quiet, heavy thing I want to sit in with you. You've been living inside that handprint ever since. And most of it, you didn't press yourself.
 
 [BEAT]
 

@@ -10,7 +10,7 @@
 
 **JEVOY:**
 
-I want to put you in a room.
+Picture a room.
 
 [BEAT]
 
@@ -22,15 +22,15 @@ And you lift your phone.
 
 [BEAT]
 
-Stay there with me. Don't leave that room. We're going to spend this whole episode in that room — that one row, those four minutes — because everything I want to say to you today happens right there, in the space between her and the little glowing rectangle in your hand.
+Stay there with me. Don't leave that room. We're going to spend this whole episode in that room — that one row, those four minutes — because everything I want to say happens right there, in the space between her and the little glowing rectangle in your hand.
 
 You lift your phone out of love. It's always love. You're thinking: *I'm keeping this. For her. For her grandmother. For when she's grown and gone and I'm old.* And so you watch her whole solo — her *whole* solo — on a screen the size of your palm. She is forty feet away. Full color. Three dimensions. And you watch the broadcast of her, one row from the stage.
 
-Here's the question I want to leave in that room with you, and we'll come back for it: the file you're making right now — will you ever actually watch it? And the thing you're trading for it — the version in the room, the one that only plays once — where does that one go?
+Here's the question to leave in that room, and we'll come back for it: the file you're making right now — will you ever actually watch it? And the thing you're trading for it — the version in the room, the one that only plays once — where does that one go?
 
 ---
 
-I have to tell you about a woman named Linda Henkel. Not because I want to turn the lights back on — stay in the auditorium, I'll keep this quiet — but because she explains what's happening in your hand right now.
+There's a researcher named Linda Henkel — stay in the auditorium, I'll keep this quiet — but she explains what's happening in your hand right now.
 [SOURCE CARD: Henkel — 'Point-and-Shoot Memories,' Psychological Science, 2014.]
 
 2014. She walks a group of students through an art museum. Tells them: some of these, just look at. Others, look at and photograph. The next day she asks them what they remember.
@@ -52,7 +52,7 @@ Now — there's a friend I have to let into the room. He loves a camera the way 
 "You're being unfair to the phone," he says. "And you know it. 2016 — there's a study, Diehl and his colleagues, thousands of people, real trips, real museums. And the people who took photos *enjoyed* it more. Paid *closer* attention. Because the camera made them hunt for the beautiful thing. For some of us, a lens is how we slow down enough to actually see. Don't you dare stand up there and tell people the camera stole something from you. The camera is the reason you noticed the light in the first place."
 [SOURCE CARD: Diehl, Zauberman & Barasch — 'How Taking Photos Increases Enjoyment,' JPSP, 2016.]
 
-And — quietly — my friend is right. I won't bury that, even though it complicates everything I want to say. The camera can be devotion. The photographer who waits twenty minutes for the light is *more* in the moment than the rest of us, not less.
+And — quietly — that's true. I won't bury it, even though it complicates everything I'm trying to say. The camera can be devotion. The photographer who waits twenty minutes for the light is *more* in the moment than the rest of us, not less.
 
 [PAUSE]
 

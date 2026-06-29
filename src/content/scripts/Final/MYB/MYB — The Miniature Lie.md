@@ -9,7 +9,7 @@
 
 **JEVOY:**
 
-Tonight I want to open a case file. A cold case. Extremely cold. It's about thirty-four hundred years old. But I'm reopening it. Because the thing that went wrong in this case is the exact thing that went wrong in your head at two o'clock this morning.
+Let me open a case file. A cold case. Extremely cold. About thirty-four hundred years old. I'm reopening it. Because the thing that went wrong in this case is the exact thing that went wrong in your head at two o'clock this morning.
 
 You know the two a.m. thing. Everybody knows the two a.m. thing.
 
@@ -153,9 +153,9 @@ So here's what I'll ask of you. Three small things.
 
 First, in the comments — name your grasshopper. The thing that looks two inches tall at two a.m. and normal-sized by breakfast. One line. Just get it out of your own eyes and onto the page.
 
-Second — the real one. Tonight, before bed, write your biggest problem down in one sentence. Don't solve it. Just bag it. Then re-measure it tomorrow at breakfast, rested, out loud, with one other person if you can. Then come back here and tell me how much it shrank. That's the comment I'm waiting on.
+Second — the real one. right now, before bed, write your biggest problem down in one sentence. Don't solve it. Just bag it. Then re-measure it tomorrow at breakfast, rested, out loud, with one other person if you can. Then come back here and tell me how much it shrank. That's the comment I'm waiting on.
 
-And third. You know somebody whose problem is two inches from their lens right now. Tonight, maybe. Send them this one. That's the whole assignment. Some camera equipment has to be hand-delivered.
+And third. You know somebody whose problem is two inches from their lens right now. right now, maybe. Send them this one. That's the whole assignment. Some camera equipment has to be hand-delivered.
 
 [ROOM TONE — the mug lifts. A breath. Out.]
 

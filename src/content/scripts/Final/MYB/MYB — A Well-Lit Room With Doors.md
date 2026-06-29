@@ -10,7 +10,7 @@
 
 **JEVOY:**
 
-I want to put you in a room.
+Picture a room.
 
 [BEAT]
 
@@ -20,7 +20,7 @@ And then — count the doors. There are three of them. All closed. All yours.
 
 [BEAT]
 
-Stay in that room with me. We're going to spend this whole episode right here — because the thing I most need to say to you tonight lives in the space between that open window and those three closed doors.
+Stay in that room with me. We're going to spend this whole episode right here — because the thing I most need to say to you lives in the space between that open window and those three closed doors.
 
 Here's why you're in this room. You've got something worth sharing. A gift. A skill. A thing the right person is out there searching for right now. And you won't press record.
 
@@ -28,7 +28,7 @@ Not because you're lazy. Because somewhere along the way, somebody told you that
 
 So you chose the dark instead. Blinds shut. Lights off. Safe, and completely invisible.
 
-Here's the question I want to leave in this room with you. We'll come back for it. Is the open window the danger you think it is? Or is it the three closed doors that were going to keep you safe the whole time?
+Here's the question to leave in this room. We'll come back for it. Is the open window the danger you think it is? Or is it the three closed doors that were going to keep you safe the whole time?
 
 ---
 
@@ -102,7 +102,7 @@ When you keep every light off, you're not just hiding yourself. You're hiding th
 
 And here's the quiet, hard part. They won't wait in the dark for you. They'll find the lit window down the street. They'll hire the person who was willing to turn on one lamp — even if that person knows less and cares less than you. Not because they're better. Because they were findable.
 
-Picture the one you'd help best. They have the exact problem you were made to solve. Tonight they're awake, a little scared, looking for a light. They pass your house — dark, blinds shut, looks empty — and they keep walking. To the lit window down the block. And you never even knew they came by your door.
+Picture the one you'd help best. They have the exact problem you were made to solve. Right now they're awake, a little scared, looking for a light. They pass your house — dark, blinds shut, looks empty — and they keep walking. To the lit window down the block. And you never even knew they came by your door.
 
 Your dark room isn't protecting you. It's just making you impossible to find. And it's costing the person who needed you most.
 

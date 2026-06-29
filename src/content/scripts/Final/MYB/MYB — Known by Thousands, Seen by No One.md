@@ -14,7 +14,7 @@ There's a thing Jim Carrey said in an interview years ago that I've never been a
 
 [BEAT]
 
-Hold that. And now picture this with me. A message lands in someone's inbox. And somewhere, right now, somebody is genuinely typing it. It says: "I have thousands of followers. So why do I feel invisible?"
+Hold that. And now sit with this sentence — because somewhere, right now, somebody is quietly thinking it: "I have thousands of followers. So why do I feel invisible?"
 
 Thousands of followers. Feels invisible.
 
@@ -30,7 +30,7 @@ And before you decide this one's not for you because you don't have an audience 
 
 Now, this is not the episode where I tell you the internet is fake and real connection only happens at farmers markets and drum circles. Some of the kindest encouragement I have ever gotten came from a stranger through a screen. I'm not going to sit here, on the internet, and tell you internet connection isn't real.
 
-What I want to do instead is figure out what's actually going on. Because there's research on this. From 1956. Before social media. Before the internet. Two researchers basically predicted this whole feeling, watching black-and-white television. So stay with me. There's a study, then there's an empty theater, and then — because we don't end in the sad place — there's a blanket fort. I mean that. Let's go.
+What I'd rather do is figure out what's actually going on. Because there's research on this. From 1956. Before social media. Before the internet. Two researchers basically predicted this whole feeling, watching black-and-white television. So stay with me. There's a study, then there's an empty theater, and then — because we don't end in the sad place — there's a blanket fort. I mean that. Let's go.
 
 ---
 
