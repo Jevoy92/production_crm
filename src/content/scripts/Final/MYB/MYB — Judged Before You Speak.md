@@ -22,6 +22,10 @@ That fear runs people's whole lives. It picks their outfits, kills their ideas i
 
 And I'll warn you right now, this is a genuine fight. The prosecution has *real* science, some of it shocking — this is not going to be one of those episodes where the scary side is a strawman we knock over in minute four. The fear is right about more than you'd like. But the defense... the defense has been sitting on evidence most people have never heard. Court is in session. Let's go.
 
+[BEAT]
+
+And let me say the thing up front, so you're not waiting on it. The dread you feel before walking into a room — it is not a confidence problem. It is a *forecasting* problem. Your prediction of what that room is going to do to you is wrong, in a specific and measurable direction, every single time. And once you see which direction, you stop pre-settling cases the jury would have thrown out. That's the whole episode.
+
 ---
 
 ## THE PROSECUTION'S CASE
