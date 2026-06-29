@@ -51,7 +51,9 @@ export async function listAssets(themeNo: string): Promise<ResearchAsset[]> {
   }
   // For link assets without og_image, show source_url
   for (const r of rows) {
-    if (!r.display_url) r.display_url = r.og_image ?? r.source_url ?? undefined;
+    if (!r.display_url) {
+      r.display_url = r.og_image ?? r.source_url ?? undefined;
+    }
   }
   return rows;
 }
