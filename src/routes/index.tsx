@@ -773,6 +773,52 @@ function PersonDay({
   const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState<Record<string, boolean>>({});
 
+  // Per-person editable overrides of the playbook items, persisted to localStorage.
+  // Map shape: { [blockId]: string[] }. Missing key = use the source b.items.
+  const storageKey = `dayItems:${person.id}`;
+  const [overrides, setOverrides] = useState<Record<string, string[]>>(() => {
+    if (typeof window === "undefined") return {};
+    try { return JSON.parse(localStorage.getItem(storageKey) ?? "{}"); } catch { return {}; }
+  });
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try { localStorage.setItem(storageKey, JSON.stringify(overrides)); } catch {}
+  }, [overrides, storageKey]);
+
+  const itemsFor = (b: Block): string[] => overrides[b.id] ?? b.items;
+
+  const [editing, setEditing] = useState<string | null>(null); // `${blockId}-${index}` or `${blockId}-new`
+  const [draft, setDraft] = useState("");
+
+  function commitItems(blockId: string, next: string[]) {
+    setOverrides((o) => ({ ...o, [blockId]: next }));
+  }
+  function updateItem(b: Block, i: number, text: string) {
+    const next = itemsFor(b).slice();
+    next[i] = text;
+    commitItems(b.id, next);
+  }
+  function deleteItem(b: Block, i: number) {
+    const next = itemsFor(b).slice();
+    next.splice(i, 1);
+    commitItems(b.id, next);
+    // also clear any check state on that index by shifting
+    setChecked((c) => {
+      const out: Record<string, boolean> = {};
+      Object.entries(c).forEach(([k, v]) => {
+        if (!k.startsWith(`${b.id}-`)) { out[k] = v; return; }
+        const idx = Number(k.split("-").pop());
+        if (idx === i) return;
+        out[idx > i ? `${b.id}-${idx - 1}` : k] = v;
+      });
+      return out;
+    });
+  }
+  function addItem(b: Block, text: string) {
+    if (!text.trim()) return;
+    commitItems(b.id, [...itemsFor(b), text.trim()]);
+  }
+
   const dow = new Date().getDay();
   const today = week[dow];
 
