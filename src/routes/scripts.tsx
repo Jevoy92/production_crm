@@ -17,6 +17,8 @@ import { hasResearchPack } from "@/lib/researchPacks";
 import { Markdown } from "@/components/Markdown";
 import { copyToClipboard } from "@/lib/clipboard";
 import { toast } from "sonner";
+import { ResearchPack } from "@/components/research/ResearchPack";
+import { Images, FileText } from "lucide-react";
 
 export const Route = createFileRoute("/scripts")({
   component: ScriptsLayout,
@@ -220,6 +222,8 @@ function ScriptRow({
     ? preferredBrand
     : (versions.find((v) => script.versions[v.key])?.key ?? "jevoy");
   const [activeVersion, setActiveVersion] = useState<typeof versions[number]["key"]>(initial);
+  const [view, setView] = useState<"script" | "research">("script");
+  const hasResearch = hasResearchPack(script.num);
   const entry = script.versions[activeVersion];
   const source = entry?.body ?? "";
   const loading = false;
@@ -297,6 +301,30 @@ function ScriptRow({
       </button>
       {open && (
         <div className="pb-6 pl-14 pr-2 -mt-1 space-y-4">
+          {hasResearch && (
+            <div className="inline-flex gap-1 p-1 bg-muted/40 border border-border rounded-lg">
+              <button
+                onClick={() => setView("script")}
+                className={`h-7 px-3 rounded-md text-[11px] font-medium flex items-center gap-1.5 transition-colors ${
+                  view === "script" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <FileText className="size-3" /> Script
+              </button>
+              <button
+                onClick={() => setView("research")}
+                className={`h-7 px-3 rounded-md text-[11px] font-medium flex items-center gap-1.5 transition-colors ${
+                  view === "research" ? "bg-emerald-600 text-white" : "text-emerald-600 hover:text-emerald-500"
+                }`}
+              >
+                <Images className="size-3" /> Research & B-roll
+              </button>
+            </div>
+          )}
+          {view === "research" && hasResearch ? (
+            <ResearchPack themeNo={script.num} />
+          ) : (
+          <>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="grid grid-cols-3 gap-2 flex-1 min-w-0">
               {versions.map((v) => {
@@ -367,6 +395,8 @@ function ScriptRow({
             <div className="text-muted-foreground text-[13px] italic px-1">
               This version hasn't been written yet.
             </div>
+          )}
+          </>
           )}
         </div>
       )}
