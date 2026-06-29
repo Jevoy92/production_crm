@@ -22,6 +22,10 @@ And every photo you take this week passes through that. Through a thin film of y
 
 Stay there with me. Hold that smudge in your mind, because we're going to come back to it the whole way through. That little film of grease is the whole episode. Because the thing you keep trying to fix about how people see you — it was never the light. It was the lens.
 
+[BEAT]
+
+And I'll say the quiet part out loud, because I don't think anybody's said it to you this way. You've been told the reason your content isn't working is that you need a better camera. A better hook. A better edit. A more interesting personality. None of that is the thing. The thing is a smudge most people never think to wipe — and once you see it, you can't unsee it, and your stuff starts landing inside a week.
+
 ---
 
 Here's a quiet thing I keep noticing. I'll be scrolling — just looking at how businesses present themselves. Pages, reels, websites.
@@ -138,6 +142,8 @@ There's a kind of rest in it too. If you've been running the treadmill of trying
 I'll tell you the one that caught me. Somebody asked me at dinner what I do. And I watched myself reach for the cinematic version — "we craft narrative-driven brand worlds." And I saw her eyes do that polite, glazed nod.
 
 And I caught it. I stopped. I said, "We make videos that get small businesses customers." And she lit up. "Oh — my brother needs that." One sentence. The whole conversation changed the second I wiped the glass.
+
+And that's not a story from a book. That's a Tuesday. That same week, two people I'd been talking to for months — who I'd been describing my company to with all the cinematic words — finally booked. Not because anything about the work changed. Because I finally said the plain sentence out loud and let them decide. The smudge had been on my side of the glass the whole time, and the second I wiped it, the people I'd been trying to reach could finally see me.
 
 Clarity isn't dumbing it down. It's the most love you can show your own work — finally letting it be *seen.*
 
