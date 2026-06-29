@@ -22,7 +22,8 @@ export const SHANNEN_BLOCKS: Block[] = [
     duration: "30m",
     objective: "Establish situational awareness and align on the day's high-priority tasks.",
     items: [
-      "Triage general inbox; flag items needing Jevoy's input",
+      "Check info@palmerhouseproductions.com inbox; flag items needing Jevoy",
+      "Check jevoy@jevoypalmer.com inbox; flag items needing Jevoy",
       "Review Jevoy's calendar for today + next 48h for conflicts",
       "5–10 min alignment check-in with Jevoy",
     ],
@@ -51,6 +52,7 @@ export const SHANNEN_BLOCKS: Block[] = [
     items: [
       "Book studio, confirm shoot dates, prep equipment checklists",
       "Draft invoices, log receipts, follow up on outstanding balances",
+      "Post daily Palmer House content (IG + LinkedIn feed post)",
       "Schedule pre-edited clips on IG / LinkedIn / YouTube",
       "Update website portfolio / blog / newsletter with new assets",
     ],
