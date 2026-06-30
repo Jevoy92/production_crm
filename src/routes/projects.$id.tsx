@@ -266,19 +266,13 @@ function ProjectHub() {
                   )}
                   <ul className="space-y-1.5">
                     {project.checklists[stageF].map((i) => (
-                      <li key={i.id} className="flex items-center gap-2.5 group">
-                        <input
-                          type="checkbox"
-                          checked={i.done}
-                          onChange={() => toggle(project.id, stageF, i.id)}
-                          className="accent-primary size-4"
-                        />
-                        <span
-                          className={`text-[13px] ${i.done ? "line-through text-muted-foreground" : "text-foreground"}`}
-                        >
-                          {i.text}
-                        </span>
-                      </li>
+                      <ChecklistRow
+                        key={i.id}
+                        item={i}
+                        onToggle={() => toggle(project.id, stageF, i.id)}
+                        onEdit={(text) => updateItem(project.id, stageF, i.id, text)}
+                        onRemove={() => removeItem(project.id, stageF, i.id)}
+                      />
                     ))}
                   </ul>
                   <form
