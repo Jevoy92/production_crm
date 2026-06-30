@@ -693,11 +693,19 @@ function ChecklistRow({
   onToggle,
   onEdit,
   onRemove,
+  dragging,
+  onDragStart,
+  onDragEnd,
+  onDragOver,
 }: {
   item: { id: string; text: string; done: boolean };
   onToggle: () => void;
   onEdit: (text: string) => void;
   onRemove: () => void;
+  dragging?: boolean;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
+  onDragOver?: () => void;
 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(item.text);
@@ -708,7 +716,20 @@ function ChecklistRow({
     setEditing(false);
   };
   return (
-    <li className="flex items-center gap-2.5 group rounded-md px-1.5 py-0.5 hover:bg-surface-2">
+    <li
+      className={`flex items-center gap-1.5 group rounded-md px-1.5 py-0.5 hover:bg-surface-2 ${dragging ? "opacity-40" : ""}`}
+      onDragOver={(e) => { e.preventDefault(); onDragOver?.(); }}
+    >
+      <button
+        type="button"
+        draggable
+        onDragStart={(e) => { e.dataTransfer.effectAllowed = "move"; onDragStart?.(); }}
+        onDragEnd={() => onDragEnd?.()}
+        className="cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-foreground transition-opacity"
+        aria-label="Drag to reorder"
+      >
+        <GripVertical className="size-3.5" />
+      </button>
       <input
         type="checkbox"
         checked={item.done}
