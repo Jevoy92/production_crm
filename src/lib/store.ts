@@ -66,6 +66,8 @@ type State = {
   setStage: (id: string, stage: Stage) => void;
   toggleChecklistItem: (projectId: string, stage: ChecklistStage, itemId: string) => void;
   addChecklistItem: (projectId: string, stage: ChecklistStage, text: string) => void;
+  updateChecklistItem: (projectId: string, stage: ChecklistStage, itemId: string, text: string) => void;
+  removeChecklistItem: (projectId: string, stage: ChecklistStage, itemId: string) => void;
   addLogEntry: (
     projectId: string,
     who: string,
@@ -204,6 +206,20 @@ export const useStore = create<State>()(
         const project = get().projects.find((p) => p.id === projectId);
         if (!project) return;
         const items = [...project.checklists[stage], { id: uid("ci"), text, done: false }];
+        get().updateProject(projectId, { checklists: { ...project.checklists, [stage]: items } });
+      },
+      updateChecklistItem: (projectId, stage, itemId, text) => {
+        const project = get().projects.find((p) => p.id === projectId);
+        if (!project) return;
+        const items = project.checklists[stage].map((i) =>
+          i.id === itemId ? { ...i, text } : i,
+        );
+        get().updateProject(projectId, { checklists: { ...project.checklists, [stage]: items } });
+      },
+      removeChecklistItem: (projectId, stage, itemId) => {
+        const project = get().projects.find((p) => p.id === projectId);
+        if (!project) return;
+        const items = project.checklists[stage].filter((i) => i.id !== itemId);
         get().updateProject(projectId, { checklists: { ...project.checklists, [stage]: items } });
       },
       addLogEntry: (projectId, who, type, text) => {
