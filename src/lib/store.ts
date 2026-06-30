@@ -68,6 +68,7 @@ type State = {
   addChecklistItem: (projectId: string, stage: ChecklistStage, text: string) => void;
   updateChecklistItem: (projectId: string, stage: ChecklistStage, itemId: string, text: string) => void;
   removeChecklistItem: (projectId: string, stage: ChecklistStage, itemId: string) => void;
+  reorderChecklistItem: (projectId: string, stage: ChecklistStage, fromId: string, toId: string) => void;
   addLogEntry: (
     projectId: string,
     who: string,
