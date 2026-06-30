@@ -223,6 +223,18 @@ export const useStore = create<State>()(
         const items = project.checklists[stage].filter((i) => i.id !== itemId);
         get().updateProject(projectId, { checklists: { ...project.checklists, [stage]: items } });
       },
+      reorderChecklistItem: (projectId, stage, fromId, toId) => {
+        if (fromId === toId) return;
+        const project = get().projects.find((p) => p.id === projectId);
+        if (!project) return;
+        const list = [...project.checklists[stage]];
+        const fromIdx = list.findIndex((i) => i.id === fromId);
+        const toIdx = list.findIndex((i) => i.id === toId);
+        if (fromIdx < 0 || toIdx < 0) return;
+        const [moved] = list.splice(fromIdx, 1);
+        list.splice(toIdx, 0, moved);
+        get().updateProject(projectId, { checklists: { ...project.checklists, [stage]: list } });
+      },
       addLogEntry: (projectId, who, type, text) => {
         const project = get().projects.find((p) => p.id === projectId);
         if (!project) return;
