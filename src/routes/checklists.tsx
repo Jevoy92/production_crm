@@ -18,6 +18,8 @@ import {
   X,
   Cloud,
   CloudOff,
+  Mic,
+  Pencil,
 } from "lucide-react";
 
 export const Route = createFileRoute("/checklists")({
@@ -25,7 +27,7 @@ export const Route = createFileRoute("/checklists")({
   head: () => ({ meta: [{ title: "Production Checklists · Palmer House" }] }),
 });
 
-type TabKey = "overview" | "pre" | "gear" | "during" | "post" | "closeout";
+type TabKey = "overview" | "pre" | "gear" | "internal" | "during" | "post" | "closeout";
 type ChecklistKey = Exclude<TabKey, "overview">;
 
 type Item = {
@@ -41,6 +43,7 @@ const TABS: { key: TabKey; label: string; icon: React.ComponentType<{ className?
   { key: "overview", label: "Today's Overview", icon: ClipboardCheck, blurb: "Log what actually got done today. Tap chips, add notes." },
   { key: "pre", label: "Pre-Shoot", icon: Sun, blurb: "Lock the plan before you leave the studio." },
   { key: "gear", label: "Mobile Gear", icon: Backpack, blurb: "Grab-and-go gear checklist for any location shoot." },
+  { key: "internal", label: "Internal / Podcast", icon: Mic, blurb: "In-studio internal shoot + podcast workflow. Fully editable." },
   { key: "during", label: "During Shoot", icon: Camera, blurb: "Run through this on set so nothing gets missed." },
   { key: "post", label: "Post-Shoot", icon: Moon, blurb: "Wrap the day cleanly before you head out." },
   { key: "closeout", label: "End of Day Closeout", icon: BatteryCharging, blurb: "Reset gear and the studio for tomorrow." },
@@ -161,6 +164,38 @@ const DEFAULTS: Record<ChecklistKey, DefaultEntry[]> = {
     "Return gear to its home in the kit",
     "Update project log with shoot notes",
     "Send invoice or balance reminder if due",
+  ],
+  internal: [
+    { section: "Studio Prep", text: "Clear and reset studio space (sweep, dust, tidy backdrop)" },
+    { section: "Studio Prep", text: "Confirm topic / outline / talking points are in the doc" },
+    { section: "Studio Prep", text: "Confirm guest(s) arrival time + parking + green-room comfort" },
+    { section: "Studio Prep", text: "Pull wardrobe — avoid tight stripes / busy patterns" },
+    { section: "Studio Prep", text: "Water + glasses + napkins ready at the table" },
+    { section: "Studio Prep", text: "Print run-of-show / questions (host + producer copy)" },
+    { section: "Camera & Lighting", text: "Power on all cameras + confirm batteries / AC power" },
+    { section: "Camera & Lighting", text: "Format + label all SD cards (Cam A, Cam B, Cam C)" },
+    { section: "Camera & Lighting", text: "Set matching frame rate + resolution on every camera" },
+    { section: "Camera & Lighting", text: "Match white balance + ISO across cameras" },
+    { section: "Camera & Lighting", text: "Lock focus on each seat (mark spots with tape)" },
+    { section: "Camera & Lighting", text: "Key + fill + backlight set, no hot spots on faces" },
+    { section: "Camera & Lighting", text: "Check for reflections in glasses + on table" },
+    { section: "Audio", text: "Lav mic each speaker + run quick level test" },
+    { section: "Audio", text: "Headphones on producer monitoring live levels" },
+    { section: "Audio", text: "Backup recorder rolling (Zoom / Rode) with fresh batteries" },
+    { section: "Audio", text: "Capture 30 sec of room tone before first take" },
+    { section: "Audio", text: "Phones on airplane mode or silenced + away from lavs" },
+    { section: "Recording", text: "Slate / clap at the top of each segment for sync" },
+    { section: "Recording", text: "Roll all cameras + recorder BEFORE first word" },
+    { section: "Recording", text: "Producer logs episode title, guest, segment timestamps" },
+    { section: "Recording", text: "Capture B-roll: room wide, host nods, hand gestures, gear" },
+    { section: "Recording", text: "Grab photo stills for thumbnails + socials" },
+    { section: "Recording", text: "Re-record any flubbed lines as pickups before guest leaves" },
+    { section: "Wrap & Offload", text: "Confirm card / drive count matches camera count" },
+    { section: "Wrap & Offload", text: "Offload every card to primary drive + mirror to backup" },
+    { section: "Wrap & Offload", text: "Verify file counts + playable footage before wiping cards" },
+    { section: "Wrap & Offload", text: "Log episode in production tracker + tag for editor" },
+    { section: "Wrap & Offload", text: "Thank guest + confirm publish date + asset delivery" },
+    { section: "Wrap & Offload", text: "Reset studio: lights off, mics down, gear back in kit" },
   ],
 };
 
