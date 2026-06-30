@@ -676,3 +676,70 @@ function DetailsForm({
     </div>
   );
 }
+
+function ChecklistRow({
+  item,
+  onToggle,
+  onEdit,
+  onRemove,
+}: {
+  item: { id: string; text: string; done: boolean };
+  onToggle: () => void;
+  onEdit: (text: string) => void;
+  onRemove: () => void;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(item.text);
+  const commit = () => {
+    const t = draft.trim();
+    if (t && t !== item.text) onEdit(t);
+    else setDraft(item.text);
+    setEditing(false);
+  };
+  return (
+    <li className="flex items-center gap-2.5 group rounded-md px-1.5 py-0.5 hover:bg-surface-2">
+      <input
+        type="checkbox"
+        checked={item.done}
+        onChange={onToggle}
+        className="accent-primary size-4"
+      />
+      {editing ? (
+        <>
+          <input
+            autoFocus
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            onBlur={commit}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") commit();
+              if (e.key === "Escape") { setDraft(item.text); setEditing(false); }
+            }}
+            className={inputCls + " flex-1 text-[13px] py-1"}
+          />
+          <button onClick={commit} className="text-emerald-500 hover:text-emerald-400" aria-label="Save"><Check className="size-3.5" /></button>
+          <button onClick={() => { setDraft(item.text); setEditing(false); }} className="text-muted-foreground hover:text-foreground" aria-label="Cancel"><X className="size-3.5" /></button>
+        </>
+      ) : (
+        <>
+          <span
+            onDoubleClick={() => setEditing(true)}
+            className={`flex-1 text-[13px] cursor-text ${item.done ? "line-through text-muted-foreground" : "text-foreground"}`}
+          >
+            {item.text}
+          </span>
+          <button
+            onClick={() => setEditing(true)}
+            className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-foreground transition-opacity"
+            aria-label="Edit"
+          ><Pencil className="size-3.5" /></button>
+          <button
+            onClick={onRemove}
+            className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-rose-500 transition-opacity"
+            aria-label="Delete"
+          ><Trash2 className="size-3.5" /></button>
+        </>
+      )}
+    </li>
+  );
+}
