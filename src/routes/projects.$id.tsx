@@ -18,6 +18,7 @@ import {
   Pencil,
   Check,
   X,
+  GripVertical,
 } from "lucide-react";
 
 export const Route = createFileRoute("/projects/$id")({
@@ -53,6 +54,7 @@ function ProjectHub() {
   const addItem = useStore((s) => s.addChecklistItem);
   const updateItem = useStore((s) => s.updateChecklistItem);
   const removeItem = useStore((s) => s.removeChecklistItem);
+  const reorderItem = useStore((s) => s.reorderChecklistItem);
   const addLog = useStore((s) => s.addLogEntry);
 
   const [tab, setTab] = useState<"checklists" | "shoots" | "assets" | "log" | "details">(
@@ -61,6 +63,7 @@ function ProjectHub() {
   const [stageF, setStageF] = useState<ChecklistStage>("Pre-Production");
   const [newItem, setNewItem] = useState("");
   const [logText, setLogText] = useState("");
+  const [dragId, setDragId] = useState<string | null>(null);
 
   if (!project)
     return (
@@ -274,6 +277,14 @@ function ProjectHub() {
                       <ChecklistRow
                         key={i.id}
                         item={i}
+                        dragging={dragId === i.id}
+                        onDragStart={() => setDragId(i.id)}
+                        onDragEnd={() => setDragId(null)}
+                        onDragOver={() => {
+                          if (dragId && dragId !== i.id) {
+                            reorderItem(project.id, stageF, dragId, i.id);
+                          }
+                        }}
                         onToggle={() => toggle(project.id, stageF, i.id)}
                         onEdit={(text) => updateItem(project.id, stageF, i.id, text)}
                         onRemove={() => removeItem(project.id, stageF, i.id)}
@@ -682,11 +693,19 @@ function ChecklistRow({
   onToggle,
   onEdit,
   onRemove,
+  dragging,
+  onDragStart,
+  onDragEnd,
+  onDragOver,
 }: {
   item: { id: string; text: string; done: boolean };
   onToggle: () => void;
   onEdit: (text: string) => void;
   onRemove: () => void;
+  dragging?: boolean;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
+  onDragOver?: () => void;
 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(item.text);
@@ -697,7 +716,20 @@ function ChecklistRow({
     setEditing(false);
   };
   return (
-    <li className="flex items-center gap-2.5 group rounded-md px-1.5 py-0.5 hover:bg-surface-2">
+    <li
+      className={`flex items-center gap-1.5 group rounded-md px-1.5 py-0.5 hover:bg-surface-2 ${dragging ? "opacity-40" : ""}`}
+      onDragOver={(e) => { e.preventDefault(); onDragOver?.(); }}
+    >
+      <button
+        type="button"
+        draggable
+        onDragStart={(e) => { e.dataTransfer.effectAllowed = "move"; onDragStart?.(); }}
+        onDragEnd={() => onDragEnd?.()}
+        className="cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-foreground transition-opacity"
+        aria-label="Drag to reorder"
+      >
+        <GripVertical className="size-3.5" />
+      </button>
       <input
         type="checkbox"
         checked={item.done}
