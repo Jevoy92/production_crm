@@ -140,7 +140,7 @@ function ContentPage() {
       subtitle={`${library.length} items · ${library.filter((l) => l.status === "Published").length} published`}
       actions={
         <>
-          <Link to="/repurpose" className="ph-btn ph-btn-soft ph-btn-sm">Repurpose →</Link>
+          <Link to="/repurpose" className="ph-btn ph-btn-soft ph-btn-sm">Shorts →</Link>
           <button className="ph-btn ph-btn-soft ph-btn-sm" onClick={() => setGenOpen(true)}><Sparkles size={14} /> Generate month</button>
           <button className="ph-btn ph-btn-primary ph-btn-sm" onClick={addNew}><Plus size={14} /> New Idea</button>
         </>
@@ -206,7 +206,7 @@ function ContentPage() {
       {filtered.length === 0 ? (
         <div className="text-center py-16 text-mid text-sm">
           No content matches. Add an item or generate shorts from the{" "}
-          <Link to="/repurpose" className="text-brand-400 font-semibold">Repurpose</Link> engine.
+          <Link to="/repurpose" className="text-brand-400 font-semibold">Shorts</Link> engine.
         </div>
       ) : view === "grid" ? (
         <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" stagger={0.04}>
