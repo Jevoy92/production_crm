@@ -277,6 +277,14 @@ function ProjectHub() {
                       <ChecklistRow
                         key={i.id}
                         item={i}
+                        dragging={dragId === i.id}
+                        onDragStart={() => setDragId(i.id)}
+                        onDragEnd={() => setDragId(null)}
+                        onDragOver={() => {
+                          if (dragId && dragId !== i.id) {
+                            reorderItem(project.id, stageF, dragId, i.id);
+                          }
+                        }}
                         onToggle={() => toggle(project.id, stageF, i.id)}
                         onEdit={(text) => updateItem(project.id, stageF, i.id, text)}
                         onRemove={() => removeItem(project.id, stageF, i.id)}
