@@ -213,7 +213,7 @@ async function seedIfEmpty() {
     .select("*", { count: "exact", head: true });
   if (error) return;
   if ((count ?? 0) > 0) return;
-  const rows = (["pre","gear","during","post","closeout"] as ChecklistKey[]).flatMap(defaultRowsFor);
+  const rows = (["pre","gear","internal","during","post","closeout"] as ChecklistKey[]).flatMap(defaultRowsFor);
   await supabase.from("checklist_items").insert(rows);
 }
 
