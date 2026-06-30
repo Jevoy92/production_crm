@@ -12,7 +12,7 @@ export const Route = createFileRoute("/repurpose")({
   component: RepurposePage,
   head: () => ({
     meta: [
-      { title: "Repurpose · Palmer House OS" },
+      { title: "Shorts · Palmer House OS" },
       { name: "description", content: "Turn one long-form script into 3 short-form scripts that funnel viewers back to the long-form video." },
     ],
   }),
@@ -175,7 +175,7 @@ function RepurposePage() {
   return (
     <AppShell
       eyebrow="Engine"
-      title="Repurpose"
+      title="Shorts"
       subtitle="One long-form → three shorts that funnel viewers back."
       actions={
         <Link
