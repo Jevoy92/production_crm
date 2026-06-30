@@ -7,6 +7,7 @@ import { STAGES, PAL_TYPES } from "@/lib/types";
 import type { Stage, PalType, Project } from "@/lib/types";
 import { Plus, LayoutGrid, Rows, Filter, ExternalLink, Pencil, Trash2, UserPlus, Check } from "lucide-react";
 import { Handshake, ClipboardList, Camera, Scissors, Send, PackageCheck } from "lucide-react";
+import { InternalPodcastChecklist } from "@/components/productions/InternalPodcastChecklist";
 
 export const Route = createFileRoute("/productions")({
   component: ProductionsPage,
@@ -101,10 +102,14 @@ function ProductionsPage() {
       {view === "kanban" ? (
         <>
           <PipelineStats projects={filtered} />
+          <InternalPodcastChecklist />
           <Kanban projects={filtered} />
         </>
       ) : (
-        <Table projects={filtered} />
+        <>
+          <InternalPodcastChecklist />
+          <Table projects={filtered} />
+        </>
       )}
 
       <NewProjectModal open={openNew} onClose={() => setOpenNew(false)} />
