@@ -15,6 +15,9 @@ import {
   Calendar,
   DollarSign,
   Link as LinkIcon,
+  Pencil,
+  Check,
+  X,
 } from "lucide-react";
 
 export const Route = createFileRoute("/projects/$id")({
@@ -48,6 +51,8 @@ function ProjectHub() {
   const remove = useStore((s) => s.removeProject);
   const toggle = useStore((s) => s.toggleChecklistItem);
   const addItem = useStore((s) => s.addChecklistItem);
+  const updateItem = useStore((s) => s.updateChecklistItem);
+  const removeItem = useStore((s) => s.removeChecklistItem);
   const addLog = useStore((s) => s.addLogEntry);
 
   const [tab, setTab] = useState<"checklists" | "shoots" | "assets" | "log" | "details">(
