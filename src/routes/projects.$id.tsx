@@ -18,6 +18,7 @@ import {
   Pencil,
   Check,
   X,
+  GripVertical,
 } from "lucide-react";
 
 export const Route = createFileRoute("/projects/$id")({
@@ -53,6 +54,7 @@ function ProjectHub() {
   const addItem = useStore((s) => s.addChecklistItem);
   const updateItem = useStore((s) => s.updateChecklistItem);
   const removeItem = useStore((s) => s.removeChecklistItem);
+  const reorderItem = useStore((s) => s.reorderChecklistItem);
   const addLog = useStore((s) => s.addLogEntry);
 
   const [tab, setTab] = useState<"checklists" | "shoots" | "assets" | "log" | "details">(
@@ -61,6 +63,7 @@ function ProjectHub() {
   const [stageF, setStageF] = useState<ChecklistStage>("Pre-Production");
   const [newItem, setNewItem] = useState("");
   const [logText, setLogText] = useState("");
+  const [dragId, setDragId] = useState<string | null>(null);
 
   if (!project)
     return (
