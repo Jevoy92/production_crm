@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://cxbicaxdhnwkjbwpkemd.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "palmer-house-os-mcp",
+      "version": "0.1.0",
+      "title": "Palmer House Production OS"
+    },
+    "tools": [
+      {
+        "name": "list_scripts",
+        "title": "List scripts",
+        "description": "List scripts from the Palmer House Studio library. Returns titles, brand, and updated_at (does not include full body).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "brand": {
+              "description": "Optional brand filter (e.g. 'jevoy-palmer', 'palmer-house', 'mindyourbizniz').",
+              "type": "string"
+            },
+            "limit": {
+              "default": 50,
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_script",
+        "title": "Get script",
+        "description": "Fetch a single script's full markdown body by id.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "description": "Script id (from list_scripts)."
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_checklist_items",
+        "title": "List checklist items",
+        "description": "List items on a checklist tab (e.g. 'internal', 'preprod', 'production', 'post'). Returns items grouped by section with done status.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "tab": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Checklist tab key, e.g. 'internal'."
+            }
+          },
+          "required": [
+            "tab"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "toggle_checklist_item",
+        "title": "Toggle checklist item",
+        "description": "Set the done state of a checklist item by id.",
+        "annotations": {
+          "readOnlyHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "done": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "done"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "add_checklist_item",
+        "title": "Add checklist item",
+        "description": "Add a new item to a checklist tab (optionally in a specific section).",
+        "annotations": {
+          "readOnlyHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "tab": {
+              "type": "string",
+              "minLength": 1
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1
+            },
+            "section": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "tab",
+            "text"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

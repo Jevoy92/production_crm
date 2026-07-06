@@ -5,6 +5,7 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { mcpPlugin } from "@lovable.dev/mcp-js/stacks/tanstack/vite";
 
 const backendUrl = process.env.VITE_SUPABASE_URL ?? process.env.SUPABASE_URL ?? "https://cxbicaxdhnwkjbwpkemd.supabase.co";
 const backendPublishableKey =
@@ -23,5 +24,6 @@ export default defineConfig({
       "import.meta.env.VITE_SUPABASE_URL": JSON.stringify(backendUrl),
       "import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY": JSON.stringify(backendPublishableKey),
     },
+    plugins: [mcpPlugin()],
   },
 });
