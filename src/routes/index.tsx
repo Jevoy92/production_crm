@@ -88,24 +88,6 @@ function Today() {
       }
     >
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* Morning brief banner */}
-        <div className="bg-brand-600/10 border border-brand-500/20 rounded-xl p-4 flex items-start gap-4">
-          <div className="mt-1 w-8 h-8 rounded-full bg-brand-600/20 flex items-center justify-center flex-shrink-0">
-            <Sparkles size={14} className="text-brand-400" />
-          </div>
-          <div className="flex-1">
-            <div className="flex items-center justify-between mb-1">
-              <h3 className="text-xs font-semibold text-brand-400 uppercase tracking-wider">
-                Morning Brief · Auto-Generated 7AM
-              </h3>
-            </div>
-            <p className="text-sm text-mid leading-relaxed">
-              Today's plan is drafted from yesterday's pendant transcripts, important inbox, completed tasks,
-              overview log, and today's calendar.
-            </p>
-          </div>
-        </div>
-
         {/* Lively day journey: pulse + path on the left, sticky context rail on the right */}
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="flex-1 min-w-0 space-y-6">
