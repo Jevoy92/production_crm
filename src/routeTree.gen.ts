@@ -20,6 +20,7 @@ import { Route as RepurposeRouteImport } from './routes/repurpose'
 import { Route as ProductionsRouteImport } from './routes/productions'
 import { Route as PlaybookRouteImport } from './routes/playbook'
 import { Route as MeetingsRouteImport } from './routes/meetings'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as GearRouteImport } from './routes/gear'
 import { Route as FocusRouteImport } from './routes/focus'
 import { Route as FinanceRouteImport } from './routes/finance'
@@ -46,6 +47,10 @@ import { Route as ClientsIdRouteImport } from './routes/clients.$id'
 import { Route as ApiStudioChatRouteImport } from './routes/api/studio-chat'
 import { Route as ApiPalsRouteImport } from './routes/api/pals'
 import { Route as AdminTemplatesRouteImport } from './routes/admin.templates'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as ApiPublicHooksMorningDigestRouteImport } from './routes/api/public/hooks/morning-digest'
 
 const TeamRoute = TeamRouteImport.update({
@@ -101,6 +106,11 @@ const PlaybookRoute = PlaybookRouteImport.update({
 const MeetingsRoute = MeetingsRouteImport.update({
   id: '/meetings',
   path: '/meetings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GearRoute = GearRouteImport.update({
@@ -233,6 +243,29 @@ const AdminTemplatesRoute = AdminTemplatesRouteImport.update({
   path: '/admin/templates',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicHooksMorningDigestRoute =
   ApiPublicHooksMorningDigestRouteImport.update({
     id: '/api/public/hooks/morning-digest',
@@ -251,6 +284,7 @@ export interface FileRoutesByFullPath {
   '/finance': typeof FinanceRoute
   '/focus': typeof FocusRoute
   '/gear': typeof GearRoute
+  '/mcp': typeof McpRoute
   '/meetings': typeof MeetingsRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
@@ -262,6 +296,8 @@ export interface FileRoutesByFullPath {
   '/studio': typeof StudioRouteWithChildren
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
@@ -278,6 +314,8 @@ export interface FileRoutesByFullPath {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/hooks/morning-digest': typeof ApiPublicHooksMorningDigestRoute
 }
 export interface FileRoutesByTo {
@@ -291,6 +329,7 @@ export interface FileRoutesByTo {
   '/finance': typeof FinanceRoute
   '/focus': typeof FocusRoute
   '/gear': typeof GearRoute
+  '/mcp': typeof McpRoute
   '/meetings': typeof MeetingsRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
@@ -302,6 +341,8 @@ export interface FileRoutesByTo {
   '/studio': typeof StudioRouteWithChildren
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
@@ -318,6 +359,8 @@ export interface FileRoutesByTo {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/hooks/morning-digest': typeof ApiPublicHooksMorningDigestRoute
 }
 export interface FileRoutesById {
@@ -332,6 +375,7 @@ export interface FileRoutesById {
   '/finance': typeof FinanceRoute
   '/focus': typeof FocusRoute
   '/gear': typeof GearRoute
+  '/mcp': typeof McpRoute
   '/meetings': typeof MeetingsRoute
   '/playbook': typeof PlaybookRouteWithChildren
   '/productions': typeof ProductionsRoute
@@ -343,6 +387,8 @@ export interface FileRoutesById {
   '/studio': typeof StudioRouteWithChildren
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/templates': typeof AdminTemplatesRoute
   '/api/pals': typeof ApiPalsRoute
   '/api/studio-chat': typeof ApiStudioChatRoute
@@ -359,6 +405,8 @@ export interface FileRoutesById {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/hooks/morning-digest': typeof ApiPublicHooksMorningDigestRoute
 }
 export interface FileRouteTypes {
@@ -374,6 +422,7 @@ export interface FileRouteTypes {
     | '/finance'
     | '/focus'
     | '/gear'
+    | '/mcp'
     | '/meetings'
     | '/playbook'
     | '/productions'
@@ -385,6 +434,8 @@ export interface FileRouteTypes {
     | '/studio'
     | '/tasks'
     | '/team'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/admin/templates'
     | '/api/pals'
     | '/api/studio-chat'
@@ -401,6 +452,8 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/api/public/hooks/morning-digest'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -414,6 +467,7 @@ export interface FileRouteTypes {
     | '/finance'
     | '/focus'
     | '/gear'
+    | '/mcp'
     | '/meetings'
     | '/playbook'
     | '/productions'
@@ -425,6 +479,8 @@ export interface FileRouteTypes {
     | '/studio'
     | '/tasks'
     | '/team'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/admin/templates'
     | '/api/pals'
     | '/api/studio-chat'
@@ -441,6 +497,8 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/api/public/hooks/morning-digest'
   id:
     | '__root__'
@@ -454,6 +512,7 @@ export interface FileRouteTypes {
     | '/finance'
     | '/focus'
     | '/gear'
+    | '/mcp'
     | '/meetings'
     | '/playbook'
     | '/productions'
@@ -465,6 +524,8 @@ export interface FileRouteTypes {
     | '/studio'
     | '/tasks'
     | '/team'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/admin/templates'
     | '/api/pals'
     | '/api/studio-chat'
@@ -481,6 +542,8 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/api/public/hooks/morning-digest'
   fileRoutesById: FileRoutesById
 }
@@ -495,6 +558,7 @@ export interface RootRouteChildren {
   FinanceRoute: typeof FinanceRoute
   FocusRoute: typeof FocusRoute
   GearRoute: typeof GearRoute
+  McpRoute: typeof McpRoute
   MeetingsRoute: typeof MeetingsRoute
   PlaybookRoute: typeof PlaybookRouteWithChildren
   ProductionsRoute: typeof ProductionsRoute
@@ -506,6 +570,8 @@ export interface RootRouteChildren {
   StudioRoute: typeof StudioRouteWithChildren
   TasksRoute: typeof TasksRoute
   TeamRoute: typeof TeamRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AdminTemplatesRoute: typeof AdminTemplatesRoute
   ApiPalsRoute: typeof ApiPalsRoute
   ApiStudioChatRoute: typeof ApiStudioChatRoute
@@ -514,6 +580,8 @@ export interface RootRouteChildren {
   KpisPaRoute: typeof KpisPaRoute
   ProjectsIdRoute: typeof ProjectsIdRoute
   ShootsIdRoute: typeof ShootsIdRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiPublicHooksMorningDigestRoute: typeof ApiPublicHooksMorningDigestRoute
 }
 
@@ -594,6 +662,13 @@ declare module '@tanstack/react-router' {
       path: '/meetings'
       fullPath: '/meetings'
       preLoaderRoute: typeof MeetingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gear': {
@@ -778,6 +853,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/morning-digest': {
       id: '/api/public/hooks/morning-digest'
       path: '/api/public/hooks/morning-digest'
@@ -852,6 +955,7 @@ const rootRouteChildren: RootRouteChildren = {
   FinanceRoute: FinanceRoute,
   FocusRoute: FocusRoute,
   GearRoute: GearRoute,
+  McpRoute: McpRoute,
   MeetingsRoute: MeetingsRoute,
   PlaybookRoute: PlaybookRouteWithChildren,
   ProductionsRoute: ProductionsRoute,
@@ -863,6 +967,9 @@ const rootRouteChildren: RootRouteChildren = {
   StudioRoute: StudioRouteWithChildren,
   TasksRoute: TasksRoute,
   TeamRoute: TeamRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AdminTemplatesRoute: AdminTemplatesRoute,
   ApiPalsRoute: ApiPalsRoute,
   ApiStudioChatRoute: ApiStudioChatRoute,
@@ -871,8 +978,20 @@ const rootRouteChildren: RootRouteChildren = {
   KpisPaRoute: KpisPaRoute,
   ProjectsIdRoute: ProjectsIdRoute,
   ShootsIdRoute: ShootsIdRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiPublicHooksMorningDigestRoute: ApiPublicHooksMorningDigestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
