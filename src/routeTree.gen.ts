@@ -50,6 +50,7 @@ import { Route as AdminTemplatesRouteImport } from './routes/admin.templates'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as ApiPublicHooksMorningDigestRouteImport } from './routes/api/public/hooks/morning-digest'
 
 const TeamRoute = TeamRouteImport.update({
@@ -260,6 +261,11 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicHooksMorningDigestRoute =
   ApiPublicHooksMorningDigestRouteImport.update({
     id: '/api/public/hooks/morning-digest',
@@ -308,6 +314,7 @@ export interface FileRoutesByFullPath {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/hooks/morning-digest': typeof ApiPublicHooksMorningDigestRoute
 }
@@ -352,6 +359,7 @@ export interface FileRoutesByTo {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/hooks/morning-digest': typeof ApiPublicHooksMorningDigestRoute
 }
@@ -397,6 +405,7 @@ export interface FileRoutesById {
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
   '/studio/$id': typeof StudioIdRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/hooks/morning-digest': typeof ApiPublicHooksMorningDigestRoute
 }
@@ -443,6 +452,7 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/hooks/morning-digest'
   fileRoutesByTo: FileRoutesByTo
@@ -487,6 +497,7 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/hooks/morning-digest'
   id:
@@ -531,6 +542,7 @@ export interface FileRouteTypes {
     | '/scripts/yourboy'
     | '/shoots/$id'
     | '/studio/$id'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/hooks/morning-digest'
   fileRoutesById: FileRoutesById
@@ -568,6 +580,7 @@ export interface RootRouteChildren {
   KpisPaRoute: typeof KpisPaRoute
   ProjectsIdRoute: typeof ProjectsIdRoute
   ShootsIdRoute: typeof ShootsIdRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiPublicHooksMorningDigestRoute: typeof ApiPublicHooksMorningDigestRoute
 }
@@ -861,6 +874,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/morning-digest': {
       id: '/api/public/hooks/morning-digest'
       path: '/api/public/hooks/morning-digest'
@@ -958,6 +978,7 @@ const rootRouteChildren: RootRouteChildren = {
   KpisPaRoute: KpisPaRoute,
   ProjectsIdRoute: ProjectsIdRoute,
   ShootsIdRoute: ShootsIdRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiPublicHooksMorningDigestRoute: ApiPublicHooksMorningDigestRoute,
 }
