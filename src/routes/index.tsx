@@ -26,6 +26,7 @@ import {
 } from "recharts";
 import { ChartTooltip } from "@/components/charts/Charts";
 import { DailyCheckout } from "@/components/dashboard/DailyCheckout";
+import { PalmerInsightsCard } from "@/components/dashboard/PalmerInsightsCard";
 
 export const Route = createFileRoute("/")({
   component: Today,
@@ -88,6 +89,9 @@ function Today() {
       }
     >
       <div className="max-w-7xl mx-auto space-y-6">
+        {/* Script ideas slider — moved to top */}
+        <ScriptIdeas />
+
         {/* Lively day journey: pulse + path on the left, sticky context rail on the right */}
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="flex-1 min-w-0 space-y-6">
@@ -96,6 +100,7 @@ function Today() {
               eventsCount={todayEvents.length}
               highCount={openTasks.filter((t) => t.priority === "High").length}
             />
+            <PalmerInsightsCard />
             <TodaysPath
               phase={todayPhase}
               blocks={JEVOY_BLOCKS}
@@ -142,9 +147,6 @@ function Today() {
 
         {/* Workload chart */}
         <WorkloadChart team={team} tasks={openTasks} />
-
-        {/* Script ideas slider */}
-        <ScriptIdeas />
       </div>
     </AppShell>
   );
