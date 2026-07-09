@@ -23,6 +23,7 @@ import {
 import {
   PieChart, Pie, Cell, ResponsiveContainer,
   BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, LabelList,
+  RadialBarChart, RadialBar, AreaChart, Area,
 } from "recharts";
 import { ChartTooltip } from "@/components/charts/Charts";
 import { DailyCheckout } from "@/components/dashboard/DailyCheckout";
