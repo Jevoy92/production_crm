@@ -23,6 +23,7 @@ import {
 import {
   PieChart, Pie, Cell, ResponsiveContainer,
   BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, LabelList,
+  RadialBarChart, RadialBar, AreaChart, Area,
 } from "recharts";
 import { ChartTooltip } from "@/components/charts/Charts";
 import { DailyCheckout } from "@/components/dashboard/DailyCheckout";
@@ -250,47 +251,73 @@ function Panel({
   );
 }
 
-/* ---------------- Pulse Metrics — 3 compact cards, each with its own visual ---------------- */
-function RingGauge({ pct, color }: { pct: number; color: string }) {
-  const r = 16, c = 2 * Math.PI * r;
-  const dash = Math.max(0, Math.min(1, pct / 100)) * c;
-  return (
-    <svg viewBox="0 0 44 44" className="w-11 h-11 -rotate-90">
-      <circle cx="22" cy="22" r={r} fill="none" stroke="var(--line-2)" strokeWidth="4" />
-      <circle
-        cx="22" cy="22" r={r} fill="none" stroke={color} strokeWidth="4"
-        strokeLinecap="round" strokeDasharray={`${dash} ${c - dash}`}
-      />
-    </svg>
-  );
-}
-function DayTimeline({ hours, color }: { hours: number[]; color: string }) {
-  // 8am → 8pm strip with a dot per scheduled call
-  const START = 8, END = 20, W = 64, H = 20;
-  return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-16 h-5">
-      <line x1="2" y1={H / 2} x2={W - 2} y2={H / 2} stroke="var(--line-2)" strokeWidth="1.5" strokeLinecap="round" />
-      {[8, 12, 16, 20].map((h) => {
-        const x = 2 + ((h - START) / (END - START)) * (W - 4);
-        return <circle key={h} cx={x} cy={H / 2} r="1" fill="var(--line-2)" />;
-      })}
-      {hours.map((h, i) => {
-        const clamped = Math.max(START, Math.min(END, h));
-        const x = 2 + ((clamped - START) / (END - START)) * (W - 4);
-        return <circle key={i} cx={x} cy={H / 2} r="3" fill={color} />;
-      })}
-    </svg>
-  );
-}
-function SegmentBar({ done, open, color }: { done: number; open: number; color: string }) {
+/* ---------------- Pulse Metrics — 3 compact cards, each with its own recharts visual ---------------- */
+function TasksStackedBar({ done, open, color }: { done: number; open: number; color: string }) {
   const total = Math.max(1, done + open);
-  const pct = (done / total) * 100;
+  const data = [{ name: "t", done, open }];
+  const pct = Math.round((done / total) * 100);
   return (
-    <div className="w-16">
-      <div className="h-1.5 rounded-full bg-line-2 overflow-hidden">
-        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: color }} />
+    <div className="w-20">
+      <div className="h-4">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data} layout="vertical" margin={{ top: 0, right: 0, bottom: 0, left: 0 }} barCategoryGap={0}>
+            <XAxis type="number" hide domain={[0, total]} />
+            <YAxis type="category" dataKey="name" hide />
+            <Bar dataKey="done" stackId="s" fill={color} radius={[4, 0, 0, 4]} isAnimationActive={false} />
+            <Bar dataKey="open" stackId="s" fill="var(--line-2)" radius={[0, 4, 4, 0]} isAnimationActive={false} />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
-      <p className="mt-1 text-[10px] text-lo num tabular-nums">{done}/{total} done</p>
+      <p className="mt-1 text-[10px] text-lo tabular-nums text-right">{pct}% done</p>
+    </div>
+  );
+}
+function CallsAreaTimeline({ hours, color }: { hours: number[]; color: string }) {
+  // Bucket calls into hourly bins 8-20 for a small area chart.
+  const START = 8, END = 20;
+  const bins = Array.from({ length: END - START + 1 }, (_, i) => ({ h: START + i, c: 0 }));
+  hours.forEach((h) => {
+    const idx = Math.round(Math.max(START, Math.min(END, h))) - START;
+    if (bins[idx]) bins[idx].c += 1;
+  });
+  // Give an empty timeline a subtle baseline so the area is visible.
+  const data = bins.map((b) => ({ ...b, c: b.c + 0.15 }));
+  return (
+    <div className="w-24 h-10">
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart data={data} margin={{ top: 2, right: 2, bottom: 0, left: 2 }}>
+          <defs>
+            <linearGradient id="callsFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={color} stopOpacity={0.55} />
+              <stop offset="100%" stopColor={color} stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <Area
+            type="monotone" dataKey="c" stroke={color} strokeWidth={1.5}
+            fill="url(#callsFill)" isAnimationActive={false} dot={false}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+function OnTrackRadial({ pct, color }: { pct: number; color: string }) {
+  const clamped = Math.max(0, Math.min(100, pct));
+  const data = [{ name: "pct", value: clamped, fill: color }];
+  return (
+    <div className="w-12 h-12 relative">
+      <ResponsiveContainer width="100%" height="100%">
+        <RadialBarChart
+          innerRadius="72%" outerRadius="100%"
+          data={data} startAngle={90} endAngle={-270}
+          barSize={6}
+        >
+          <RadialBar background={{ fill: "var(--line-2)" }} dataKey="value" cornerRadius={999} isAnimationActive={false} />
+        </RadialBarChart>
+      </ResponsiveContainer>
+      <span className="absolute inset-0 grid place-items-center text-[10px] font-semibold text-hi tabular-nums">
+        {clamped}%
+      </span>
     </div>
   );
 }
@@ -305,17 +332,17 @@ function PulseMetrics({
     {
       label: "Open Tasks", value: openCount, hint: "Across team",
       accent: "brand", color: "var(--brand-400)",
-      visual: <SegmentBar done={doneCount} open={openCount} color="var(--brand-400)" />,
+      visual: <TasksStackedBar done={doneCount} open={openCount} color="var(--brand-400)" />,
     },
     {
       label: "Today's Calls", value: eventsCount, hint: "On calendar",
       accent: "emerald", color: "var(--emerald)",
-      visual: <DayTimeline hours={callHours} color="var(--emerald)" />,
+      visual: <CallsAreaTimeline hours={callHours} color="var(--emerald)" />,
     },
     {
       label: "High Priority", value: highCount, hint: `${completionPct}% on track`,
       accent: "rose", color: "var(--rose)",
-      visual: <RingGauge pct={completionPct} color="var(--rose)" />,
+      visual: <OnTrackRadial pct={completionPct} color="var(--rose)" />,
     },
   ];
   const ring: Record<string, string> = {
