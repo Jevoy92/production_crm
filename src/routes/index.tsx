@@ -99,6 +99,13 @@ function Today() {
               openCount={openTasks.length}
               eventsCount={todayEvents.length}
               highCount={openTasks.filter((t) => t.priority === "High").length}
+              doneCount={tasks.filter((t) => t.status === "done").length}
+              callHours={todayEvents
+                .filter((e: any) => !e.allDay)
+                .map((e: any) => {
+                  const d = new Date(e.start);
+                  return d.getHours() + d.getMinutes() / 60;
+                })}
             />
             <PalmerInsightsCard />
             <TodaysPath
@@ -243,59 +250,95 @@ function Panel({
   );
 }
 
-/* ---------------- Pulse Metrics (3 cards w/ corner glow + sparkline) ---------------- */
+/* ---------------- Pulse Metrics — 3 compact cards, each with its own visual ---------------- */
+function RingGauge({ pct, color }: { pct: number; color: string }) {
+  const r = 16, c = 2 * Math.PI * r;
+  const dash = Math.max(0, Math.min(1, pct / 100)) * c;
+  return (
+    <svg viewBox="0 0 44 44" className="w-11 h-11 -rotate-90">
+      <circle cx="22" cy="22" r={r} fill="none" stroke="var(--line-2)" strokeWidth="4" />
+      <circle
+        cx="22" cy="22" r={r} fill="none" stroke={color} strokeWidth="4"
+        strokeLinecap="round" strokeDasharray={`${dash} ${c - dash}`}
+      />
+    </svg>
+  );
+}
+function DayTimeline({ hours, color }: { hours: number[]; color: string }) {
+  // 8am → 8pm strip with a dot per scheduled call
+  const START = 8, END = 20, W = 64, H = 20;
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-16 h-5">
+      <line x1="2" y1={H / 2} x2={W - 2} y2={H / 2} stroke="var(--line-2)" strokeWidth="1.5" strokeLinecap="round" />
+      {[8, 12, 16, 20].map((h) => {
+        const x = 2 + ((h - START) / (END - START)) * (W - 4);
+        return <circle key={h} cx={x} cy={H / 2} r="1" fill="var(--line-2)" />;
+      })}
+      {hours.map((h, i) => {
+        const clamped = Math.max(START, Math.min(END, h));
+        const x = 2 + ((clamped - START) / (END - START)) * (W - 4);
+        return <circle key={i} cx={x} cy={H / 2} r="3" fill={color} />;
+      })}
+    </svg>
+  );
+}
+function SegmentBar({ done, open, color }: { done: number; open: number; color: string }) {
+  const total = Math.max(1, done + open);
+  const pct = (done / total) * 100;
+  return (
+    <div className="w-16">
+      <div className="h-1.5 rounded-full bg-line-2 overflow-hidden">
+        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: color }} />
+      </div>
+      <p className="mt-1 text-[10px] text-lo num tabular-nums">{done}/{total} done</p>
+    </div>
+  );
+}
 function PulseMetrics({
-  openCount, eventsCount, highCount,
-}: { openCount: number; eventsCount: number; highCount: number }) {
+  openCount, eventsCount, highCount, doneCount, callHours,
+}: {
+  openCount: number; eventsCount: number; highCount: number;
+  doneCount: number; callHours: number[];
+}) {
   const completionPct = openCount === 0 ? 100 : Math.max(0, Math.round(((openCount - highCount) / Math.max(openCount, 1)) * 100));
-  const stats = [
-    { label: "Open Tasks", value: openCount, hint: "Across team",
-      accent: "brand", spark: [3, 5, 4, 6, 5, 7, openCount || 1], color: "var(--brand-400)" },
-    { label: "Today's Calls", value: eventsCount, hint: "On calendar",
-      accent: "emerald", spark: [1, 2, 1, 3, 2, 4, eventsCount || 1], color: "var(--emerald)" },
-    { label: "High Priority", value: highCount, hint: `${completionPct}% on track`,
-      accent: "rose", spark: [2, 3, 2, 4, 3, 5, highCount || 1], color: "var(--rose)" },
+  const cards = [
+    {
+      label: "Open Tasks", value: openCount, hint: "Across team",
+      accent: "brand", color: "var(--brand-400)",
+      visual: <SegmentBar done={doneCount} open={openCount} color="var(--brand-400)" />,
+    },
+    {
+      label: "Today's Calls", value: eventsCount, hint: "On calendar",
+      accent: "emerald", color: "var(--emerald)",
+      visual: <DayTimeline hours={callHours} color="var(--emerald)" />,
+    },
+    {
+      label: "High Priority", value: highCount, hint: `${completionPct}% on track`,
+      accent: "rose", color: "var(--rose)",
+      visual: <RingGauge pct={completionPct} color="var(--rose)" />,
+    },
   ];
-  const bubble: Record<string, string> = {
-    brand: "bg-brand-500/10 group-hover:bg-brand-500/20",
-    emerald: "bg-emerald/10 group-hover:bg-emerald/20",
-    rose: "bg-rose/10 group-hover:bg-rose/20",
-  };
   const ring: Record<string, string> = {
     brand: "hover:border-brand-500/40",
     emerald: "hover:border-emerald/40",
     rose: "hover:border-rose/40",
   };
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      {stats.map((s) => (
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      {cards.map((s) => (
         <div
           key={s.label}
-          className={`group relative overflow-hidden bg-panel border border-line rounded-2xl p-5 transition-colors ${ring[s.accent]}`}
+          className={`group relative bg-panel border border-line rounded-xl px-4 py-3 transition-colors ${ring[s.accent]}`}
         >
-          <div className={`absolute -top-10 -right-10 w-28 h-28 rounded-full transition-colors ${bubble[s.accent]}`} />
-          <p className="text-[10px] font-bold uppercase tracking-wider text-lo relative">{s.label}</p>
-          <div className="flex items-end justify-between mt-2 relative">
-            <div>
-              <p className="font-display text-3xl font-bold text-hi num leading-none">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-lo">{s.label}</p>
+          <div className="mt-1 flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <p className="font-display text-2xl font-bold text-hi num leading-none">
                 <AnimatedNumber value={s.value} />
               </p>
-              <p className="text-xs text-lo mt-1.5">{s.hint}</p>
+              <p className="text-[11px] text-lo mt-1 truncate">{s.hint}</p>
             </div>
-            <div className="w-16 h-10 -mb-1">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={s.spark.map((v, i) => ({ i, v }))}>
-                  <Bar dataKey="v" radius={[2, 2, 0, 0]}>
-                    {s.spark.map((_, i) => (
-                      <Cell
-                        key={i}
-                        fill={i === s.spark.length - 1 ? s.color : "var(--line-2)"}
-                      />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
+            <div className="shrink-0">{s.visual}</div>
           </div>
         </div>
       ))}
