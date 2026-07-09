@@ -5,12 +5,6 @@ function ymdET() {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date());
 }
 
-function shiftDays(ymd: string, days: number) {
-  const d = new Date(`${ymd}T12:00:00Z`);
-  d.setUTCDate(d.getUTCDate() + days);
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "UTC" }).format(d);
-}
-
 function extractPalmerInsights(md: string): string | null {
   const m = md.match(/<!--\s*palmer-insights:start\s*-->([\s\S]*?)<!--\s*palmer-insights:end\s*-->/);
   if (m) {
@@ -71,5 +65,3 @@ export const regeneratePalmerInsights = createServerFn({ method: "POST" })
 
     return { date, palmerInsights: insights };
   });
-
-export { shiftDays };
