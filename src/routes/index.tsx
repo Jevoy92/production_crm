@@ -99,6 +99,13 @@ function Today() {
               openCount={openTasks.length}
               eventsCount={todayEvents.length}
               highCount={openTasks.filter((t) => t.priority === "High").length}
+              doneCount={tasks.filter((t) => t.status === "done").length}
+              callHours={todayEvents
+                .filter((e: any) => !e.allDay)
+                .map((e: any) => {
+                  const d = new Date(e.start);
+                  return d.getHours() + d.getMinutes() / 60;
+                })}
             />
             <PalmerInsightsCard />
             <TodaysPath
