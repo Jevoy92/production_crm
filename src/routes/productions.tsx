@@ -132,29 +132,21 @@ export function PipelineStats({ projects }: { projects: Project[] }) {
     (p) => p.stage !== "Delivered" && p.stage !== "Archived" && p.shootDate && new Date(p.shootDate) < new Date(),
   ).length;
   return (
-    <div className="flex items-center gap-5 flex-wrap mb-5 pb-5 border-b border-line">
+    <div className="flex items-stretch gap-0 mb-4 rounded-xl border border-line bg-surface-2/40 overflow-x-auto no-scrollbar">
       {PIPELINE_STAGES.map((s) => {
         const m = STAGE_META[s];
         return (
-          <div key={s} className="flex items-center gap-2.5">
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${m.soft} border ${m.border}`}>
-              <span className={`w-2.5 h-2.5 rounded-full ${m.dot}`} />
-            </div>
-            <div>
-              <div className="text-hi font-bold text-base leading-none num">{count(s)}</div>
-              <div className="text-lo text-xs">{s}</div>
-            </div>
+          <div key={s} className="flex items-center gap-2 px-3 py-2 shrink-0 border-r border-line/70 last:border-r-0">
+            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${m.dot}`} />
+            <span className="text-hi font-bold text-[15px] leading-none num">{count(s)}</span>
+            <span className="text-lo text-[11px] whitespace-nowrap">{s}</span>
           </div>
         );
       })}
-      <div className="flex items-center gap-2.5">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-rose/20 border border-rose/30">
-          <span className="w-2.5 h-2.5 rounded-full bg-rose animate-pulse" />
-        </div>
-        <div>
-          <div className="text-rose font-bold text-base leading-none num">{overdue}</div>
-          <div className="text-lo text-xs">Overdue</div>
-        </div>
+      <div className="flex items-center gap-2 px-3 py-2 shrink-0 ml-auto">
+        <span className={`w-1.5 h-1.5 rounded-full shrink-0 bg-rose ${overdue ? "animate-pulse" : ""}`} />
+        <span className={`${overdue ? "text-rose" : "text-hi"} font-bold text-[15px] leading-none num`}>{overdue}</span>
+        <span className="text-lo text-[11px] whitespace-nowrap">Overdue</span>
       </div>
     </div>
   );
