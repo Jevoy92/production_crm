@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
-import { Collapsible, MetricCard } from "@/components/app/AppShell";
-import { Stagger, StaggerItem } from "@/components/motion/Motion";
+import { Collapsible } from "@/components/app/AppShell";
 import { Btn, Field, inputCls, Modal } from "@/components/ui-bits/Modal";
 import { useStore } from "@/lib/store";
 import type { Role, TeamMember } from "@/lib/types";
