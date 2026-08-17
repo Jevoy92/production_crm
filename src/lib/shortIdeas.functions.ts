@@ -106,10 +106,13 @@ function normalize(raw: unknown, title: string): ShortIdea[] {
     const dur = typeof item.durationSec === "number" ? item.durationSec : 45;
     return {
       title: str(item.title, `Idea ${i + 1} — ${title}`, 140),
+      hookFamily: str(item.hookFamily, "Physical demonstration", 80),
       prop: str(item.prop, "A single physical object on the table", 140),
+      firstFrameText: str(item.firstFrameText, "Watch this.", 90),
       premise: str(item.premise, "One idea from the long-form, shown instead of explained.", 600),
       hook: str(item.hook, "Watch what happens when I do this.", 300),
       beats: beats.length > 0 ? beats : ["Open on the prop.", "Do the thing.", "Land the point.", "Point to the long-form."],
+      script: str(item.script, "", 4000),
       tieBack: str(item.tieBack, `Ties back to “${title}”.`, 400),
       cta: str(item.cta, "Full breakdown — link in bio.", 200),
       durationSec: Math.min(90, Math.max(15, Math.round(dur))),
