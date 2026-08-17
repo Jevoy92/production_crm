@@ -51,7 +51,8 @@ function RepurposePage() {
   const [tab, setTab] = useState<"ai" | "library">("ai");
 
   const active = useMemo(() => SCRIPTS.find((s) => s.num === activeNum), [activeNum]);
-  const body = useMemo(() => (active ? pickScriptBody(active.num) : ""), [active]);
+  const activeEntry = active ? Object.values(active.versions)[0] : undefined;
+  const { source: body } = useLazySource(activeEntry?.load, activeEntry?.originalPath);
   const prewritten = useMemo<CoreShort[]>(
     () => (active ? shortsForCore12(active.number) : []),
     [active],
