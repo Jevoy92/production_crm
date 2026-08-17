@@ -29,7 +29,7 @@ import { ChartTooltip } from "@/components/charts/Charts";
 import { DailyCheckout } from "@/components/dashboard/DailyCheckout";
 import { PalmerInsightsCard } from "@/components/dashboard/PalmerInsightsCard";
 import {
-  deriveWatchOuts, deriveWaiting, deriveInsights, deriveRecap,
+  deriveWatchOuts, deriveWaiting, deriveRecap,
 } from "@/lib/signals";
 import type { Severity, SignalInput } from "@/lib/signals";
 
@@ -173,14 +173,6 @@ function Today() {
   );
 }
 
-function Recap({ ok, children }: { ok?: boolean; children: React.ReactNode }) {
-  return (
-    <li className="flex items-start gap-3 text-sm">
-      {ok ? <CircleCheck size={14} className="text-emerald mt-0.5 flex-shrink-0" /> : <Info size={14} className="text-brand-400 mt-0.5 flex-shrink-0" />}
-      <span className="text-mid">{children}</span>
-    </li>
-  );
-}
 
 /* ---------------- Watch-outs ---------------- */
 const SEVERITY: Record<Severity, { label: string; text: string; dot: string; ring: string }> = {
