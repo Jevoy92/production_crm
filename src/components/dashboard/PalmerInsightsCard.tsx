@@ -24,8 +24,8 @@ export function PalmerInsightsCard() {
   return (
     <section className={`bg-panel border border-line rounded-3xl relative overflow-hidden ${hasBody ? "p-5 sm:p-6" : "p-4 sm:p-5"}`}>
       <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-brand-500/10 blur-3xl pointer-events-none" />
-      <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2 mb-3 relative z-10">
-        <div className="flex items-center gap-3 min-w-0 flex-1">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3 relative z-10">
+        <div className="flex items-center gap-3 min-w-0 sm:flex-1">
           <div className="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center text-brand-400 shrink-0">
             <Sparkles size={14} />
           </div>
@@ -36,7 +36,7 @@ export function PalmerInsightsCard() {
             <p className="text-[11px] text-lo mt-0.5 leading-snug">From yesterday's Limitless pendant · auto-summarised at 7 AM</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-2 shrink-0 self-start">
           <button
             onClick={() => regen.mutate()}
             disabled={regen.isPending}
