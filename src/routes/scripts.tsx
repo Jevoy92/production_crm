@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { Loader2, Wand2, Clapperboard } from "lucide-react";
 import { generateShortIdeas, type ShortIdea } from "@/lib/shortIdeas.functions";
-import { saveGeneration, listCurrent, key as genKey } from "@/lib/shortsLibrary";
+import { saveGeneration, listCurrent } from "@/lib/shortsLibrary";
 import { SCRIPTS, STRATEGY_DOCS, RESEARCH_DOCS, YOURBOY_DOCS } from "@/lib/scriptsIndex";
 import { hasResearchPack } from "@/lib/researchPacks";
 import { Markdown } from "@/components/Markdown";

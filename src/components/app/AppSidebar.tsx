@@ -75,6 +75,7 @@ function useNav(): NavGroup[] {
           children: [
             { label: "Scripts", to: "/scripts", icon: FileText },
             { label: "Studio", to: "/studio", icon: Clapperboard },
+            { label: "Shorts Lab", to: "/scripts/shorts", icon: Clapperboard },
             { label: "Shorts", to: "/repurpose", icon: Scissors },
           ],
         },
