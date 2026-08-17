@@ -173,21 +173,21 @@ export function InternalPodcastChecklist() {
   };
 
   return (
-    <div className="card-elevated rounded-2xl p-5 mb-5">
+    <div className="card-elevated rounded-2xl p-3.5 sm:p-4 mb-4">
       <div className="flex items-start justify-between gap-3 flex-wrap">
-        <div className="flex items-start gap-3">
-          <div className="w-9 h-9 rounded-xl grid place-items-center bg-brand-500/15 border border-brand-500/25 text-brand-300 shrink-0">
-            <Mic className="size-4" />
+        <div className="flex items-start gap-2.5 min-w-0">
+          <div className="w-8 h-8 rounded-lg grid place-items-center bg-brand-500/15 border border-brand-500/25 text-brand-300 shrink-0">
+            <Mic className="size-3.5" />
           </div>
-          <div>
-            <div className="font-display text-base font-bold text-hi">Internal / Podcast Shoot Checklist</div>
-            <div className="text-xs text-mid mt-0.5">
+          <div className="min-w-0">
+            <div className="font-display text-[14px] font-bold text-hi">Internal / Podcast Shoot Checklist</div>
+            <div className="text-[11px] text-mid mt-0.5 hidden sm:block">
               Step-by-step for every in-studio shoot. Synced live across devices.
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="text-xs text-mid num">
+        <div className="flex items-center gap-2">
+          <div className="text-[11px] text-mid num">
             {stats.done}/{stats.total} ·{" "}
             <span className="text-brand-400 font-semibold">{stats.pct}%</span>
           </div>
@@ -196,7 +196,7 @@ export function InternalPodcastChecklist() {
           </Btn>
           <Link
             to="/checklists"
-            className="inline-flex items-center gap-1 text-[11px] text-mid hover:text-hi"
+            className="hidden sm:inline-flex items-center gap-1 text-[11px] text-mid hover:text-hi"
           >
             Full checklists <ExternalLink className="size-3" />
           </Link>
@@ -206,7 +206,7 @@ export function InternalPodcastChecklist() {
         </div>
       </div>
 
-      <div className="h-1.5 rounded-full bg-sunken mt-3 mb-4 overflow-hidden">
+      <div className="h-1 rounded-full bg-sunken mt-2.5 mb-3 overflow-hidden">
         <div
           className="h-full bg-gradient-to-r from-brand-500 to-brand-400 transition-all"
           style={{ width: `${stats.pct}%` }}
