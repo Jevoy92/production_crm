@@ -54,14 +54,16 @@ export function Topbar({
           <Menu className="size-5" />
         </button>
 
-        <div>
-          <div className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground truncate max-w-[120px] md:max-w-none">
+        <div className="min-w-0 flex-1">
+          <div className="hidden sm:block text-[11px] uppercase tracking-[0.16em] text-muted-foreground truncate">
             {subtitle ?? dateLbl}
           </div>
-          <h1 className="text-lg md:text-[20px] font-semibold tracking-tight truncate max-w-[140px] sm:max-w-[200px] md:max-w-none">{title}</h1>
+          <h1 className="text-[17px] md:text-[20px] font-semibold tracking-tight truncate">
+            {title}
+          </h1>
         </div>
 
-        <div className="ml-auto flex items-center gap-1.5 md:gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-1.5 md:gap-2">
           <div className="relative hidden md:flex items-center">
             <Search className="absolute left-3 size-3.5 text-muted-foreground" />
             <input
