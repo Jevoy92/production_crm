@@ -165,27 +165,27 @@ function Kanban({ projects }: { projects: Project[] }) {
   };
 
   return (
-    <div className="overflow-x-auto pb-2 -mx-1 px-1">
-      <div className="flex gap-4 min-w-max">
+    <div className="overflow-x-auto no-scrollbar pb-2 -mx-1 px-1">
+      <div className="flex gap-3 min-w-max">
         {PIPELINE_STAGES.map((stage) => {
           const col = projects.filter((p) => p.stage === stage);
           const m = STAGE_META[stage];
           return (
             <div
               key={stage}
-              className="w-[min(288px,82vw)] sm:w-72 shrink-0 flex flex-col gap-3"
+              className="w-[min(272px,84vw)] sm:w-[268px] shrink-0 flex flex-col gap-2"
               onDragOver={(e) => e.preventDefault()}
               onDrop={() => { if (drag) { setStage(drag, stage); setDrag(null); } }}
             >
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between px-0.5">
                 <div className="flex items-center gap-2">
-                  <span className={`w-2.5 h-2.5 rounded-full ${m.dot}`} />
-                  <span className="text-hi font-semibold text-sm font-display">{stage}</span>
-                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${m.soft} ${m.color} border ${m.border}`}>{col.length}</span>
+                  <span className={`w-2 h-2 rounded-full ${m.dot}`} />
+                  <span className="text-hi font-semibold text-[13px] font-display">{stage}</span>
+                  <span className={`text-[11px] font-semibold num ${m.color}`}>{col.length}</span>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-3 min-h-[80px]">
+              <div className="flex flex-col gap-2 min-h-[56px]">
                 {col.map((p) => {
                   const client = clients.find((c) => c.id === p.clientId);
                   const owner = team.find((mm) => mm.id === p.ownerId);
@@ -198,53 +198,49 @@ function Kanban({ projects }: { projects: Project[] }) {
                       params={{ id: p.id }}
                       draggable
                       onDragStart={() => setDrag(p.id)}
-                      className="group block bg-panel border border-line rounded-2xl p-4 hover:border-brand-500/40 transition-all"
+                      className="group block bg-panel border border-line rounded-xl p-3 hover:border-brand-500/40 transition-all"
                     >
-                      <div className="flex items-start justify-between mb-2.5">
+                      <div className="flex items-start justify-between mb-2">
                         <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-lg" style={{ color: palColor(p.palType), background: `color-mix(in srgb, ${palColor(p.palType)} 18%, transparent)` }}>
                           {p.palType}
                         </span>
-                        {p.blocker ? (
+                        {p.blocker && (
                           <span className="inline-flex items-center gap-1 text-[10px] text-rose">
                             <span className="w-1.5 h-1.5 rounded-full bg-rose animate-pulse" /> Blocker
                           </span>
-                        ) : (
-                          <span className="flex items-center gap-1.5 text-lo text-xs">
-                            <span className={`w-2 h-2 rounded-full ${m.dot}`} /> {stage}
-                          </span>
                         )}
                       </div>
-                      <h3 className="text-hi font-semibold text-sm mb-1.5 leading-snug group-hover:text-brand-300 transition-colors">{p.title}</h3>
-                      <div className="flex items-center gap-2 mb-3 flex-wrap">
-                        <span className="inline-flex items-center gap-1 text-xs text-mid bg-sunken px-2 py-1 rounded-lg">{client?.company ?? client?.name ?? "—"}</span>
-                      </div>
+                      <h3 className="text-hi font-semibold text-[13px] mb-1 leading-snug group-hover:text-brand-300 transition-colors">{p.title}</h3>
+                      {(client?.company || client?.name) && (
+                        <div className="text-[11px] text-lo mb-2 truncate">{client?.company ?? client?.name}</div>
+                      )}
                       {p.shootDate && (
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-lo text-xs">Shoot: {new Date(p.shootDate).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>
+                        <div className="flex items-center justify-between gap-2 mb-2">
+                          <span className="text-lo text-[11px]">Shoot {new Date(p.shootDate).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>
                           {dl != null && (
-                            <span className={`text-xs px-2 py-0.5 rounded-lg font-medium ${dl < 0 ? "text-rose bg-rose/10 border border-rose/20" : "text-amber bg-amber/10 border border-amber/20"}`}>
+                            <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-medium whitespace-nowrap ${dl < 0 ? "text-rose bg-rose/10" : "text-amber bg-amber/10"}`}>
                               {dl < 0 ? `${Math.abs(dl)}d over` : `${dl}d left`}
                             </span>
                           )}
                         </div>
                       )}
-                      <div className="pt-3 border-t border-line flex items-center justify-between gap-2">
+                      <div className="pt-2 border-t border-line flex items-center justify-between gap-2">
                         {owner && (
-                          <div className="w-6 h-6 rounded-full grid place-items-center text-[9.5px] font-semibold text-white" style={{ background: owner.color }}>
+                          <div className="w-5 h-5 rounded-full grid place-items-center text-[9px] font-semibold text-white shrink-0" style={{ background: owner.color }}>
                             {owner.initials}
                           </div>
                         )}
-                        <div className="flex-1 h-1.5 rounded-full bg-sunken overflow-hidden">
+                        <div className="flex-1 h-1 rounded-full bg-sunken overflow-hidden">
                           <div className="h-full rounded-full bg-brand-500" style={{ width: `${prog.pct}%` }} />
                         </div>
-                        <span className="num text-xs text-lo">{prog.pct}%</span>
+                        <span className="num text-[11px] text-lo">{prog.pct}%</span>
                       </div>
                     </Link>
                   );
                 })}
                 {col.length === 0 && (
-                  <div className="text-xs text-lo/70 px-1 py-6 text-center border border-dashed border-line rounded-2xl">
-                    Drop projects here
+                  <div className="text-[11px] text-lo/60 px-2 py-3 text-center border border-dashed border-line/70 rounded-xl">
+                    Drop here
                   </div>
                 )}
               </div>
