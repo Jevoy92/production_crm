@@ -166,15 +166,15 @@ function Kanban({ projects }: { projects: Project[] }) {
   };
 
   return (
-    <div className="overflow-x-auto no-scrollbar pb-2 -mx-1 px-1">
-      <div className="flex gap-3 min-w-max">
+    <div className="overflow-x-auto lg:overflow-visible no-scrollbar pb-2 -mx-1 px-1">
+      <div className="flex lg:grid lg:grid-cols-5 gap-3 min-w-max lg:min-w-0">
         {PIPELINE_STAGES.map((stage) => {
           const col = projects.filter((p) => p.stage === stage);
           const m = STAGE_META[stage];
           return (
             <div
               key={stage}
-              className="w-[min(272px,84vw)] sm:w-[268px] shrink-0 flex flex-col gap-2"
+              className="w-[84vw] sm:w-[268px] lg:w-auto shrink-0 lg:shrink flex flex-col gap-2"
               onDragOver={(e) => e.preventDefault()}
               onDrop={() => { if (drag) { setStage(drag, stage); setDrag(null); } }}
             >
