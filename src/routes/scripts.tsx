@@ -76,33 +76,34 @@ function ScriptsHub() {
       actions={
         <a href="/hubs/scripts/index.html" target="_blank" rel="noopener noreferrer">
           <Btn variant="subtle" className="flex items-center gap-1.5 h-8">
-            <ExternalLink className="size-3.5" /> Open original hub
+            <ExternalLink className="size-3.5" />
+            <span className="hidden sm:inline">Open original hub</span>
+            <span className="sm:hidden">Hub</span>
           </Btn>
         </a>
       }
     >
-      <div className="max-w-5xl mx-auto space-y-10 py-2">
+      <div className="max-w-5xl mx-auto space-y-8 py-2">
         {/* Search & Filter — top */}
-        <div className="flex flex-col md:flex-row gap-6 items-center justify-between border-b border-border pb-6">
-          <div className="relative w-full md:max-w-md">
-            <Search className="size-4 absolute left-0 top-1/2 -translate-y-1/2 text-muted-foreground/50" />
+        <div className="flex flex-col md:flex-row gap-3 md:items-center justify-between border-b border-border pb-4">
+          <div className="relative w-full md:max-w-sm">
+            <Search className="size-3.5 absolute left-0 top-1/2 -translate-y-1/2 text-muted-foreground/50" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search scripts…"
-              className="w-full pl-7 pr-3 py-2 bg-transparent text-lg font-light border-none focus:outline-none placeholder:text-muted-foreground/40"
-              style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+              className="w-full pl-6 pr-3 py-1.5 bg-transparent text-[14px] border-none focus:outline-none placeholder:text-muted-foreground/40"
             />
             <div className="absolute bottom-0 left-0 right-0 h-px bg-border" />
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex gap-1.5 overflow-x-auto no-scrollbar -mx-1 px-1">
             {BRANDS.map((b) => {
               const active = brand === b.value;
               return (
                 <button
                   key={b.value}
                   onClick={() => setBrand(b.value)}
-                  className={`px-3.5 py-1.5 text-[10px] tracking-[0.18em] uppercase font-semibold border transition-colors ${
+                  className={`shrink-0 whitespace-nowrap rounded-md px-2.5 py-1 text-[10px] tracking-[0.14em] uppercase font-semibold border transition-colors ${
                     active
                       ? "border-foreground bg-foreground text-background"
                       : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
@@ -135,7 +136,7 @@ function ScriptsHub() {
         )}
 
         {/* Pinned reference — bottom */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-10 border-t border-border">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-8 border-t border-border">
           <PinnedCard
             to="/scripts/strategy"
             icon={<BookOpen className="size-3.5" />}
@@ -160,7 +161,7 @@ function ScriptsHub() {
         </div>
 
         {/* Doc lists */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
           <DocList title="Strategy" docs={STRATEGY_DOCS} to="/scripts/strategy" />
           <DocList title="Research" docs={RESEARCH_DOCS} to="/scripts/research" />
           <DocList title="YourBoyJevoy" docs={YOURBOY_DOCS} to="/scripts/yourboy" />
@@ -186,21 +187,21 @@ function PinnedCard({
   return (
     <Link
       to={to}
-      className="group block bg-card border border-border p-7 transition-all duration-300 hover:border-foreground hover:-translate-y-0.5 hover:shadow-lg"
+      className="group flex h-full flex-col rounded-lg bg-card border border-border p-5 transition-colors duration-200 hover:border-foreground/40 hover:bg-muted/20"
     >
-      <div className="flex justify-between items-start mb-10">
+      <div className="flex justify-between items-start mb-6">
         <span className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.2em] font-bold uppercase text-muted-foreground">
           {icon} {eyebrow}
         </span>
         <div className="w-1.5 h-1.5 rounded-full bg-foreground group-hover:scale-150 transition-transform" />
       </div>
       <h2
-        className="text-[22px] leading-tight font-medium mb-2 tracking-tight"
+        className="text-[17px] leading-tight font-medium mb-1.5 tracking-tight"
         style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
       >
         {title}
       </h2>
-      <p className="text-[11px] text-muted-foreground uppercase tracking-wider">{desc}</p>
+      <p className="mt-auto text-[10px] text-muted-foreground uppercase tracking-wider">{desc}</p>
     </Link>
   );
 }
@@ -280,52 +281,46 @@ function ScriptRow({
   };
 
   return (
-    <div className="border-b border-border">
+    <div className={`border-b border-border ${open ? "bg-muted/20" : ""}`}>
       <button
         onClick={onToggle}
-        className="w-full group flex items-baseline gap-5 py-4 px-1 text-left transition-colors hover:bg-muted/30"
+        className={`w-full group flex items-center gap-3 md:gap-4 py-2.5 pr-1 pl-2 text-left border-l-2 transition-colors hover:bg-muted/30 ${
+          open ? "border-l-foreground" : "border-l-transparent"
+        }`}
       >
         <span
-          className="text-[15px] tabular-nums text-muted-foreground/70 font-medium w-8 shrink-0"
-          style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+          className="text-[11px] tabular-nums text-muted-foreground/60 font-medium w-6 shrink-0"
         >
           {script.num}
         </span>
         <span
-          className="flex-1 text-[17px] leading-snug font-medium tracking-tight truncate"
+          className="flex-1 min-w-0 text-[14px] md:text-[15px] leading-snug font-medium tracking-tight truncate"
           style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
         >
           {script.title}
         </span>
-        <span className="hidden md:inline-flex items-center text-[9px] tracking-[0.18em] font-bold uppercase px-1.5 py-0.5 border border-border text-muted-foreground/80 shrink-0">
+        <span className="hidden md:inline-flex items-center text-[9px] tracking-[0.16em] font-semibold uppercase text-muted-foreground/60 shrink-0">
           {script.pillar}
         </span>
         {hasResearchPack(script.num) && (
           <span
-            className="hidden md:inline-flex items-center text-[9px] tracking-[0.18em] font-bold uppercase px-1.5 py-0.5 border border-emerald-500/40 text-emerald-500 shrink-0"
+            className="hidden md:inline-flex items-center rounded text-[9px] tracking-[0.16em] font-semibold uppercase px-1.5 py-0.5 bg-emerald-500/10 text-emerald-500 shrink-0"
             title="Research & B-roll pack available"
           >
             B-roll
           </span>
         )}
-        <span className="hidden md:flex items-center gap-1.5 shrink-0">
-          {brandTags.map((b) => (
-            <span
-              key={b.key}
-              className="text-[9px] tracking-[0.18em] font-bold uppercase px-1.5 py-0.5 border border-border text-muted-foreground/80"
-            >
-              {b.label}
-            </span>
-          ))}
+        <span className="hidden lg:inline text-[9px] tracking-[0.16em] font-semibold uppercase text-muted-foreground/40 shrink-0 w-[86px] text-right">
+          {brandTags.map((b) => b.label).join(" · ")}
         </span>
         <ChevronDown
-          className={`size-4 text-muted-foreground shrink-0 transition-transform duration-300 ${
+          className={`size-3.5 text-muted-foreground/60 shrink-0 transition-transform duration-200 ${
             open ? "rotate-180" : ""
           }`}
         />
       </button>
       {open && (
-        <div className="pb-6 pl-14 pr-2 -mt-1 space-y-4">
+        <div className="pb-6 pl-4 md:pl-12 pr-2 space-y-4">
           {hasResearch && (
             <div className="inline-flex gap-1 p-1 bg-muted/40 border border-border rounded-lg">
               <button
@@ -542,17 +537,20 @@ function DocList({
 }) {
   if (docs.length === 0) return null;
   return (
-    <div className="bg-card border border-border p-6">
-      <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold mb-4">
-        {title}
+    <div className="rounded-lg bg-card border border-border p-5">
+      <div className="flex items-baseline justify-between mb-3">
+        <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold">
+          {title}
+        </span>
+        <span className="text-[10px] tabular-nums text-muted-foreground/50">{docs.length}</span>
       </div>
-      <ul className="space-y-2">
+      <ul className="space-y-1">
         {docs.map((d) => (
           <li key={d.slug}>
             <Link
               to={to}
               search={{ doc: d.slug }}
-              className="text-[13px] text-foreground/85 hover:text-foreground hover:underline underline-offset-4 transition-colors block leading-snug"
+              className="-mx-2 block rounded px-2 py-1 text-[13px] text-foreground/85 leading-snug transition-colors hover:bg-muted/40 hover:text-foreground"
             >
               {d.title}
             </Link>
