@@ -10,7 +10,7 @@ import {
   type ShortsGeneration,
 } from "@/lib/shortsLibrary";
 import { copyToClipboard } from "@/lib/clipboard";
-import { Copy, History, RotateCcw, Star, Trash2 } from "lucide-react";
+import { Check, Copy, History, RotateCcw, Star, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 export function GenerationBody({
@@ -23,6 +23,11 @@ export function GenerationBody({
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2">
+        {gen.note && (
+          <span className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-md border border-emerald-500/40 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase tracking-[0.14em]">
+            <Check className="size-3" /> {gen.note}
+          </span>
+        )}
         <Btn
           variant="subtle"
           onClick={async () => {
