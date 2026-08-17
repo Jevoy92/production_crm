@@ -168,18 +168,21 @@ function CFODash() {
     .sort((a, b) => b.ltv - a.ltv)
     .slice(0, 5);
 
-  return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-      <Kpi label="Cash collected (mo)" value={finance.cashCollectedMonth} format={usdFmt} />
-      <Kpi label="Outstanding" value={finance.outstanding} format={usdFmt} />
-      <Kpi label="Tool + AI spend" value={finance.toolSpend + finance.aiSpend} format={usdFmt} />
+  const hasMargin = byPal.some((d) => d.quoted > 0);
 
-      <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
-        <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          Margin by Pal type
-        </div>
-        <h3 className="text-[15px] font-semibold tracking-tight mt-0.5 mb-3">Where the money is</h3>
-        <div className="h-56">
+  return (
+    <>
+      <KpiRow>
+        <Kpi label="Cash (mo)" value={finance.cashCollectedMonth} format={usdFmt} />
+        <Kpi label="Outstanding" value={finance.outstanding} format={usdFmt} />
+        <Kpi label="Tool + AI spend" value={finance.toolSpend + finance.aiSpend} format={usdFmt} />
+      </KpiRow>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3 items-start">
+      <Panel eyebrow="Margin by Pal type" title="Where the money is" className="xl:col-span-2">
+        {!hasMargin ? (
+          <Empty>No quoted work yet — margins appear once projects are priced.</Empty>
+        ) : (
+        <div className="h-44 sm:h-52">
           <ResponsiveContainer>
             <BarChart data={byPal}>
               <CartesianGrid stroke="var(--color-border)" vertical={false} />
@@ -211,23 +214,22 @@ function CFODash() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </div>
+        )}
+      </Panel>
 
-      <div className="card-elevated rounded-2xl p-5">
-        <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          Top clients by LTV
-        </div>
-        <h3 className="text-[15px] font-semibold tracking-tight mt-0.5 mb-3">Loyalty</h3>
-        <div className="space-y-2">
+      <Panel eyebrow="Top clients by LTV" title="Loyalty">
+        {topClients.length === 0 && <Empty>No clients on record yet.</Empty>}
+        <div className="space-y-1.5">
           {topClients.map((c) => (
-            <div key={c.name} className="flex items-center justify-between text-[12.5px]">
-              <span className="truncate pr-2">{c.name}</span>
+            <div key={c.name} className="flex items-center justify-between gap-2 text-[12px]">
+              <span className="truncate min-w-0">{c.name}</span>
               <span className="num text-foreground">${c.ltv.toLocaleString()}</span>
             </div>
           ))}
         </div>
+      </Panel>
       </div>
-    </div>
+    </>
   );
 }
 
