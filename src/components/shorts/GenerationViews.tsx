@@ -10,7 +10,7 @@ import {
   type ShortsGeneration,
 } from "@/lib/shortsLibrary";
 import { copyToClipboard } from "@/lib/clipboard";
-import { Copy, History, RotateCcw, Star, Trash2 } from "lucide-react";
+import { Check, Copy, History, RotateCcw, Star, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 export function GenerationBody({
