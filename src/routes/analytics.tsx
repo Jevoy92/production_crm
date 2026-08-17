@@ -267,19 +267,22 @@ function PADash() {
   const compPct = completion.total ? Math.round((completion.done / completion.total) * 100) : 0;
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-      <Kpi label="Upcoming shoots (7d)" value={upcoming.length} />
-      <Kpi label="Checklist completion" value={compPct} format={(n) => `${Math.round(n)}%`} />
-      <Kpi label="Prep at-risk" value={overdue.length} />
-
-      <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
-        <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          Readiness by upcoming shoot
-        </div>
-        <h3 className="text-[15px] font-semibold tracking-tight mt-0.5 mb-3">
-          What needs attention
-        </h3>
-        <div className="h-56">
+    <>
+      <KpiRow>
+        <Kpi label="Shoots (7d)" value={upcoming.length} />
+        <Kpi label="Checklist done" value={compPct} format={(n) => `${Math.round(n)}%`} />
+        <Kpi label="Prep at-risk" value={overdue.length} />
+      </KpiRow>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3 items-start">
+      <Panel
+        eyebrow="Readiness by upcoming shoot"
+        title="What needs attention"
+        className="xl:col-span-2"
+      >
+        {readinessRows.length === 0 ? (
+          <Empty>No shoots scheduled ahead — nothing to prep against.</Empty>
+        ) : (
+        <div style={{ height: Math.max(140, readinessRows.length * 34 + 28) }}>
           <ResponsiveContainer>
             <BarChart data={readinessRows} layout="vertical" margin={{ left: 8 }}>
               <CartesianGrid stroke="var(--color-border)" horizontal={false} />
@@ -298,7 +301,7 @@ function PADash() {
                 axisLine={false}
                 fontSize={11}
                 stroke="var(--color-muted-foreground)"
-                width={140}
+                width={112}
               />
               <Tooltip
                 contentStyle={{
@@ -313,28 +316,24 @@ function PADash() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </div>
-
-      <div className="card-elevated rounded-2xl p-5">
-        <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          At-risk shoots
-        </div>
-        <h3 className="text-[15px] font-semibold tracking-tight mt-0.5 mb-3">Within 3 days</h3>
-        {overdue.length === 0 && (
-          <p className="text-[12.5px] text-muted-foreground">Nothing flagged. Nice.</p>
         )}
-        <div className="space-y-2">
+      </Panel>
+
+      <Panel eyebrow="At-risk shoots" title="Within 3 days">
+        {overdue.length === 0 && <Empty>Nothing flagged. Prep is on track.</Empty>}
+        <div className="space-y-1.5">
           {overdue.map((p) => (
-            <div key={p.id} className="rounded-lg bg-surface-2 ring-inset-soft p-2.5">
-              <div className="text-[12.5px] font-medium truncate">{p.title}</div>
+            <div key={p.id} className="rounded-lg bg-surface-2 ring-inset-soft px-2.5 py-2">
+              <div className="text-[12px] font-medium truncate">{p.title}</div>
               <div className="text-[11px] text-muted-foreground">
                 Shoot {p.shootDate ? new Date(p.shootDate).toLocaleDateString() : ""}
               </div>
             </div>
           ))}
         </div>
+      </Panel>
       </div>
-    </div>
+    </>
   );
 }
 
