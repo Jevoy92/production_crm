@@ -28,36 +28,70 @@ export type ShortIdea = {
   durationSec: number;
 };
 
-// Reference standard — the Founder's Freeze shorts Jevoy approved.
-const EXEMPLARS = `
-EXEMPLAR A — "White Coat Hypertension" | Hook family: Medical phenomenon | Prop: blood-pressure cuff | First-frame text: "Being measured changes the measurement."
-Real documented phenomenon told plainly → named → then hard-cut analogy: "Now replace the blood-pressure cuff with a camera lens." → the viewer's symptom reframed as physical, not character flaw → one line pointing at the long-form.
+// The anatomy every approved short shares, reverse-engineered from the gold standard.
+const ANATOMY = `
+Every approved short is built from the SAME five-part machine. Use it every time.
 
-EXEMPLAR B — "The Chair" | Hook family: Physical attention demonstration | Prop: two chairs | First-frame text: "This is what hitting record does."
-A staged physical action carries the whole argument: sits facing an empty chair, then turns it around. "You're not bad on camera. Your audience just left the room."
+1. THE WORLD (0-3s): We open INSIDE an absurd-but-instantly-legible situation, not on a
+   talking head. A lost-and-found counter for customer memory. A police lineup of brands.
+   A set that vanishes word by word. The viewer must understand where they are with no
+   explanation. First-frame text states the premise flatly ("My customers lost my business.").
 
-EXEMPLAR C — "The Camera with Eyebrows" | Hook family: Absurd visual comedy | Prop: oversized eyebrows on the lens | First-frame text: "I fixed this camera's biggest design flaw."
-Deadpan absurd build → the joke IS the thesis → prop removed at the end → real answer stated.
+2. THE VISUAL RULE (3-20s): ONE rule governs the world, and it escalates EXACTLY three
+   times. One drawer opens -> a bigger drawer opens -> every drawer opens at once. One
+   phrase deletes the logo -> the next deletes the desk -> the next deletes the room.
+   The rule is the argument. Never stack unrelated gags.
 
-EXEMPLAR D — "The Two Contractors" | Hook family: Lost-opportunity story | Prop: direct-to-lens, minimal
-Two identical operators, one visible → a specific human moment (11 PM, water on the floor) → one hard stat → cost line: "The freeze that keeps you off camera? It sends invoices."
+3. THE STALL (20-30s): The escalation traps Jevoy. He is asked the one question he cannot
+   answer, or he sees the size of the problem. He reacts as a human, briefly and dryly
+   ("Okay, that somehow made it worse." / "That is the problem, isn't it?").
+
+4. THE TURN, DISCOVERED (30-45s): He steps out and names the mechanism in plain language —
+   about 45-60 words, short sentences, no jargon, no scolding. The proof arrives as a
+   physical DISCOVERY, not a claim: a receipt prints, a light turns green, the set
+   reappears. Somewhere in here sits the KEEPER LINE the whole short was built to earn
+   ("That is worse than lost. Lost means it was there.").
+
+5. THE FLAT CLOSE (45-60s): One specific, concrete counter-example that shows what right
+   looks like (water on the basement floor at 2 a.m.; a chipped tooth on a playground),
+   then one short instruction. Then an END CARD naming the long-form. No hype, no
+   "link in bio" energy, no sign-off.
+`.trim();
+
+// Failure modes seen in rejected AI drafts. These are the reasons suggestions feel generic.
+const BANNED = `
+AUTO-FAIL — if a draft does ANY of these, throw it out and rebuild it:
+- Opens with Jevoy talking to camera explaining an idea. The world comes first, always.
+- The prop is a metaphor he holds up and describes ("this hourglass represents attention").
+  In an approved short the prop OPERATES ON HIM; he reacts to it.
+- The visual rule escalates fewer or more than three times, or there are two rules.
+- The point is a content-marketing platitude (post more, be consistent, attention is
+  currency, algorithms changed, volume vs quality). Approved shorts land a point about
+  what a customer can remember and act on.
+- Anything the viewer must be told to feel. No "imagine if", "here's the thing",
+  "let me explain", "in this video", "the truth is", rhetorical-question openers.
+- Vague nouns: "content", "brand", "value", "engagement", "audience" used as the payoff.
+  The payoff must be a sentence a real business could actually say out loud.
+- A second human character. Only: a kiosk/screen, an offscreen voice Jevoy plays, or clones.
+- More than one location, or anything unshootable solo with locked-off cuts.
+- Three ideas that are variations of one another. They must differ in WORLD and in
+  mechanism, not just in prop.
 `.trim();
 
 const CRAFT_RULES = [
-  "Match the GOLD STANDARD above in craft, not in topic. It is the bar.",
+  "Match the GOLD STANDARD in craft, not in topic. It is the bar.",
   "Jevoy is the ONLY actor. Second voices must be a kiosk/screen text, an offscreen Jevoy, or a clone of Jevoy.",
-  "Stage a world where the idea physically happens instead of explaining it. Give each short ONE visual rule and escalate it three times.",
+  "Stage a world where the idea physically happens instead of explaining it. ONE visual rule, escalated exactly three times.",
   "Absurd but instantly legible — the viewer understands the situation within three seconds.",
   "Land the turn as a discovery (a printed receipt, a green light, a set reappearing), never as a lecture.",
   "Write one keeper line the whole short is built to earn.",
   "Use concrete specifics (a chipped tooth on a playground, water on the basement floor at 2 a.m.), never categories.",
-  "Each of the 3 ideas MUST use a DIFFERENT hook family (e.g. documented phenomenon, physical demonstration, absurd visual comedy, lost-opportunity story, live test, object autopsy, before/after build).",
+  "Each of the 3 ideas MUST use a DIFFERENT world and mechanism, not just a different prop.",
   "Every idea needs a first-frame on-screen text line — short, declarative, under 8 words, no hashtags or emoji.",
-  "Write the actual spoken script (110-180 words) in Jevoy's voice: short sentences, plain words, one idea per line, hard-cut turn in the middle, cold ending. Include bracketed [STAGE DIRECTIONS] where the prop moves.",
-  "No 'in this video', no 'let me explain', no listicles, no hype adjectives, no 'imagine if'.",
+  "Write the actual spoken script (110-180 words) in Jevoy's voice: short sentences, plain words, one idea per line, hard turn in the middle, cold ending, [STAGE DIRECTIONS] in caps where the prop moves.",
   "Any statistic or phenomenon must be real and specific; if unsure, use a concrete observed scenario instead of a fake number.",
   "The turn should reframe a felt symptom as a mechanism — never scold the viewer.",
-  "End with one flat line that points at the long-form. Never 'link in bio' hype.",
+  "End with one flat line pointing at the long-form plus an END CARD. Never 'link in bio' hype.",
   "",
   "HARD LESSONS (from rejected drafts — do not repeat these mistakes):",
   GOLD_STANDARD_LESSONS,
@@ -147,8 +181,10 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
       "GOLD STANDARD (approved, shot-ready work — match this bar):",
       GOLD_STANDARD_SHORTS,
       "",
-      "SECONDARY REFERENCE (earlier approved work — structure only):",
-      EXEMPLARS,
+      "ANATOMY OF AN APPROVED SHORT (follow this structure every time):",
+      ANATOMY,
+      "",
+      BANNED,
       "",
       "CRAFT RULES:",
       CRAFT_RULES,
@@ -164,6 +200,10 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
       data.scriptBody.slice(0, 24_000),
       "--- END SCRIPT ---",
       "",
+      "The three concepts must live in three different WORLDS with three different mechanisms.",
+      "Write the script the way the gold standard is written: interleaved [STAGE DIRECTIONS] in caps,",
+      "spoken lines in plain sentences, the escalation visible on the page, and an END CARD line.",
+      "",
       "Return this exact JSON shape (3 items, all fields required):",
       '{"ideas":[{"title":"short punchy concept name","hookFamily":"e.g. Medical phenomenon","prop":"the physical prop(s)","firstFrameText":"on-screen text in frame one","premise":"what happens on camera, 1-2 sentences","hook":"first spoken line, under 7 seconds","beats":["beat 1","beat 2","beat 3","beat 4"],"script":"the full spoken script with [STAGE DIRECTIONS], 110-180 words","tieBack":"how it connects back to the long-form idea","cta":"closing line pointing at the long-form","durationSec":45}]}',
     ].join("\n");
@@ -174,8 +214,52 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
       prompt,
     });
 
+    // Second pass: score the draft against the gold standard and rebuild anything weak.
+    let finalText = text;
     try {
-      return { ideas: normalize(extractJson(text), data.scriptTitle) };
+      const critique = await generateText({
+        model: gateway("google/gemini-3-flash-preview"),
+        system: [
+          "You are Jevoy Palmer reviewing shorts concepts before a shoot day. You are hard to please.",
+          "",
+          "GOLD STANDARD (the only acceptable bar):",
+          GOLD_STANDARD_SHORTS,
+          "",
+          "ANATOMY:",
+          ANATOMY,
+          "",
+          BANNED,
+          "",
+          "Return raw JSON only. No markdown, no commentary.",
+        ].join("\n"),
+        prompt: [
+          `Long-form: #${data.scriptNum} ${data.scriptTitle}`,
+          "",
+          "DRAFT CONCEPTS:",
+          text.slice(0, 20_000),
+          "",
+          "For EACH of the 3 concepts, silently score: (a) does it open inside a world instead of a",
+          "talking head, (b) is there ONE visual rule escalating exactly three times, (c) does the",
+          "turn arrive as a physical discovery, (d) is there a keeper line worth quoting, (e) is the",
+          "payoff a specific sentence a real business could say, (f) is it different in world AND",
+          "mechanism from the other two, (g) does it break any AUTO-FAIL rule.",
+          "Rewrite every concept that fails anything — rebuild it from the anatomy, do not patch it.",
+          "Keep what already clears the bar. Do not soften the writing.",
+          "",
+          "Return the improved final set in this exact JSON shape (3 items, all fields required):",
+          '{"ideas":[{"title":"","hookFamily":"","prop":"","firstFrameText":"","premise":"","hook":"","beats":["","","",""],"script":"full spoken script with [STAGE DIRECTIONS], 110-180 words","tieBack":"","cta":"","durationSec":45}]}',
+        ].join("\n"),
+      });
+      // Only accept the revision if it parses into usable ideas.
+      const parsed = extractJson(critique.text);
+      const list = (parsed as { ideas?: unknown[] })?.ideas;
+      if (Array.isArray(list) && list.length >= 3) finalText = critique.text;
+    } catch (error) {
+      console.error("[shortIdeas] critique pass skipped", error);
+    }
+
+    try {
+      return { ideas: normalize(extractJson(finalText), data.scriptTitle) };
     } catch (error) {
       console.error("[shortIdeas] parse failed", error);
       return { ideas: normalize(null, data.scriptTitle) };
