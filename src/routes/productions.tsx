@@ -50,7 +50,8 @@ function ProductionsPage() {
           onClick={() => setOpenNew(true)}
           className="flex items-center gap-1.5"
         >
-          <Plus className="size-3.5" /> New Project
+          <Plus className="size-3.5" />
+          <span className="hidden sm:inline">New Project</span>
         </Btn>
       }
     >
