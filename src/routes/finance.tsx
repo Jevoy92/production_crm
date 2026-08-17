@@ -1,12 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Shell } from "@/components/dashboard/Shell";
-import { MetricCard, Card } from "@/components/app/AppShell";
+import { Card } from "@/components/app/AppShell";
 import { Field, inputCls } from "@/components/ui-bits/Modal";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion/Motion";
+import { Reveal } from "@/components/motion/Motion";
 import { KpiBar, KpiDonut } from "@/components/kpi/KpiPrimitives";
 import { useStore } from "@/lib/store";
 import { cfoKpis } from "@/lib/kpis";
-import { DollarSign, TrendingDown, TrendingUp, Wallet, Clock, TriangleAlert } from "lucide-react";
 
 export const Route = createFileRoute("/finance")({
   component: FinancePage,
@@ -30,27 +29,28 @@ function FinancePage() {
   const missingCost = projects.filter((p) => !p.cost && (p.stage === "Delivered" || p.stage === "In Post")).length;
 
   const kpis = [
-    { icon: <DollarSign size={16} />, accent: "brand" as const, label: "Booked Revenue", value: cf.booked },
-    { icon: <Wallet size={16} />, accent: "cyan" as const, label: "Cash Collected", value: finance.cashCollectedMonth },
-    { icon: <TrendingDown size={16} />, accent: "amber" as const, label: "Expenses", value: expenses },
-    { icon: <TrendingUp size={16} />, accent: "emerald" as const, label: "Net Profit", value: profit },
-    { icon: <Clock size={16} />, accent: "violet" as const, label: "Outstanding", value: finance.outstanding },
-    { icon: <TriangleAlert size={16} />, accent: "rose" as const, label: "AR 90+ days", value: cf.aging[2]?.value ?? 0 },
+    { label: "Booked", value: cf.booked, tone: "" },
+    { label: "Cash In", value: finance.cashCollectedMonth, tone: "" },
+    { label: "Expenses", value: expenses, tone: "text-amber" },
+    { label: "Net Profit", value: profit, tone: profit >= 0 ? "text-emerald" : "text-rose" },
+    { label: "Outstanding", value: finance.outstanding, tone: "" },
+    { label: "AR 90+", value: cf.aging[2]?.value ?? 0, tone: (cf.aging[2]?.value ?? 0) > 0 ? "text-rose" : "" },
   ];
 
   return (
     <Shell title="Finance Overview" subtitle="Adrienne · CFO view">
       {/* KPI strip */}
-      <Stagger className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6" stagger={0.05}>
-        {kpis.map((k) => (
-          <StaggerItem key={k.label} variant="scaleIn">
-            <MetricCard icon={k.icon} accent={k.accent} label={k.label} value={usd(k.value)} animateTo={k.value} format={usd} />
-          </StaggerItem>
+      <div className="grid grid-cols-3 lg:grid-cols-6 divide-x divide-line border border-line rounded-xl bg-panel overflow-hidden mb-4">
+        {kpis.map((k, i) => (
+          <div key={k.label} className={`px-3 py-2.5 ${i > 2 ? "border-t lg:border-t-0 border-line" : ""}`}>
+            <div className="text-[10px] uppercase tracking-[0.12em] text-lo truncate">{k.label}</div>
+            <div className={`num text-[17px] font-semibold leading-tight mt-0.5 ${k.tone}`}>{usd(k.value)}</div>
+          </div>
         ))}
-      </Stagger>
+      </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mb-4">
         <Reveal delay={0.05}>
           <Card title="Margin by Pal" description="Average gross margin %">
             <KpiBar data={cf.marginByPal} color="var(--brand-500)" tickFormatter={(v) => `${v}%`} height={180} />
@@ -76,28 +76,28 @@ function FinancePage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="text-lo text-[11px] uppercase tracking-wide border-b border-line">
-                    <th className="text-left font-bold px-5 py-3">Project</th>
-                    <th className="text-left font-bold px-3 py-3">Pal</th>
-                    <th className="text-right font-bold px-3 py-3">Quoted</th>
-                    <th className="text-right font-bold px-3 py-3">Cost</th>
-                    <th className="text-right font-bold px-3 py-3">Margin</th>
-                    <th className="text-right font-bold px-5 py-3">%</th>
+                    <th className="text-left font-bold px-4 py-2.5">Project</th>
+                    <th className="text-left font-bold px-3 py-2.5">Pal</th>
+                    <th className="text-right font-bold px-3 py-2.5">Quoted</th>
+                    <th className="text-right font-bold px-3 py-2.5">Cost</th>
+                    <th className="text-right font-bold px-3 py-2.5">Margin</th>
+                    <th className="text-right font-bold px-4 py-2.5">%</th>
                   </tr>
                 </thead>
                 <tbody>
                   {projects.length === 0 && (
-                    <tr><td colSpan={6} className="text-center text-mid py-10 text-sm">No projects yet.</td></tr>
+                    <tr><td colSpan={6} className="py-8"><div className="mx-4 border border-dashed border-line rounded-lg py-6 text-center text-mid text-[13px]">No projects yet.</div></td></tr>
                   )}
                   {projects.map((p) => {
                     const q = p.quoted ?? 0, c = p.cost ?? 0, m = q - c;
                     return (
                       <tr key={p.id} className="border-b border-line last:border-0 hover:bg-hover transition-colors">
-                        <td className="px-5 py-3 text-hi font-medium">{p.title}</td>
-                        <td className="px-3 py-3 text-mid">{p.palType}</td>
-                        <td className="px-3 py-3 text-right num text-mid">{q ? `$${q.toLocaleString()}` : "—"}</td>
-                        <td className="px-3 py-3 text-right num text-mid">{c ? `$${c.toLocaleString()}` : "—"}</td>
-                        <td className={`px-3 py-3 text-right num ${m > 0 ? "text-emerald" : m < 0 ? "text-rose" : "text-mid"}`}>{q ? `$${m.toLocaleString()}` : "—"}</td>
-                        <td className="px-5 py-3 text-right num text-hi">{q ? `${Math.round((m / q) * 100)}%` : "—"}</td>
+                        <td className="px-4 py-2 text-hi font-medium max-w-[220px] truncate">{p.title}</td>
+                        <td className="px-3 py-2 text-mid">{p.palType}</td>
+                        <td className="px-3 py-2 text-right num text-mid">{q ? `$${q.toLocaleString()}` : "—"}</td>
+                        <td className="px-3 py-2 text-right num text-mid">{c ? `$${c.toLocaleString()}` : "—"}</td>
+                        <td className={`px-3 py-2 text-right num ${m > 0 ? "text-emerald" : m < 0 ? "text-rose" : "text-mid"}`}>{q ? `$${m.toLocaleString()}` : "—"}</td>
+                        <td className="px-4 py-2 text-right num text-hi">{q ? `${Math.round((m / q) * 100)}%` : "—"}</td>
                       </tr>
                     );
                   })}
