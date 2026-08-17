@@ -480,10 +480,10 @@ function TasksPage() {
                 onClose={() => setSelectedId(null)}
               />
             ) : (
-              <div className="bg-panel border border-line rounded-2xl p-8 text-center text-mid">
-                <div className="w-12 h-12 rounded-2xl bg-sunken mx-auto mb-3 flex items-center justify-center"><CircleCheck size={20} className="text-lo" /></div>
-                <div className="text-hi font-semibold text-sm mb-1">No task selected</div>
-                <div className="text-xs">Click any task to see its details, assignees, and actions.</div>
+              <div className="rounded-2xl border border-dashed border-line p-6 text-center text-mid">
+                <CircleCheck size={16} className="text-lo mx-auto mb-2" />
+                <div className="text-hi font-medium text-sm">No task selected</div>
+                <div className="text-xs text-lo mt-1">Pick a task to see details and actions.</div>
               </div>
             )}
           </div>
