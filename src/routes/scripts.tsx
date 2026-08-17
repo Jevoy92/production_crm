@@ -1,4 +1,5 @@
 import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
 import { Shell } from "@/components/dashboard/Shell";
 import { Btn } from "@/components/ui-bits/Modal";
@@ -12,6 +13,8 @@ import {
   Copy,
   Download,
 } from "lucide-react";
+import { Loader2, Wand2, Clapperboard } from "lucide-react";
+import { generateShortIdeas, type ShortIdea } from "@/lib/shortIdeas.functions";
 import { SCRIPTS, STRATEGY_DOCS, RESEARCH_DOCS, YOURBOY_DOCS } from "@/lib/scriptsIndex";
 import { hasResearchPack } from "@/lib/researchPacks";
 import { Markdown } from "@/components/Markdown";
