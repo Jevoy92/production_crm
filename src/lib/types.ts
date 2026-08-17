@@ -104,6 +104,8 @@ export type Task = {
   subtasks?: Subtask[];
   notes?: string;
   attachments?: TaskAttachment[];
+  /** First-class "waiting on" state — work that is neither done nor moving. */
+  waitingOn?: { who: string; since: string; note?: string };
 };
 
 export type ChecklistTemplates = Record<PalType, Record<ChecklistStage, string[]>>;
