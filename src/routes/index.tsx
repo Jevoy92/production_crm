@@ -219,10 +219,10 @@ function WatchOuts() {
       <div className="space-y-2.5 relative z-10">
         {items.map((it) => (
           <div key={it.title} className={`bg-panel/60 border ${tones[it.tone]} p-3 rounded-lg`}>
-            <div className="flex items-center gap-2 mb-1">
-              <span className={`w-1.5 h-1.5 rounded-full ${dots[it.tone]} shrink-0`} />
-              <h4 className={`text-[13px] font-semibold ${tones[it.tone].split(" ")[1]} truncate`}>{it.title}</h4>
-              <span className="text-[9px] uppercase tracking-wider text-lo ml-auto shrink-0">{it.tag}</span>
+            <div className="flex items-start gap-2 mb-1">
+              <span className={`w-1.5 h-1.5 mt-1.5 rounded-full ${dots[it.tone]} shrink-0`} />
+              <h4 className={`text-[13px] font-semibold leading-snug ${tones[it.tone].split(" ")[1]}`}>{it.title}</h4>
+              <span className="text-[9px] uppercase tracking-wider text-lo ml-auto shrink-0 mt-0.5">{it.tag}</span>
             </div>
             <p className="text-[11px] leading-snug text-mid">{it.body}</p>
           </div>
@@ -280,7 +280,16 @@ function CallsAreaTimeline({ hours, color }: { hours: number[]; color: string })
     const idx = Math.round(Math.max(START, Math.min(END, h))) - START;
     if (bins[idx]) bins[idx].c += 1;
   });
-  // Give an empty timeline a subtle baseline so the area is visible.
+  // With nothing on the calendar an area chart reads as a meaningless grey slab.
+  // Show an explicit, quiet empty state instead.
+  if (hours.length === 0) {
+    return (
+      <div className="w-24 h-10 flex flex-col items-end justify-center gap-1.5">
+        <span className="w-full border-t border-dashed border-line-strong/70" />
+        <span className="text-[10px] text-lo">Clear day</span>
+      </div>
+    );
+  }
   const data = bins.map((b) => ({ ...b, c: b.c + 0.15 }));
   return (
     <div className="w-24 h-10">
@@ -414,14 +423,14 @@ function TodaysPath({
   }
 
   return (
-    <section className="bg-panel border border-line rounded-3xl p-6">
-      <div className="flex items-start justify-between gap-3 mb-6">
+    <section className="bg-panel border border-line rounded-3xl p-4 sm:p-6">
+      <div className="flex items-start justify-between gap-3 mb-5 sm:mb-6">
         <div className="min-w-0">
           <h3 className="font-display font-bold text-hi text-lg flex items-center gap-2">
             <RouteIcon size={16} className="text-brand-400" />
             Today's Path
           </h3>
-          <p className="text-sm text-mid mt-0.5 truncate">{phase.title}</p>
+          <p className="text-sm text-mid mt-0.5 leading-snug">{phase.title}</p>
         </div>
         <span className="flex items-center gap-1.5 bg-sunken border border-line px-3 py-1.5 rounded-full shrink-0">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pulse" />
@@ -429,7 +438,7 @@ function TodaysPath({
         </span>
       </div>
 
-      <div className="relative pl-6 space-y-7 border-l-2 border-line">
+      <div className="relative pl-4 sm:pl-6 space-y-6 sm:space-y-7 border-l-2 border-line">
         {blocks.map((b) => {
           const h = HOURS[b.id];
           const state = statusFor(b.id);
@@ -459,8 +468,8 @@ function TodaysPath({
 
           const cardClass =
             state === "current"
-              ? "bg-gradient-to-br from-panel to-sunken rounded-2xl p-5 border border-brand-500/30 shadow-lg shadow-brand-500/5"
-              : "bg-sunken/50 rounded-2xl p-5 border border-line hover:border-line-strong/70 transition-colors";
+              ? "bg-gradient-to-br from-panel to-sunken rounded-2xl p-4 sm:p-5 border border-brand-500/30 shadow-lg shadow-brand-500/5"
+              : "bg-sunken/50 rounded-2xl p-4 sm:p-5 border border-line hover:border-line-strong/70 transition-colors";
 
           const rangeColor =
             state === "current" ? "text-brand-400" : state === "past" ? "text-amber-500/80" : "text-lo";
@@ -784,7 +793,7 @@ function ScriptIdeas() {
           </button>
         </div>
       </div>
-      <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory">
+      <div className="flex items-start gap-4 overflow-x-auto pb-2 snap-x snap-mandatory">
         {ideas.map((c) => (
           <div
             key={c.title}
