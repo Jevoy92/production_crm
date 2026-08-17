@@ -161,7 +161,7 @@ function ScriptsHub() {
         </div>
 
         {/* Doc lists */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
           <DocList title="Strategy" docs={STRATEGY_DOCS} to="/scripts/strategy" />
           <DocList title="Research" docs={RESEARCH_DOCS} to="/scripts/research" />
           <DocList title="YourBoyJevoy" docs={YOURBOY_DOCS} to="/scripts/yourboy" />
@@ -537,17 +537,20 @@ function DocList({
 }) {
   if (docs.length === 0) return null;
   return (
-    <div className="bg-card border border-border p-6">
-      <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold mb-4">
-        {title}
+    <div className="rounded-lg bg-card border border-border p-5">
+      <div className="flex items-baseline justify-between mb-3">
+        <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold">
+          {title}
+        </span>
+        <span className="text-[10px] tabular-nums text-muted-foreground/50">{docs.length}</span>
       </div>
-      <ul className="space-y-2">
+      <ul className="space-y-1">
         {docs.map((d) => (
           <li key={d.slug}>
             <Link
               to={to}
               search={{ doc: d.slug }}
-              className="text-[13px] text-foreground/85 hover:text-foreground hover:underline underline-offset-4 transition-colors block leading-snug"
+              className="-mx-2 block rounded px-2 py-1 text-[13px] text-foreground/85 leading-snug transition-colors hover:bg-muted/40 hover:text-foreground"
             >
               {d.title}
             </Link>
