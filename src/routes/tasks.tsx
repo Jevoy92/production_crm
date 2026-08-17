@@ -289,12 +289,12 @@ function TasksPage() {
         <div className="flex-1 min-w-0">
           {/* Filter bar */}
           <div className="flex items-center justify-between gap-3 flex-wrap mb-5">
-            <div className="inline-flex items-center gap-1 p-1 bg-sunken border border-line rounded-xl">
+            <div className="flex items-center gap-1 p-1 bg-sunken border border-line rounded-xl max-w-full overflow-x-auto no-scrollbar">
               {([["my", "My Tasks"], ["team", "Team Overview"], ["deadlines", "Upcoming Deadlines"], ["completed", `Completed${completedCount ? ` (${completedCount})` : ""}`]] as [TabKey, string][]).map(([k, label]) => (
                 <button
                   key={k}
                   onClick={() => setTab(k)}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${tab === k ? "bg-brand-600 text-white" : "text-mid hover:text-hi"}`}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 transition-colors ${tab === k ? "bg-brand-600 text-white" : "text-mid hover:text-hi"}`}
                 >
                   {label}
                 </button>
@@ -450,7 +450,7 @@ function TasksPage() {
                               {assignee && (
                                 <div className="w-6 h-6 rounded-full grid place-items-center text-[9.5px] font-semibold text-white" style={{ background: assignee.color }}>{assignee.initials}</div>
                               )}
-                              <ChevronRight size={13} className={`transition-colors ${active ? "text-brand-400" : "text-lo group-hover:text-brand-400"}`} />
+                              <ChevronRight size={13} className={`hidden sm:block transition-colors ${active ? "text-brand-400" : "text-lo group-hover:text-brand-400"}`} />
                             </div>
                           </div>
                         );
