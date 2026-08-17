@@ -390,6 +390,15 @@ function ScriptRow({
                 <Btn variant="subtle" onClick={downloadMd} className="flex items-center gap-1.5 h-7 text-[11px]">
                   <Download className="size-3" /> .md
                 </Btn>
+                <Btn
+                  variant="subtle"
+                  onClick={generateIdeas}
+                  disabled={ideasLoading || !source}
+                  className="flex items-center gap-1.5 h-7 text-[11px]"
+                >
+                  {ideasLoading ? <Loader2 className="size-3 animate-spin" /> : <Wand2 className="size-3" />}
+                  {ideasLoading ? "Thinking…" : activeIdeas ? "Regenerate ideas" : "Shorts ideas"}
+                </Btn>
                 {entry.teleprompterPath && (
                   <Btn variant="subtle" onClick={downloadTeleprompter} className="flex items-center gap-1.5 h-7 text-[11px]">
                     <Download className="size-3" /> Teleprompter
@@ -409,7 +418,81 @@ function ScriptRow({
               {loading ? (
                 <div className="text-muted-foreground text-[13px] italic">Loading…</div>
               ) : source ? (
-                <Markdown source={source} />
+                <>
+                  {(ideasLoading || activeIdeas) && (
+                    <div className="mb-6 border border-border bg-muted/30 p-4 md:p-5">
+                      <div className="flex items-center gap-2 mb-4">
+                        <Clapperboard className="size-3.5 text-muted-foreground" />
+                        <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">
+                          Prop-led shorts ideas · {versions.find((v) => v.key === activeVersion)?.label}
+                        </span>
+                      </div>
+                      {ideasLoading && !activeIdeas ? (
+                        <div className="grid gap-3 md:grid-cols-3">
+                          {[0, 1, 2].map((i) => (
+                            <div key={i} className="h-40 border border-border bg-card animate-pulse" />
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="grid gap-3 md:grid-cols-3">
+                          {activeIdeas?.map((idea, i) => (
+                            <div key={i} className="border border-border bg-card p-4 flex flex-col gap-2.5">
+                              <div className="flex items-center justify-between gap-2">
+                                <span className="text-[9px] tracking-[0.2em] font-bold uppercase text-muted-foreground/70">
+                                  Idea {i + 1}
+                                </span>
+                                <span className="text-[9px] tracking-[0.15em] font-bold uppercase px-1.5 py-0.5 border border-border text-muted-foreground/80">
+                                  {idea.durationSec}s
+                                </span>
+                              </div>
+                              <h4
+                                className="text-[15px] leading-snug font-medium tracking-tight"
+                                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+                              >
+                                {idea.title}
+                              </h4>
+                              <div className="text-[11px] leading-relaxed">
+                                <span className="uppercase tracking-[0.15em] text-[9px] font-bold text-muted-foreground/70">Prop </span>
+                                <span className="text-foreground/90">{idea.prop}</span>
+                              </div>
+                              <p className="text-[12px] leading-relaxed text-muted-foreground">{idea.premise}</p>
+                              <p className="text-[12px] leading-relaxed italic border-l-2 border-border pl-2.5">“{idea.hook}”</p>
+                              <ol className="text-[11.5px] leading-relaxed text-foreground/85 list-decimal pl-4 space-y-0.5">
+                                {idea.beats.map((b, bi) => (
+                                  <li key={bi}>{b}</li>
+                                ))}
+                              </ol>
+                              <p className="text-[11px] leading-relaxed text-muted-foreground">{idea.tieBack}</p>
+                              <div className="mt-auto pt-2 flex items-center justify-between gap-2 border-t border-border">
+                                <span className="text-[11px] text-foreground/90">{idea.cta}</span>
+                                <button
+                                  onClick={async () => {
+                                    const text = [
+                                      `${idea.title} (${idea.durationSec}s)`,
+                                      `Prop: ${idea.prop}`,
+                                      `Premise: ${idea.premise}`,
+                                      `Hook: ${idea.hook}`,
+                                      ...idea.beats.map((b, bi) => `${bi + 1}. ${b}`),
+                                      `Tie-back: ${idea.tieBack}`,
+                                      `CTA: ${idea.cta}`,
+                                    ].join("\n");
+                                    const ok = await copyToClipboard(text);
+                                    toast[ok ? "success" : "error"](ok ? "Idea copied" : "Copy failed");
+                                  }}
+                                  className="text-muted-foreground hover:text-foreground transition-colors shrink-0"
+                                  aria-label="Copy idea"
+                                >
+                                  <Copy className="size-3" />
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  <Markdown source={source} />
+                </>
               ) : (
                 <div className="text-muted-foreground text-[13px] italic">
                   Couldn't load this script.
