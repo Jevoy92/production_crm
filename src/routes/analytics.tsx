@@ -346,11 +346,49 @@ function Kpi({
   format?: (n: number) => string;
 }) {
   return (
-    <div className="card-elevated rounded-2xl p-5">
-      <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{label}</div>
-      <div className="num text-[30px] font-semibold mt-2">
+    <div className="px-3 py-2.5 sm:px-3.5 sm:py-3 border-r border-line/70 last:border-r-0 min-w-0">
+      <div className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground truncate">
+        {label}
+      </div>
+      <div className="num text-[20px] sm:text-[24px] font-semibold leading-tight mt-1">
         {typeof value === "number" ? <AnimatedNumber value={value} format={format} /> : value}
       </div>
+    </div>
+  );
+}
+
+function KpiRow({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-3 rounded-xl border border-line bg-surface-2/40 mb-3">
+      {children}
+    </div>
+  );
+}
+
+function Panel({
+  eyebrow,
+  title,
+  className,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={`card-elevated rounded-2xl p-3.5 sm:p-4 ${className ?? ""}`}>
+      <div className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground">{eyebrow}</div>
+      <h3 className="text-[13.5px] font-semibold tracking-tight mt-0.5 mb-2.5">{title}</h3>
+      {children}
+    </div>
+  );
+}
+
+function Empty({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="rounded-lg border border-dashed border-line px-3 py-4 text-[12px] text-muted-foreground">
+      {children}
     </div>
   );
 }
