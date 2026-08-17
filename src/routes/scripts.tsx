@@ -136,7 +136,7 @@ function ScriptsHub() {
         )}
 
         {/* Pinned reference — bottom */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-10 border-t border-border">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-8 border-t border-border">
           <PinnedCard
             to="/scripts/strategy"
             icon={<BookOpen className="size-3.5" />}
@@ -161,7 +161,7 @@ function ScriptsHub() {
         </div>
 
         {/* Doc lists */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <DocList title="Strategy" docs={STRATEGY_DOCS} to="/scripts/strategy" />
           <DocList title="Research" docs={RESEARCH_DOCS} to="/scripts/research" />
           <DocList title="YourBoyJevoy" docs={YOURBOY_DOCS} to="/scripts/yourboy" />
@@ -187,21 +187,21 @@ function PinnedCard({
   return (
     <Link
       to={to}
-      className="group block bg-card border border-border p-7 transition-all duration-300 hover:border-foreground hover:-translate-y-0.5 hover:shadow-lg"
+      className="group flex h-full flex-col rounded-lg bg-card border border-border p-5 transition-colors duration-200 hover:border-foreground/40 hover:bg-muted/20"
     >
-      <div className="flex justify-between items-start mb-10">
+      <div className="flex justify-between items-start mb-6">
         <span className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.2em] font-bold uppercase text-muted-foreground">
           {icon} {eyebrow}
         </span>
         <div className="w-1.5 h-1.5 rounded-full bg-foreground group-hover:scale-150 transition-transform" />
       </div>
       <h2
-        className="text-[22px] leading-tight font-medium mb-2 tracking-tight"
+        className="text-[17px] leading-tight font-medium mb-1.5 tracking-tight"
         style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
       >
         {title}
       </h2>
-      <p className="text-[11px] text-muted-foreground uppercase tracking-wider">{desc}</p>
+      <p className="mt-auto text-[10px] text-muted-foreground uppercase tracking-wider">{desc}</p>
     </Link>
   );
 }
