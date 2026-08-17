@@ -236,6 +236,45 @@ export type Database = {
         }
         Relationships: []
       }
+      shorts_generations: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          ideas: Json
+          is_current: boolean
+          note: string | null
+          script_num: string
+          script_title: string
+          starred: boolean
+          venture: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          ideas: Json
+          is_current?: boolean
+          note?: string | null
+          script_num: string
+          script_title: string
+          starred?: boolean
+          venture: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          ideas?: Json
+          is_current?: boolean
+          note?: string | null
+          script_num?: string
+          script_title?: string
+          starred?: boolean
+          venture?: string
+        }
+        Relationships: []
+      }
       studio_messages: {
         Row: {
           content: string

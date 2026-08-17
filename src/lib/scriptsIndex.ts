@@ -8,20 +8,12 @@ type LazyMap = Record<string, () => Promise<string>>;
 
 import manifestJson from "@/content/scripts/Final/_manifest.json";
 
-// Final scripts are NOT eager-bundled: ~1MB of markdown crashes the Nitro
-// build (V8 JSON parse abort). They load lazily, with a public/ fallback.
-const jpRaw = import.meta.glob("/src/content/scripts/Final/JP/*.md", {
-  query: "?raw",
-  import: "default",
-}) as LazyMap;
-const phRaw = import.meta.glob("/src/content/scripts/Final/PH/*.md", {
-  query: "?raw",
-  import: "default",
-}) as LazyMap;
-const mybRaw = import.meta.glob("/src/content/scripts/Final/MYB/*.md", {
-  query: "?raw",
-  import: "default",
-}) as LazyMap;
+// Final scripts are NOT bundled at all — not even lazily. ~1MB of markdown
+// in the module graph aborts the Nitro build (V8 JSON parse SIGABRT).
+// They are served from /public/hubs/scripts/Final/** and fetched at runtime.
+const jpRaw: LazyMap = {};
+const phRaw: LazyMap = {};
+const mybRaw: LazyMap = {};
 // Teleprompter files are served from /public/hubs/scripts/Final/Teleprompter/
 // directly — do NOT eager-bundle them, they bloat the SSR chunk to ~2MB and
 // crash the Nitro build with a V8 JSON parse abort.
@@ -61,7 +53,7 @@ export const VERSION_LABEL: Record<ScriptVersion, string> = {
 export type Pillar = "Reel" | "Spotlight" | "Evergreen" | "System";
 
 export type ScriptVersionEntry = {
-  load: () => Promise<string>;
+  load?: () => Promise<string>;
   originalPath: string;
   filename: string;
   teleprompterPath?: string;
@@ -119,7 +111,6 @@ export const SCRIPTS: ScriptEntry[] = manifest.themes.map((t) => {
     const file = v.script.split("/").pop()!;
     const map = key === "JP" ? jpRaw : key === "PH" ? phRaw : mybRaw;
     const loader = lookupByBasename(map, file);
-    if (!loader) continue;
     const teleFile = v.teleprompter?.split("/").pop();
     versions[VENTURE_TO_BRAND[key]] = {
       load: loader,
