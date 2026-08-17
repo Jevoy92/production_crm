@@ -170,65 +170,124 @@ function Recap({ ok, children }: { ok?: boolean; children: React.ReactNode }) {
 }
 
 /* ---------------- Watch-outs ---------------- */
-function WatchOuts() {
-  const items: Array<{ tone: "rose" | "amber" | "violet" | "brand"; title: string; body: React.ReactNode; tag: string }> = [
-    {
-      tone: "rose", tag: "Compliance",
-      title: "Admin Lag — Middesk Mail",
-      body: <>Open the WA registration packet today. Unprocessed filings can <strong className="text-hi">freeze payouts and stall contracts</strong> within 30 days.</>,
-    },
-    {
-      tone: "amber", tag: "Energy",
-      title: "Midday Crunch",
-      body: <>3 back-to-back calls from 12–2:30 PM with no buffer. <strong className="text-hi">Eat by 11:45</strong>, queue water, mute Slack between calls.</>,
-    },
-    {
-      tone: "violet", tag: "Creative Drift",
-      title: "No Filming Logged in 48h",
-      body: <>Core 12 cadence at risk. Carve a 90-min self-record block tomorrow or push the publish calendar.</>,
-    },
-    {
-      tone: "brand", tag: "Handover",
-      title: "Shannen Update Pending",
-      body: <>Yesterday's structured daily update from Shannen hasn't landed yet. Ping her before 10 AM so AM blocks aren't blind.</>,
-    },
-  ];
-  const tones: Record<string, string> = {
-    rose: "border-rose/30 text-rose",
-    amber: "border-amber/30 text-amber",
-    violet: "border-violet/30 text-violet",
-    brand: "border-brand-500/30 text-brand-400",
-  };
-  const dots: Record<string, string> = {
-    rose: "bg-rose", amber: "bg-amber", violet: "bg-violet", brand: "bg-brand-400",
-  };
+const SEVERITY: Record<Severity, { label: string; text: string; dot: string; ring: string }> = {
+  urgent: { label: "Urgent", text: "text-rose", dot: "bg-rose", ring: "border-rose/35" },
+  action: { label: "Action", text: "text-amber", dot: "bg-amber", ring: "border-amber/30" },
+  attention: { label: "Attention", text: "text-mid", dot: "bg-line-strong", ring: "border-line" },
+};
+
+function WatchOuts({ input }: { input: SignalInput }) {
+  const items = useMemo(() => deriveWatchOuts(input), [input]);
+  const [openId, setOpenId] = useState<string | null>(null);
+  const urgent = items.filter((i) => i.severity === "urgent").length;
+
   return (
-    <div className="bg-panel border border-rose/25 rounded-3xl p-6 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-rose/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
-      <div className="flex items-center justify-between gap-3 mb-4 relative z-10">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="w-8 h-8 rounded-lg bg-rose/20 flex items-center justify-center text-rose shrink-0">
-            <TriangleAlert size={14} />
-          </div>
-          <h3 className="font-display font-bold text-hi text-base truncate">Watch-outs</h3>
-        </div>
-        <span className="text-[10px] font-semibold text-lo bg-sunken border border-line px-2 py-0.5 rounded-md shrink-0">
-          {items.length} signals
+    <section className="bg-panel border border-line rounded-3xl p-5">
+      <div className="flex items-center justify-between gap-3 mb-3">
+        <h3 className="font-display font-bold text-hi text-sm flex items-center gap-2 min-w-0">
+          <TriangleAlert size={14} className={urgent ? "text-rose" : "text-lo"} />
+          Watch-outs
+        </h3>
+        <span className="text-[11px] text-lo shrink-0">
+          {items.length === 0 ? "clear" : urgent ? `${urgent} urgent` : `${items.length} open`}
         </span>
       </div>
-      <div className="space-y-2.5 relative z-10">
-        {items.map((it) => (
-          <div key={it.title} className={`bg-panel/60 border ${tones[it.tone]} p-3 rounded-lg`}>
-            <div className="flex items-start gap-2 mb-1">
-              <span className={`w-1.5 h-1.5 mt-1.5 rounded-full ${dots[it.tone]} shrink-0`} />
-              <h4 className={`text-[13px] font-semibold leading-snug ${tones[it.tone].split(" ")[1]}`}>{it.title}</h4>
-              <span className="text-[9px] uppercase tracking-wider text-lo ml-auto shrink-0 mt-0.5">{it.tag}</span>
-            </div>
-            <p className="text-[11px] leading-snug text-mid">{it.body}</p>
-          </div>
-        ))}
+
+      {items.length === 0 ? (
+        <p className="text-sm text-mid leading-relaxed">
+          Nothing is drifting. Overdue work, unready shoots, blocked productions and stale
+          follow-ups all appear here the moment they cross a threshold.
+        </p>
+      ) : (
+        <ul className="-mx-2 divide-y divide-line/60">
+          {items.map((it) => {
+            const tone = SEVERITY[it.severity];
+            const open = openId === it.id;
+            return (
+              <li key={it.id}>
+                <button
+                  type="button"
+                  onClick={() => setOpenId(open ? null : it.id)}
+                  aria-expanded={open}
+                  className="w-full text-left px-2 py-2.5 rounded-lg hover:bg-sunken transition-colors"
+                >
+                  <div className="flex items-start gap-2.5">
+                    <span className={`mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 ${tone.dot}`} />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[13px] font-semibold text-hi leading-snug">{it.title}</p>
+                      <p className="text-[11.5px] text-mid leading-snug mt-0.5">{it.what}</p>
+                    </div>
+                    <span className={`text-[9px] uppercase tracking-wider shrink-0 mt-1 ${tone.text}`}>
+                      {tone.label}
+                    </span>
+                  </div>
+                </button>
+                {open && (
+                  <div className="px-2 pb-3 pl-[26px] space-y-1.5">
+                    <p className="text-[11.5px] text-mid leading-snug">
+                      <span className="text-lo">Why it matters — </span>
+                      {it.why}
+                    </p>
+                    <p className="text-[11.5px] text-mid leading-snug">
+                      <span className="text-lo">If ignored — </span>
+                      {it.cost}
+                    </p>
+                    <Link
+                      to={it.action.to}
+                      className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-brand-400 hover:text-brand-300 transition-colors"
+                    >
+                      {it.action.label}
+                      <ChevronRight size={12} />
+                    </Link>
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+/* ---------------- Waiting On ---------------- */
+function WaitingOnRail({ input }: { input: SignalInput }) {
+  const items = useMemo(() => deriveWaiting(input).slice(0, 5), [input]);
+  return (
+    <section className="bg-panel border border-line rounded-3xl p-5">
+      <div className="flex items-center justify-between gap-3 mb-3">
+        <h3 className="font-display font-bold text-hi text-sm flex items-center gap-2">
+          <Clock size={14} className="text-lo" />
+          Waiting On
+        </h3>
+        <span className="text-[11px] text-lo">{items.length || "none"}</span>
       </div>
-    </div>
+      {items.length === 0 ? (
+        <p className="text-sm text-mid leading-relaxed">
+          Nothing is parked with someone else. Mark a task as waiting to track who owes what,
+          and for how long.
+        </p>
+      ) : (
+        <ul className="space-y-2">
+          {items.map((w) => (
+            <li key={w.id} className="flex items-start gap-2.5">
+              <span
+                className={`mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 ${w.stale ? "bg-amber" : "bg-line-strong"}`}
+              />
+              <div className="min-w-0 flex-1">
+                <p className="text-[13px] text-hi leading-snug truncate">{w.what}</p>
+                <p className="text-[11px] text-lo leading-snug">{w.who}</p>
+              </div>
+              <span
+                className={`text-[11px] tabular-nums shrink-0 mt-0.5 ${w.stale ? "text-amber" : "text-lo"}`}
+              >
+                {w.days}d
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 
