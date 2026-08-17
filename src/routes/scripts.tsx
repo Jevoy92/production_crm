@@ -281,52 +281,46 @@ function ScriptRow({
   };
 
   return (
-    <div className="border-b border-border">
+    <div className={`border-b border-border ${open ? "bg-muted/20" : ""}`}>
       <button
         onClick={onToggle}
-        className="w-full group flex items-baseline gap-5 py-4 px-1 text-left transition-colors hover:bg-muted/30"
+        className={`w-full group flex items-center gap-3 md:gap-4 py-2.5 pr-1 pl-2 text-left border-l-2 transition-colors hover:bg-muted/30 ${
+          open ? "border-l-foreground" : "border-l-transparent"
+        }`}
       >
         <span
-          className="text-[15px] tabular-nums text-muted-foreground/70 font-medium w-8 shrink-0"
-          style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+          className="text-[11px] tabular-nums text-muted-foreground/60 font-medium w-6 shrink-0"
         >
           {script.num}
         </span>
         <span
-          className="flex-1 text-[17px] leading-snug font-medium tracking-tight truncate"
+          className="flex-1 min-w-0 text-[14px] md:text-[15px] leading-snug font-medium tracking-tight truncate"
           style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
         >
           {script.title}
         </span>
-        <span className="hidden md:inline-flex items-center text-[9px] tracking-[0.18em] font-bold uppercase px-1.5 py-0.5 border border-border text-muted-foreground/80 shrink-0">
+        <span className="hidden md:inline-flex items-center text-[9px] tracking-[0.16em] font-semibold uppercase text-muted-foreground/60 shrink-0">
           {script.pillar}
         </span>
         {hasResearchPack(script.num) && (
           <span
-            className="hidden md:inline-flex items-center text-[9px] tracking-[0.18em] font-bold uppercase px-1.5 py-0.5 border border-emerald-500/40 text-emerald-500 shrink-0"
+            className="hidden md:inline-flex items-center rounded text-[9px] tracking-[0.16em] font-semibold uppercase px-1.5 py-0.5 bg-emerald-500/10 text-emerald-500 shrink-0"
             title="Research & B-roll pack available"
           >
             B-roll
           </span>
         )}
-        <span className="hidden md:flex items-center gap-1.5 shrink-0">
-          {brandTags.map((b) => (
-            <span
-              key={b.key}
-              className="text-[9px] tracking-[0.18em] font-bold uppercase px-1.5 py-0.5 border border-border text-muted-foreground/80"
-            >
-              {b.label}
-            </span>
-          ))}
+        <span className="hidden lg:inline text-[9px] tracking-[0.16em] font-semibold uppercase text-muted-foreground/40 shrink-0 w-[86px] text-right">
+          {brandTags.map((b) => b.label).join(" · ")}
         </span>
         <ChevronDown
-          className={`size-4 text-muted-foreground shrink-0 transition-transform duration-300 ${
+          className={`size-3.5 text-muted-foreground/60 shrink-0 transition-transform duration-200 ${
             open ? "rotate-180" : ""
           }`}
         />
       </button>
       {open && (
-        <div className="pb-6 pl-14 pr-2 -mt-1 space-y-4">
+        <div className="pb-6 pl-4 md:pl-12 pr-2 space-y-4">
           {hasResearch && (
             <div className="inline-flex gap-1 p-1 bg-muted/40 border border-border rounded-lg">
               <button
