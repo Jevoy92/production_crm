@@ -19,6 +19,7 @@ import { SCRIPTS, STRATEGY_DOCS, RESEARCH_DOCS, YOURBOY_DOCS } from "@/lib/scrip
 import { hasResearchPack } from "@/lib/researchPacks";
 import { Markdown } from "@/components/Markdown";
 import { copyToClipboard } from "@/lib/clipboard";
+import { useLazySource } from "@/lib/useLazySource";
 import { toast } from "sonner";
 import { ResearchPack } from "@/components/research/ResearchPack";
 import { Images, FileText } from "lucide-react";
