@@ -30,14 +30,14 @@ function AnalyticsPage() {
 
   return (
     <Shell title="Analytics" subtitle={`${role.toUpperCase()} dashboard`}>
-      <div className="mb-4">
+      <div className="mb-4 -mx-1 px-1 overflow-x-auto no-scrollbar">
         <SegmentedControl
           value={role}
           onChange={setRole}
           options={[
-            { value: "owner", label: "Owner (Jevoy)" },
-            { value: "cfo", label: "CFO (Adrienne)" },
-            { value: "pa", label: "Production Assistant" },
+            { value: "owner", label: "Owner" },
+            { value: "cfo", label: "CFO" },
+            { value: "pa", label: "Production" },
           ]}
         />
       </div>
@@ -68,20 +68,22 @@ function OwnerDash() {
     count: projects.filter((p) => p.stage === s).length,
   }));
 
-  return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-      <Kpi label="Active projects" value={active.length} />
-      <Kpi label="Quoted (active)" value={quoted} format={usdFmt} />
-      <Kpi label="Shipped this month" value={shippedMonth} />
+  const hasPal = byPal.some((d) => d.value > 0);
+  const funnelTotal = byStage.reduce((a, s) => a + s.count, 0);
 
-      <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
-        <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          Active by Pal type
-        </div>
-        <h3 className="text-[15px] font-semibold tracking-tight mt-0.5 mb-3">
-          Creative throughput
-        </h3>
-        <div className="h-56">
+  return (
+    <>
+      <KpiRow>
+        <Kpi label="Active projects" value={active.length} />
+        <Kpi label="Quoted (active)" value={quoted} format={usdFmt} />
+        <Kpi label="Shipped (mo)" value={shippedMonth} />
+      </KpiRow>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3 items-start">
+      <Panel eyebrow="Active by Pal type" title="Creative throughput" className="xl:col-span-2">
+        {!hasPal ? (
+          <Empty>No active projects to chart yet.</Empty>
+        ) : (
+        <div className="h-44 sm:h-52">
           <ResponsiveContainer>
             <BarChart data={byPal}>
               <CartesianGrid stroke="var(--color-border)" vertical={false} />
@@ -111,29 +113,33 @@ function OwnerDash() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </div>
+        )}
+      </Panel>
 
-      <div className="card-elevated rounded-2xl p-5">
-        <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          Sales funnel
-        </div>
-        <h3 className="text-[15px] font-semibold tracking-tight mt-0.5 mb-3">Top of pipeline</h3>
-        <div className="space-y-2.5">
+      <Panel eyebrow="Sales funnel" title="Top of pipeline">
+        {funnelTotal === 0 ? (
+          <Empty>Pipeline is empty — no leads in the top four stages.</Empty>
+        ) : (
+        <div className="space-y-2">
           {byStage.map((s) => (
             <div key={s.name} className="flex items-center gap-2">
-              <span className="w-28 text-[12px] text-muted-foreground">{s.name}</span>
-              <div className="flex-1 h-2 rounded-full bg-surface-3 overflow-hidden">
+              <span className="w-24 shrink-0 text-[11.5px] text-muted-foreground truncate">
+                {s.name}
+              </span>
+              <div className="flex-1 min-w-0 h-1.5 rounded-full bg-surface-3 overflow-hidden">
                 <div
                   className="h-full rounded-full bg-primary"
                   style={{ width: `${Math.min(100, s.count * 25)}%` }}
                 />
               </div>
-              <span className="num text-[12px] w-6 text-right">{s.count}</span>
+              <span className="num text-[11.5px] w-5 text-right">{s.count}</span>
             </div>
           ))}
         </div>
+        )}
+      </Panel>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -162,18 +168,21 @@ function CFODash() {
     .sort((a, b) => b.ltv - a.ltv)
     .slice(0, 5);
 
-  return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-      <Kpi label="Cash collected (mo)" value={finance.cashCollectedMonth} format={usdFmt} />
-      <Kpi label="Outstanding" value={finance.outstanding} format={usdFmt} />
-      <Kpi label="Tool + AI spend" value={finance.toolSpend + finance.aiSpend} format={usdFmt} />
+  const hasMargin = byPal.some((d) => d.quoted > 0);
 
-      <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
-        <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          Margin by Pal type
-        </div>
-        <h3 className="text-[15px] font-semibold tracking-tight mt-0.5 mb-3">Where the money is</h3>
-        <div className="h-56">
+  return (
+    <>
+      <KpiRow>
+        <Kpi label="Cash (mo)" value={finance.cashCollectedMonth} format={usdFmt} />
+        <Kpi label="Outstanding" value={finance.outstanding} format={usdFmt} />
+        <Kpi label="Tool + AI spend" value={finance.toolSpend + finance.aiSpend} format={usdFmt} />
+      </KpiRow>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3 items-start">
+      <Panel eyebrow="Margin by Pal type" title="Where the money is" className="xl:col-span-2">
+        {!hasMargin ? (
+          <Empty>No quoted work yet — margins appear once projects are priced.</Empty>
+        ) : (
+        <div className="h-44 sm:h-52">
           <ResponsiveContainer>
             <BarChart data={byPal}>
               <CartesianGrid stroke="var(--color-border)" vertical={false} />
@@ -205,23 +214,22 @@ function CFODash() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </div>
+        )}
+      </Panel>
 
-      <div className="card-elevated rounded-2xl p-5">
-        <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          Top clients by LTV
-        </div>
-        <h3 className="text-[15px] font-semibold tracking-tight mt-0.5 mb-3">Loyalty</h3>
-        <div className="space-y-2">
+      <Panel eyebrow="Top clients by LTV" title="Loyalty">
+        {topClients.length === 0 && <Empty>No clients on record yet.</Empty>}
+        <div className="space-y-1.5">
           {topClients.map((c) => (
-            <div key={c.name} className="flex items-center justify-between text-[12.5px]">
-              <span className="truncate pr-2">{c.name}</span>
+            <div key={c.name} className="flex items-center justify-between gap-2 text-[12px]">
+              <span className="truncate min-w-0">{c.name}</span>
               <span className="num text-foreground">${c.ltv.toLocaleString()}</span>
             </div>
           ))}
         </div>
+      </Panel>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -259,19 +267,22 @@ function PADash() {
   const compPct = completion.total ? Math.round((completion.done / completion.total) * 100) : 0;
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-      <Kpi label="Upcoming shoots (7d)" value={upcoming.length} />
-      <Kpi label="Checklist completion" value={compPct} format={(n) => `${Math.round(n)}%`} />
-      <Kpi label="Prep at-risk" value={overdue.length} />
-
-      <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
-        <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          Readiness by upcoming shoot
-        </div>
-        <h3 className="text-[15px] font-semibold tracking-tight mt-0.5 mb-3">
-          What needs attention
-        </h3>
-        <div className="h-56">
+    <>
+      <KpiRow>
+        <Kpi label="Shoots (7d)" value={upcoming.length} />
+        <Kpi label="Checklist done" value={compPct} format={(n) => `${Math.round(n)}%`} />
+        <Kpi label="Prep at-risk" value={overdue.length} />
+      </KpiRow>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3 items-start">
+      <Panel
+        eyebrow="Readiness by upcoming shoot"
+        title="What needs attention"
+        className="xl:col-span-2"
+      >
+        {readinessRows.length === 0 ? (
+          <Empty>No shoots scheduled ahead — nothing to prep against.</Empty>
+        ) : (
+        <div style={{ height: Math.max(140, readinessRows.length * 34 + 28) }}>
           <ResponsiveContainer>
             <BarChart data={readinessRows} layout="vertical" margin={{ left: 8 }}>
               <CartesianGrid stroke="var(--color-border)" horizontal={false} />
@@ -290,7 +301,7 @@ function PADash() {
                 axisLine={false}
                 fontSize={11}
                 stroke="var(--color-muted-foreground)"
-                width={140}
+                width={112}
               />
               <Tooltip
                 contentStyle={{
@@ -305,28 +316,24 @@ function PADash() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </div>
-
-      <div className="card-elevated rounded-2xl p-5">
-        <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          At-risk shoots
-        </div>
-        <h3 className="text-[15px] font-semibold tracking-tight mt-0.5 mb-3">Within 3 days</h3>
-        {overdue.length === 0 && (
-          <p className="text-[12.5px] text-muted-foreground">Nothing flagged. Nice.</p>
         )}
-        <div className="space-y-2">
+      </Panel>
+
+      <Panel eyebrow="At-risk shoots" title="Within 3 days">
+        {overdue.length === 0 && <Empty>Nothing flagged. Prep is on track.</Empty>}
+        <div className="space-y-1.5">
           {overdue.map((p) => (
-            <div key={p.id} className="rounded-lg bg-surface-2 ring-inset-soft p-2.5">
-              <div className="text-[12.5px] font-medium truncate">{p.title}</div>
+            <div key={p.id} className="rounded-lg bg-surface-2 ring-inset-soft px-2.5 py-2">
+              <div className="text-[12px] font-medium truncate">{p.title}</div>
               <div className="text-[11px] text-muted-foreground">
                 Shoot {p.shootDate ? new Date(p.shootDate).toLocaleDateString() : ""}
               </div>
             </div>
           ))}
         </div>
+      </Panel>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -340,11 +347,49 @@ function Kpi({
   format?: (n: number) => string;
 }) {
   return (
-    <div className="card-elevated rounded-2xl p-5">
-      <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{label}</div>
-      <div className="num text-[30px] font-semibold mt-2">
+    <div className="px-3 py-2.5 sm:px-3.5 sm:py-3 border-r border-line/70 last:border-r-0 min-w-0">
+      <div className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground truncate">
+        {label}
+      </div>
+      <div className="num text-[20px] sm:text-[24px] font-semibold leading-tight mt-1">
         {typeof value === "number" ? <AnimatedNumber value={value} format={format} /> : value}
       </div>
+    </div>
+  );
+}
+
+function KpiRow({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-3 rounded-xl border border-line bg-surface-2/40 mb-3">
+      {children}
+    </div>
+  );
+}
+
+function Panel({
+  eyebrow,
+  title,
+  className,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={`card-elevated rounded-2xl p-3.5 sm:p-4 ${className ?? ""}`}>
+      <div className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground">{eyebrow}</div>
+      <h3 className="text-[13.5px] font-semibold tracking-tight mt-0.5 mb-2.5">{title}</h3>
+      {children}
+    </div>
+  );
+}
+
+function Empty({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="rounded-lg border border-dashed border-line px-3 py-4 text-[12px] text-muted-foreground">
+      {children}
     </div>
   );
 }
