@@ -60,20 +60,21 @@ function TeamPage() {
       title="Team & KPIs"
       subtitle={`${team.length} members · master view — all dashboards`}
       actions={
-        <Btn variant="primary" onClick={() => setOpen(true)} className="flex items-center gap-1.5">
-          <Plus className="size-3.5" /> Add member
+        <Btn variant="primary" onClick={() => setOpen(true)} className="flex items-center gap-1.5 shrink-0">
+          <Plus className="size-3.5" /> <span className="hidden sm:inline">Add member</span>
         </Btn>
       }
     >
-      <Stagger className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6" stagger={0.05}>
-        {summary.map((s) => (
-          <StaggerItem key={s.label} variant="scaleIn">
-            <MetricCard icon={s.icon} accent={s.accent} label={s.label} value={s.format(s.value)} animateTo={s.value} format={s.format} />
-          </StaggerItem>
+      <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-line border border-line rounded-xl bg-panel overflow-hidden mb-3">
+        {summary.map((s, i) => (
+          <div key={s.label} className={`px-3.5 py-2.5 ${i > 1 ? "border-t lg:border-t-0 border-line" : ""}`}>
+            <div className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground truncate">{s.label}</div>
+            <div className="num text-[17px] font-semibold leading-tight mt-0.5">{s.format(s.value)}</div>
+          </div>
         ))}
-      </Stagger>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
         {team.map((m) => {
           const active = projects.filter(
             (p) => p.ownerId === m.id && p.stage !== "Archived" && p.stage !== "Delivered",
@@ -85,16 +86,16 @@ function TeamPage() {
           const cap = m.capacity ?? 40;
           const load = Math.min(100, Math.round(((active * 10 + upcomingShoots * 8) / cap) * 100));
           return (
-            <div key={m.id} className="card-elevated rounded-2xl p-5">
-              <div className="flex items-center gap-3">
+            <div key={m.id} className="card-elevated rounded-xl p-3.5">
+              <div className="flex items-center gap-2.5">
                 <div
-                  className="size-12 rounded-full grid place-items-center text-[15px] font-semibold text-primary-foreground"
+                  className="size-9 shrink-0 rounded-full grid place-items-center text-[13px] font-semibold text-primary-foreground"
                   style={{ background: m.color }}
                 >
                   {m.initials}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[14px] font-semibold truncate">{m.name}</div>
+                  <div className="text-[13.5px] font-semibold truncate">{m.name}</div>
                   <div className="text-[11.5px] text-muted-foreground capitalize">
                     {m.role} {m.rate ? ` · $${m.rate}/hr` : ""}
                   </div>
@@ -103,9 +104,9 @@ function TeamPage() {
                   variant="subtle"
                   onClick={() => setEdit(m)}
                   title="Edit member"
-                  className="flex items-center gap-1"
+                  className="flex items-center gap-1 shrink-0"
                 >
-                  <Pencil className="size-3.5" /> Edit
+                  <Pencil className="size-3.5" />
                 </Btn>
                 <Btn
                   variant="subtle"
@@ -113,19 +114,19 @@ function TeamPage() {
                     if (confirm(`Remove ${m.name}?`)) remove(m.id);
                   }}
                   title="Remove member"
-                  className="flex items-center gap-1 text-destructive"
+                  className="flex items-center gap-1 text-destructive shrink-0"
                 >
                   <Trash2 className="size-3.5" />
                 </Btn>
               </div>
 
-              <div className="mt-4 grid grid-cols-3 gap-2 text-center">
+              <div className="mt-3 grid grid-cols-3 gap-2 text-center">
                 <Stat label="Active projects" value={active} />
                 <Stat label="Upcoming shoots" value={upcomingShoots} />
                 <Stat label="Capacity" value={`${cap}h`} />
               </div>
 
-              <div className="mt-4">
+              <div className="mt-3">
                 <div className="flex justify-between text-[11px] mb-1">
                   <span className="text-muted-foreground">Workload</span>
                   <span className="num text-foreground">{load}%</span>
