@@ -184,7 +184,7 @@ function SettingsPage() {
                 Sources for the morning brief, Pals chat & dashboard.
               </p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <button
                 type="button"
                 onClick={() => refetchStatus()}
@@ -198,7 +198,7 @@ function SettingsPage() {
                 onClick={() => { setDigestMsg(null); digestMutation.mutate(); }}
                 className="ph-btn ph-btn-soft ph-btn-sm"
               >
-                {digestMutation.isPending ? "Running…" : "Run morning digest now"}
+                {digestMutation.isPending ? "Running…" : "Run digest now"}
               </button>
             </div>
           </div>
