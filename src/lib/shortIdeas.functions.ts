@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { generateText } from "ai";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
+import { GOLD_STANDARD_SHORTS, GOLD_STANDARD_LESSONS } from "@/content/shorts/goldStandard";
 
 const VENTURE_ENUM = z.enum(["jevoy", "palmer-house", "mindyourbizniz"]);
 type Venture = z.infer<typeof VENTURE_ENUM>;
@@ -43,7 +44,13 @@ Two identical operators, one visible → a specific human moment (11 PM, water o
 `.trim();
 
 const CRAFT_RULES = [
-  "Match the reference standard above in craft, not in topic.",
+  "Match the GOLD STANDARD above in craft, not in topic. It is the bar.",
+  "Jevoy is the ONLY actor. Second voices must be a kiosk/screen text, an offscreen Jevoy, or a clone of Jevoy.",
+  "Stage a world where the idea physically happens instead of explaining it. Give each short ONE visual rule and escalate it three times.",
+  "Absurd but instantly legible — the viewer understands the situation within three seconds.",
+  "Land the turn as a discovery (a printed receipt, a green light, a set reappearing), never as a lecture.",
+  "Write one keeper line the whole short is built to earn.",
+  "Use concrete specifics (a chipped tooth on a playground, water on the basement floor at 2 a.m.), never categories.",
   "Each of the 3 ideas MUST use a DIFFERENT hook family (e.g. documented phenomenon, physical demonstration, absurd visual comedy, lost-opportunity story, live test, object autopsy, before/after build).",
   "Every idea needs a first-frame on-screen text line — short, declarative, under 8 words, no hashtags or emoji.",
   "Write the actual spoken script (110-180 words) in Jevoy's voice: short sentences, plain words, one idea per line, hard-cut turn in the middle, cold ending. Include bracketed [STAGE DIRECTIONS] where the prop moves.",
@@ -51,6 +58,9 @@ const CRAFT_RULES = [
   "Any statistic or phenomenon must be real and specific; if unsure, use a concrete observed scenario instead of a fake number.",
   "The turn should reframe a felt symptom as a mechanism — never scold the viewer.",
   "End with one flat line that points at the long-form. Never 'link in bio' hype.",
+  "",
+  "HARD LESSONS (from rejected drafts — do not repeat these mistakes):",
+  GOLD_STANDARD_LESSONS,
 ].join("\n");
 
 const VENTURE_BRIEF: Record<Venture, string> = {
@@ -134,7 +144,10 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
       "Each concept must be fun and shootable in one location with one camera.",
       "Each must clearly tie back to the long-form's central idea and funnel viewers to it.",
       "",
-      "REFERENCE STANDARD (approved work — study the structure):",
+      "GOLD STANDARD (approved, shot-ready work — match this bar):",
+      GOLD_STANDARD_SHORTS,
+      "",
+      "SECONDARY REFERENCE (earlier approved work — structure only):",
       EXEMPLARS,
       "",
       "CRAFT RULES:",
