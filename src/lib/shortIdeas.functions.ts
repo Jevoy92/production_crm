@@ -28,40 +28,55 @@ export type ShortIdea = {
   durationSec: number;
 };
 
-// Reference standard — the Founder's Freeze shorts Jevoy approved.
-const EXEMPLARS = `
-EXEMPLAR A — "White Coat Hypertension" | Hook family: Medical phenomenon | Prop: blood-pressure cuff | First-frame text: "Being measured changes the measurement."
-Real documented phenomenon told plainly → named → then hard-cut analogy: "Now replace the blood-pressure cuff with a camera lens." → the viewer's symptom reframed as physical, not character flaw → one line pointing at the long-form.
+// The anatomy every approved short shares, reverse-engineered from the gold standard.
+const ANATOMY = `
+Every approved short is built from the SAME five-part machine. Use it every time.
 
-EXEMPLAR B — "The Chair" | Hook family: Physical attention demonstration | Prop: two chairs | First-frame text: "This is what hitting record does."
-A staged physical action carries the whole argument: sits facing an empty chair, then turns it around. "You're not bad on camera. Your audience just left the room."
+1. THE WORLD (0-3s): We open INSIDE an absurd-but-instantly-legible situation, not on a
+   talking head. A lost-and-found counter for customer memory. A police lineup of brands.
+   A set that vanishes word by word. The viewer must understand where they are with no
+   explanation. First-frame text states the premise flatly ("My customers lost my business.").
 
-EXEMPLAR C — "The Camera with Eyebrows" | Hook family: Absurd visual comedy | Prop: oversized eyebrows on the lens | First-frame text: "I fixed this camera's biggest design flaw."
-Deadpan absurd build → the joke IS the thesis → prop removed at the end → real answer stated.
+2. THE VISUAL RULE (3-20s): ONE rule governs the world, and it escalates EXACTLY three
+   times. One drawer opens -> a bigger drawer opens -> every drawer opens at once. One
+   phrase deletes the logo -> the next deletes the desk -> the next deletes the room.
+   The rule is the argument. Never stack unrelated gags.
 
-EXEMPLAR D — "The Two Contractors" | Hook family: Lost-opportunity story | Prop: direct-to-lens, minimal
-Two identical operators, one visible → a specific human moment (11 PM, water on the floor) → one hard stat → cost line: "The freeze that keeps you off camera? It sends invoices."
+3. THE STALL (20-30s): The escalation traps Jevoy. He is asked the one question he cannot
+   answer, or he sees the size of the problem. He reacts as a human, briefly and dryly
+   ("Okay, that somehow made it worse." / "That is the problem, isn't it?").
+
+4. THE TURN, DISCOVERED (30-45s): He steps out and names the mechanism in plain language —
+   about 45-60 words, short sentences, no jargon, no scolding. The proof arrives as a
+   physical DISCOVERY, not a claim: a receipt prints, a light turns green, the set
+   reappears. Somewhere in here sits the KEEPER LINE the whole short was built to earn
+   ("That is worse than lost. Lost means it was there.").
+
+5. THE FLAT CLOSE (45-60s): One specific, concrete counter-example that shows what right
+   looks like (water on the basement floor at 2 a.m.; a chipped tooth on a playground),
+   then one short instruction. Then an END CARD naming the long-form. No hype, no
+   "link in bio" energy, no sign-off.
 `.trim();
 
-const CRAFT_RULES = [
-  "Match the GOLD STANDARD above in craft, not in topic. It is the bar.",
-  "Jevoy is the ONLY actor. Second voices must be a kiosk/screen text, an offscreen Jevoy, or a clone of Jevoy.",
-  "Stage a world where the idea physically happens instead of explaining it. Give each short ONE visual rule and escalate it three times.",
-  "Absurd but instantly legible — the viewer understands the situation within three seconds.",
-  "Land the turn as a discovery (a printed receipt, a green light, a set reappearing), never as a lecture.",
-  "Write one keeper line the whole short is built to earn.",
-  "Use concrete specifics (a chipped tooth on a playground, water on the basement floor at 2 a.m.), never categories.",
-  "Each of the 3 ideas MUST use a DIFFERENT hook family (e.g. documented phenomenon, physical demonstration, absurd visual comedy, lost-opportunity story, live test, object autopsy, before/after build).",
-  "Every idea needs a first-frame on-screen text line — short, declarative, under 8 words, no hashtags or emoji.",
-  "Write the actual spoken script (110-180 words) in Jevoy's voice: short sentences, plain words, one idea per line, hard-cut turn in the middle, cold ending. Include bracketed [STAGE DIRECTIONS] where the prop moves.",
-  "No 'in this video', no 'let me explain', no listicles, no hype adjectives, no 'imagine if'.",
-  "Any statistic or phenomenon must be real and specific; if unsure, use a concrete observed scenario instead of a fake number.",
-  "The turn should reframe a felt symptom as a mechanism — never scold the viewer.",
-  "End with one flat line that points at the long-form. Never 'link in bio' hype.",
-  "",
-  "HARD LESSONS (from rejected drafts — do not repeat these mistakes):",
-  GOLD_STANDARD_LESSONS,
-].join("\n");
+// Failure modes seen in rejected AI drafts. These are the reasons suggestions feel generic.
+const BANNED = `
+AUTO-FAIL — if a draft does ANY of these, throw it out and rebuild it:
+- Opens with Jevoy talking to camera explaining an idea. The world comes first, always.
+- The prop is a metaphor he holds up and describes ("this hourglass represents attention").
+  In an approved short the prop OPERATES ON HIM; he reacts to it.
+- The visual rule escalates fewer or more than three times, or there are two rules.
+- The point is a content-marketing platitude (post more, be consistent, attention is
+  currency, algorithms changed, volume vs quality). Approved shorts land a point about
+  what a customer can remember and act on.
+- Anything the viewer must be told to feel. No "imagine if", "here's the thing",
+  "let me explain", "in this video", "the truth is", rhetorical-question openers.
+- Vague nouns: "content", "brand", "value", "engagement", "audience" used as the payoff.
+  The payoff must be a sentence a real business could actually say out loud.
+- A second human character. Only: a kiosk/screen, an offscreen voice Jevoy plays, or clones.
+- More than one location, or anything unshootable solo with locked-off cuts.
+- Three ideas that are variations of one another. They must differ in WORLD and in
+  mechanism, not just in prop.
+`.trim();
 
 const VENTURE_BRIEF: Record<Venture, string> = {
   jevoy: [
@@ -147,8 +162,10 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
       "GOLD STANDARD (approved, shot-ready work — match this bar):",
       GOLD_STANDARD_SHORTS,
       "",
-      "SECONDARY REFERENCE (earlier approved work — structure only):",
-      EXEMPLARS,
+      "ANATOMY OF AN APPROVED SHORT (follow this structure every time):",
+      ANATOMY,
+      "",
+      BANNED,
       "",
       "CRAFT RULES:",
       CRAFT_RULES,
