@@ -30,14 +30,14 @@ function AnalyticsPage() {
 
   return (
     <Shell title="Analytics" subtitle={`${role.toUpperCase()} dashboard`}>
-      <div className="mb-4">
+      <div className="mb-4 -mx-1 px-1 overflow-x-auto no-scrollbar">
         <SegmentedControl
           value={role}
           onChange={setRole}
           options={[
-            { value: "owner", label: "Owner (Jevoy)" },
-            { value: "cfo", label: "CFO (Adrienne)" },
-            { value: "pa", label: "Production Assistant" },
+            { value: "owner", label: "Owner" },
+            { value: "cfo", label: "CFO" },
+            { value: "pa", label: "Production" },
           ]}
         />
       </div>
