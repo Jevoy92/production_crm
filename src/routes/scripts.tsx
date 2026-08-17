@@ -76,33 +76,34 @@ function ScriptsHub() {
       actions={
         <a href="/hubs/scripts/index.html" target="_blank" rel="noopener noreferrer">
           <Btn variant="subtle" className="flex items-center gap-1.5 h-8">
-            <ExternalLink className="size-3.5" /> Open original hub
+            <ExternalLink className="size-3.5" />
+            <span className="hidden sm:inline">Open original hub</span>
+            <span className="sm:hidden">Hub</span>
           </Btn>
         </a>
       }
     >
-      <div className="max-w-5xl mx-auto space-y-10 py-2">
+      <div className="max-w-5xl mx-auto space-y-8 py-2">
         {/* Search & Filter — top */}
-        <div className="flex flex-col md:flex-row gap-6 items-center justify-between border-b border-border pb-6">
-          <div className="relative w-full md:max-w-md">
-            <Search className="size-4 absolute left-0 top-1/2 -translate-y-1/2 text-muted-foreground/50" />
+        <div className="flex flex-col md:flex-row gap-3 md:items-center justify-between border-b border-border pb-4">
+          <div className="relative w-full md:max-w-sm">
+            <Search className="size-3.5 absolute left-0 top-1/2 -translate-y-1/2 text-muted-foreground/50" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search scripts…"
-              className="w-full pl-7 pr-3 py-2 bg-transparent text-lg font-light border-none focus:outline-none placeholder:text-muted-foreground/40"
-              style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+              className="w-full pl-6 pr-3 py-1.5 bg-transparent text-[14px] border-none focus:outline-none placeholder:text-muted-foreground/40"
             />
             <div className="absolute bottom-0 left-0 right-0 h-px bg-border" />
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex gap-1.5 overflow-x-auto no-scrollbar -mx-1 px-1">
             {BRANDS.map((b) => {
               const active = brand === b.value;
               return (
                 <button
                   key={b.value}
                   onClick={() => setBrand(b.value)}
-                  className={`px-3.5 py-1.5 text-[10px] tracking-[0.18em] uppercase font-semibold border transition-colors ${
+                  className={`shrink-0 whitespace-nowrap rounded-md px-2.5 py-1 text-[10px] tracking-[0.14em] uppercase font-semibold border transition-colors ${
                     active
                       ? "border-foreground bg-foreground text-background"
                       : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
