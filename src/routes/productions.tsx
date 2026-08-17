@@ -70,12 +70,12 @@ function ProductionsPage() {
           </button>
         </div>
 
-        <div className="ml-auto flex items-center gap-2 text-[12px]">
-          <Filter className="size-3.5 text-muted-foreground" />
+        <div className="ml-auto flex items-center gap-1.5 text-[12px]">
+          <Filter className="size-3.5 text-muted-foreground hidden sm:block" />
           <select
             value={palF}
             onChange={(e) => setPalF(e.target.value as PalType | "All")}
-            className={inputCls + " w-36 py-1.5"}
+            className={inputCls + " w-28 sm:w-36 py-1 text-[12px]"}
           >
             <option value="All">All Pals</option>
             {PAL_TYPES.map((p) => (
@@ -87,7 +87,7 @@ function ProductionsPage() {
           <select
             value={ownF}
             onChange={(e) => setOwnF(e.target.value)}
-            className={inputCls + " w-40 py-1.5"}
+            className={inputCls + " w-32 sm:w-40 py-1 text-[12px]"}
           >
             <option value="All">All owners</option>
             {team.map((m) => (
