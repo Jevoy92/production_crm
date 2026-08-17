@@ -237,6 +237,29 @@ function ScriptRow({
   const [ideasLoading, setIdeasLoading] = useState(false);
   const activeIdeas = ideas[activeVersion];
 
+  // Load previously saved (current) shorts for this script from the library.
+  useEffect(() => {
+    if (!open) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const rows = await listCurrent();
+        if (cancelled) return;
+        const mine: Record<string, ShortIdea[]> = {};
+        for (const r of rows) {
+          if (r.script_num !== script.num) continue;
+          if (!mine[r.venture]) mine[r.venture] = r.ideas;
+        }
+        if (Object.keys(mine).length) setIdeas((prev) => ({ ...mine, ...prev }));
+      } catch {
+        /* library is optional here */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [open, script.num]);
+
   const generateIdeas = async () => {
     if (!source) return;
     setIdeasLoading(true);
@@ -250,6 +273,12 @@ function ScriptRow({
         },
       });
       setIdeas((prev) => ({ ...prev, [activeVersion]: res.ideas }));
+      await saveGeneration({
+        scriptNum: String(script.num),
+        scriptTitle: script.title,
+        venture: activeVersion,
+        ideas: res.ideas,
+      });
     } catch (error) {
       console.error(error);
       toast.error("Couldn't generate shorts ideas. Try again.");
