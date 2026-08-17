@@ -219,10 +219,10 @@ function WatchOuts() {
       <div className="space-y-2.5 relative z-10">
         {items.map((it) => (
           <div key={it.title} className={`bg-panel/60 border ${tones[it.tone]} p-3 rounded-lg`}>
-            <div className="flex items-center gap-2 mb-1">
-              <span className={`w-1.5 h-1.5 rounded-full ${dots[it.tone]} shrink-0`} />
-              <h4 className={`text-[13px] font-semibold ${tones[it.tone].split(" ")[1]} truncate`}>{it.title}</h4>
-              <span className="text-[9px] uppercase tracking-wider text-lo ml-auto shrink-0">{it.tag}</span>
+            <div className="flex items-start gap-2 mb-1">
+              <span className={`w-1.5 h-1.5 mt-1.5 rounded-full ${dots[it.tone]} shrink-0`} />
+              <h4 className={`text-[13px] font-semibold leading-snug ${tones[it.tone].split(" ")[1]}`}>{it.title}</h4>
+              <span className="text-[9px] uppercase tracking-wider text-lo ml-auto shrink-0 mt-0.5">{it.tag}</span>
             </div>
             <p className="text-[11px] leading-snug text-mid">{it.body}</p>
           </div>
@@ -280,7 +280,16 @@ function CallsAreaTimeline({ hours, color }: { hours: number[]; color: string })
     const idx = Math.round(Math.max(START, Math.min(END, h))) - START;
     if (bins[idx]) bins[idx].c += 1;
   });
-  // Give an empty timeline a subtle baseline so the area is visible.
+  // With nothing on the calendar an area chart reads as a meaningless grey slab.
+  // Show an explicit, quiet empty state instead.
+  if (hours.length === 0) {
+    return (
+      <div className="w-24 h-10 flex flex-col items-end justify-center gap-1.5">
+        <span className="w-full border-t border-dashed border-line-strong/70" />
+        <span className="text-[10px] text-lo">Clear day</span>
+      </div>
+    );
+  }
   const data = bins.map((b) => ({ ...b, c: b.c + 0.15 }));
   return (
     <div className="w-24 h-10">
@@ -784,7 +793,7 @@ function ScriptIdeas() {
           </button>
         </div>
       </div>
-      <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory">
+      <div className="flex items-start gap-4 overflow-x-auto pb-2 snap-x snap-mandatory">
         {ideas.map((c) => (
           <div
             key={c.title}

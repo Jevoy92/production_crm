@@ -19,19 +19,21 @@ export function PalmerInsightsCard() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["morning-digest", "today"] }),
   });
 
+  const hasBody = Boolean(data?.generated && data?.palmerInsights);
+
   return (
-    <section className="bg-panel border border-line rounded-3xl p-6 relative overflow-hidden">
+    <section className={`bg-panel border border-line rounded-3xl relative overflow-hidden ${hasBody ? "p-5 sm:p-6" : "p-4 sm:p-5"}`}>
       <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-brand-500/10 blur-3xl pointer-events-none" />
-      <div className="flex items-center justify-between gap-3 mb-4 relative z-10">
-        <div className="flex items-center gap-3 min-w-0">
+      <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2 mb-3 relative z-10">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
           <div className="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center text-brand-400 shrink-0">
             <Sparkles size={14} />
           </div>
           <div className="min-w-0">
-            <h3 className="font-display font-bold text-hi text-base truncate">
+            <h3 className="font-display font-bold text-hi text-base leading-tight">
               Palmer House — Daily Insights
             </h3>
-            <p className="text-[11px] text-lo mt-0.5">From yesterday's Limitless pendant · auto-summarised at 7 AM</p>
+            <p className="text-[11px] text-lo mt-0.5 leading-snug">From yesterday's Limitless pendant · auto-summarised at 7 AM</p>
           </div>
         </div>
         <div className="flex items-center gap-2 shrink-0">
@@ -50,17 +52,18 @@ export function PalmerInsightsCard() {
         </div>
       </div>
 
-      <div className="relative z-10 min-h-[60px]">
+      <div className="relative z-10">
         {isLoading ? (
-          <p className="text-sm text-lo">Loading today's insights…</p>
+          <div className="space-y-2 animate-pulse" aria-label="Loading today's insights">
+            <span className="block h-3 w-4/5 rounded bg-sunken" />
+            <span className="block h-3 w-3/5 rounded bg-sunken" />
+          </div>
         ) : error ? (
-          <p className="text-sm text-lo">Couldn't load today's digest. Try again shortly.</p>
+          <EmptyLine text="Couldn't load today's digest. Try again shortly." />
         ) : !data?.generated ? (
-          <p className="text-sm text-lo">Today's digest hasn't been generated yet — check back after 7 AM.</p>
+          <EmptyLine text="Today's digest hasn't been generated yet — it lands after 7 AM." />
         ) : !data.palmerInsights ? (
-          <p className="text-sm text-lo italic">
-            No Palmer House insights extracted yet — hit Regenerate to pull them from yesterday's pendant.
-          </p>
+          <EmptyLine text="No Palmer House insights captured yesterday. Hit Regenerate to re-pull the pendant." />
         ) : (
           <div className="text-mid">
             <Markdown source={data.palmerInsights} />
@@ -71,5 +74,14 @@ export function PalmerInsightsCard() {
         ) : null}
       </div>
     </section>
+  );
+}
+
+function EmptyLine({ text }: { text: string }) {
+  return (
+    <div className="flex items-center gap-2.5 rounded-xl border border-dashed border-line-strong/60 bg-sunken/40 px-3 py-2.5">
+      <Sparkles size={12} className="text-lo shrink-0" />
+      <p className="text-[12.5px] text-lo leading-snug">{text}</p>
+    </div>
   );
 }

@@ -77,11 +77,11 @@ export function EndOfDaySync() {
             <Flag size={15} />
             <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald border-2 border-panel" />
           </span>
-          <span className="min-w-0 hidden lg:flex flex-col leading-tight">
+          <span className="min-w-0 hidden 2xl:flex flex-col leading-tight">
             <span className="text-[12.5px] font-bold text-hi whitespace-nowrap">End of Day Sync</span>
             <span className="text-[10.5px] text-lo whitespace-nowrap">Review outcomes &amp; close loops</span>
           </span>
-          <span className="hidden xl:flex flex-col items-end pl-4 ml-1 border-l border-line leading-tight whitespace-nowrap">
+          <span className="hidden 2xl:flex flex-col items-end pl-4 ml-1 border-l border-line leading-tight whitespace-nowrap">
             <span className="text-[9.5px] font-bold uppercase tracking-wider text-lo">Team Velocity</span>
             <span className="text-[12px] font-bold text-hi num">
               {done}<span className="text-lo font-semibold"> / {total}</span>
