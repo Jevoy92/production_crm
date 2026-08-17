@@ -228,8 +228,7 @@ function ScriptRow({
   const [view, setView] = useState<"script" | "research">("script");
   const hasResearch = hasResearchPack(script.num);
   const entry = script.versions[activeVersion];
-  const source = entry?.body ?? "";
-  const loading = false;
+  const { source, loading } = useLazySource(entry?.load, entry?.originalPath);
   const runIdeas = useServerFn(generateShortIdeas);
   const [ideas, setIdeas] = useState<Record<string, ShortIdea[]>>({});
   const [ideasLoading, setIdeasLoading] = useState(false);
