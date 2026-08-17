@@ -230,6 +230,31 @@ function ScriptRow({
   const entry = script.versions[activeVersion];
   const source = entry?.body ?? "";
   const loading = false;
+  const runIdeas = useServerFn(generateShortIdeas);
+  const [ideas, setIdeas] = useState<Record<string, ShortIdea[]>>({});
+  const [ideasLoading, setIdeasLoading] = useState(false);
+  const activeIdeas = ideas[activeVersion];
+
+  const generateIdeas = async () => {
+    if (!source) return;
+    setIdeasLoading(true);
+    try {
+      const res = await runIdeas({
+        data: {
+          scriptNum: String(script.num),
+          scriptTitle: script.title,
+          scriptBody: source,
+          venture: activeVersion,
+        },
+      });
+      setIdeas((prev) => ({ ...prev, [activeVersion]: res.ideas }));
+    } catch (error) {
+      console.error(error);
+      toast.error("Couldn't generate shorts ideas. Try again.");
+    } finally {
+      setIdeasLoading(false);
+    }
+  };
 
   const copyText = async () => {
     if (!source) return;
