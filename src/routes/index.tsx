@@ -28,6 +28,10 @@ import {
 import { ChartTooltip } from "@/components/charts/Charts";
 import { DailyCheckout } from "@/components/dashboard/DailyCheckout";
 import { PalmerInsightsCard } from "@/components/dashboard/PalmerInsightsCard";
+import {
+  deriveWatchOuts, deriveWaiting, deriveInsights, deriveRecap,
+} from "@/lib/signals";
+import type { Severity, SignalInput } from "@/lib/signals";
 
 export const Route = createFileRoute("/")({
   component: Today,
@@ -46,6 +50,9 @@ function Today() {
   const team = useStore((s) => s.team);
   const activeRole = useStore((s) => s.activeRole);
   const tasks = useStore((s) => s.tasks);
+  const projects = useStore((s) => s.projects);
+  const shoots = useStore((s) => s.shoots);
+  const clients = useStore((s) => s.clients);
   const me = team.find((m) => m.role === activeRole) ?? team[0];
   const firstName = me?.name?.split(" ")[0] ?? "there";
 
@@ -69,6 +76,11 @@ function Today() {
 
   const jevoy = team.find((m) => m.id === "u_jevoy");
   const shannen = team.find((m) => m.id === "u_shannen");
+
+  const signalInput: SignalInput = useMemo(
+    () => ({ tasks, projects, shoots, team, clients, events: todayEvents as SignalInput["events"] }),
+    [tasks, projects, shoots, team, clients, todayEvents],
+  );
 
   // Today's high-level plan context (phase, theme, blocks)
   const dow = new Date().getDay();
@@ -118,8 +130,9 @@ function Today() {
           </div>
 
           <aside className="w-full lg:w-80 lg:shrink-0 space-y-6 lg:sticky lg:top-6 lg:self-start">
-            <WatchOuts />
-            <YesterdayRecap />
+            <WatchOuts input={signalInput} />
+            <WaitingOnRail input={signalInput} />
+            <YesterdayRecap input={signalInput} />
             <ThreadsRail threads={threadsToClose} />
           </aside>
         </div>
