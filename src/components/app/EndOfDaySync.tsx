@@ -73,7 +73,7 @@ export function EndOfDaySync() {
           className="group hidden md:flex items-center gap-4 pl-2.5 pr-2.5 py-2 rounded-2xl border border-line bg-sunken/60 hover:border-brand-500/40 hover:bg-sunken transition-colors text-left"
           title={`Start end-of-day wrap-up · ${done}/${total} playbook items done`}
         >
-          <span className="relative shrink-0 w-9 h-9 rounded-xl bg-zinc-900/60 border border-line grid place-items-center text-mid">
+          <span className="relative shrink-0 w-9 h-9 rounded-xl bg-sunken border border-line grid place-items-center text-mid">
             <Flag size={15} />
             <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald border-2 border-panel" />
           </span>
@@ -88,14 +88,14 @@ export function EndOfDaySync() {
               <span className="ml-1.5 text-[10px] text-emerald font-semibold">{pct}%</span>
             </span>
           </span>
-          <span className="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold px-3 py-1.5 rounded-lg border border-line bg-zinc-900/60 text-hi group-hover:border-brand-500/50 group-hover:text-brand-300 whitespace-nowrap">
+          <span className="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold px-3 py-1.5 rounded-lg border border-line bg-sunken text-hi group-hover:border-brand-500/50 group-hover:text-brand-300 whitespace-nowrap">
             Start
           </span>
         </button>
       </DialogTrigger>
       <DialogContent className="max-w-lg p-0 bg-panel border-line overflow-hidden">
         <div className="flex items-center gap-3 px-5 py-4 border-b border-line bg-sunken/40">
-          <span className="relative shrink-0 w-10 h-10 rounded-xl bg-zinc-900/60 border border-line grid place-items-center text-mid">
+          <span className="relative shrink-0 w-10 h-10 rounded-xl bg-sunken border border-line grid place-items-center text-mid">
             <Flag size={16} />
             <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald border-2 border-panel" />
           </span>

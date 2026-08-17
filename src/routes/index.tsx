@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
 
 type Tone = "admin" | "meeting" | "creative" | "prep";
 const TONE: Record<Tone, string> = {
-  admin: "bg-zinc-700/40 text-zinc-300 border-zinc-600/40",
+  admin: "bg-sunken text-mid border-line-strong",
   meeting: "bg-blue-900/40 text-blue-300 border-blue-800/50",
   creative: "bg-purple-900/40 text-purple-300 border-purple-800/50",
   prep: "bg-orange-900/40 text-orange-300 border-orange-800/50",
@@ -233,7 +233,7 @@ function WatchOuts() {
 }
 
 function Panel({
-  icon, iconBg = "bg-zinc-800", title, badge, children,
+  icon, iconBg = "bg-sunken", title, badge, children,
 }: {
   icon: React.ReactNode; iconBg?: string; title: string; badge?: string; children: React.ReactNode;
 }) {
@@ -497,7 +497,7 @@ function TodaysPath({
                     className={`text-[11px] px-2.5 py-1 rounded-full font-semibold shrink-0 ${
                       state === "current"
                         ? "bg-brand-500/15 text-brand-400"
-                        : "bg-zinc-800 text-lo border border-line"
+                        : "bg-sunken text-lo border border-line"
                     }`}
                   >
                     {b.duration}
@@ -548,7 +548,7 @@ function TodaysPath({
                   <span className="text-[11px] text-lo">
                     {doneCount}/{b.items.length} done
                   </span>
-                  <div className="flex-1 max-w-[160px] h-1.5 rounded-full bg-zinc-800 overflow-hidden">
+                  <div className="flex-1 max-w-[160px] h-1.5 rounded-full bg-sunken overflow-hidden">
                     <div
                       className={`h-full transition-all ${
                         allDone
@@ -776,7 +776,7 @@ function ScriptIdeas() {
     <div className="pb-2">
       <div className="flex items-center justify-between mb-4 px-1">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-lo">
+          <div className="w-8 h-8 rounded-lg bg-sunken flex items-center justify-center text-lo">
             <Lightbulb size={14} />
           </div>
           <div>
@@ -1034,13 +1034,13 @@ function PersonDay({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <p className="text-sm font-semibold text-hi">{b.label}</p>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-800 text-lo border border-line">{b.duration}</span>
-                    <span className={`text-[10px] px-1.5 py-0.5 rounded border num ml-auto ${complete ? "bg-emerald/15 text-emerald border-emerald/30" : "bg-zinc-800 text-mid border-line"}`}>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-sunken text-lo border border-line">{b.duration}</span>
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded border num ml-auto ${complete ? "bg-emerald/15 text-emerald border-emerald/30" : "bg-sunken text-mid border-line"}`}>
                       {prog.done}/{prog.total}
                     </span>
                   </div>
                   <p className="text-[11px] text-lo num">{b.time} <span className="opacity-50">· alt {b.altTime}</span></p>
-                  <div className="mt-1.5 h-1 w-full rounded-full bg-zinc-800/80 overflow-hidden">
+                  <div className="mt-1.5 h-1 w-full rounded-full bg-sunken overflow-hidden">
                     <div
                       className={`h-full transition-all duration-300 ${complete ? "bg-emerald" : "bg-brand-500"}`}
                       style={{ width: `${pct}%` }}
@@ -1267,7 +1267,7 @@ function WorkloadChart({
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <section className="lg:col-span-2 bg-panel border border-line rounded-2xl p-6">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-brand-400">
+          <div className="w-8 h-8 rounded-lg bg-sunken flex items-center justify-center text-brand-400">
             <ListChecks size={14} />
           </div>
           <div>
@@ -1304,7 +1304,7 @@ function WorkloadChart({
 
       <section className="bg-panel border border-line rounded-2xl p-6">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-brand-400">
+          <div className="w-8 h-8 rounded-lg bg-sunken flex items-center justify-center text-brand-400">
             <CalendarDays size={14} />
           </div>
           <div>
