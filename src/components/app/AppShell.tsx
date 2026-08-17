@@ -51,7 +51,7 @@ function Topbar({
         <div className="min-w-0 flex-1">
           {eyebrow && <div className="text-lo text-[10px] sm:text-[10.5px] font-bold uppercase tracking-[0.14em] mb-0.5 sm:mb-1 truncate">{eyebrow}</div>}
           {title && <h1 className="font-display font-bold text-lg sm:text-2xl text-hi tracking-tight leading-tight truncate">{title}</h1>}
-          {subtitle && <p className="text-mid text-xs sm:text-sm mt-0.5 sm:mt-1 truncate">{subtitle}</p>}
+          {subtitle && <p className="hidden sm:block text-mid text-xs sm:text-sm mt-0.5 sm:mt-1 truncate">{subtitle}</p>}
         </div>
       </div>
       <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
