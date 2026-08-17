@@ -111,7 +111,7 @@ export function DailyCheckout({ personName }: { personName: string }) {
           <p className="text-xs text-mid mb-2">
             2. Did you have all the tools you needed to complete your tasks successfully and to a high degree?
           </p>
-          <div className="inline-flex rounded-lg border border-line bg-zinc-900/50 p-0.5">
+          <div className="inline-flex rounded-lg border border-line bg-sunken p-0.5">
             <button
               type="button"
               onClick={() => setToolsOk(true)}
@@ -133,7 +133,7 @@ export function DailyCheckout({ personName }: { personName: string }) {
               onChange={(e) => setToolsMissing(e.target.value)}
               rows={2}
               placeholder="What was missing?"
-              className="mt-2 w-full rounded-lg bg-zinc-900/60 border border-line px-3 py-2 text-xs text-hi placeholder:text-lo focus:outline-none focus:border-brand-500/50 resize-y"
+              className="mt-2 w-full rounded-lg bg-sunken border border-line px-3 py-2 text-xs text-hi placeholder:text-lo focus:outline-none focus:border-brand-500/50 resize-y"
             />
           )}
         </div>
@@ -148,7 +148,7 @@ export function DailyCheckout({ personName }: { personName: string }) {
             onChange={(e) => setIssues(e.target.value)}
             rows={3}
             placeholder="No friction today? Just say 'all smooth.' Otherwise, name the snag + what would unblock it."
-            className="w-full rounded-lg bg-zinc-900/60 border border-line px-3 py-2 text-xs text-hi placeholder:text-lo focus:outline-none focus:border-brand-500/50 resize-y"
+            className="w-full rounded-lg bg-sunken border border-line px-3 py-2 text-xs text-hi placeholder:text-lo focus:outline-none focus:border-brand-500/50 resize-y"
           />
         </div>
 
