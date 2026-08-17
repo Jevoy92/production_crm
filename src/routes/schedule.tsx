@@ -139,7 +139,6 @@ function SchedulePage() {
           >
             <Plus className="size-3.5" />
             <span className="hidden sm:inline">Schedule shoot</span>
-            <span className="sm:hidden">Shoot</span>
           </Btn>
         </>
       }
