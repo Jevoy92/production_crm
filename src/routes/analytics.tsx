@@ -68,20 +68,22 @@ function OwnerDash() {
     count: projects.filter((p) => p.stage === s).length,
   }));
 
-  return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-      <Kpi label="Active projects" value={active.length} />
-      <Kpi label="Quoted (active)" value={quoted} format={usdFmt} />
-      <Kpi label="Shipped this month" value={shippedMonth} />
+  const hasPal = byPal.some((d) => d.value > 0);
+  const funnelTotal = byStage.reduce((a, s) => a + s.count, 0);
 
-      <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
-        <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          Active by Pal type
-        </div>
-        <h3 className="text-[15px] font-semibold tracking-tight mt-0.5 mb-3">
-          Creative throughput
-        </h3>
-        <div className="h-56">
+  return (
+    <>
+      <KpiRow>
+        <Kpi label="Active projects" value={active.length} />
+        <Kpi label="Quoted (active)" value={quoted} format={usdFmt} />
+        <Kpi label="Shipped (mo)" value={shippedMonth} />
+      </KpiRow>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3 items-start">
+      <Panel eyebrow="Active by Pal type" title="Creative throughput" className="xl:col-span-2">
+        {!hasPal ? (
+          <Empty>No active projects to chart yet.</Empty>
+        ) : (
+        <div className="h-44 sm:h-52">
           <ResponsiveContainer>
             <BarChart data={byPal}>
               <CartesianGrid stroke="var(--color-border)" vertical={false} />
@@ -111,29 +113,33 @@ function OwnerDash() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </div>
+        )}
+      </Panel>
 
-      <div className="card-elevated rounded-2xl p-5">
-        <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          Sales funnel
-        </div>
-        <h3 className="text-[15px] font-semibold tracking-tight mt-0.5 mb-3">Top of pipeline</h3>
-        <div className="space-y-2.5">
+      <Panel eyebrow="Sales funnel" title="Top of pipeline">
+        {funnelTotal === 0 ? (
+          <Empty>Pipeline is empty — no leads in the top four stages.</Empty>
+        ) : (
+        <div className="space-y-2">
           {byStage.map((s) => (
             <div key={s.name} className="flex items-center gap-2">
-              <span className="w-28 text-[12px] text-muted-foreground">{s.name}</span>
-              <div className="flex-1 h-2 rounded-full bg-surface-3 overflow-hidden">
+              <span className="w-24 shrink-0 text-[11.5px] text-muted-foreground truncate">
+                {s.name}
+              </span>
+              <div className="flex-1 min-w-0 h-1.5 rounded-full bg-surface-3 overflow-hidden">
                 <div
                   className="h-full rounded-full bg-primary"
                   style={{ width: `${Math.min(100, s.count * 25)}%` }}
                 />
               </div>
-              <span className="num text-[12px] w-6 text-right">{s.count}</span>
+              <span className="num text-[11.5px] w-5 text-right">{s.count}</span>
             </div>
           ))}
         </div>
+        )}
+      </Panel>
       </div>
-    </div>
+    </>
   );
 }
 
