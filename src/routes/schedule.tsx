@@ -129,14 +129,17 @@ function SchedulePage() {
             onClick={() => setGenOpen(true)}
             className="flex items-center gap-1.5"
           >
-            <Sparkles className="size-3.5" /> Generate month
+            <Sparkles className="size-3.5" />
+            <span className="hidden sm:inline">Generate month</span>
           </Btn>
           <Btn
             variant="primary"
             onClick={() => setOpenNew(true)}
             className="flex items-center gap-1.5"
           >
-            <Plus className="size-3.5" /> Schedule shoot
+            <Plus className="size-3.5" />
+            <span className="hidden sm:inline">Schedule shoot</span>
+            <span className="sm:hidden">Shoot</span>
           </Btn>
         </>
       }
@@ -151,7 +154,7 @@ function SchedulePage() {
         >
           <ChevronLeft className="size-4" />
         </Btn>
-        <div className="text-[15px] font-semibold tracking-tight w-44">{monthLabel}</div>
+        <div className="text-[15px] font-semibold tracking-tight min-w-[9.5rem]">{monthLabel}</div>
         <Btn
           variant="subtle"
           onClick={() => setCursor(new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1))}
@@ -181,8 +184,8 @@ function SchedulePage() {
       </div>
 
       {showPublishing && (
-        <div className="flex items-center gap-1.5 mb-3 flex-wrap">
-          <span className="text-[11px] uppercase tracking-wider text-muted-foreground mr-1">
+        <div className="flex items-center gap-1.5 mb-2 overflow-x-auto no-scrollbar">
+          <span className="shrink-0 text-[10.5px] uppercase tracking-wider text-muted-foreground mr-1">
             Venture
           </span>
           {["all", ...VENTURE_IDS].map((vid) => {
@@ -193,7 +196,7 @@ function SchedulePage() {
                 key={vid}
                 type="button"
                 onClick={() => setVenture(vid)}
-                className={`px-2.5 py-1 text-[11.5px] rounded-full transition-colors ${active ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                className={`shrink-0 px-2.5 py-1 text-[11.5px] rounded-full transition-colors ${active ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
                 style={
                   active
                     ? v
@@ -217,7 +220,9 @@ function SchedulePage() {
 
       {showPublishing && <PlatformLegend />}
 
-      <ProductionTimeline cursor={cursor} projects={projects} />
+      <div className="mb-4">
+        <ProductionTimeline cursor={cursor} projects={projects} />
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-4 items-start">
         <div className="card-elevated rounded-2xl overflow-hidden">
@@ -240,7 +245,7 @@ function SchedulePage() {
               return (
                 <div
                   key={k}
-                  className={`min-h-[76px] sm:min-h-[120px] p-1 sm:p-2 border-r border-b border-border last:border-r-0 transition-colors ${inMonth ? "bg-card" : "bg-surface-2/40"}`}
+                  className={`min-h-[68px] sm:min-h-[104px] p-1 sm:p-2 border-r border-b border-border last:border-r-0 transition-colors ${inMonth ? "bg-card" : "bg-surface-2/40"}`}
                   onDragOver={(e) => {
                     if (e.dataTransfer.types.includes("text/cc-item")) {
                       e.preventDefault();
@@ -388,6 +393,12 @@ function SchedulePage() {
                   </div>
                 );
               })}
+            {shoots.filter((s) => new Date(s.date) >= new Date(new Date().toDateString()))
+              .length === 0 && (
+              <div className="rounded-xl border border-dashed border-border px-3 py-2.5 text-[12px] text-muted-foreground">
+                No upcoming shoots. Use “Schedule shoot” to add one.
+              </div>
+            )}
           </div>
         </div>
         <UpcomingDeliverables projects={projects} />
@@ -419,12 +430,12 @@ const LEGEND: { label: string; platform: Platform }[] = [
 
 function PlatformLegend() {
   return (
-    <div className="flex flex-wrap items-center gap-2 mb-3 text-[11px] text-muted-foreground">
-      <span className="uppercase tracking-wider">Platforms</span>
+    <div className="flex items-center gap-2 mb-3 overflow-x-auto no-scrollbar text-[11px] text-muted-foreground">
+      <span className="shrink-0 uppercase tracking-wider text-[10.5px]">Platforms</span>
       {LEGEND.map((p) => (
         <span
           key={p.label}
-          className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 ring-inset-soft"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-full px-2 py-0.5 ring-inset-soft"
           style={{
             background: `color-mix(in oklab, ${platformColor(p.platform)} 12%, transparent)`,
             color: platformColor(p.platform),
@@ -782,29 +793,40 @@ function ProductionTimeline({ cursor, projects }: { cursor: Date; projects: Proj
 
   return (
     <div className="card-elevated rounded-2xl overflow-hidden">
-      <div className="px-5 py-4 border-b border-border flex items-center justify-between flex-wrap gap-3">
-        <div className="flex items-center gap-3">
-          <div className="size-8 rounded-lg bg-primary/12 grid place-items-center">
-            <BarChart3 className="size-4 text-primary" />
+      <div className="px-3 sm:px-5 py-3 border-b border-border flex items-center justify-between flex-wrap gap-2">
+        <div className="flex items-center gap-2.5">
+          <div className="size-7 rounded-lg bg-primary/12 grid place-items-center">
+            <BarChart3 className="size-3.5 text-primary" />
           </div>
           <div>
-            <h2 className="text-[15px] font-semibold tracking-tight">Production Timeline</h2>
-            <p className="text-[11.5px] text-muted-foreground">Gantt view · {monthLabel}</p>
+            <h2 className="text-[13.5px] font-semibold tracking-tight">Production Timeline</h2>
+            <p className="text-[11px] text-muted-foreground">Gantt view · {monthLabel}</p>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          {(Object.keys(PHASE_STYLES) as PhaseType[]).map((t) => (
-            <span key={t} className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-              <span className="size-2.5 rounded-sm" style={{ background: PHASE_STYLES[t].color }} />
-              {PHASE_STYLES[t].label.replace("-Production", "")}
-            </span>
-          ))}
-        </div>
+        {rows.length > 0 && (
+          <div className="flex items-center gap-2.5 overflow-x-auto no-scrollbar">
+            {(Object.keys(PHASE_STYLES) as PhaseType[]).map((t) => (
+              <span
+                key={t}
+                className="flex shrink-0 items-center gap-1.5 text-[11px] text-muted-foreground"
+              >
+                <span
+                  className="size-2 rounded-sm"
+                  style={{ background: PHASE_STYLES[t].color }}
+                />
+                {PHASE_STYLES[t].label.replace("-Production", "")}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {rows.length === 0 ? (
-        <div className="px-5 py-10 text-center text-[12.5px] text-muted-foreground">
-          No productions with scheduled shoot or delivery dates in {monthLabel}.
+        <div className="px-3 sm:px-5 py-3">
+          <div className="rounded-xl border border-dashed border-border px-3 py-2.5 text-[12px] text-muted-foreground">
+            No productions scheduled in {monthLabel}. Shoot and delivery dates will appear here as
+            phase bars.
+          </div>
         </div>
       ) : (
         <div className="overflow-x-auto">
@@ -973,13 +995,13 @@ function UpcomingDeliverables({ projects }: { projects: Project[] }) {
 
   return (
     <aside className="card-elevated rounded-2xl overflow-hidden">
-      <div className="px-5 py-4 border-b border-border flex items-center justify-between">
-        <h2 className="text-[15px] font-semibold tracking-tight">Upcoming deliverables</h2>
+      <div className="px-4 py-3 border-b border-border flex items-center justify-between">
+        <h2 className="text-[13.5px] font-semibold tracking-tight">Upcoming deliverables</h2>
         <span className="text-[11px] text-muted-foreground">{items.length}</span>
       </div>
       <div className="p-3 space-y-1.5">
         {items.length === 0 && (
-          <div className="text-[12px] text-muted-foreground py-6 text-center">
+          <div className="rounded-xl border border-dashed border-border px-3 py-2.5 text-[12px] text-muted-foreground">
             No deliveries on the calendar.
           </div>
         )}
