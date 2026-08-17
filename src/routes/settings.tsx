@@ -78,8 +78,8 @@ function SettingsPage() {
 
   return (
     <Shell title="Settings" subtitle="Templates · Data">
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-        <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
+        <div className="card-elevated rounded-2xl p-4 xl:col-span-2">
           <div className="flex items-baseline justify-between flex-wrap gap-2">
             <div>
               <h3 className="text-[15px] font-semibold tracking-tight">Internal brands</h3>
@@ -120,7 +120,7 @@ function SettingsPage() {
           </div>
         </div>
 
-        <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
+        <div className="card-elevated rounded-2xl p-4 xl:col-span-2">
           <div className="flex items-baseline justify-between">
             <div>
               <h3 className="text-[15px] font-semibold tracking-tight">Acting as</h3>
@@ -168,7 +168,7 @@ function SettingsPage() {
           </div>
         </div>
 
-        <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
+        <div className="card-elevated rounded-2xl p-4 xl:col-span-2">
           <div className="flex items-baseline justify-between flex-wrap gap-2">
             <div>
               <div className="flex items-center gap-2">
@@ -184,7 +184,7 @@ function SettingsPage() {
                 Sources for the morning brief, Pals chat & dashboard.
               </p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <button
                 type="button"
                 onClick={() => refetchStatus()}
@@ -198,7 +198,7 @@ function SettingsPage() {
                 onClick={() => { setDigestMsg(null); digestMutation.mutate(); }}
                 className="ph-btn ph-btn-soft ph-btn-sm"
               >
-                {digestMutation.isPending ? "Running…" : "Run morning digest now"}
+                {digestMutation.isPending ? "Running…" : "Run digest now"}
               </button>
             </div>
           </div>
@@ -277,7 +277,7 @@ function SettingsPage() {
           </div>
         </Collapsible>
 
-        <div className="card-elevated rounded-2xl p-5 xl:col-span-2">
+        <div className="card-elevated rounded-2xl p-4 xl:col-span-2">
           <h3 className="text-[15px] font-semibold tracking-tight">Data</h3>
           <div className="mt-3 flex flex-wrap items-center gap-2 text-[11.5px]">
             <span className="rounded-full bg-surface-2 ring-inset-soft px-2.5 py-1 font-medium">
