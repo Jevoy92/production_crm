@@ -1164,3 +1164,8 @@ body { -webkit-text-size-adjust: 100%; }
 
 /* Long URLs / words shouldn't blow out cards */
 .break-anywhere { overflow-wrap: anywhere; word-break: break-word; }
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}

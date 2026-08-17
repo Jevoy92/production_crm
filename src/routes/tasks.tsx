@@ -289,12 +289,12 @@ function TasksPage() {
         <div className="flex-1 min-w-0">
           {/* Filter bar */}
           <div className="flex items-center justify-between gap-3 flex-wrap mb-5">
-            <div className="inline-flex items-center gap-1 p-1 bg-sunken border border-line rounded-xl">
+            <div className="flex items-center gap-1 p-1 bg-sunken border border-line rounded-xl max-w-full overflow-x-auto no-scrollbar">
               {([["my", "My Tasks"], ["team", "Team Overview"], ["deadlines", "Upcoming Deadlines"], ["completed", `Completed${completedCount ? ` (${completedCount})` : ""}`]] as [TabKey, string][]).map(([k, label]) => (
                 <button
                   key={k}
                   onClick={() => setTab(k)}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${tab === k ? "bg-brand-600 text-white" : "text-mid hover:text-hi"}`}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 transition-colors ${tab === k ? "bg-brand-600 text-white" : "text-mid hover:text-hi"}`}
                 >
                   {label}
                 </button>
@@ -360,7 +360,7 @@ function TasksPage() {
           {groups.length === 0 ? (
             <div className="text-center py-16 text-mid text-sm">No tasks here. Create one to get going.</div>
           ) : (
-            <div className="space-y-7">
+            <div className="space-y-6">
               {groups.map(({ phase, items }) => {
                 const m = PHASE_META[phase];
                 const isCollapsed = collapsed.has(phase);
@@ -381,7 +381,7 @@ function TasksPage() {
                       </button>
                     </div>
                     {!isCollapsed && (
-                    <div className="space-y-2">
+                    <div className="rounded-xl border border-line bg-panel overflow-hidden divide-y divide-line">
                       {items.map((t) => {
                         const assignee = team.find((x) => x.id === t.assigneeId);
                         const project = projects.find((p) => p.id === t.projectId);
@@ -394,8 +394,9 @@ function TasksPage() {
                           <div
                             key={t.id}
                             onClick={() => setSelectedId(t.id)}
-                            className={`group flex items-center gap-4 px-4 py-3.5 rounded-xl border bg-panel cursor-pointer transition-all ${active ? "border-brand-500/50 ring-1 ring-brand-500/30" : "border-line hover:border-brand-500/30"}`}
+                            className={`group relative flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-2.5 cursor-pointer transition-colors ${active ? "bg-brand-600/10" : "hover:bg-sunken/60"}`}
                           >
+                            <span className={`absolute left-0 top-0 bottom-0 w-0.5 ${active ? "bg-brand-500" : "bg-transparent"}`} />
                             <button
                               onClick={(e) => { e.stopPropagation(); toggleDone(t, e); }}
                               className="flex-shrink-0"
@@ -410,12 +411,11 @@ function TasksPage() {
                               )}
                             </button>
                             <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2 mb-0.5">
-                                <span className={`text-sm font-semibold truncate ${done ? "text-lo line-through" : "text-hi"}`}>{t.title}</span>
-                                <span className={`flex-shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full ${m.soft} ${m.text} border ${m.border}`}>{PHASE_META[phase].short}</span>
+                              <div className="flex items-center gap-2">
+                                <span className={`text-sm font-medium truncate ${done ? "text-lo line-through" : "text-hi"}`}>{t.title}</span>
                                 {t.recurring && <Repeat size={11} className="text-lo flex-shrink-0" />}
                               </div>
-                              <div className="flex items-center gap-3 text-xs text-lo flex-wrap">
+                              <div className="flex items-center gap-3 text-xs text-lo mt-0.5 empty:mt-0 flex-wrap">
                                 {project && <span className="flex items-center gap-1 truncate"><FolderOpen size={11} /> {project.title}</span>}
                                 {due && <span className={`flex items-center gap-1 ${overdue ? "text-rose font-semibold" : ""}`}><Calendar size={11} /> {due}</span>}
                                 {t.priority === "High" && <span className={`flex items-center gap-1 font-semibold ${PRIORITY.High.cls}`}>{PRIORITY.High.icon} High</span>}
@@ -450,7 +450,7 @@ function TasksPage() {
                               {assignee && (
                                 <div className="w-6 h-6 rounded-full grid place-items-center text-[9.5px] font-semibold text-white" style={{ background: assignee.color }}>{assignee.initials}</div>
                               )}
-                              <ChevronRight size={13} className={`transition-colors ${active ? "text-brand-400" : "text-lo group-hover:text-brand-400"}`} />
+                              <ChevronRight size={13} className={`hidden sm:block transition-colors ${active ? "text-brand-400" : "text-lo group-hover:text-brand-400"}`} />
                             </div>
                           </div>
                         );
@@ -480,10 +480,10 @@ function TasksPage() {
                 onClose={() => setSelectedId(null)}
               />
             ) : (
-              <div className="bg-panel border border-line rounded-2xl p-8 text-center text-mid">
-                <div className="w-12 h-12 rounded-2xl bg-sunken mx-auto mb-3 flex items-center justify-center"><CircleCheck size={20} className="text-lo" /></div>
-                <div className="text-hi font-semibold text-sm mb-1">No task selected</div>
-                <div className="text-xs">Click any task to see its details, assignees, and actions.</div>
+              <div className="rounded-2xl border border-dashed border-line p-6 text-center text-mid">
+                <CircleCheck size={16} className="text-lo mx-auto mb-2" />
+                <div className="text-hi font-medium text-sm">No task selected</div>
+                <div className="text-xs text-lo mt-1">Pick a task to see details and actions.</div>
               </div>
             )}
           </div>
