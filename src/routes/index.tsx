@@ -641,22 +641,45 @@ function TodaysPath({
 }
 
 /* ---------------- Yesterday Recap (right rail) ---------------- */
-function YesterdayRecap() {
+const RECAP_LABEL: Record<string, string> = {
+  completed: "Closed",
+  moved: "Moving",
+  slipped: "Carried over",
+  waiting: "Waiting",
+  open: "Open",
+};
+
+function YesterdayRecap({ input }: { input: SignalInput }) {
+  const { summary, entries } = useMemo(() => deriveRecap(input), [input]);
   return (
-    <div className="bg-panel border border-line rounded-3xl p-6">
-      <div className="flex items-center gap-2 mb-3">
+    <section className="bg-panel border border-line rounded-3xl p-5">
+      <div className="flex items-center gap-2 mb-2.5">
         <History size={14} className="text-lo" />
         <h3 className="font-display font-bold text-hi text-sm">Yesterday Recap</h3>
       </div>
-      <p className="text-sm text-mid mb-4 leading-relaxed">
-        Focused on technical setup and administrative foundation. A day of "gathering" before creative pushes.
-      </p>
-      <ul className="space-y-2">
-        <Recap ok>Troubleshot Limitless pendant charging states and app integration.</Recap>
-        <Recap ok>Washington state registration mail arrived via Middesk/Gusto.</Recap>
-        <Recap>No logged shoots or completed tasks recorded.</Recap>
-      </ul>
-    </div>
+      <p className="text-sm text-mid mb-3 leading-relaxed">{summary}</p>
+      {entries.length > 0 && (
+        <ul className="space-y-1.5">
+          {entries.map((e) => (
+            <li key={e.id} className="flex items-start gap-2">
+              {e.bucket === "completed" ? (
+                <CircleCheck size={12} className="text-emerald-400 mt-0.5 shrink-0" />
+              ) : (
+                <span
+                  className={`mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 ${
+                    e.bucket === "slipped" ? "bg-amber" : "bg-line-strong"
+                  }`}
+                />
+              )}
+              <span className="text-[12px] text-mid leading-snug min-w-0 flex-1">{e.text}</span>
+              <span className="text-[9px] uppercase tracking-wider text-lo shrink-0 mt-0.5">
+                {RECAP_LABEL[e.bucket]}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 
