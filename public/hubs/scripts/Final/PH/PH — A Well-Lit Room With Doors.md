@@ -1,0 +1,175 @@
+# PALMER HOUSE PRODUCTIONS — "A Well-Lit Room With Doors"
+## Cinematic Brand Monologue | ~13–14 min | Plain-language build
+## The Recorded Animal (business cut) · Approach: the personal thesis, translated to business · Delivery: warm, direct, calm
+### Voice-calibrated: bro-ban ✓ plain language (≤15w) ✓ friend = the honest objection ✓ no preachy verdict ✓ real CTA (book a call) ✓ faith quiet ✓ dual-audience "basically" ✓ sensory beats ✓ soft-hedge texture (just/really/actually) ✓ · shares concept + research with JP/MYB
+
+> **The translation:** The personal version (JP/MYB) says you don't have to take the walls down to be seen — build a well-lit room with doors. The Palmer House version says the same to a business: you don't have to become an influencer or turn your life into content to market your company. Visible expertise, protected private life. A window, and doors.
+
+---
+
+[COLD OPEN]
+[VISUAL: Tight on a phone — an influencer crying to camera, then a founder oversharing trauma as a hook, scrolling fast. It slows. Stops. Cut to Jevoy in the Palmer House studio, calm.]
+
+**JEVOY:**
+
+Let me guess why you haven't started marketing your business. Really marketing it. On camera, in your own voice.
+
+It's not that you're lazy. It's that every example you've seen looks like *that.* People bleeding online. Turning their breakup into content. Their kids into a feed. Their worst day into a hook for a $97 course.
+
+[BEAT]
+
+And something in you said: *I'm not doing that. I'd rather stay invisible.*
+
+So you did. You kept the lights off. You let the work "speak for itself." Which sounds noble, until you remember the work doesn't actually have a voice. It can't explain why it's good. It can't tell anyone who it's for. It can't say it even exists. Only you can do that. So "let the work speak for itself" is usually just a polite way of staying invisible forever. And right now, nobody can hear it.
+
+Here's the question this whole video sits on. Is being seen really the same as being exposed? Because I don't think it is. And I think that one mix-up is quietly costing you the customers you were built to serve.
+
+[BEAT]
+
+Now — this isn't the video where I tell you to go bare your soul for the algorithm. I'd never. I run a content company, and even I think most of what you've been shown is a trap. But there's a way to be genuinely visible and keep your whole private life. Let me show you.
+
+It starts with a study from 1959.
+
+---
+
+## CHAPTER 2: THE MECHANISM — THE FRONT STAGE
+
+In 1959, a sociologist named Erving Goffman watched how regular people behave around other people. And he noticed we all do the same thing.
+[SOURCE CARD on screen: Goffman — 'The Presentation of Self in Everyday Life,' 1959.]
+
+He said everybody has a front stage and a back stage. Basically — the front stage is where you perform, the version people see. The back stage is where you drop it and just exist.
+
+Picture a waiter. Warm and smiling at your table. "How is everything tonight?" Front stage. Then he pushes through the kitchen door — smile drops, shoulders fall, he leans on the counter and just breathes for one second. Back stage. Same person. Two completely different rooms, three feet apart.
+
+And notice — you don't *want* the waiter to bring the kitchen to your table. You don't want him venting about his rent while you order. The door between those rooms isn't him being fake. It's him being good at his job while staying a whole human. Your business gets to work the exact same way.
+
+[BEAT]
+
+Here's the part that matters for your business. Goffman wasn't describing fake people. He was describing healthy ones. The front stage isn't a lie. The back stage isn't a dirty secret. It's just how a person stays whole.
+
+So a business that shows the world its *best, clearest, most useful self* — and keeps a private back room — isn't being fake. It's being healthy. Every great brand you can name has a front stage and a back stage. You're allowed one too.
+
+Think about the most famous people on the planet. The ones whose faces you'd know anywhere. A lot of them are intensely private. You know their work cold, and you know almost nothing about their actual living room. That's not a contradiction. That's the skill. The most visible people alive are usually the ones with the most carefully kept doors. Your business can be exactly that — wide open about what it does, and quiet about everything else.
+
+---
+
+## CHAPTER 3: WHY IT FEELS LIKE A THREAT
+
+So why does pressing record feel like danger? Why does your whole body lock up before you post something real about your work?
+
+There's a name for it.
+[SOURCE CARD on screen: Ashforth, Kreiner & Fugate — boundary theory, Academy of Management Review, 2000.]
+
+In the year 2000, three researchers — Ashforth, Kreiner, and Fugate — studied the invisible lines we draw between the parts of our lives. Work here. Home there. Private self behind that door. They called it boundary theory.
+
+The finding is simple. When those lines are clear, you feel steady and safe. When they blur — when the whole world is in every room at once — that's when the stress floods in. Not from being seen. From having nowhere left that's only yours.
+
+You feel this in your own week already. Work texts at the dinner table. The phone buzzing with a client while you're trying to be a parent. That specific little spike of irritation — that's a boundary getting crossed. Two rooms bleeding into one. Now imagine running your whole marketing strategy that way, on purpose, forever. That's what "just be transparent about everything" actually asks of you. No wonder your gut says no.
+
+So the dread you feel before marketing yourself isn't weakness. It's a healthy person feeling a boundary start to disappear. And here's the thing — your gut is half right. It's reacting to a real danger. It's just aiming at the wrong one. The danger was never visibility. It was the missing wall.
+
+And this is exactly why so many capable business owners just quietly opt out. Not because they're shy. Because their gut thinks the only choices are the glass box or the dark. It was never told there's a third room. So it picks the dark, every time, and calls it protecting the brand. But that's not protection. That's just the lights off — and a business with the lights off looks closed.
+
+---
+
+## CHAPTER 4: THE HONEST OBJECTION
+
+Now, there's a fair argument against everything I just said. And I'll make it properly, because if I skip it, you should stop trusting me.
+
+You could say: *"Jevoy, come on. People want raw, real, unfiltered. There's even research that vulnerability builds connection. If I only show the polished version, isn't that fake? Won't people see right through it?"*
+[SOURCE CARD on screen: Bruk, Scholl & Bless — the beautiful mess effect, JPSP, 2018.]
+
+And that research is real. In 2018, three researchers — Bruk, Scholl, and Bless — ran seven studies on what they named the beautiful mess effect. We judge our *own* vulnerability harshly. When you share the messy thing, you feel weak. But the person watching reads it as courage. So showing something real really does connect. Hiding behind a flawless front really does cost you. A perfectly polished, never-a-hair-out-of-place brand can actually feel cold. Untrustworthy. Like a building with mirrored windows you can't see into.
+
+But here's where the argument needs one correction. A window is not a missing wall.
+
+The beautiful mess effect is about opening *one* window. On purpose. Sharing one real, chosen thing — a hard lesson, an honest struggle in the work. That's brave, and customers feel it. But your private life — the doors — those stay shut the whole time. You can open a window and keep your doors. The open window only works *because* you still have the doors. Take them off and it stops being brave. It just becomes a glass box. And nobody trusts a business that overshares any more than they trust one that hides.
+
+And here's the tell, the way you know which one you're doing. A chosen window leaves you feeling *more* yourself. You shared the hard lesson, and you stood a little taller. A wall that got taken leaves you feeling raw. Like you said too much and can't take it back. Same post, from the outside. Opposite feeling, on the inside. If sharing it makes you feel solid, it was a window. If it makes you feel exposed, a wall came off — and your customer can feel that too.
+
+Vulnerability is a window you choose. Exposure is a wall someone took. The whole skill is telling them apart. And honestly, that's half of what a good content partner is even for.
+
+---
+
+## CHAPTER 5: THE COST OF THE DARK
+
+So here's the flip.
+
+You don't have an exposure problem. You have a visibility problem. And we've been telling business owners they only have two options — the glass box, or the dark. Bleed online, or disappear.
+
+But there was always a third room. And the dark one you chose has a cost nobody warned you about.
+
+When you keep the lights off to stay safe, you're not just hiding yourself. You're hiding the thing your business carries. The skill. The fix. The exact help a customer is searching for tonight.
+
+And they will not wait in the dark for you. They'll find the lit window down the street. They'll hire the competitor who turned on one lamp — even if that competitor does worse work and cares less. Not because they're better. Because they were findable, and you weren't.
+
+Picture the customer you'd serve best. They've got the exact problem you solve in your sleep. They're up late, a little stressed, hoping somebody good turns up. And you — the perfect fit — are sitting behind shut blinds, calling it peace. Your business looks closed. So they call the loud, lit, mediocre option down the street. And you never even knew they were looking. That happens every single day, to good businesses, run by good people, who chose the dark to feel safe.
+
+[PAUSE]
+
+Your dark business isn't protecting your peace. It's just making you impossible to choose. And it's handing your customer to someone you know isn't as good. The work can't speak for itself. It needs a window. One window, and your doors.
+
+And notice what that costs you over a year. Not one lost customer — a hundred quiet ones. People who would've chosen you, who needed exactly what you do, who never found the door. That's not a marketing problem you can out-hustle. It's a visibility problem. And it has a fix that doesn't require selling your soul.
+
+---
+
+## CHAPTER 6: WHAT PALMER HOUSE ACTUALLY DOES
+
+This is where Palmer House Productions comes in. And I'll be straight about where we are — young company, building in the open, out here in the Pacific Northwest. Which is the whole point. We're living this exact tension, not just selling a fix for it.
+
+Palmer House is a translation company that happens to own cameras. We don't turn you into an influencer. We don't ask for your private life. We build you a well-lit room with doors.
+
+Here's how it actually works, plainly. We don't start with *"let's get personal."* That's the glass-box trap. We start with one question: *what's the one true thing about your work that a customer needs to see?* That's the window. Then we protect everything else. We become the people who decide, with you, exactly which doors stay closed.
+
+And we build it to do four jobs, in plain terms. One — find the front stage: the clearest, most useful version of your business, the part that deserves the light. Two — open one honest window, so a stranger feels you're a real person and not a logo. Three — set the boundaries on purpose, in writing, so your private life never accidentally becomes content. We decide which doors stay closed *before* the camera ever turns on. And four — make it something a customer keeps and trusts, because trust is the whole thing that turns a stranger into a client. Not reach. Not virality. Trust.
+
+Let me show you what that looks like, fast. Say you're a therapist, or a financial advisor — someone whose whole brand is being trusted, and whose privacy actually matters. The glass-box advice is "share your own trauma, get vulnerable on camera." That's reckless, and it costs you the very authority you sell. The well-lit-room move is one window: the *way you think* about a hard problem, told with real care — and not one word about your own life. Same business. One strips you bare. The other one makes a stranger think: *that's who I'd trust with this.* That's the client who books eight months later. You were always allowed to keep your doors.
+
+Or say you're a contractor. Quiet guy. Hates being on camera, would rather be on the job site. The glass-box advice is "do a daily vlog, show your whole life, be a personality." He'll never do it, and he shouldn't. The well-lit-room move is one window: thirty seconds of him standing in a kitchen he just rebuilt, explaining the one thing he refuses to cut corners on — and then he goes home, and his home stays his. A homeowner sees that and thinks, *that's the guy I want in my house.* He never had to become an influencer. He just had to turn on one light over the work he already does.
+
+And I want to be clear about what we don't do, because it matters. We won't ask you to perform your personal life. We won't turn your kids into a content series. We won't tell a private person to "just be more vulnerable" until there's nothing left that's only theirs. That's the glass-box advice, and it burns good people out.
+
+Here's our one rule, and it's the same line I'll say to your face on a call. If a strategy needs you to hand over your private life, it's a bad strategy. We don't build glass boxes. We build well-lit rooms. If you just want to chase attention by oversharing, there are cheaper ways to burn yourself out. We're for the business that wants to be *trusted.*
+
+---
+
+## CHAPTER 7: THE INVITATION · [CTA]
+
+So here's where I'll leave it.
+
+[VISUAL: back to the phone from the cold open — the scrolling stops. The phone sets down, face up. Then a small lamp clicks on in the studio. Behind Jevoy: a window, and a closed door.]
+
+Somewhere in you is something a customer really needs — and the lights have been off. That's not a failure. It just means nobody showed you the third room. You were never supposed to choose between the glass box and the dark.
+
+There's an old line I keep close. The most watched man who ever lived — crowds following him everywhere, pulling at him, needing things, constantly. And the line repeats, all through the story: he withdrew. Slipped away to a quiet place, alone. He kept a back stage, on purpose, in the busiest seasons, when the crowds wanted the most. The withdrawing wasn't hiding from the work. It was what let him keep doing it. You come back from behind the door with something to give. Even the most visible life kept its doors. So can your business.
+
+So let's turn on one light. Here's the ask — three parts, and I read every one:
+
+**One:** drop a comment — one door you want to keep closed in your business, the part of your life that stays yours. Naming it is how you get free to be seen.
+
+**Two:** book a call with Palmer House. Bring the one thing about your work you've been too private to share — and the lines you don't want to cross. We'll find the window worth opening and the doors worth keeping, and build from there. It's a real conversation, not a sales pitch wearing a conversation's clothes. Link's below.
+
+**Three:** if you know a brilliant business owner hiding in the dark — too private to ever get found — send them this. Honestly, it's the kindest thing you can do for them today.
+
+The link's below. The lights are on over here.
+
+[VISUAL: Jevoy nods. The lamp glows. The door stays closed. Palmer House logo over room tone. End.]
+
+---
+
+### CLIP-WORTHY LINES
+1. "Being seen is not the same as being exposed."
+2. "The work doesn't have a voice. You do. And right now nobody can hear it."
+3. "A window is not a missing wall."
+4. "Vulnerability is a window you choose. Exposure is a wall someone took."
+5. "Your dark business isn't protecting your peace. It's making you impossible to choose."
+6. "We don't build glass boxes. We build well-lit rooms."
+7. "If a strategy needs you to hand over your private life, it's a bad strategy."
+
+### SOURCES (show notes)
+- Goffman (1959), "The Presentation of Self in Everyday Life" (front stage / back stage)
+- Ashforth, Kreiner & Fugate (2000), "All in a Day's Work: Boundaries and Micro Role Transitions," *Academy of Management Review*
+- Bruk, Scholl & Bless (2018), "Beautiful Mess Effect," *JPSP*
+- Closing allusion: Luke 5:16 — uncited, woven.
+
+**Spoken word count: ~2,400 ✓ (cues excluded). Hero prop: the oversharing feed → a lamp clicks on, a door stays closed. CTA: book a call + "bring the thing you've been too private to share."**

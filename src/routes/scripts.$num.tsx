@@ -7,6 +7,7 @@ import { Markdown } from "@/components/Markdown";
 import { findScript, VERSION_LABEL, type ScriptVersion } from "@/lib/scriptsIndex";
 import { ResearchPack } from "@/components/research/ResearchPack";
 import { copyToClipboard } from "@/lib/clipboard";
+import { useLazySource } from "@/lib/useLazySource";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -31,6 +32,11 @@ function ScriptDetail() {
   const navigate = useNavigate();
   const script = findScript(num);
   const [view, setView] = useState<"script" | "research">("script");
+  const ALL: ScriptVersion[] = ["jevoy", "palmer-house", "mindyourbizniz"];
+  const preEntry = script
+    ? (script.versions[v] ?? ALL.map((k) => script.versions[k]).find(Boolean))
+    : undefined;
+  const { source, loading } = useLazySource(preEntry?.load, preEntry?.originalPath);
 
   if (!script) {
     return (
@@ -43,12 +49,9 @@ function ScriptDetail() {
   }
 
   // Fall back to first available version if requested one is missing
-  const ALL: ScriptVersion[] = ["jevoy", "palmer-house", "mindyourbizniz"];
   const available: ScriptVersion[] = ALL.filter((k) => Boolean(script.versions[k]));
   const current: ScriptVersion = script.versions[v] ? v : (available[0] ?? "jevoy");
   const entry = script.versions[current];
-  const source = entry?.body ?? "";
-  const loading = false;
 
   const copyText = async () => {
     if (!source) return;

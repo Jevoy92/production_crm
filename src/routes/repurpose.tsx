@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useLazySource } from "@/lib/useLazySource";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { AppShell, Card, EmptyState, Pill, SegmentedControl } from "@/components/app/AppShell";
@@ -30,12 +31,6 @@ const ALL_PLATFORMS: Short["platform"][] = ["Instagram Reels", "YouTube Shorts",
 
 const PAL_FOR_NUM: PalLane[] = ["Spotlight","Spotlight","Evergreen","Spotlight","Evergreen","Spotlight","Reel","Spotlight","Spotlight","Spotlight","System","System"];
 
-function pickScriptBody(num: string): string {
-  const s = SCRIPTS.find((x) => x.num === num);
-  if (!s) return "";
-  return Object.values(s.versions)[0]?.body ?? "";
-}
-
 function platformToLibrary(p: Short["platform"]): Platform {
   if (p === "YouTube Shorts") return "YouTube Shorts";
   if (p === "TikTok") return "TikTok";
@@ -57,7 +52,8 @@ function RepurposePage() {
   const [tab, setTab] = useState<"ai" | "library">("ai");
 
   const active = useMemo(() => SCRIPTS.find((s) => s.num === activeNum), [activeNum]);
-  const body = useMemo(() => (active ? pickScriptBody(active.num) : ""), [active]);
+  const activeEntry = active ? Object.values(active.versions)[0] : undefined;
+  const { source: body } = useLazySource(activeEntry?.load, activeEntry?.originalPath);
   const prewritten = useMemo<CoreShort[]>(
     () => (active ? shortsForCore12(active.number) : []),
     [active],

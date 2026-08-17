@@ -4,24 +4,24 @@
 // MYB tab only.
 
 type EagerMap = Record<string, string>;
+type LazyMap = Record<string, () => Promise<string>>;
 
 import manifestJson from "@/content/scripts/Final/_manifest.json";
 
+// Final scripts are NOT eager-bundled: ~1MB of markdown crashes the Nitro
+// build (V8 JSON parse abort). They load lazily, with a public/ fallback.
 const jpRaw = import.meta.glob("/src/content/scripts/Final/JP/*.md", {
   query: "?raw",
   import: "default",
-  eager: true,
-}) as EagerMap;
+}) as LazyMap;
 const phRaw = import.meta.glob("/src/content/scripts/Final/PH/*.md", {
   query: "?raw",
   import: "default",
-  eager: true,
-}) as EagerMap;
+}) as LazyMap;
 const mybRaw = import.meta.glob("/src/content/scripts/Final/MYB/*.md", {
   query: "?raw",
   import: "default",
-  eager: true,
-}) as EagerMap;
+}) as LazyMap;
 // Teleprompter files are served from /public/hubs/scripts/Final/Teleprompter/
 // directly — do NOT eager-bundle them, they bloat the SSR chunk to ~2MB and
 // crash the Nitro build with a V8 JSON parse abort.
@@ -31,22 +31,19 @@ const mybRaw = import.meta.glob("/src/content/scripts/Final/MYB/*.md", {
 const strategyRaw = import.meta.glob("/src/content/scripts/Strategy/*.md", {
   query: "?raw",
   import: "default",
-  eager: true,
-}) as EagerMap;
+}) as LazyMap;
 const researchRaw = import.meta.glob("/src/content/scripts/Research/*.md", {
   query: "?raw",
   import: "default",
-  eager: true,
-}) as EagerMap;
+}) as LazyMap;
 const yourboyRaw = import.meta.glob("/src/content/scripts/YourBoyJevoy/*.md", {
   query: "?raw",
   import: "default",
-  eager: true,
-}) as EagerMap;
+}) as LazyMap;
 const manualRaw = import.meta.glob(
   "/src/content/scripts/Skills/jevoy-palmer-operating-manual/**/*.md",
-  { query: "?raw", import: "default", eager: true },
-) as EagerMap;
+  { query: "?raw", import: "default" },
+) as LazyMap;
 
 function basename(path: string): string {
   const segs = path.split("/");
@@ -64,7 +61,7 @@ export const VERSION_LABEL: Record<ScriptVersion, string> = {
 export type Pillar = "Reel" | "Spotlight" | "Evergreen" | "System";
 
 export type ScriptVersionEntry = {
-  body: string;
+  load: () => Promise<string>;
   originalPath: string;
   filename: string;
   teleprompterPath?: string;
@@ -104,10 +101,10 @@ const VENTURE_FOLDER: Record<"JP" | "PH" | "MYB", string> = {
   MYB: "MYB",
 };
 
-function lookupByBasename(map: EagerMap, file: string): string | undefined {
+function lookupByBasename(map: LazyMap, file: string): (() => Promise<string>) | undefined {
   const name = file.replace(/\.(md|txt)$/, "");
-  for (const [path, body] of Object.entries(map)) {
-    if (basename(path) === name) return body;
+  for (const [path, loader] of Object.entries(map)) {
+    if (basename(path) === name) return loader;
   }
   return undefined;
 }
@@ -121,11 +118,11 @@ export const SCRIPTS: ScriptEntry[] = manifest.themes.map((t) => {
     if (!v) continue;
     const file = v.script.split("/").pop()!;
     const map = key === "JP" ? jpRaw : key === "PH" ? phRaw : mybRaw;
-    const body = lookupByBasename(map, file);
-    if (!body) continue;
+    const loader = lookupByBasename(map, file);
+    if (!loader) continue;
     const teleFile = v.teleprompter?.split("/").pop();
     versions[VENTURE_TO_BRAND[key]] = {
-      body,
+      load: loader,
       filename: file,
       originalPath: `/hubs/scripts/Final/${VENTURE_FOLDER[key]}/${encodeURIComponent(file)}`,
       teleprompterPath: teleFile
@@ -151,9 +148,9 @@ export type DocEntry = {
   filename: string;
 };
 
-function toDocList(raw: EagerMap, folder: string): DocEntry[] {
+function toDocList(raw: LazyMap, folder: string): DocEntry[] {
   return Object.entries(raw)
-    .map(([path, body]) => {
+    .map(([path, loader]) => {
       const name = basename(path);
       return {
         slug: name
@@ -161,7 +158,7 @@ function toDocList(raw: EagerMap, folder: string): DocEntry[] {
           .replace(/[^a-z0-9]+/g, "-")
           .replace(/^-|-$/g, ""),
         title: name,
-        load: () => Promise.resolve(body),
+        load: loader,
         originalPath: `/hubs/scripts/${folder}/${encodeURIComponent(`${name}.md`)}`,
         filename: `${name}.md`,
       };
@@ -186,13 +183,13 @@ export type ManualEntry = {
 };
 
 export const MANUAL: ManualEntry[] = Object.entries(manualRaw)
-  .map(([path, body]) => {
+  .map(([path, loader]) => {
     const name = basename(path);
     const isRoot = /SKILL$/i.test(name);
     return {
       slug: isRoot ? "overview" : name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       title: isRoot ? "Operating Manual" : name,
-      load: () => Promise.resolve(body),
+      load: loader,
       isRoot,
     };
   })
