@@ -92,29 +92,30 @@ function PlaybookIndex() {
   return (
     <Shell title="Playbooks" subtitle="Institutional knowledge, organized by loop.">
       {/* Utility bar */}
-      <div className="flex items-center gap-3 flex-wrap mb-6">
-        <div className="relative flex-1 min-w-[240px] max-w-md">
+      <div className="flex items-center gap-2 flex-wrap mb-5">
+        <div className="relative flex-1 min-w-[180px] max-w-md">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-lo" />
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search playbooks, procedures, topics…" className="ph-input" style={{ paddingLeft: 34 }} />
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-lo text-xs font-medium">Loop:</span>
-          <select value={loopFilter} onChange={(e) => setLoopFilter(e.target.value as PlaybookLoop | "all")} className="bg-sunken border border-line text-hi text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-brand-500">
+          <select value={loopFilter} onChange={(e) => setLoopFilter(e.target.value as PlaybookLoop | "all")} className="bg-sunken border border-line text-hi text-[13px] rounded-lg px-2.5 h-8 focus:outline-none focus:border-brand-500 max-w-[160px]">
             <option value="all">All Loops</option>
             {PLAYBOOK_LOOPS.map((l) => <option key={l} value={l}>{l}</option>)}
           </select>
         </div>
-        <span className="ph-btn ph-btn-soft ph-btn-sm"><ArrowDownWideNarrow size={12} /> Last Updated</span>
-        <div className="ml-auto flex items-center gap-3">
-          <span className="text-lo text-xs">{pages.length} playbooks</span>
-          <Btn variant="primary" onClick={() => setOpen(true)} className="flex items-center gap-1.5"><Plus className="size-3.5" /> New Playbook</Btn>
+        <span className="ph-btn ph-btn-soft ph-btn-sm hidden sm:inline-flex"><ArrowDownWideNarrow size={12} /> Last Updated</span>
+        <div className="ml-auto flex items-center gap-2">
+          <span className="text-lo text-xs hidden md:inline">{pages.length} playbooks</span>
+          <Btn variant="primary" onClick={() => setOpen(true)} className="flex items-center gap-1.5 shrink-0"><Plus className="size-3.5" /> <span className="hidden sm:inline">New Playbook</span></Btn>
         </div>
       </div>
 
       <div className="flex gap-6">
         {/* Sections */}
-        <div className="flex-1 min-w-0 space-y-10">
-          {sections.length === 0 && <div className="text-center py-16 text-mid text-sm">No playbooks match.</div>}
+        <div className="flex-1 min-w-0 space-y-7">
+          {sections.length === 0 && (
+            <div className="border border-dashed border-line rounded-xl py-12 text-center text-mid text-[13px]">No playbooks match that search.</div>
+          )}
           {sections.map(({ loop, items, coverage }) => {
             const m = LOOP_META[loop];
             const a = ACCENT_CLS[m.accent];
@@ -123,49 +124,43 @@ function PlaybookIndex() {
             return (
               <Reveal key={loop}>
                 <section>
-                  <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center gap-2.5 mb-3">
                     <button onClick={() => toggleCollapse(loop)} className="flex items-center gap-3 min-w-0 group/h" aria-label={isCollapsed ? "Expand" : "Collapse"}>
                       <ChevronDown size={15} className={`text-lo transition-transform flex-shrink-0 ${isCollapsed ? "-rotate-90" : ""}`} />
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${a.chip}`}><Icon size={15} /></div>
-                      <h2 className="font-display text-base font-bold text-hi tracking-tight group-hover/h:text-brand-400 transition-colors">{loop}</h2>
-                      <span className="text-lo text-sm font-medium">· {items.length} playbook{items.length === 1 ? "" : "s"}</span>
+                      <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${a.chip}`}><Icon size={14} /></div>
+                      <h2 className="font-display text-[15px] font-bold text-hi tracking-tight truncate group-hover/h:text-brand-400 transition-colors">{loop}</h2>
+                      <span className="text-lo text-xs font-medium hidden sm:inline">· {items.length}</span>
                     </button>
                     <div className="ml-auto flex items-center gap-2">
-                      <div className="w-24 h-1.5 bg-sunken rounded-full overflow-hidden"><div className={`h-full rounded-full ${a.bar}`} style={{ width: `${coverage}%` }} /></div>
-                      <span className={`text-xs font-semibold ${a.text}`}>{coverage}%</span>
+                      <div className="w-16 sm:w-24 h-1.5 bg-sunken rounded-full overflow-hidden"><div className={`h-full rounded-full ${a.bar}`} style={{ width: `${coverage}%` }} /></div>
+                      <span className={`text-[11px] font-semibold tabular-nums ${a.text}`}>{coverage}%</span>
                     </div>
                   </div>
                   {!isCollapsed && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2.5">
                     {items.map((p) => {
                       const owner = OWNER[p.ownerRole] ?? OWNER.company;
                       return (
                         <Link key={p.slug} to="/playbook/$slug" params={{ slug: p.slug }}
-                          className="group/card bg-panel border border-line rounded-xl p-5 hover:border-brand-500/40 transition-all flex flex-col gap-4">
-                          <div className="flex items-start justify-between">
-                            <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${a.chip}`}><Icon size={15} /></div>
-                            <ArrowRight size={13} className={`${a.text} opacity-0 -translate-x-1 group-hover/card:opacity-100 group-hover/card:translate-x-0 transition-all`} />
+                          className="group/card bg-panel border border-line rounded-lg p-3.5 hover:border-brand-500/40 transition-all flex flex-col gap-2">
+                          <div className="flex items-start gap-2">
+                            <div className={`w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0 ${a.chip}`}><Icon size={13} /></div>
+                            <h3 className="font-semibold text-hi text-[13px] leading-snug line-clamp-2 min-w-0 flex-1">{p.title}</h3>
+                            <ArrowRight size={13} className={`${a.text} mt-1 opacity-0 -translate-x-1 group-hover/card:opacity-100 group-hover/card:translate-x-0 transition-all flex-shrink-0`} />
                           </div>
-                          <div>
-                            <h3 className="font-semibold text-hi text-sm leading-snug mb-1.5 line-clamp-2">{p.title}</h3>
-                            <p className="text-mid text-xs leading-relaxed line-clamp-2">{p.purpose || "No summary yet — open to document this SOP."}</p>
-                          </div>
-                          <div className="flex items-center gap-2 pt-1 border-t border-line mt-auto">
-                            <span className="w-5 h-5 rounded-full grid place-items-center text-[8px] font-bold text-white flex-shrink-0" style={{ background: owner.color }}>{owner.name[0]}</span>
-                            <span className="text-lo text-xs">Updated <span className="text-mid font-medium">{relTime(p.updatedAt)}</span></span>
-                            <span className={`ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full border ${a.badge}`}>{loop.replace(" Loop", "")}</span>
+                          <p className="text-mid text-[11.5px] leading-relaxed line-clamp-2">{p.purpose || "No summary yet — open to document this SOP."}</p>
+                          <div className="flex items-center gap-2 pt-2 border-t border-line mt-auto">
+                            <span className="w-4.5 h-4.5 min-w-[18px] h-[18px] rounded-full grid place-items-center text-[8px] font-bold text-white flex-shrink-0" style={{ background: owner.color }}>{owner.name[0]}</span>
+                            <span className="text-lo text-[11px] truncate">{relTime(p.updatedAt)}</span>
+                            <span className={`ml-auto text-[10px] font-semibold px-1.5 py-0.5 rounded-full border shrink-0 ${a.badge}`}>{loop.replace(" Loop", "")}</span>
                           </div>
                         </Link>
                       );
                     })}
                     {/* add card */}
-                    <button onClick={() => setOpen(true)} className="border border-dashed border-line rounded-xl p-5 flex flex-col gap-4 hover:border-brand-500/50 hover:bg-brand-600/5 transition-all text-left group/add">
-                      <div className="w-9 h-9 rounded-lg bg-sunken group-hover/add:bg-brand-600/15 flex items-center justify-center transition-colors"><Plus size={15} className="text-lo group-hover/add:text-brand-400" /></div>
-                      <div>
-                        <h3 className="font-medium text-mid text-sm mb-1.5">Add {loop.replace(" Loop", "")} Playbook</h3>
-                        <p className="text-lo text-xs leading-relaxed">Document a new SOP for this loop.</p>
-                      </div>
-                      <span className="text-lo text-xs mt-auto pt-1 border-t border-line">Click to create</span>
+                    <button onClick={() => setOpen(true)} className="border border-dashed border-line rounded-lg p-3.5 flex items-center gap-2 hover:border-brand-500/50 hover:bg-brand-600/5 transition-all text-left group/add">
+                      <div className="w-7 h-7 rounded-md bg-sunken group-hover/add:bg-brand-600/15 flex items-center justify-center transition-colors shrink-0"><Plus size={14} className="text-lo group-hover/add:text-brand-400" /></div>
+                      <span className="text-mid text-[12.5px] font-medium">Add {loop.replace(" Loop", "")} playbook</span>
                     </button>
                   </div>
                   )}
