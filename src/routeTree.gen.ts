@@ -35,6 +35,7 @@ import { Route as StudioIdRouteImport } from './routes/studio.$id'
 import { Route as ShootsIdRouteImport } from './routes/shoots.$id'
 import { Route as ScriptsYourboyRouteImport } from './routes/scripts.yourboy'
 import { Route as ScriptsStrategyRouteImport } from './routes/scripts.strategy'
+import { Route as ScriptsShortsRouteImport } from './routes/scripts.shorts'
 import { Route as ScriptsResearchRouteImport } from './routes/scripts.research'
 import { Route as ScriptsManualRouteImport } from './routes/scripts.manual'
 import { Route as ScriptsNumRouteImport } from './routes/scripts.$num'
@@ -183,6 +184,11 @@ const ScriptsStrategyRoute = ScriptsStrategyRouteImport.update({
   path: '/strategy',
   getParentRoute: () => ScriptsRoute,
 } as any)
+const ScriptsShortsRoute = ScriptsShortsRouteImport.update({
+  id: '/shorts',
+  path: '/shorts',
+  getParentRoute: () => ScriptsRoute,
+} as any)
 const ScriptsResearchRoute = ScriptsResearchRouteImport.update({
   id: '/research',
   path: '/research',
@@ -310,6 +316,7 @@ export interface FileRoutesByFullPath {
   '/scripts/$num': typeof ScriptsNumRoute
   '/scripts/manual': typeof ScriptsManualRoute
   '/scripts/research': typeof ScriptsResearchRoute
+  '/scripts/shorts': typeof ScriptsShortsRoute
   '/scripts/strategy': typeof ScriptsStrategyRoute
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
@@ -355,6 +362,7 @@ export interface FileRoutesByTo {
   '/scripts/$num': typeof ScriptsNumRoute
   '/scripts/manual': typeof ScriptsManualRoute
   '/scripts/research': typeof ScriptsResearchRoute
+  '/scripts/shorts': typeof ScriptsShortsRoute
   '/scripts/strategy': typeof ScriptsStrategyRoute
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
@@ -401,6 +409,7 @@ export interface FileRoutesById {
   '/scripts/$num': typeof ScriptsNumRoute
   '/scripts/manual': typeof ScriptsManualRoute
   '/scripts/research': typeof ScriptsResearchRoute
+  '/scripts/shorts': typeof ScriptsShortsRoute
   '/scripts/strategy': typeof ScriptsStrategyRoute
   '/scripts/yourboy': typeof ScriptsYourboyRoute
   '/shoots/$id': typeof ShootsIdRoute
@@ -448,6 +457,7 @@ export interface FileRouteTypes {
     | '/scripts/$num'
     | '/scripts/manual'
     | '/scripts/research'
+    | '/scripts/shorts'
     | '/scripts/strategy'
     | '/scripts/yourboy'
     | '/shoots/$id'
@@ -493,6 +503,7 @@ export interface FileRouteTypes {
     | '/scripts/$num'
     | '/scripts/manual'
     | '/scripts/research'
+    | '/scripts/shorts'
     | '/scripts/strategy'
     | '/scripts/yourboy'
     | '/shoots/$id'
@@ -538,6 +549,7 @@ export interface FileRouteTypes {
     | '/scripts/$num'
     | '/scripts/manual'
     | '/scripts/research'
+    | '/scripts/shorts'
     | '/scripts/strategy'
     | '/scripts/yourboy'
     | '/shoots/$id'
@@ -769,6 +781,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScriptsStrategyRouteImport
       parentRoute: typeof ScriptsRoute
     }
+    '/scripts/shorts': {
+      id: '/scripts/shorts'
+      path: '/shorts'
+      fullPath: '/scripts/shorts'
+      preLoaderRoute: typeof ScriptsShortsRouteImport
+      parentRoute: typeof ScriptsRoute
+    }
     '/scripts/research': {
       id: '/scripts/research'
       path: '/research'
@@ -918,6 +937,7 @@ interface ScriptsRouteChildren {
   ScriptsNumRoute: typeof ScriptsNumRoute
   ScriptsManualRoute: typeof ScriptsManualRoute
   ScriptsResearchRoute: typeof ScriptsResearchRoute
+  ScriptsShortsRoute: typeof ScriptsShortsRoute
   ScriptsStrategyRoute: typeof ScriptsStrategyRoute
   ScriptsYourboyRoute: typeof ScriptsYourboyRoute
 }
@@ -926,6 +946,7 @@ const ScriptsRouteChildren: ScriptsRouteChildren = {
   ScriptsNumRoute: ScriptsNumRoute,
   ScriptsManualRoute: ScriptsManualRoute,
   ScriptsResearchRoute: ScriptsResearchRoute,
+  ScriptsShortsRoute: ScriptsShortsRoute,
   ScriptsStrategyRoute: ScriptsStrategyRoute,
   ScriptsYourboyRoute: ScriptsYourboyRoute,
 }
