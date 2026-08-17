@@ -30,12 +30,6 @@ const ALL_PLATFORMS: Short["platform"][] = ["Instagram Reels", "YouTube Shorts",
 
 const PAL_FOR_NUM: PalLane[] = ["Spotlight","Spotlight","Evergreen","Spotlight","Evergreen","Spotlight","Reel","Spotlight","Spotlight","Spotlight","System","System"];
 
-function pickScriptBody(num: string): string {
-  const s = SCRIPTS.find((x) => x.num === num);
-  if (!s) return "";
-  return Object.values(s.versions)[0]?.body ?? "";
-}
-
 function platformToLibrary(p: Short["platform"]): Platform {
   if (p === "YouTube Shorts") return "YouTube Shorts";
   if (p === "TikTok") return "TikTok";
