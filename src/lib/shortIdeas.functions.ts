@@ -181,6 +181,10 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
       data.scriptBody.slice(0, 24_000),
       "--- END SCRIPT ---",
       "",
+      "The three concepts must live in three different WORLDS with three different mechanisms.",
+      "Write the script the way the gold standard is written: interleaved [STAGE DIRECTIONS] in caps,",
+      "spoken lines in plain sentences, the escalation visible on the page, and an END CARD line.",
+      "",
       "Return this exact JSON shape (3 items, all fields required):",
       '{"ideas":[{"title":"short punchy concept name","hookFamily":"e.g. Medical phenomenon","prop":"the physical prop(s)","firstFrameText":"on-screen text in frame one","premise":"what happens on camera, 1-2 sentences","hook":"first spoken line, under 7 seconds","beats":["beat 1","beat 2","beat 3","beat 4"],"script":"the full spoken script with [STAGE DIRECTIONS], 110-180 words","tieBack":"how it connects back to the long-form idea","cta":"closing line pointing at the long-form","durationSec":45}]}',
     ].join("\n");
@@ -191,8 +195,52 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
       prompt,
     });
 
+    // Second pass: score the draft against the gold standard and rebuild anything weak.
+    let finalText = text;
     try {
-      return { ideas: normalize(extractJson(text), data.scriptTitle) };
+      const critique = await generateText({
+        model: gateway("google/gemini-3-flash-preview"),
+        system: [
+          "You are Jevoy Palmer reviewing shorts concepts before a shoot day. You are hard to please.",
+          "",
+          "GOLD STANDARD (the only acceptable bar):",
+          GOLD_STANDARD_SHORTS,
+          "",
+          "ANATOMY:",
+          ANATOMY,
+          "",
+          BANNED,
+          "",
+          "Return raw JSON only. No markdown, no commentary.",
+        ].join("\n"),
+        prompt: [
+          `Long-form: #${data.scriptNum} ${data.scriptTitle}`,
+          "",
+          "DRAFT CONCEPTS:",
+          text.slice(0, 20_000),
+          "",
+          "For EACH of the 3 concepts, silently score: (a) does it open inside a world instead of a",
+          "talking head, (b) is there ONE visual rule escalating exactly three times, (c) does the",
+          "turn arrive as a physical discovery, (d) is there a keeper line worth quoting, (e) is the",
+          "payoff a specific sentence a real business could say, (f) is it different in world AND",
+          "mechanism from the other two, (g) does it break any AUTO-FAIL rule.",
+          "Rewrite every concept that fails anything — rebuild it from the anatomy, do not patch it.",
+          "Keep what already clears the bar. Do not soften the writing.",
+          "",
+          "Return the improved final set in this exact JSON shape (3 items, all fields required):",
+          '{"ideas":[{"title":"","hookFamily":"","prop":"","firstFrameText":"","premise":"","hook":"","beats":["","","",""],"script":"full spoken script with [STAGE DIRECTIONS], 110-180 words","tieBack":"","cta":"","durationSec":45}]}',
+        ].join("\n"),
+      });
+      // Only accept the revision if it parses into usable ideas.
+      const parsed = extractJson(critique.text);
+      const list = (parsed as { ideas?: unknown[] })?.ideas;
+      if (Array.isArray(list) && list.length >= 3) finalText = critique.text;
+    } catch (error) {
+      console.error("[shortIdeas] critique pass skipped", error);
+    }
+
+    try {
+      return { ideas: normalize(extractJson(finalText), data.scriptTitle) };
     } catch (error) {
       console.error("[shortIdeas] parse failed", error);
       return { ideas: normalize(null, data.scriptTitle) };
