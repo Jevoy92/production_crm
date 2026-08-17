@@ -69,7 +69,7 @@ function FinancePage() {
       </div>
 
       {/* Lower */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3">
         <Reveal className="xl:col-span-2" delay={0.05}>
           <Card title="Project P&L" description="Quoted vs cost by project" noPad>
             <div className="overflow-x-auto">
@@ -108,7 +108,7 @@ function FinancePage() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="space-y-4">
+          <div className="space-y-3">
             <Card title="Manual entries" description="From HoneyBook">
               <div className="grid grid-cols-1 gap-3">
                 <Field label="Cash collected ($)">
