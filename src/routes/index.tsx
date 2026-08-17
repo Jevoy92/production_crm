@@ -423,14 +423,14 @@ function TodaysPath({
   }
 
   return (
-    <section className="bg-panel border border-line rounded-3xl p-6">
-      <div className="flex items-start justify-between gap-3 mb-6">
+    <section className="bg-panel border border-line rounded-3xl p-4 sm:p-6">
+      <div className="flex items-start justify-between gap-3 mb-5 sm:mb-6">
         <div className="min-w-0">
           <h3 className="font-display font-bold text-hi text-lg flex items-center gap-2">
             <RouteIcon size={16} className="text-brand-400" />
             Today's Path
           </h3>
-          <p className="text-sm text-mid mt-0.5 truncate">{phase.title}</p>
+          <p className="text-sm text-mid mt-0.5 leading-snug">{phase.title}</p>
         </div>
         <span className="flex items-center gap-1.5 bg-sunken border border-line px-3 py-1.5 rounded-full shrink-0">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pulse" />
@@ -438,7 +438,7 @@ function TodaysPath({
         </span>
       </div>
 
-      <div className="relative pl-6 space-y-7 border-l-2 border-line">
+      <div className="relative pl-4 sm:pl-6 space-y-6 sm:space-y-7 border-l-2 border-line">
         {blocks.map((b) => {
           const h = HOURS[b.id];
           const state = statusFor(b.id);
@@ -468,8 +468,8 @@ function TodaysPath({
 
           const cardClass =
             state === "current"
-              ? "bg-gradient-to-br from-panel to-sunken rounded-2xl p-5 border border-brand-500/30 shadow-lg shadow-brand-500/5"
-              : "bg-sunken/50 rounded-2xl p-5 border border-line hover:border-line-strong/70 transition-colors";
+              ? "bg-gradient-to-br from-panel to-sunken rounded-2xl p-4 sm:p-5 border border-brand-500/30 shadow-lg shadow-brand-500/5"
+              : "bg-sunken/50 rounded-2xl p-4 sm:p-5 border border-line hover:border-line-strong/70 transition-colors";
 
           const rangeColor =
             state === "current" ? "text-brand-400" : state === "past" ? "text-amber-500/80" : "text-lo";
