@@ -42,6 +42,22 @@ function basename(path: string): string {
   return segs[segs.length - 1].replace(/\.(md|txt)$/, "");
 }
 
+// Public copies under /public/hubs/scripts/Final/** are stored with ASCII
+// slug filenames — em dashes, commas and apostrophes in URLs were 404ing on
+// the static file server.
+export function publicSlug(filename: string): string {
+  const dot = filename.lastIndexOf(".");
+  const base = dot === -1 ? filename : filename.slice(0, dot);
+  const ext = dot === -1 ? "" : filename.slice(dot).toLowerCase();
+  const slug = base
+    .normalize("NFKD")
+    .replace(/[—–]/g, "-")
+    .replace(/[^A-Za-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();
+  return slug + ext;
+}
+
 export type ScriptVersion = "jevoy" | "palmer-house" | "mindyourbizniz";
 
 export const VERSION_LABEL: Record<ScriptVersion, string> = {
@@ -115,9 +131,9 @@ export const SCRIPTS: ScriptEntry[] = manifest.themes.map((t) => {
     versions[VENTURE_TO_BRAND[key]] = {
       load: loader,
       filename: file,
-      originalPath: `/hubs/scripts/Final/${VENTURE_FOLDER[key]}/${encodeURIComponent(file)}`,
+      originalPath: `/hubs/scripts/Final/${VENTURE_FOLDER[key]}/${publicSlug(file)}`,
       teleprompterPath: teleFile
-        ? `/hubs/scripts/Final/Teleprompter/${encodeURIComponent(teleFile)}`
+        ? `/hubs/scripts/Final/Teleprompter/${publicSlug(teleFile)}`
         : undefined,
       spokenWords: v.spoken_words,
     };
