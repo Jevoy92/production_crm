@@ -197,12 +197,14 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
       data.scriptBody.slice(0, 24_000),
       "--- END SCRIPT ---",
       "",
-      "The three concepts must live in three different WORLDS with three different mechanisms.",
-      "Write the script the way the gold standard is written: interleaved [STAGE DIRECTIONS] in caps,",
-      "spoken lines in plain sentences, the escalation visible on the page, and an END CARD line.",
+      "The three concepts must use three different hand-props and cover three different moments in the process.",
+      "Write each script the way the gold standard is written: the first line alone, [STAGE DIRECTIONS] in caps",
+      "where the prop moves, plain short spoken sentences, exactly one 'Then X. Now Y.' compression beat,",
+      "the structural reframe, then the close — 'Click the link. Come explore this with me.' plus one line",
+      "naming what the long-form is about — and finally the first line again, word for word.",
       "",
       "Return this exact JSON shape (3 items, all fields required):",
-      '{"ideas":[{"title":"short punchy concept name","hookFamily":"e.g. Medical phenomenon","prop":"the physical prop(s)","firstFrameText":"on-screen text in frame one","premise":"what happens on camera, 1-2 sentences","hook":"first spoken line, under 7 seconds","beats":["beat 1","beat 2","beat 3","beat 4"],"script":"the full spoken script with [STAGE DIRECTIONS], 110-180 words","tieBack":"how it connects back to the long-form idea","cta":"closing line pointing at the long-form","durationSec":45}]}',
+      '{"ideas":[{"title":"short punchy concept name","hookFamily":"the moment it is about, e.g. After the interview","prop":"the small hand-prop","firstFrameText":"the first line, same words as the hook","premise":"what happens on camera, 1-2 sentences","hook":"first spoken line — works with the sound off","beats":["beat 1","beat 2","beat 3","beat 4"],"script":"the full spoken script with [STAGE DIRECTIONS], 110-180 words, ending with the first line repeated","tieBack":"the Then X. Now Y. compression beat","cta":"Click the link. Come explore this with me. <one line naming the long-form subject>","durationSec":50}]}',
     ].join("\n");
 
     const { text } = await generateText({
