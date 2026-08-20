@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { generateText } from "ai";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
-import { GOLD_STANDARD_SHORTS, GOLD_STANDARD_LESSONS } from "@/content/shorts/goldStandard";
+import { GOLD_STANDARD_SHORTS, GOLD_STANDARD_LESSONS, FIVE_MOVES } from "@/content/shorts/goldStandard";
 
 const VENTURE_ENUM = z.enum(["jevoy", "palmer-house", "mindyourbizniz"]);
 type Venture = z.infer<typeof VENTURE_ENUM>;
