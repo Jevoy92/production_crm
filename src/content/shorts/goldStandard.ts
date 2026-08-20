@@ -66,16 +66,20 @@ Click the link. Come explore this with me. How to keep the moment a customer can
 Every question comes out the same.
 
 GOLD STANDARD F — "THE THREE BOXES"
-Props: kitchen table. Three cardboard boxes — giant, medium, small. Three cards: QUALITY, SERVICE, RELATIONSHIPS. Cheap Amazon boxes, unlabeled.
-First frame: "You are not bad at explaining your business."
-"You are not bad at explaining your business. You are being asked a question too large to keep what makes the answer valuable."
-[GIANT BOX. HE DROPS THE THREE CARDS IN. TILTS IT SO THE EMPTY SPACE IS OBVIOUS.]
-What makes you different. What are your values. Why should somebody choose you. So this is what goes in. Quality. Service. Relationships.
-All true. Also mostly air. Twenty years of work, rattling around in a box it cannot fill.
-[MEDIUM BOX. SAME THREE CARDS. STILL LOOSE.] A shorter version of the same answer does not fix it. Same words. Still empty.
-[SMALL BOX.] This is one customer. One job. The time something did not add up.
-Then twenty years in a box it cannot fill. Now one job that fills this one.
-Specific. Useful. The version a person would hire. Ask about that, and the person shows up. Ask them to represent the whole company, and you get the website.
+Hook family: direct address.
+First-frame text: "You are not bad at explaining your business."
+In frame: Jevoy. Three cardboard boxes. Giant, medium, small. Three cards: QUALITY, SERVICE, RELATIONSHIPS. Cheap, unlabeled.
+You are not bad at explaining your business.
+You are being asked a question too large to keep what makes the answer valuable.
+[HE HOLDS THE GIANT BOX. DROPS ALL THREE CARDS IN. TILTS IT. THEY RATTLE. MOSTLY AIR.]
+What makes you different. What are your values. Why should somebody choose you.
+Those crush twenty years into one paragraph. So people reach for Quality. Service. Relationships. All true. All trying to fill a space they cannot fill.
+[MEDIUM BOX. SAME THREE CARDS. STILL LOOSE.]
+A shorter version of the same answer does not fix it. Same words. Still empty.
+[SMALL BOX. HE PUTS ONE JOB IN. IT FILLS.]
+This is one customer. One job. The time something did not add up. Now the brain has a space it can actually fill. Specific. Useful. The version a person would hire.
+Success is not stuffing the giant box. It is focusing on that specific detail, for that specific customer, so this space can do some work.
+Ask about the time something did not add up, and the person shows up. Ask them to represent the whole company, and you get the website.
 Click the link. Come explore this with me. How to keep the moment a customer can actually hear.
 You are not bad at explaining your business. The box was just the wrong size.
 `.trim();
