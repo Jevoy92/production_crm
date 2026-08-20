@@ -65,19 +65,19 @@ All true. Also the official position of nearly every company with a website.
 Click the link. Come explore this with me. How to keep the moment a customer can actually hear.
 Every question comes out the same.
 
-GOLD STANDARD F — "YOU ARE NOT BAD AT THIS"
-Props: three empty boxes in descending sizes — a huge one, a medium one, a small one. Nothing else. One room.
+GOLD STANDARD F — "THE THREE BOXES"
+Props: kitchen table. Three cardboard boxes — giant, medium, small. Three cards: QUALITY, SERVICE, RELATIONSHIPS. Cheap Amazon boxes, unlabeled.
 First frame: "You are not bad at explaining your business."
-"You are not bad at explaining your business."
-[HE HOLDS UP THE HUGE BOX.] "What makes you different. What are your values. Why should somebody choose you."
-That box is twenty years of judgment. So people reach for the only thing big enough to fill it. Quality. Service. Relationships.
-Then twenty years of judgment. Now one clean paragraph.
-[HE DROPS THE BIG BOX. PICKS UP THE SMALL ONE.] Ask about the one time something did not add up on a job. Watch what happens.
-The person shows up. The specifics show up. The sentence a customer can actually hear shows up.
-Ask somebody to represent the whole company and you get the website. Ask about a Tuesday and you get the business.
-That is not a communication problem. You are being asked a question too large to keep what makes the answer valuable.
+"You are not bad at explaining your business. You are being asked a question too large to keep what makes the answer valuable."
+[GIANT BOX. HE DROPS THE THREE CARDS IN. TILTS IT SO THE EMPTY SPACE IS OBVIOUS.]
+What makes you different. What are your values. Why should somebody choose you. So this is what goes in. Quality. Service. Relationships.
+All true. Also mostly air. Twenty years of work, rattling around in a box it cannot fill.
+[MEDIUM BOX. SAME THREE CARDS. STILL LOOSE.] A shorter version of the same answer does not fix it. Same words. Still empty.
+[SMALL BOX.] This is one customer. One job. The time something did not add up.
+Then twenty years in a box it cannot fill. Now one job that fills this one.
+Specific. Useful. The version a person would hire. Ask about that, and the person shows up. Ask them to represent the whole company, and you get the website.
 Click the link. Come explore this with me. How to keep the moment a customer can actually hear.
-You are not bad at explaining your business.
+You are not bad at explaining your business. The box was just the wrong size.
 `.trim();
 
 // Jevoy's own summary of the machine every approved short runs on.
@@ -105,4 +105,8 @@ export const GOLD_STANDARD_LESSONS = [
   "No prop metaphors invented and then forced to fit the thesis. No 'volume vs attention'. No content-marketing platitudes.",
   "Direct address is a valid hook family: the first line can absolve the founder ('You are not bad at explaining your business.') as long as the prop still does the work and the line returns verbatim at the end.",
   "The question-size move: a big prop for the enormous question (different / values / why choose you), a small prop for the specific one (the one time something did not add up). Big question gets the website; small question gets the business.",
+  "One prop family in three sizes/variants is allowed and preferred over three unrelated props inside one short — giant, medium, small boxes; the escalation IS the argument. Middle beat exists to kill the obvious fix ('a shorter version of the same answer does not fix it').",
+  "MUTE TEST: describe in one line what a viewer sees with the sound off ('slogans lost in a huge box, then one job filling a small one'). If that line needs a caption to make sense, the short is not built yet.",
+  "Cheap, unlabeled, everyday props. Do not write the thesis word on the prop — no labeling the cardboard.",
+  "The last line may add a short tag to the first line ('You are not bad at explaining your business. The box was just the wrong size.') — the first line itself must still return word for word.",
 ].join("\n");
