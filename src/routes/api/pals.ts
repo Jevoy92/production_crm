@@ -3,6 +3,13 @@ import { convertToModelMessages, streamText, tool, stepCountIs, type UIMessage }
 import { z } from "zod";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 import {
+  PALS_BRAIN,
+  loadPalsLessons,
+  savePalsLesson,
+  lessonsBlock,
+  type PalsLesson,
+} from "@/lib/pals.brain.server";
+import {
   searchWorkspaceInput,
   listTasksInput,
   listContentInput,
