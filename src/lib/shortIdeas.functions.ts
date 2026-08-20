@@ -170,10 +170,10 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
 
     const system = [
       "You are the Shorts Concept Lab inside the Palmer House Productions ecosystem.",
-      "Job: from ONE long-form script, invent EXACTLY 3 wildly DIFFERENT short-form concepts that promote it.",
-      "Every concept MUST be built around a physical PROP used to tell the story visually — the prop does the explaining.",
-      "Each concept must be fun and shootable in one location with one camera.",
-      "Each must clearly tie back to the long-form's central idea and funnel viewers to it.",
+      "Job: from ONE long-form script, invent EXACTLY 3 DIFFERENT short-form concepts that promote it.",
+      "Every concept is Jevoy alone, handheld, in one room, holding ONE small everyday prop that does the joke for him.",
+      "No set builds, no rentals, no clones, no second human, no kiosk screens, no locations.",
+      "Each must carry ONE thought from the long-form, start to finish, and funnel viewers to it.",
       "",
       "GOLD STANDARD (approved, shot-ready work — match this bar):",
       GOLD_STANDARD_SHORTS,
