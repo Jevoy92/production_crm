@@ -104,8 +104,8 @@ const VENTURE_BRIEF: Record<Venture, string> = {
   "palmer-house": [
     "Venture: PALMER HOUSE PRODUCTIONS — business translation for founders and teams in the Pacific Northwest.",
     "Voice: confident operator. Names the business cost, then the fix. No hype.",
-    "Props should be studio/production objects or office props that make a business problem visible.",
-    "CTA: book a call / see the full breakdown.",
+    "Props should be small studio/office objects he can hold: a folder, a lavalier mic, an index card, name tags.",
+    "CTA: Click the link. Come explore this with me. + one line naming what the long-form is about.",
   ].join(" "),
   mindyourbizniz: [
     "Venture: MINDYOURBIZNIZ (the podcast) — intimate, honest monologue about the emotional side of building.",
@@ -148,14 +148,14 @@ function normalize(raw: unknown, title: string): ShortIdea[] {
     return {
       title: str(item.title, `Idea ${i + 1} — ${title}`, 140),
       hookFamily: str(item.hookFamily, "Physical demonstration", 80),
-      prop: str(item.prop, "A single physical object on the table", 140),
-      firstFrameText: str(item.firstFrameText, "Watch this.", 90),
+      prop: str(item.prop, "A single small object in his hands", 140),
+      firstFrameText: str(item.firstFrameText, "", 90),
       premise: str(item.premise, "One idea from the long-form, shown instead of explained.", 600),
       hook: str(item.hook, "Watch what happens when I do this.", 300),
       beats: beats.length > 0 ? beats : ["Open on the prop.", "Do the thing.", "Land the point.", "Point to the long-form."],
       script: str(item.script, "", 4000),
       tieBack: str(item.tieBack, `Ties back to “${title}”.`, 400),
-      cta: str(item.cta, "Full breakdown — link in bio.", 200),
+      cta: str(item.cta, "Click the link. Come explore this with me.", 200),
       durationSec: Math.min(90, Math.max(15, Math.round(dur))),
     };
   });
