@@ -383,7 +383,7 @@ export const Route = createFileRoute("/api/pals")({
         });
         const result = streamText({
           model: gateway("google/gemini-3-pro-preview"),
-          system: buildSystemPrompt(parsed.data.snapshot),
+          system: buildSystemPrompt(parsed.data.snapshot, await loadPalsLessons()),
           messages: modelMessages,
           tools: buildTools(),
           stopWhen: stepCountIs(50),
