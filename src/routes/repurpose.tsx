@@ -128,12 +128,16 @@ function ShortsPage() {
       setActiveId(t.id);
       try {
         const source = await loadSource(t.sourceUrl);
+        const prev = current[t.id];
         const res = await runIdeas({
           data: {
             scriptNum: t.scriptNum,
             scriptTitle: t.scriptTitle,
             scriptBody: source.slice(0, 40_000),
             venture: t.venture,
+            avoid: prev
+              ? prev.ideas.flatMap((i) => [i.prop, i.title].filter(Boolean)).slice(0, 12)
+              : undefined,
           },
         });
         const saved = await saveGeneration({
@@ -161,7 +165,7 @@ function ShortsPage() {
         setActiveId(null);
       }
     },
-    [runIdeas],
+    [runIdeas, current],
   );
 
   const runBatch = useCallback(

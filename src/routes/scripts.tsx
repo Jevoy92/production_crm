@@ -264,12 +264,16 @@ function ScriptRow({
     if (!source) return;
     setIdeasLoading(true);
     try {
+      const previous = ideas[activeVersion];
       const res = await runIdeas({
         data: {
           scriptNum: String(script.num),
           scriptTitle: script.title,
           scriptBody: source,
           venture: activeVersion,
+          avoid: previous?.length
+            ? previous.flatMap((i) => [i.prop, i.title].filter(Boolean)).slice(0, 12)
+            : undefined,
         },
       });
       setIdeas((prev) => ({ ...prev, [activeVersion]: res.ideas }));

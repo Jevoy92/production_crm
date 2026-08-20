@@ -3,6 +3,13 @@ import { convertToModelMessages, streamText, tool, stepCountIs, type UIMessage }
 import { z } from "zod";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
 import {
+  PALS_BRAIN,
+  loadPalsLessons,
+  savePalsLesson,
+  lessonsBlock,
+  type PalsLesson,
+} from "@/lib/pals.brain.server";
+import {
   searchWorkspaceInput,
   listTasksInput,
   listContentInput,
@@ -148,7 +155,10 @@ const BodySchema = z.object({
   snapshot: SnapshotSchema.optional(),
 });
 
-function buildSystemPrompt(snapshot: z.infer<typeof SnapshotSchema> | undefined) {
+function buildSystemPrompt(
+  snapshot: z.infer<typeof SnapshotSchema> | undefined,
+  lessons: PalsLesson[],
+) {
   const lines: string[] = [
     "You are Pals — the AI production operating-system assistant for Palmer House Productions.",
     "You support two operators: Jevoy (creator, founder; films, writes, approves) and Shannen (producer/PA; preps, organizes, hands off, publishes).",
@@ -174,11 +184,17 @@ function buildSystemPrompt(snapshot: z.infer<typeof SnapshotSchema> | undefined)
     "  • generateLongFormScript — draft a FULL long-form script (markdown: hook, body, CTA) and save it to the Scripts library. Match the voice and structure of the existing scripts shown below. Write the entire script in body_md before calling — do not call with a placeholder.",
     "  • generateSupportingShorts — once a long-form exists as a Core 12 episode, generate the 3 supporting shorts and auto-save to Library.",
     "  • fetchLimitlessLifelogs — pull Jevoy's Limitless pendant transcriptions (daily briefs / conversations). Use this proactively when the user asks for a morning digest, daily recap, summary of yesterday, or anything that depends on what Jevoy actually said/heard. Runs silently — no approval needed. Default to today; pass `date` for a specific day.",
+    "  • rememberLesson — save a durable note about how this studio wants things done. Runs silently. Call it WHENEVER Jevoy or Shannen corrects you, rejects a draft, states a preference, gives feedback on voice/structure, or approves a pattern worth repeating. Write the note as a reusable rule (\"Hooks never open with a question — open with a flat statement\"), not as a summary of the chat. Never save one-off facts that live in the workspace data.",
     "",
     "Mutating tools (create/update/schedule/complete/generate) will ask the user to APPROVE before they run. Don't apologize for asking — call the tool and let the UI handle confirmation.",
     "Read tools (search/list) run silently.",
     "",
+    "Script writing: you are also the in-house writer. Use the STUDIO BRAIN below — the cross-venture brief, the strategy engine, the investigative universe, the script blueprint, the approved gold-standard shorts and the five moves — as the bar for everything you draft. Match the craft, never copy the topic. Apply the TRAINED NOTES over any generic instinct.",
+    "",
     "Format answers in clean markdown. Keep replies tight. Skip filler.",
+    "",
+    PALS_BRAIN,
+    lessonsBlock(lessons),
   ];
 
   if (snapshot) {
@@ -322,6 +338,21 @@ function buildTools() {
       inputSchema: fetchLimitlessLifelogsInput,
       execute: async (args) => fetchLimitlessLifelogs(args),
     }),
+
+    rememberLesson: tool({
+      description:
+        "Save a durable training note so Pals writes/behaves better next time. Use for corrections, voice rules, structural preferences, approved patterns and banned moves. Runs silently, no approval needed.",
+      inputSchema: z.object({
+        lesson: z.string().min(4).max(1200).describe("The rule, written so it is reusable months from now."),
+        topic: z
+          .string()
+          .max(80)
+          .optional()
+          .describe("Short tag, e.g. hooks, shorts, palmer-house, tasks, tone."),
+      }),
+      execute: async ({ lesson, topic }) => savePalsLesson(lesson, topic),
+    }),
+
   };
 }
 
@@ -352,7 +383,7 @@ export const Route = createFileRoute("/api/pals")({
         });
         const result = streamText({
           model: gateway("google/gemini-3-pro-preview"),
-          system: buildSystemPrompt(parsed.data.snapshot),
+          system: buildSystemPrompt(parsed.data.snapshot, await loadPalsLessons()),
           messages: modelMessages,
           tools: buildTools(),
           stopWhen: stepCountIs(50),

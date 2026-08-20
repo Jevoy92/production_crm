@@ -140,6 +140,30 @@ export type Database = {
         }
         Relationships: []
       }
+      pals_lessons: {
+        Row: {
+          created_at: string
+          id: string
+          lesson: string
+          source: string | null
+          topic: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          lesson: string
+          source?: string | null
+          topic?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          lesson?: string
+          source?: string | null
+          topic?: string | null
+        }
+        Relationships: []
+      }
       pals_messages: {
         Row: {
           created_at: string
