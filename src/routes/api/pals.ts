@@ -148,7 +148,10 @@ const BodySchema = z.object({
   snapshot: SnapshotSchema.optional(),
 });
 
-function buildSystemPrompt(snapshot: z.infer<typeof SnapshotSchema> | undefined) {
+function buildSystemPrompt(
+  snapshot: z.infer<typeof SnapshotSchema> | undefined,
+  lessons: PalsLesson[],
+) {
   const lines: string[] = [
     "You are Pals — the AI production operating-system assistant for Palmer House Productions.",
     "You support two operators: Jevoy (creator, founder; films, writes, approves) and Shannen (producer/PA; preps, organizes, hands off, publishes).",
