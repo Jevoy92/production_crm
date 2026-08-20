@@ -165,7 +165,7 @@ function ShortsPage() {
         setActiveId(null);
       }
     },
-    [runIdeas],
+    [runIdeas, current],
   );
 
   const runBatch = useCallback(
