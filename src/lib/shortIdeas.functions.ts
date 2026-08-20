@@ -30,72 +30,69 @@ export type ShortIdea = {
 
 // The anatomy every approved short shares, reverse-engineered from the gold standard.
 const ANATOMY = `
-Every approved short is built from the SAME five-part machine. Use it every time.
+Every approved short runs the SAME five moves. Use them every time.
 
-1. THE WORLD (0-3s): We open INSIDE an absurd-but-instantly-legible situation, not on a
-   talking head. A lost-and-found counter for customer memory. A police lineup of brands.
-   A set that vanishes word by word. The viewer must understand where they are with no
-   explanation. First-frame text states the premise flatly ("My customers lost my business.").
+1. THE FIRST LINE (0-3s): One flat sentence that makes sense with the sound off and with
+   no backstory. It is also the on-screen first-frame text. It is also the LAST line of the
+   short. ("Somewhere in your business is a folder full of proof that marketing happened.")
 
-2. THE VISUAL RULE (3-20s): ONE rule governs the world, and it escalates EXACTLY three
-   times. One drawer opens -> a bigger drawer opens -> every drawer opens at once. One
-   phrase deletes the logo -> the next deletes the desk -> the next deletes the room.
-   The rule is the argument. Never stack unrelated gags.
+2. THE PROP IN HIS HANDS (3-15s): One small object he is already holding — a folder, a
+   lavalier mic, an index card, three name tags, a cardboard slot. He OPERATES it: opens
+   it, reads it, feeds it, takes it off. The prop can do the joke without him. No set
+   builds, no rentals, no clones, no second human, no kiosk screens.
 
-3. THE STALL (20-30s): The escalation traps Jevoy. He is asked the one question he cannot
-   answer, or he sees the size of the problem. He reacts as a human, briefly and dryly
-   ("Okay, that somehow made it worse." / "That is the problem, isn't it?").
+3. THE COMPRESSION BEAT (15-25s): One line in the form "Then X. Now Y." — the long real
+   thing, then the small flat thing that replaced it. ("Then the whole shoot. Now this
+   folder." / "Then ten or twenty years of judgment. Now one clean paragraph.")
 
-4. THE TURN, DISCOVERED (30-45s): He steps out and names the mechanism in plain language —
-   about 45-60 words, short sentences, no jargon, no scolding. The proof arrives as a
-   physical DISCOVERY, not a claim: a receipt prints, a light turns green, the set
-   reappears. Somewhere in here sits the KEEPER LINE the whole short was built to earn
-   ("That is worse than lost. Lost means it was there.").
+4. ONE THOUGHT, CARRIED (25-45s): He follows a single idea start to finish in plain,
+   short sentences, played straight and dry. It ends in a structural reframe, never a
+   scolding: "That is not a production failure. Nobody picked the wrong shots. Somebody
+   skipped a decision, and the camera cannot make it for you."
 
-5. THE FLAT CLOSE (45-60s): One specific, concrete counter-example that shows what right
-   looks like (water on the basement floor at 2 a.m.; a chipped tooth on a playground),
-   then one short instruction. Then an END CARD naming the long-form. No hype, no
-   "link in bio" energy, no sign-off.
+5. THE FLAT CLOSE (45-60s): "Click the link. Come explore this with me." plus one line
+   naming what the long-form is about. Then the first line returns verbatim as the final
+   line. No hype, no sign-off, no "link in bio".
 `.trim();
 
 // Failure modes seen in rejected AI drafts. These are the reasons suggestions feel generic.
 const BANNED = `
 AUTO-FAIL — if a draft does ANY of these, throw it out and rebuild it:
-- Opens with Jevoy talking to camera explaining an idea. The world comes first, always.
+- The prop needs a set build, a rental, a location, clones, a second human, a kiosk, or an
+  offscreen voice. It must be a small object in his hands, shot handheld in one room.
 - The prop is a metaphor he holds up and describes ("this hourglass represents attention").
-  In an approved short the prop OPERATES ON HIM; he reacts to it.
-- The visual rule escalates fewer or more than three times, or there are two rules.
-- The point is a content-marketing platitude (post more, be consistent, attention is
-  currency, algorithms changed, volume vs quality). Approved shorts land a point about
-  what a customer can remember and act on.
-- Anything the viewer must be told to feel. No "imagine if", "here's the thing",
-  "let me explain", "in this video", "the truth is", rhetorical-question openers.
-- Vague nouns: "content", "brand", "value", "engagement", "audience" used as the payoff.
-  The payoff must be a sentence a real business could actually say out loud.
-- A second human character. Only: a kiosk/screen, an offscreen voice Jevoy plays, or clones.
-- More than one location, or anything unshootable solo with locked-off cuts.
-- Three ideas that are variations of one another. They must differ in WORLD and in
-  mechanism, not just in prop.
+  The prop must DO the joke; he only operates it.
+- No "Then X. Now Y." compression beat, or more than one of them.
+- The first line does not survive the sound being off, or it does not return as the last line.
+- More than one idea in the short.
+- Punchline delivery, mugging, winking, exclamation energy. Everything is played straight.
+- Moralizing at the founder or the crew. The reframe is structural: a decision was skipped.
+- Content-marketing platitudes (post more, be consistent, attention is currency, algorithms).
+- Vague nouns as the payoff: "content", "brand", "value", "engagement", "audience".
+- Any close other than "Click the link. Come explore this with me." + one line + first line back.
+- Three ideas that are variations of one another. They must differ in PROP and in the
+  moment they are about, not just in wording.
 `.trim();
 
 const CRAFT_RULES = [
   "Match the GOLD STANDARD in craft, not in topic. It is the bar.",
-  "Jevoy is the ONLY actor. Second voices must be a kiosk/screen text, an offscreen Jevoy, or a clone of Jevoy.",
-  "Stage a world where the idea physically happens instead of explaining it. ONE visual rule, escalated exactly three times.",
-  "Absurd but instantly legible — the viewer understands the situation within three seconds.",
-  "Land the turn as a discovery (a printed receipt, a green light, a set reappearing), never as a lecture.",
-  "Write one keeper line the whole short is built to earn.",
-  "Use concrete specifics (a chipped tooth on a playground, water on the basement floor at 2 a.m.), never categories.",
-  "Each of the 3 ideas MUST use a DIFFERENT world and mechanism, not just a different prop.",
-  "Every idea needs a first-frame on-screen text line — short, declarative, under 8 words, no hashtags or emoji.",
-  "Write the actual spoken script (110-180 words) in Jevoy's voice: short sentences, plain words, one idea per line, hard turn in the middle, cold ending, [STAGE DIRECTIONS] in caps where the prop moves.",
+  "Jevoy is the ONLY actor, handheld, one room, one small prop already in his hands.",
+  "Write the first line so it works as silent on-screen text; repeat it verbatim as the last line.",
+  "Exactly one 'Then X. Now Y.' compression beat per short.",
+  "Play every stunt straight — dry, unbothered, no punchline delivery.",
+  "One thought, start to finish. The reframe is structural, never moral.",
+  "Use concrete specifics ('Funny thing about that job, actually…'), never categories.",
+  "Each of the 3 ideas MUST use a DIFFERENT prop and a DIFFERENT moment in the process.",
+  "Write the actual spoken script (110-180 words) in Jevoy's voice: short sentences, plain words, one idea per line, [STAGE DIRECTIONS] in caps where the prop moves.",
   "Any statistic or phenomenon must be real and specific; if unsure, use a concrete observed scenario instead of a fake number.",
-  "The turn should reframe a felt symptom as a mechanism — never scold the viewer.",
-  "End with one flat line pointing at the long-form plus an END CARD. Never 'link in bio' hype.",
+  "Close with 'Click the link. Come explore this with me.' plus one line naming the long-form's subject, then the first line again.",
+  "",
+  FIVE_MOVES,
   "",
   "HARD LESSONS (from rejected drafts — do not repeat these mistakes):",
   GOLD_STANDARD_LESSONS,
 ].join("\n");
+
 
 const VENTURE_BRIEF: Record<Venture, string> = {
   jevoy: [
