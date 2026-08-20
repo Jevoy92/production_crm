@@ -64,6 +64,20 @@ All true. Also the official position of nearly every company with a website.
 [HE SETS THE SLOT DOWN AT HIS SIDE. TALKS LIKE A PERSON.]
 Click the link. Come explore this with me. How to keep the moment a customer can actually hear.
 Every question comes out the same.
+
+GOLD STANDARD F — "YOU ARE NOT BAD AT THIS"
+Props: three empty boxes in descending sizes — a huge one, a medium one, a small one. Nothing else. One room.
+First frame: "You are not bad at explaining your business."
+"You are not bad at explaining your business."
+[HE HOLDS UP THE HUGE BOX.] "What makes you different. What are your values. Why should somebody choose you."
+That box is twenty years of judgment. So people reach for the only thing big enough to fill it. Quality. Service. Relationships.
+Then twenty years of judgment. Now one clean paragraph.
+[HE DROPS THE BIG BOX. PICKS UP THE SMALL ONE.] Ask about the one time something did not add up on a job. Watch what happens.
+The person shows up. The specifics show up. The sentence a customer can actually hear shows up.
+Ask somebody to represent the whole company and you get the website. Ask about a Tuesday and you get the business.
+That is not a communication problem. You are being asked a question too large to keep what makes the answer valuable.
+Click the link. Come explore this with me. How to keep the moment a customer can actually hear.
+You are not bad at explaining your business.
 `.trim();
 
 // Jevoy's own summary of the machine every approved short runs on.
