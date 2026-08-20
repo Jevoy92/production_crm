@@ -12,7 +12,10 @@ const InputSchema = z.object({
   scriptTitle: z.string().min(1).max(300),
   scriptBody: z.string().min(1).max(40_000),
   venture: VENTURE_ENUM,
+  /** Props/titles already used by the current saved set — a regenerate must avoid them. */
+  avoid: z.array(z.string().max(300)).max(12).optional(),
 });
+
 
 export type ShortIdea = {
   title: string;
