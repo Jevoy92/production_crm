@@ -103,4 +103,6 @@ export const GOLD_STANDARD_LESSONS = [
   "Concrete specifics beat categories — 'Funny thing about that job, actually…' beats 'authentic storytelling'.",
   "Close is always flat: 'Click the link. Come explore this with me. <one line naming what the long-form is about>.' Then the first line returns verbatim. No hype, no sign-off, no 'link in bio'.",
   "No prop metaphors invented and then forced to fit the thesis. No 'volume vs attention'. No content-marketing platitudes.",
+  "Direct address is a valid hook family: the first line can absolve the founder ('You are not bad at explaining your business.') as long as the prop still does the work and the line returns verbatim at the end.",
+  "The question-size move: a big prop for the enormous question (different / values / why choose you), a small prop for the specific one (the one time something did not add up). Big question gets the website; small question gets the business.",
 ].join("\n");
