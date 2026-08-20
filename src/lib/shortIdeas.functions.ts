@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { generateText } from "ai";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway";
-import { GOLD_STANDARD_SHORTS, GOLD_STANDARD_LESSONS } from "@/content/shorts/goldStandard";
+import { GOLD_STANDARD_SHORTS, GOLD_STANDARD_LESSONS, FIVE_MOVES } from "@/content/shorts/goldStandard";
 
 const VENTURE_ENUM = z.enum(["jevoy", "palmer-house", "mindyourbizniz"]);
 type Venture = z.infer<typeof VENTURE_ENUM>;
@@ -30,72 +30,69 @@ export type ShortIdea = {
 
 // The anatomy every approved short shares, reverse-engineered from the gold standard.
 const ANATOMY = `
-Every approved short is built from the SAME five-part machine. Use it every time.
+Every approved short runs the SAME five moves. Use them every time.
 
-1. THE WORLD (0-3s): We open INSIDE an absurd-but-instantly-legible situation, not on a
-   talking head. A lost-and-found counter for customer memory. A police lineup of brands.
-   A set that vanishes word by word. The viewer must understand where they are with no
-   explanation. First-frame text states the premise flatly ("My customers lost my business.").
+1. THE FIRST LINE (0-3s): One flat sentence that makes sense with the sound off and with
+   no backstory. It is also the on-screen first-frame text. It is also the LAST line of the
+   short. ("Somewhere in your business is a folder full of proof that marketing happened.")
 
-2. THE VISUAL RULE (3-20s): ONE rule governs the world, and it escalates EXACTLY three
-   times. One drawer opens -> a bigger drawer opens -> every drawer opens at once. One
-   phrase deletes the logo -> the next deletes the desk -> the next deletes the room.
-   The rule is the argument. Never stack unrelated gags.
+2. THE PROP IN HIS HANDS (3-15s): One small object he is already holding — a folder, a
+   lavalier mic, an index card, three name tags, a cardboard slot. He OPERATES it: opens
+   it, reads it, feeds it, takes it off. The prop can do the joke without him. No set
+   builds, no rentals, no clones, no second human, no kiosk screens.
 
-3. THE STALL (20-30s): The escalation traps Jevoy. He is asked the one question he cannot
-   answer, or he sees the size of the problem. He reacts as a human, briefly and dryly
-   ("Okay, that somehow made it worse." / "That is the problem, isn't it?").
+3. THE COMPRESSION BEAT (15-25s): One line in the form "Then X. Now Y." — the long real
+   thing, then the small flat thing that replaced it. ("Then the whole shoot. Now this
+   folder." / "Then ten or twenty years of judgment. Now one clean paragraph.")
 
-4. THE TURN, DISCOVERED (30-45s): He steps out and names the mechanism in plain language —
-   about 45-60 words, short sentences, no jargon, no scolding. The proof arrives as a
-   physical DISCOVERY, not a claim: a receipt prints, a light turns green, the set
-   reappears. Somewhere in here sits the KEEPER LINE the whole short was built to earn
-   ("That is worse than lost. Lost means it was there.").
+4. ONE THOUGHT, CARRIED (25-45s): He follows a single idea start to finish in plain,
+   short sentences, played straight and dry. It ends in a structural reframe, never a
+   scolding: "That is not a production failure. Nobody picked the wrong shots. Somebody
+   skipped a decision, and the camera cannot make it for you."
 
-5. THE FLAT CLOSE (45-60s): One specific, concrete counter-example that shows what right
-   looks like (water on the basement floor at 2 a.m.; a chipped tooth on a playground),
-   then one short instruction. Then an END CARD naming the long-form. No hype, no
-   "link in bio" energy, no sign-off.
+5. THE FLAT CLOSE (45-60s): "Click the link. Come explore this with me." plus one line
+   naming what the long-form is about. Then the first line returns verbatim as the final
+   line. No hype, no sign-off, no "link in bio".
 `.trim();
 
 // Failure modes seen in rejected AI drafts. These are the reasons suggestions feel generic.
 const BANNED = `
 AUTO-FAIL — if a draft does ANY of these, throw it out and rebuild it:
-- Opens with Jevoy talking to camera explaining an idea. The world comes first, always.
+- The prop needs a set build, a rental, a location, clones, a second human, a kiosk, or an
+  offscreen voice. It must be a small object in his hands, shot handheld in one room.
 - The prop is a metaphor he holds up and describes ("this hourglass represents attention").
-  In an approved short the prop OPERATES ON HIM; he reacts to it.
-- The visual rule escalates fewer or more than three times, or there are two rules.
-- The point is a content-marketing platitude (post more, be consistent, attention is
-  currency, algorithms changed, volume vs quality). Approved shorts land a point about
-  what a customer can remember and act on.
-- Anything the viewer must be told to feel. No "imagine if", "here's the thing",
-  "let me explain", "in this video", "the truth is", rhetorical-question openers.
-- Vague nouns: "content", "brand", "value", "engagement", "audience" used as the payoff.
-  The payoff must be a sentence a real business could actually say out loud.
-- A second human character. Only: a kiosk/screen, an offscreen voice Jevoy plays, or clones.
-- More than one location, or anything unshootable solo with locked-off cuts.
-- Three ideas that are variations of one another. They must differ in WORLD and in
-  mechanism, not just in prop.
+  The prop must DO the joke; he only operates it.
+- No "Then X. Now Y." compression beat, or more than one of them.
+- The first line does not survive the sound being off, or it does not return as the last line.
+- More than one idea in the short.
+- Punchline delivery, mugging, winking, exclamation energy. Everything is played straight.
+- Moralizing at the founder or the crew. The reframe is structural: a decision was skipped.
+- Content-marketing platitudes (post more, be consistent, attention is currency, algorithms).
+- Vague nouns as the payoff: "content", "brand", "value", "engagement", "audience".
+- Any close other than "Click the link. Come explore this with me." + one line + first line back.
+- Three ideas that are variations of one another. They must differ in PROP and in the
+  moment they are about, not just in wording.
 `.trim();
 
 const CRAFT_RULES = [
   "Match the GOLD STANDARD in craft, not in topic. It is the bar.",
-  "Jevoy is the ONLY actor. Second voices must be a kiosk/screen text, an offscreen Jevoy, or a clone of Jevoy.",
-  "Stage a world where the idea physically happens instead of explaining it. ONE visual rule, escalated exactly three times.",
-  "Absurd but instantly legible — the viewer understands the situation within three seconds.",
-  "Land the turn as a discovery (a printed receipt, a green light, a set reappearing), never as a lecture.",
-  "Write one keeper line the whole short is built to earn.",
-  "Use concrete specifics (a chipped tooth on a playground, water on the basement floor at 2 a.m.), never categories.",
-  "Each of the 3 ideas MUST use a DIFFERENT world and mechanism, not just a different prop.",
-  "Every idea needs a first-frame on-screen text line — short, declarative, under 8 words, no hashtags or emoji.",
-  "Write the actual spoken script (110-180 words) in Jevoy's voice: short sentences, plain words, one idea per line, hard turn in the middle, cold ending, [STAGE DIRECTIONS] in caps where the prop moves.",
+  "Jevoy is the ONLY actor, handheld, one room, one small prop already in his hands.",
+  "Write the first line so it works as silent on-screen text; repeat it verbatim as the last line.",
+  "Exactly one 'Then X. Now Y.' compression beat per short.",
+  "Play every stunt straight — dry, unbothered, no punchline delivery.",
+  "One thought, start to finish. The reframe is structural, never moral.",
+  "Use concrete specifics ('Funny thing about that job, actually…'), never categories.",
+  "Each of the 3 ideas MUST use a DIFFERENT prop and a DIFFERENT moment in the process.",
+  "Write the actual spoken script (110-180 words) in Jevoy's voice: short sentences, plain words, one idea per line, [STAGE DIRECTIONS] in caps where the prop moves.",
   "Any statistic or phenomenon must be real and specific; if unsure, use a concrete observed scenario instead of a fake number.",
-  "The turn should reframe a felt symptom as a mechanism — never scold the viewer.",
-  "End with one flat line pointing at the long-form plus an END CARD. Never 'link in bio' hype.",
+  "Close with 'Click the link. Come explore this with me.' plus one line naming the long-form's subject, then the first line again.",
+  "",
+  FIVE_MOVES,
   "",
   "HARD LESSONS (from rejected drafts — do not repeat these mistakes):",
   GOLD_STANDARD_LESSONS,
 ].join("\n");
+
 
 const VENTURE_BRIEF: Record<Venture, string> = {
   jevoy: [
@@ -107,8 +104,8 @@ const VENTURE_BRIEF: Record<Venture, string> = {
   "palmer-house": [
     "Venture: PALMER HOUSE PRODUCTIONS — business translation for founders and teams in the Pacific Northwest.",
     "Voice: confident operator. Names the business cost, then the fix. No hype.",
-    "Props should be studio/production objects or office props that make a business problem visible.",
-    "CTA: book a call / see the full breakdown.",
+    "Props should be small studio/office objects he can hold: a folder, a lavalier mic, an index card, name tags.",
+    "CTA: Click the link. Come explore this with me. + one line naming what the long-form is about.",
   ].join(" "),
   mindyourbizniz: [
     "Venture: MINDYOURBIZNIZ (the podcast) — intimate, honest monologue about the emotional side of building.",
@@ -151,14 +148,14 @@ function normalize(raw: unknown, title: string): ShortIdea[] {
     return {
       title: str(item.title, `Idea ${i + 1} — ${title}`, 140),
       hookFamily: str(item.hookFamily, "Physical demonstration", 80),
-      prop: str(item.prop, "A single physical object on the table", 140),
-      firstFrameText: str(item.firstFrameText, "Watch this.", 90),
+      prop: str(item.prop, "A single small object in his hands", 140),
+      firstFrameText: str(item.firstFrameText, "", 90),
       premise: str(item.premise, "One idea from the long-form, shown instead of explained.", 600),
       hook: str(item.hook, "Watch what happens when I do this.", 300),
       beats: beats.length > 0 ? beats : ["Open on the prop.", "Do the thing.", "Land the point.", "Point to the long-form."],
       script: str(item.script, "", 4000),
       tieBack: str(item.tieBack, `Ties back to “${title}”.`, 400),
-      cta: str(item.cta, "Full breakdown — link in bio.", 200),
+      cta: str(item.cta, "Click the link. Come explore this with me.", 200),
       durationSec: Math.min(90, Math.max(15, Math.round(dur))),
     };
   });
@@ -173,10 +170,10 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
 
     const system = [
       "You are the Shorts Concept Lab inside the Palmer House Productions ecosystem.",
-      "Job: from ONE long-form script, invent EXACTLY 3 wildly DIFFERENT short-form concepts that promote it.",
-      "Every concept MUST be built around a physical PROP used to tell the story visually — the prop does the explaining.",
-      "Each concept must be fun and shootable in one location with one camera.",
-      "Each must clearly tie back to the long-form's central idea and funnel viewers to it.",
+      "Job: from ONE long-form script, invent EXACTLY 3 DIFFERENT short-form concepts that promote it.",
+      "Every concept is Jevoy alone, handheld, in one room, holding ONE small everyday prop that does the joke for him.",
+      "No set builds, no rentals, no clones, no second human, no kiosk screens, no locations.",
+      "Each must carry ONE thought from the long-form, start to finish, and funnel viewers to it.",
       "",
       "GOLD STANDARD (approved, shot-ready work — match this bar):",
       GOLD_STANDARD_SHORTS,
@@ -200,12 +197,14 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
       data.scriptBody.slice(0, 24_000),
       "--- END SCRIPT ---",
       "",
-      "The three concepts must live in three different WORLDS with three different mechanisms.",
-      "Write the script the way the gold standard is written: interleaved [STAGE DIRECTIONS] in caps,",
-      "spoken lines in plain sentences, the escalation visible on the page, and an END CARD line.",
+      "The three concepts must use three different hand-props and cover three different moments in the process.",
+      "Write each script the way the gold standard is written: the first line alone, [STAGE DIRECTIONS] in caps",
+      "where the prop moves, plain short spoken sentences, exactly one 'Then X. Now Y.' compression beat,",
+      "the structural reframe, then the close — 'Click the link. Come explore this with me.' plus one line",
+      "naming what the long-form is about — and finally the first line again, word for word.",
       "",
       "Return this exact JSON shape (3 items, all fields required):",
-      '{"ideas":[{"title":"short punchy concept name","hookFamily":"e.g. Medical phenomenon","prop":"the physical prop(s)","firstFrameText":"on-screen text in frame one","premise":"what happens on camera, 1-2 sentences","hook":"first spoken line, under 7 seconds","beats":["beat 1","beat 2","beat 3","beat 4"],"script":"the full spoken script with [STAGE DIRECTIONS], 110-180 words","tieBack":"how it connects back to the long-form idea","cta":"closing line pointing at the long-form","durationSec":45}]}',
+      '{"ideas":[{"title":"short punchy concept name","hookFamily":"the moment it is about, e.g. After the interview","prop":"the small hand-prop","firstFrameText":"the first line, same words as the hook","premise":"what happens on camera, 1-2 sentences","hook":"first spoken line — works with the sound off","beats":["beat 1","beat 2","beat 3","beat 4"],"script":"the full spoken script with [STAGE DIRECTIONS], 110-180 words, ending with the first line repeated","tieBack":"the Then X. Now Y. compression beat","cta":"Click the link. Come explore this with me. <one line naming the long-form subject>","durationSec":50}]}',
     ].join("\n");
 
     const { text } = await generateText({
@@ -238,16 +237,19 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
           "DRAFT CONCEPTS:",
           text.slice(0, 20_000),
           "",
-          "For EACH of the 3 concepts, silently score: (a) does it open inside a world instead of a",
-          "talking head, (b) is there ONE visual rule escalating exactly three times, (c) does the",
-          "turn arrive as a physical discovery, (d) is there a keeper line worth quoting, (e) is the",
-          "payoff a specific sentence a real business could say, (f) is it different in world AND",
-          "mechanism from the other two, (g) does it break any AUTO-FAIL rule.",
-          "Rewrite every concept that fails anything — rebuild it from the anatomy, do not patch it.",
+          "For EACH of the 3 concepts, silently score: (a) is the prop a small object he can hold,",
+          "shootable handheld in one room with no build, rental, clone or second person, (b) does the",
+          "first line work with the sound off and no backstory, (c) does that exact line return as the",
+          "last line, (d) is there exactly one 'Then X. Now Y.' compression beat, (e) is it one thought",
+          "start to finish, played straight, (f) is the reframe structural rather than moralizing,",
+          "(g) does it close with 'Click the link. Come explore this with me.' plus one line naming the",
+          "long-form, (h) is it different in prop AND moment from the other two, (i) does it break any",
+          "AUTO-FAIL rule.",
+          "Rewrite every concept that fails anything — rebuild it from the five moves, do not patch it.",
           "Keep what already clears the bar. Do not soften the writing.",
           "",
           "Return the improved final set in this exact JSON shape (3 items, all fields required):",
-          '{"ideas":[{"title":"","hookFamily":"","prop":"","firstFrameText":"","premise":"","hook":"","beats":["","","",""],"script":"full spoken script with [STAGE DIRECTIONS], 110-180 words","tieBack":"","cta":"","durationSec":45}]}',
+          '{"ideas":[{"title":"","hookFamily":"","prop":"","firstFrameText":"","premise":"","hook":"","beats":["","","",""],"script":"full spoken script with [STAGE DIRECTIONS], 110-180 words, ending with the first line repeated","tieBack":"","cta":"","durationSec":50}]}',
         ].join("\n"),
       });
       // Only accept the revision if it parses into usable ideas.

@@ -1,59 +1,92 @@
-// Gold-standard shorts approved by Jevoy (from "The Moment You Didn't Keep").
-// These define the bar: staged, absurd-but-legible worlds with ONE actor (Jevoy),
-// an escalating visual rule, a reveal the viewer discovers, and a business point
-// that lands for owners — not an educational reel with better lighting.
+// Gold-standard shorts approved by Jevoy (Palmer House framing of
+// "The Moment You Didn't Keep"). These define the current bar: ONE prop in his
+// hands, a first line that works with the sound off, a compression beat
+// ("Then X. Now Y."), a stunt played straight, one thought carried start to
+// finish, a flat close, and the first line returning as the last line.
 
 export const GOLD_STANDARD_SHORTS = `
-GOLD STANDARD A — "THE BUSINESS LOST-AND-FOUND"
-Hook family: Absurd business-world encounter | Runtime 50-60s | Actor: Jevoy only
-Props: lost-and-found counter; service bell; kiosk screen; filing drawers; hundreds of identical business cards; receipt printer
-First-frame text: "My customers lost my business."
-[JEVOY AT A WINDOW LABELED "CUSTOMER MEMORY — LOST & FOUND." HE RINGS THE BELL.]
-"Hi. I think my customers lost my business."
-[KIOSK BEEPS] KIOSK TEXT: DESCRIBE THE BUSINESS.
-"It's the one that provides quality service you can trust."
-[A DRAWER POPS OPEN, STUFFED WITH IDENTICAL CARDS.] "Right. Okay. We also care about our customers and go above and beyond."
-[A SECOND, LARGER DRAWER OPENS.] "Locally owned?" [EVERY DRAWER OPENS AT ONCE.] "Okay, that somehow made it worse."
-KIOSK TEXT: WHAT SHOULD A CUSTOMER REMEMBER YOU FOR? [HE OPENS HIS MOUTH, STOPS.] "That is the problem, isn't it?"
-[TURNS TO CAMERA] "Business owners think customers are forgetting their posts. They're supposed to forget the posts. They're not supposed to forget what your name means when the problem shows up. But if every video says quality, trust, service, and excellence, their memory has nowhere to put you."
-[A RECEIPT PRINTS.] INSERT — RECEIPT: ITEM STATUS: NOT LOST / NO DISTINCT MEMORY CREATED
-"That is worse than lost. Lost means it was there." [LOOKS BACK AT THE WALL OF IDENTICAL CARDS.] "Give them something specific enough to keep."
-END CARD: THE MOMENT YOU DIDN'T KEEP — Full investigation on the Palmer House channel.
+GOLD STANDARD A — "THE FOLDER"
+In frame: a folder in his hands. Clean stills. Logo. Smiles.
+First line: "Somewhere in your business is a folder full of proof that marketing happened."
+[HE OPENS IT. TURNS PAGES.]
+The interview was recorded. The job site was filmed. The logo is visible. Everybody remembered to smile.
+Then the whole shoot. Now this folder. And a customer still cannot tell why they should choose you.
+The camera captured the building. The equipment. The people. The work. It captured almost everything in front of it. It just missed the business.
+That is not a production failure. Nobody picked the wrong shots. Somebody skipped a decision, and the camera cannot make it for you.
+Click the link. Come explore this with me. How to keep the moment a customer can actually hear.
+Somewhere in your business is a folder full of proof that marketing happened.
 
-GOLD STANDARD B — "THE DISAPPEARING BUSINESS"
-Hook family: Visual magic | Runtime 45-55s | Actor: Jevoy only
-Props: branded desk; logo; plant; practical set pieces that vanish on cut
-First-frame text: "I can make a business disappear in five words."
-"I can make this entire business disappear in five words. 'Quality service you can trust.'" [THE LOGO DISAPPEARS.]
-"'We put customers first.'" [THE DESK DISAPPEARS.] "'We always go above and beyond.'" [THE BACKGROUND DISAPPEARS — JEVOY IN BLANK SPACE.]
-"Nothing I said was bad. That is what makes it dangerous. Those words could belong to a plumber, an attorney, a dentist — or every company currently holding a stock-photo handshake. If I can replace your logo with your competitor's and the message still works, the content is not making you visible. It is helping you blend in."
-[A CARD APPEARS IN HIS HAND.] "'When water reaches the basement floor at two in the morning, we answer.'" [THE SET REAPPEARS WITH ONE DISTINCT RED LIGHT.]
-"Specificity gives the customer something to see. And something seen clearly has a chance of being remembered."
-END CARD: THE MOMENT YOU DIDN'T KEEP — Palmer House Productions
+GOLD STANDARD B — "WE'RE DONE"
+In frame: a lavalier mic in his hands. Clipped. Then coming off.
+First line: "The best part starts when somebody says we're done."
+You already know this. The meeting ends. The hallway starts. That's when the real sentence shows up.
+Then the official hour. Now the walk to the door.
+Somebody says, "Great. I think we got it." The founder relaxes. Somebody reaches for the microphone. And then, unprompted, they keep talking. "Funny thing about that job, actually…"
+The next two minutes are better than the last hour. The company language is gone. Nobody sounds like they're reading the website anymore. And there is a decent chance the camera is already off.
+We got twelve minutes about quality. We missed the moment the answer became worth hearing.
+Click the link. Come explore this with me. How to keep the moment a customer can actually hear.
+The best part starts when somebody says we're done.
 
-GOLD STANDARD C — "THE BRAND LINEUP"
-Hook family: Absurd identity test | Runtime 50-60s | Actor: Jevoy cloned into every position
-Props: police-lineup wall; numbered placards; simple costume variations
-First-frame text: "Your customer saw a business. Can they identify it?"
-[FIVE JEVOYS IN A LINEUP.] OFFSCREEN: "Number one, step forward." JEVOY 1: "Quality service you can trust."
-OFFSCREEN: "Number two." JEVOY 2: "Personalized solutions for every customer." OFFSCREEN: "Number three." JEVOY 3: "Committed to exceeding expectations."
-OFFSCREEN: "Do you recognize the business you saw?" [BEAT. EVERY JEVOY QUIETLY POINTS AT HIMSELF.]
-MAIN JEVOY TO CAMERA: "This is what most industries look like from the customer's side. Different logos. Different websites. The exact same description. If your customer cannot identify what only you would say, they did not see five businesses. They saw one business five times."
-[JEVOY 5 STEPS FORWARD.] "When your child chips a tooth, call us before you leave the playground. We'll tell you exactly what to do." [A LIGHT ABOVE HIM TURNS GREEN.]
-MAIN JEVOY: "There you are. Memory needs a distinguishing feature. Give yours one."
-END CARD: THE MOMENT YOU DIDN'T KEEP — Full investigation on the Palmer House channel.
+GOLD STANDARD C — "THE CARD"
+In frame: a card in his hands. Quality. Service. Relationships.
+First line: "This is what the hour produced."
+[HE READS IT.]
+Quality. Service. Relationships. We care about our customers.
+All true. Also the official position of nearly every company with a website.
+Then ten or twenty years of judgment. Now one clean paragraph.
+What makes you different. What are your values. Why should somebody choose you. Those sound like sensible questions. They are also enormous.
+So they reach for language that has already been compressed. The hours on a specific problem did not get a line. This did.
+You are not bad at explaining your business. You are being asked a question too large to preserve what makes your answer valuable.
+Click the link. Come explore this with me. How to keep the moment a customer can actually hear.
+This is what the hour produced.
+
+GOLD STANDARD D — "THE NAME TAGS"
+Props: three cheap name tags on a lanyard. Quality Co. Service Co. Relationships Co. He switches them on himself. No clones. No table.
+First frame: "Your customer saw a business. Can they pick it out?"
+"Your customer saw a business. Can they pick it out?"
+[HE SLAPS ON QUALITY CO.] "We care about quality."
+[SERVICE CO.] "We are committed to service."
+[RELATIONSHIPS CO.] "Relationships are everything."
+Same guy. Same sentence in a different shirt. A customer cannot tell who to point at.
+You thought the footage would make you obvious. Look. The hour produced three companies that sound like one.
+The leftover is how they tell you apart. "Funny thing about that job, actually…" That's the line that is not on any of these tags.
+Click the link. Come explore this with me. How to keep the moment a customer can actually hear.
+Your customer saw a business. Can they pick it out?
+
+GOLD STANDARD E — "THE SLOT"
+Props: a mug or cardboard slot. A stack of index cards that all say QUALITY, SERVICE, or WE CARE. One question card: What makes you different?
+First frame: "Every question comes out the same."
+"Every question comes out the same."
+[HE HOLDS UP THE SLOT. FEEDS THE QUESTION IN.] "What makes you different?" [A CARD COMES OUT.] "Quality."
+"What are your values?" [CARD.] "Service."
+"Why should somebody choose you?" [CARD.] "We care about our customers."
+All true. Also the official position of nearly every company with a website.
+[HE SETS THE SLOT DOWN AT HIS SIDE. TALKS LIKE A PERSON.]
+Click the link. Come explore this with me. How to keep the moment a customer can actually hear.
+Every question comes out the same.
+`.trim();
+
+// Jevoy's own summary of the machine every approved short runs on.
+export const FIVE_MOVES = `
+THE FIVE MOVES — every short is always the same five moves:
+1. A first line that makes sense with the sound off and no backstory.
+2. A prop in your hands that can do the joke without you.
+3. The stunt, played straight.
+4. One thought, start to finish, landing only on that beat.
+5. Your close. Click. First line comes back.
 `.trim();
 
 // Notes captured from Jevoy's rejections of weaker drafts.
 export const GOLD_STANDARD_LESSONS = [
-  "ONE actor only: Jevoy. Any other 'character' must be a machine, a kiosk screen, an offscreen voice Jevoy also plays, or a clone of Jevoy. Never cast a second person.",
-  "Don't explain the thesis — stage a world where the thesis physically happens. The camera performs the idea; Jevoy reacts to it.",
-  "Give the short ONE visual rule and escalate it 3 times (one drawer -> a bigger drawer -> every drawer). Never stack unrelated gags.",
-  "Absurd, not chaotic. The viewer must be able to follow the situation in the first three seconds.",
-  "Ambiguous poetry fails. Every short must land a point a business owner can act on today.",
-  "The turn should be discovered (a printed receipt, a green light, a set reappearing), not delivered as a lecture.",
-  "Earn one keeper line the whole short is built for — e.g. 'That is worse than lost. Lost means it was there.'",
-  "Concrete specifics beat categories: chipped tooth on a playground, water on the basement floor at 2 a.m.",
-  "No 'volume vs attention', no throwing content in the trash, no prop metaphor invented then forced to fit the thesis.",
-  "Shootable solo in one location with locked-off cuts, simple graphics and sound design.",
+  "ONE actor only: Jevoy, handheld, one location. No clones, no second human, no elaborate built sets, no kiosks or offscreen voices unless the prop itself does it.",
+  "The prop is small and IN HIS HANDS — a folder, a lavalier mic, a card, name tags, a cardboard slot. If it needs a set build or a rental, it is the wrong prop.",
+  "The prop must be able to do the joke without him. He operates it and lets it land; he does not describe it.",
+  "The first spoken line is also the first-frame text, and it is the LAST line of the short. It must make sense with the sound off and no backstory.",
+  "Every short contains one compression beat in the form 'Then X. Now Y.' — the long thing, then the small thing that replaced it.",
+  "Stunts are played straight. Dry, unbothered, no mugging, no punchline delivery.",
+  "One thought, start to finish. Never two ideas in one short.",
+  "The reframe is structural, not moral: 'That is not a production failure. Somebody skipped a decision.' Never scold the founder or the crew.",
+  "Concrete specifics beat categories — 'Funny thing about that job, actually…' beats 'authentic storytelling'.",
+  "Close is always flat: 'Click the link. Come explore this with me. <one line naming what the long-form is about>.' Then the first line returns verbatim. No hype, no sign-off, no 'link in bio'.",
+  "No prop metaphors invented and then forced to fit the thesis. No 'volume vs attention'. No content-marketing platitudes.",
 ].join("\n");
