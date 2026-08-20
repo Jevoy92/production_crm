@@ -105,4 +105,8 @@ export const GOLD_STANDARD_LESSONS = [
   "No prop metaphors invented and then forced to fit the thesis. No 'volume vs attention'. No content-marketing platitudes.",
   "Direct address is a valid hook family: the first line can absolve the founder ('You are not bad at explaining your business.') as long as the prop still does the work and the line returns verbatim at the end.",
   "The question-size move: a big prop for the enormous question (different / values / why choose you), a small prop for the specific one (the one time something did not add up). Big question gets the website; small question gets the business.",
+  "One prop family in three sizes/variants is allowed and preferred over three unrelated props inside one short — giant, medium, small boxes; the escalation IS the argument. Middle beat exists to kill the obvious fix ('a shorter version of the same answer does not fix it').",
+  "MUTE TEST: describe in one line what a viewer sees with the sound off ('slogans lost in a huge box, then one job filling a small one'). If that line needs a caption to make sense, the short is not built yet.",
+  "Cheap, unlabeled, everyday props. Do not write the thesis word on the prop — no labeling the cardboard.",
+  "The last line may add a short tag to the first line ('You are not bad at explaining your business. The box was just the wrong size.') — the first line itself must still return word for word.",
 ].join("\n");
