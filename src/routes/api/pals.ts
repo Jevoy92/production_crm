@@ -338,6 +338,21 @@ function buildTools() {
       inputSchema: fetchLimitlessLifelogsInput,
       execute: async (args) => fetchLimitlessLifelogs(args),
     }),
+
+    rememberLesson: tool({
+      description:
+        "Save a durable training note so Pals writes/behaves better next time. Use for corrections, voice rules, structural preferences, approved patterns and banned moves. Runs silently, no approval needed.",
+      inputSchema: z.object({
+        lesson: z.string().min(4).max(1200).describe("The rule, written so it is reusable months from now."),
+        topic: z
+          .string()
+          .max(80)
+          .optional()
+          .describe("Short tag, e.g. hooks, shorts, palmer-house, tasks, tone."),
+      }),
+      execute: async ({ lesson, topic }) => savePalsLesson(lesson, topic),
+    }),
+
   };
 }
 
