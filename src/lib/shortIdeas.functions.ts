@@ -201,6 +201,14 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
       "--- END SCRIPT ---",
       "",
       "The three concepts must use three different hand-props and cover three different moments in the process.",
+      ...(data.avoid?.length
+        ? [
+            "",
+            "THIS IS A REGENERATION. The following props/angles were already used and are now BANNED —",
+            "do not reuse them, and do not use a near-synonym of them. Find genuinely new props and new moments:",
+            ...data.avoid.slice(0, 12).map((a) => `  - ${a}`),
+          ]
+        : []),
       "Write each script the way the gold standard is written: the first line alone, [STAGE DIRECTIONS] in caps",
       "where the prop moves, plain short spoken sentences, exactly one 'Then X. Now Y.' compression beat,",
       "the structural reframe, then the close — 'Click the link. Come explore this with me.' plus one line",
@@ -208,12 +216,15 @@ export const generateShortIdeas = createServerFn({ method: "POST" })
       "",
       "Return this exact JSON shape (3 items, all fields required):",
       '{"ideas":[{"title":"short punchy concept name","hookFamily":"the moment it is about, e.g. After the interview","prop":"the small hand-prop","firstFrameText":"the first line, same words as the hook","premise":"what happens on camera, 1-2 sentences","hook":"first spoken line — works with the sound off","beats":["beat 1","beat 2","beat 3","beat 4"],"script":"the full spoken script with [STAGE DIRECTIONS], 110-180 words, ending with the first line repeated","tieBack":"the Then X. Now Y. compression beat","cta":"Click the link. Come explore this with me. <one line naming the long-form subject>","durationSec":50}]}',
+      "",
+      `Session: ${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)} — treat this as a fresh take, not a repeat of any earlier set.`,
     ].join("\n");
 
     const { text } = await generateText({
       model: gateway("google/gemini-3-flash-preview"),
       system,
       prompt,
+      temperature: data.avoid?.length ? 1 : 0.85,
     });
 
     // Second pass: score the draft against the gold standard and rebuild anything weak.
